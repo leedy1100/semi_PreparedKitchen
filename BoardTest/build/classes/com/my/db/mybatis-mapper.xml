@@ -45,7 +45,9 @@
  		SELECT COUNT(*)
  		FROM MYBOARD
  		WHERE 1=1
- 		AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
+ 		<if test="searchFiled != null and searchFiled != ''">
+	 		AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
+	 	</if>
  	</select>
  	
  	<insert id="insert" parameterType="myBoardDto">
