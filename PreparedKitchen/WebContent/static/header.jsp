@@ -6,7 +6,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	mainleft{float: left; display: inline;}
+	mainright{float: right; display: inline;}
+	mainment{width: 160; height: 160; margin: 10px 10px 10px 10px;}
+	
+</style>
 <body>
-헤더입니다
+	<div id="mainleft">
+		<img id="mainmenu" src="#">
+		<a id="maintitle" href="index.jsp">Prepared Kitchen</a>
+	</div>
+	<div id="mainright">
+		<img id="search" src="#">
+		<input id="headerlogin" type="button" value="login" onclick="">
+	</div>
 </body>
 </html>

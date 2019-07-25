@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
+<link rel="stylesheet" href="static/base.css"/>
 </head>
 <body>
 	
@@ -14,6 +15,7 @@
 	</header>
 	
 	<section>
+		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		
 	</section>
 	
