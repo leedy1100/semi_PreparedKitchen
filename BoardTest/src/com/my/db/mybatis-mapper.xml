@@ -19,6 +19,9 @@
  			FROM(
 				SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
 	 			FROM MYBOARD
+	 			<if test="title != null">
+	 				WHERE MYTITLE LIKE '%' || #{title} || '%'
+	 			</if>
 	 			ORDER BY MYNO
  			) A
  			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
@@ -35,6 +38,12 @@
  	<select id="totalCountList" resultType="int">
  		SELECT COUNT(*)
  		FROM MYBOARD
+ 	</select>
+ 	
+ 	<select id="titleCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM MYBOARD
+ 		WHERE MYTITLE LIKE '%' || #{title} || '%'
  	</select>
  	
  	<insert id="insert" parameterType="myBoardDto">

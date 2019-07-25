@@ -12,7 +12,14 @@
 
 	function goPage(pages, lines) {
 	    var url = "&pages=" + pages + "&lines=" + lines;
-	    location.href = 'img.do?command=list'+url;
+		var title = <%request.getParameter("title");%>
+		
+		if(title != null){
+			url += "&title=" + title;
+			location.href = 'img.do?command=search'+url;
+		}else{
+	   		location.href = 'img.do?command=list'+url;
+		}
 	}
 
 </script>

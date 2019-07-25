@@ -12,7 +12,11 @@
 <body>
 
 	<h1>list</h1>
-	
+	<form action="img.do" method="post">
+		<input type="hidden" value="search" name="command"/>
+		<input type="text" name="title" placeholder="제목을 입력하시오"/>
+		<input type="submit" value="검색">
+	</form>
 	<table border="1">
 		<col width="50" />
 		<col width="100" />
@@ -44,12 +48,12 @@
 		<tr>
 			<td colspan="4">
 				<input type="button" value="글 작성" onclick="location.href='img.do?command=insert'" />
+				<input type="button" value="메인" onclick="location.href='index.html'" />
 			</td>
 		</tr>
 	</table>
 	
 	    <jsp:include page="paging.jsp" flush="true">
-            <jsp:param name="servletPath" value="${servletPath}" />
             <jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
             <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
             <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
