@@ -1,0 +1,19 @@
+body{margin: 0px; background-color: #f3f1ec}
+header{
+	height: 80px;
+	width: inherit;
+	color: white;
+	background-color: rgb(55, 55, 55);
+}
+section{
+	max-width: 1008px;
+	min-height: 1000px; 
+	margin: 0px auto; 
+	background-color: white;	
+}
+footer{
+	height: 200px;
+	width: inherit;
+	color: white;
+	background-color: rgb(55, 55, 55);
+}
