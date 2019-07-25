@@ -10,15 +10,12 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 
-	function goPage(pages, lines, searchValue,searchFiled) {
+	function goPage(pages, lines) {
 	    var url = "&pages=" + pages + "&lines=" + lines;
-	    if(typeof searchValue === 'undefined'){
-			location.href = 'img.do?command=list'+url;
-	    }else{
-	    	url += "&searchFileid=" + searchFiled + "&searchValue=" + searchValue;
-	    	location.href = 'img.do?command=search'+url;
-	    }
-	    
+	    var searchFiled = "${paging.searchFiled}";
+	    var searchValue = "${paging.searchValue}";
+	    	url += "&searchFiled=" + searchFiled + "&searchValue=" + searchValue;
+			location.href = 'img.do?command=search'+url;
 	}
 
 </script>
@@ -28,7 +25,7 @@
 	<div class="paginate">
  
     <c:if test="${param.currentPageNo ne param.firstPageNo}">
-        <a href="javascript:goPage(${param.prevPageNo}, ${param.recordsPerPage}, ${param.searchValue}, ${param.searchFiled})" class="prev">이전</a>
+        <a href="javascript:goPage(${param.prevPageNo}, ${param.recordsPerPage})" class="prev">이전</a>
     </c:if>
     
     <span>
@@ -36,12 +33,12 @@
             <c:choose>
                 <c:when test="${i eq param.currentPageNo}">
                     <b><font size=+1>
-                            <a href="javascript:goPage(${i}, ${param.recordsPerPage}, ${param.searchValue}, ${param.searchFiled})" class="choice">${i}</a>
+                            <a href="javascript:goPage(${i}, ${param.recordsPerPage})" class="choice">${i}</a>
                         </font>
                     </b>
                 </c:when>
                 <c:otherwise>
-                    <a href="javascript:goPage(${i}, ${param.recordsPerPage}, ${param.searchValue}, ${param.searchFiled})">${i}</a>
+                    <a href="javascript:goPage(${i}, ${param.recordsPerPage})">${i}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>
