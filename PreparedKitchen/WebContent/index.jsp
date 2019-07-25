@@ -10,7 +10,7 @@
 	
 	<header>
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
-		<%@ include file="main/header.jsp" %>
+		<%@ include file="static/header.jsp" %>
 	</header>
 	
 	<section>
@@ -19,7 +19,7 @@
 	
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
-		<%@ include file="main/footer.jsp" %>
+		<%@ include file="static/footer.jsp" %>
 	</footer>
 </body>
 </html>
