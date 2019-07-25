@@ -45,7 +45,7 @@
     </span>
     
     <c:if test="${param.currentPageNo ne param.finalPageNo}">
-        <a href="javascript:goPage(${param.nextPageNo}, ${param.recordsPerPage}, ${param.searchValue}, ${param.searchFiled})" class="next">다음</a>
+        <a href="javascript:goPage(${param.nextPageNo}, ${param.recordsPerPage})" class="next">다음</a>
     </c:if>
  
 </div>
