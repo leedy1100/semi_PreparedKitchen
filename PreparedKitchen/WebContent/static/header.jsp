@@ -7,10 +7,12 @@
 <title>Insert title here</title>
 </head>
 <style>
-	mainleft{float: left; display: inline;}
-	mainright{float: right; display: inline;}
-	mainment{width: 160; height: 160; margin: 10px 10px 10px 10px;}
-	maintitle{color: rgb(241, 255, 76); font-size: 30px;}
+	#mainleft{float: left; margin: 10px 0px 0px 20px;}
+	#mainright{float: right; margin: 25px 30px 0px 0px;}
+	#mainmenu{width: 60; height: 60; margin: 10px 10px 10px 10px;}
+	#maintitle{color: rgb(241, 255, 76); font-size: 40px; text-decoration: none; font-weight: bold;}
+	#search{}
+	#headerlogin{color: white; font-size: 14px; text-decoration: none;}
 </style>
 <body>
 	<div id="mainleft">
@@ -19,7 +21,7 @@
 	</div>
 	<div id="mainright">
 		<img id="search" src="#">
-		<input id="headerlogin" type="button" value="login" onclick="">
+		<a id="headerlogin" href="#">login</a>
 	</div>
 </body>
 </html>
