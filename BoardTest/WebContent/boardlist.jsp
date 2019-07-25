@@ -14,7 +14,8 @@
 	<h1>list</h1>
 	<form action="img.do" method="post">
 		<input type="hidden" value="search" name="command"/>
-		<input type="text" name="title" placeholder="제목을 입력하시오"/>
+		<input type="text" name="searchFiled" value="MYTITLE"/>
+		<input type="text" name="searchValue" placeholder="제목을 입력하시오"/>
 		<input type="submit" value="검색">
 	</form>
 	<table border="1">
@@ -54,6 +55,8 @@
 	</table>
 	
 	    <jsp:include page="paging.jsp" flush="true">
+	  		<jsp:param name="searchFiled" value="${paging.searchFiled }"/>
+	    	<jsp:param name="searchValue" value="${paging.searchValue }"/>
             <jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
             <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
             <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />

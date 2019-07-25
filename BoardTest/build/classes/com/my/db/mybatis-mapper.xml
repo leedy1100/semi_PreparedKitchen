@@ -19,8 +19,9 @@
  			FROM(
 				SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
 	 			FROM MYBOARD
-	 			<if test="title != null">
-	 				WHERE MYTITLE LIKE '%' || #{title} || '%'
+	 			WHERE 1=1
+	 			<if test="searchFiled != null and searchFiled != ''">
+	 				AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
 	 			</if>
 	 			ORDER BY MYNO
  			) A
@@ -43,7 +44,8 @@
  	<select id="titleCount" resultType="int">
  		SELECT COUNT(*)
  		FROM MYBOARD
- 		WHERE MYTITLE LIKE '%' || #{title} || '%'
+ 		WHERE 1=1
+ 		AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
  	</select>
  	
  	<insert id="insert" parameterType="myBoardDto">

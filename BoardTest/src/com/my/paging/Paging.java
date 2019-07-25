@@ -2,22 +2,40 @@ package com.my.paging;
 
 public class Paging {
 
-	int recordsPerPage; // 페이지당 레코드 수
-	int firstPageNo; // 첫번째 페이지 번호
-	int prevPageNo; // 이전 페이지 번호
-	int startPageNo; // 시작 페이지 (페이징 너비 기준)
-	int currentPageNo; // 페이지 번호
-	int endPageNo; // 끝 페이지 (페이징 너비 기준)
-	int nextPageNo; // 다음 페이지 번호
-	int finalPageNo; // 마지막 페이지 번호
-	int numberOfRecords; // 전체 레코드 수
-	int sizeOfPage; // 보여지는 페이지 갯수 (1,2,3,4,5 갯수)
+	private int recordsPerPage; // 페이지당 레코드 수
+	private int firstPageNo; // 첫번째 페이지 번호
+	private int prevPageNo; // 이전 페이지 번호
+	private int startPageNo; // 시작 페이지 (페이징 너비 기준)
+	private int currentPageNo; // 페이지 번호
+	private int endPageNo; // 끝 페이지 (페이징 너비 기준)
+	private int nextPageNo; // 다음 페이지 번호
+	private int finalPageNo; // 마지막 페이지 번호
+	private int numberOfRecords; // 전체 레코드 수
+	private int sizeOfPage; // 보여지는 페이지 갯수 (1,2,3,4,5 갯수)
+	private String searchFiled;
+	private String searchValue;
 
 	public Paging(int recordsPerPage, int currentPageNo) {
 		super();
 		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 5;
 		this.currentPageNo = currentPageNo;
 		this.sizeOfPage = 5;
+	}
+
+	public String getSearchFiled() {
+		return searchFiled;
+	}
+
+	public void setSearchFiled(String searchFiled) {
+		this.searchFiled = searchFiled;
+	}
+
+	public String getSearchValue() {
+		return searchValue;
+	}
+
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
 	}
 
 	public int getRecordsPerPage() {
@@ -124,8 +142,8 @@ public class Paging {
 		if (currentPageNo < 0 || currentPageNo > finalPage) {
 			currentPageNo = 1; // 현재 페이지 유효성 체크
 		}
-		
-		// 시작 페이지 (전체)		
+
+		// 시작 페이지 (전체)
 		boolean isNowFirst = currentPageNo == 1 ? true : false;
 		boolean isNowFinal = currentPageNo == finalPage ? true : false;
 
@@ -140,7 +158,7 @@ public class Paging {
 
 		if (isNowFirst) {
 			setPrevPageNo(1); // 이전 페이지 번호
-		}else {
+		} else {
 			// 이전 페이지 번호
 			setPrevPageNo(((currentPageNo - 1) < 1 ? 1 : (currentPageNo - 1)));
 		}
@@ -150,7 +168,7 @@ public class Paging {
 
 		if (isNowFinal) {
 			setNextPageNo(finalPage); // 다음 페이지 번호
-		}else {
+		} else {
 			setNextPageNo(((currentPageNo + 1) > finalPage ? finalPage : (currentPageNo + 1)));
 		}
 
