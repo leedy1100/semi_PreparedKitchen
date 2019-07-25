@@ -1,5 +1,51 @@
 
-body{
-	background-image: url("../image/login.jpg");
-	background-size: cover;
+*{
+	margin: 0;
+	padding: 0;
+}
+
+h1{
+	text-align: center;
+	color: rgb(241, 255, 76);
+}
+
+#logindiv{
+	background: url("../image/login.jpg") no-repeat;
+	background-size: 100%;
+	min-width: 1008px;
+	min-height: 820px;
+}
+
+#loginform{
+	background-color: gray;
+	width: 280px;
+	position: relative;
+	top: 50%;
+	left: 50%;
+
+}
+
+#snsbtn{
+	margin: 20px 0;
+	text-align: center;
+}
+
+#iddiv{
+	width: 100%;
+	overflow: hidden;
+	padding: 4px 0;
+	margin: 8px 0;
+	text-align: center;
+}
+
+#pwdiv{
+	width: 100%;
+	overflow: hidden;
+	margin: 8px 0;
+	text-align: center;
+}
+
+#subdiv{
+	margin: 20px 0;
+	text-align: center;
 }
