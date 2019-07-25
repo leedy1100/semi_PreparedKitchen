@@ -4,9 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Prepared Kitchen</title>
 </head>
 <body>
-
+	
+	<header>
+		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
+		<%@ include file="main/header.jsp" %>
+	</header>
+	
+	<section>
+		
+	</section>
+	
+	<footer>
+		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
+		<%@ include file="main/footer.jsp" %>
+	</footer>
 </body>
 </html>
