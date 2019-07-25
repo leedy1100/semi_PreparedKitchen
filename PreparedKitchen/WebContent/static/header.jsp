@@ -10,7 +10,7 @@
 	mainleft{float: left; display: inline;}
 	mainright{float: right; display: inline;}
 	mainment{width: 160; height: 160; margin: 10px 10px 10px 10px;}
-	
+	maintitle{color: rgb(241, 255, 76); font-size: 30px;}
 </style>
 <body>
 	<div id="mainleft">
