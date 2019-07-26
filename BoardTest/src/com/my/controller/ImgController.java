@@ -140,20 +140,7 @@ public class ImgController extends HttpServlet {
 
 			dispatch(request, response, "boardlist.jsp");
 
-<<<<<<< HEAD
-		}else if(command.equals("search")) {
-			String title = request.getParameter("title");
-			List<MyBoardDto> list = myboardDao.searchTitle(offset, paging.getRecordsPerPage(),title);
-			
-			paging.setNumberOfRecords(myboardDao.getNoOfRecords());
-			paging.makePaging();
-			
-			request.setAttribute("list", list);
-			request.setAttribute("paging", paging);
 
-			dispatch(request, response, "boardlist.jsp");
-			
-=======
 		} else if (command.equals("search")) {
 			String searchFiled = request.getParameter("searchFiled");
 			String searchValue = request.getParameter("searchValue");
@@ -169,7 +156,6 @@ public class ImgController extends HttpServlet {
 
 			dispatch(request, response, "boardlist.jsp");
 
->>>>>>> refs/remotes/origin/ldy
 		}
 	}
 

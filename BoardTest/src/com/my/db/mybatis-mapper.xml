@@ -19,33 +19,6 @@
  			FROM(
 				SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
 	 			FROM MYBOARD
-<<<<<<< HEAD
-	 			<if test="title != null">
-	 				WHERE MYTITLE LIKE '%' || #{title} || '%'
-	 			</if>
-	 			ORDER BY MYNO
- 			) A
- 			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
- 		) X
- 		WHERE X.RNUM <![CDATA[>]]> #{offset}
- 	</select>
- 
- 	<select id="selectOne" parameterType="int" resultMap="dtoMap">
- 		SELECT MYNO, MYNAME, MYTITLE, MYCONTENT, MYDATE
-		FROM MYBOARD
-		WHERE MYNO = #{myno}
- 	</select>
- 	
- 	<select id="totalCountList" resultType="int">
- 		SELECT COUNT(*)
- 		FROM MYBOARD
- 	</select>
- 	
- 	<select id="titleCount" resultType="int">
- 		SELECT COUNT(*)
- 		FROM MYBOARD
- 		WHERE MYTITLE LIKE '%' || #{title} || '%'
-=======
 	 			WHERE 1=1
 	 			<if test="searchFiled != null and searchFiled != ''">
 	 				AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
@@ -62,7 +35,7 @@
 		FROM MYBOARD
 		WHERE MYNO = #{myno}
  	</select>
- 	
+
  	<select id="totalCountList" resultType="int">
  		SELECT COUNT(*)
  		FROM MYBOARD
@@ -75,7 +48,6 @@
  		<if test="searchFiled != null and searchFiled != ''">
 	 		AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
 	 	</if>
->>>>>>> refs/remotes/origin/ldy
  	</select>
  	
  	<insert id="insert" parameterType="myBoardDto">
