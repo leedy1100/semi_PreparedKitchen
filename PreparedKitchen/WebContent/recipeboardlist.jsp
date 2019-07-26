@@ -44,7 +44,9 @@
 					<tr>
 						<td>${dto.recipeBoard_no }</td>
 						<td>${dto.id }</td>
-						<td><a href="recipeboard.do?command=selectone&recipeBoard_no=${dto.recipeBoard_no }">${dto.recipeBoard_title }</a></td>
+						<td><a href="recipeboard.do?command=selectone&recipeBoard_no=${dto.recipeBoard_no }
+						&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}
+						&pages=${paging.currentPageNo}&lines=${paging.recordsPerPage}">${dto.recipeBoard_title }</a></td>
 						<th>${dto.recipeBoard_readCount }</th>
 						<td>${dto.recipeBoard_like }</td>
 						<td>${dto.recipeBoard_regdate }</td>
@@ -55,6 +57,7 @@
 		<tr>
 			<td colspan="6">
 				<input type="button" value="글 작성" onclick="location.href='recipeboard.do?command=insert'" />
+				<input type="button" value="전체 목록" onclick="location.href='recipeboard.do?command=list'"/>
 				<input type="button" value="메인" onclick="location.href='index.jsp'" />
 			</td>
 		</tr>

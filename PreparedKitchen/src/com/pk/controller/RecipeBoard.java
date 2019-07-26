@@ -75,6 +75,16 @@ public class RecipeBoard extends HttpServlet {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
 			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
 			recipeBoardBiz.hits(recipeBoard_no);
+			
+			String searchFiled = request.getParameter("searchFiled");
+			String searchValue = request.getParameter("searchValue");
+			
+			paging.setSearchFiled(searchFiled);
+			paging.setSearchValue(searchValue);
+			paging.setCurrentPageNo(currentPageNo);
+			paging.setRecordsPerPage(recordsPerPage);
+
+			request.setAttribute("paging", paging);
 			request.setAttribute("recipeBoardDto", recipeBoardDto);
 			dispatch(request, response, "recipeboardselectone.jsp");
 
