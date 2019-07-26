@@ -7,13 +7,16 @@ public class RecipeBoardDto {
 	private String recipeBoard_title;
 	private String recipeBoard_content;
 	private String recipeBoard_regdate;
-	private String recipeBoard_readCount;
-	private String recipeBoard_like;
-	
-	public RecipeBoardDto() {}
-	
+	private int recipeBoard_readCount = 0;
+	private int recipeBoard_like = 0;
+
+	public RecipeBoardDto() {
+		super();
+	}
+
 	public RecipeBoardDto(int recipeBoard_no, String id, String recipeBoard_title, String recipeBoard_content,
-			String recipeBoard_regdate, String recipeBoard_readCount, String recipeBoard_like) {
+			String recipeBoard_regdate, int recipeBoard_readCount, int recipeBoard_like) {
+		super();
 		this.recipeBoard_no = recipeBoard_no;
 		this.id = id;
 		this.recipeBoard_title = recipeBoard_title;
@@ -63,21 +66,20 @@ public class RecipeBoardDto {
 		this.recipeBoard_regdate = recipeBoard_regdate;
 	}
 
-	public String getRecipeBoard_readCount() {
+	public int getRecipeBoard_readCount() {
 		return recipeBoard_readCount;
 	}
 
-	public void setRecipeBoard_readCount(String recipeBoard_readCount) {
+	public void setRecipeBoard_readCount(int recipeBoard_readCount) {
 		this.recipeBoard_readCount = recipeBoard_readCount;
 	}
 
-	public String getRecipeBoard_like() {
+	public int getRecipeBoard_like() {
 		return recipeBoard_like;
 	}
 
-	public void setRecipeBoard_like(String recipeBoard_like) {
+	public void setRecipeBoard_like(int recipeBoard_like) {
 		this.recipeBoard_like = recipeBoard_like;
 	}
-	
-	
+
 }

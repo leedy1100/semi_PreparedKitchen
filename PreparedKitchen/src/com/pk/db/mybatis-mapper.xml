@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pk.db.mapper.">
+<mapper namespace="com.pk.db.mapper">
  
 <!--  	<resultMap type="myBoardDto" id="dtoMap">
  		<result property="myno" column="MYNO"/>
@@ -17,7 +17,7 @@
  		FROM(
  			SELECT ROWNUM AS RNUM, A.RECIPEBOARD_NO, A.ID, A.RECIPEBOARD_TITLE, A.RECIPEBOARD_CONTENT, A.RECIPEBOARD_REGDATE, A.RECIPEBOARD_READCOUNT, A.RECIPEBOARD_LIKE
  			FROM(
-				SELECT RECIPEBOARD_NO, ID, RECIPEBOARD_TITLE, RECIPEBOARD_CONTENT, RECIPEBOARD_REGDATE
+				SELECT RECIPEBOARD_NO, ID, RECIPEBOARD_TITLE, RECIPEBOARD_CONTENT, RECIPEBOARD_REGDATE, RECIPEBOARD_READCOUNT, RECIPEBOARD_LIKE
 	 			FROM RECIPEBOARD
 	 			WHERE 1=1
 	 			<if test="searchFiled != null and searchFiled != ''">
@@ -57,13 +57,13 @@
  	
  	<update id="update" parameterType="RecipeBoardDto">
  		UPDATE RECIPEBOARD
- 		SET MYNAME = #{myname}, MYTITLE = #{mytitle}, MYCONTENT = #{mycontent}
- 		WHERE MYNO = #{myno}
+ 		SET RECIPEBOARD_TITLE = #{recipeBoard_title}, RECIPEBOARD_CONTENT = #{recipeBoard_content}
+ 		WHERE MYNO = #{recipeBoard_no}
  	</update>
  	
  	<delete id="delete" parameterType="int">
  		DELETE FROM RECIPEBOARD
- 		WHERE MYNO = #{myno}
+ 		WHERE RECIPEBOARD_NO = #{recipeBoard_no}
  	</delete>
  	
 </mapper>

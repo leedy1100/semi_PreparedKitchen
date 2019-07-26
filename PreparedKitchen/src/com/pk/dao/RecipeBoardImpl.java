@@ -63,8 +63,16 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 
 	@Override
 	public RecipeBoardDto selectOne(int no) {
-		// TODO Auto-generated method stub
-		return null;
+
+		SqlSession session = null;
+		RecipeBoardDto dto = new RecipeBoardDto();
+
+		session = getSqlSessionFactory().openSession(true);
+		dto = session.selectOne(namespace + "selectOne", no);
+
+		session.close();
+
+		return dto;
 	}
 
 	@Override
