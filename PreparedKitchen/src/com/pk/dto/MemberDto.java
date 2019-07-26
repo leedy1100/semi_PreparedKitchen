@@ -13,11 +13,13 @@ public class MemberDto {
 	private String enabled;
 	private String birth;
 	private Date regdate;
+	private String role;
 	
 	public MemberDto() {}
-	
+
 	public MemberDto(String id, String pw, String name, String email, String phone, String addr, String enabled,
-			String birth, Date regdate) {
+			String birth, Date regdate, String role) {
+		super();
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
@@ -27,6 +29,7 @@ public class MemberDto {
 		this.enabled = enabled;
 		this.birth = birth;
 		this.regdate = regdate;
+		this.role = role;
 	}
 
 	public String getId() {
@@ -99,6 +102,14 @@ public class MemberDto {
 
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 }

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+    <title>Testing websockets</title>
+</head>
+<body>
+    <fieldset>
+        <textarea id="messageWindow" rows="10" cols="50" readonly="readonly"></textarea>
+        <br/>
+        <input id="inputMessage" type="text"/>
+        <input type="submit" value="send" onclick="send()" />
+    </fieldset>
+</body>
+    <script type="text/javascript">
+        var textarea = document.getElementById("messageWindow");
+        var chatContent = opener.document.getElementById("chatContentUl");
+        var webSocket = new WebSocket("ws://localhost:8787/PreparedKitchen/chatserver");
+        var inputMessage = opener.document.getElementById("inputMessage");
+     
+        
+	    webSocket.onerror = function(event) {
+	    	alert(event.data);
+	    };
+	    
+	    webSocket.onopen = function(event) {
+	        textarea.value += "연결 성공\n";
+	    };
+	    
+	    webSocket.onmessage = function(event) {
+	    	chatContent.innerHTML += event.data;
+	    };
+	    
+	   /*  function send() {
+	        textarea.value += "나 : " + inputMessage.value + "\n";
+	        webSocket.send(inputMessage.value);
+	        inputMessage.value = "";
+	    } */
+	    
+	    opener.document.getElementById("sendMessage").addEventListener("click", function() {
+	    	
+	    	chatContent.innerHTML += "<li class='chatRight'><table><tr><td>" 
+	    						  + inputMessage.value
+	    						  + "</td><td><img src='image/user_icon.png'></td></tr></table></li>";
+	        webSocket.send("<li class='chatLeft'><table><tr><td><img src='image/user_icon.png'></td><td>" 
+					  + inputMessage.value
+					  + "</td></tr></table></li>");
+	        inputMessage.value = "";
+	    });
+    
+    
+  </script>
+</html>

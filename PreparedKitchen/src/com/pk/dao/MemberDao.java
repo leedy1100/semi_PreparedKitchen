@@ -17,7 +17,7 @@ public class MemberDao extends SqlMapConfig{
 		List<MemberDto> list = new ArrayList<MemberDto>();
 		
 		try {
-			session = getSqlsessionFactory().openSession(false);
+			session = getSqlSessionFactory().openSession(false);
 			list = session.selectList(namespace+"selectList");
 			
 		} catch (Exception e) {
