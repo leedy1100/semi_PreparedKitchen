@@ -42,7 +42,6 @@
     <mapper resource="com/pk/db/payment-mapper.xml"/>
     <mapper resource="com/pk/db/product-mapper.xml"/>
     <mapper resource="com/pk/db/recipe-mapper.xml"/>
-  <mappers>
     <mapper resource="com/pk/db/board-mapper.xml"/>
   </mappers>
 </configuration>
