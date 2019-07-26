@@ -12,9 +12,9 @@
 <body>
 
 	<h1>list</h1>
-	<form action="img.do" method="post">
+	<form action="recipeboard.do" method="post">
 		<input type="hidden" value="search" name="command"/>
-		<input type="text" name="searchFiled" value="MYTITLE"/>
+		<input type="text" name="searchFiled" value="RECIPEBOARD_TITLE"/>
 		<input type="text" name="searchValue" placeholder="제목을 입력하시오"/>
 		<input type="submit" value="검색">
 	</form>
@@ -22,7 +22,9 @@
 		<col width="50" />
 		<col width="100" />
 		<col width="300" />
-		<col width="250" />
+		<col width="80" />
+		<col width="80" />
+		<col width="200" />
 		<tr>
 			<th>번호</th>
 			<th>아이디</th>
@@ -42,7 +44,7 @@
 					<tr>
 						<td>${dto.recipeBoard_no }</td>
 						<td>${dto.id }</td>
-						<td><a href="img.do?command=selectone&recipeBoard_no=${dto.recipeBoard_no }">${dto.recipeBoard_title }</a></td>
+						<td><a href="recipeboard.do?command=selectone&recipeBoard_no=${dto.recipeBoard_no }">${dto.recipeBoard_title }</a></td>
 						<th>${dto.recipeBoard_readCount }</th>
 						<td>${dto.recipeBoard_like }</td>
 						<td>${dto.recipeBoard_regdate }</td>
@@ -53,7 +55,7 @@
 		<tr>
 			<td colspan="6">
 				<input type="button" value="글 작성" onclick="location.href='recipeboard.do?command=insert'" />
-				<input type="button" value="메인" onclick="location.href='index.html'" />
+				<input type="button" value="메인" onclick="location.href='index.jsp'" />
 			</td>
 		</tr>
 	</table>

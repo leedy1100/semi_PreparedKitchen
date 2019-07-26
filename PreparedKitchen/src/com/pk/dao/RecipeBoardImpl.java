@@ -49,7 +49,7 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 
 		session = getSqlSessionFactory().openSession();
 		list = session.selectList(namespace + "selectList", params);
-		this.noOfRecords = session.selectOne(namespace + "titleCount", params);
+		this.noOfRecords = session.selectOne(namespace + "fileCount", params);
 
 		session.close();
 
