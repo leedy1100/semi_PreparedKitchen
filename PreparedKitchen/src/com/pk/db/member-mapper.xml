@@ -3,20 +3,26 @@
 <mapper namespace="membermapper">
   
   <select id="selectList" resultType="memberDto">
-	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE
+	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
 	FROM MEMBER
 	ORDER BY REGDATE DESC
   </select>
   
   <select id="idchk" parameterType="String" resultType="memberDto">
-  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
   	FROM MEMBER
   	WHERE ID = #{id}
   </select>
   
   <insert id="signup" parameterType="memberDto">
   	INSERT INTO MEMBER
-  	VALUES(#{id}, #{pw}, #{name}, #{email}, #{phone}, #{addr}, 'Y', #{birth}, SYSDATE)
+  	VALUES(#{id}, #{pw}, #{name}, #{email}, #{phone}, #{addr}, 'Y', #{birth}, SYSDATE, 'USER')
   </insert>
+  
+  <select id="login" parameterType="map" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE ID = #{id} AND PW = #{pw}
+  </select>
   
 </mapper>

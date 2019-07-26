@@ -21,7 +21,7 @@
 	</div>
 	<div id="mainright">
 		<img id="search" src="#">
-		<a id="headerlogin" href="login.do?command=login">login</a>
+		<a id="headerlogin" href="login.do?command=gologin">login</a>
 	</div>
 </body>
 </html>

@@ -23,5 +23,10 @@ public class MemberBiz {
 		
 		return memberDao.idchk(id);
 	}
+	
+	public MemberDto login(String id, String pw) {
+		
+		return memberDao.login(id, pw); 
+	}
 
 }

@@ -1,7 +1,9 @@
 package com.pk.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -66,6 +68,24 @@ public class MemberDao extends SqlMapConfig{
 		}
 		
 		return dto;
+	}
+	
+	public MemberDto login(String id, String pw) {
+		
+		SqlSession session = null;
+		MemberDto loginDto = new MemberDto();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("pw", pw);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			loginDto = session.selectOne(namespace+"login", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return loginDto;
 	}
 
 }

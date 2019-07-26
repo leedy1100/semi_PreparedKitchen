@@ -2,7 +2,6 @@ package com.pk.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,13 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.pk.biz.MemberBiz;
 import com.pk.dto.MemberDto;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.pk.biz.MemberBiz;
 
 @WebServlet("/login.do")
 public class Login extends HttpServlet {
@@ -40,7 +32,7 @@ public class Login extends HttpServlet {
 		MemberBiz biz = new MemberBiz();
 		PrintWriter out = response.getWriter();
 
-		if(command.equals("login")) {
+		if(command.equals("gologin")) {
 			
 			response.sendRedirect("login.jsp");
 			
@@ -58,7 +50,6 @@ public class Login extends HttpServlet {
 			String addr = request.getParameter("addr");
 			String birth = request.getParameter("birth");
 			
-
 			MemberDto dto = new MemberDto();
 			dto.setId(id);
 			dto.setPw(pw);
@@ -79,14 +70,36 @@ public class Login extends HttpServlet {
 			response.sendRedirect("login.jsp");
 			
 		} else if(command.equals("idchk")) {
+			
 			String id = request.getParameter("id");
 			
 			MemberDto dto = biz.idchk(id);
+			
 			if(dto != null) {
 				out.println(dto.getId());
-				System.out.println(dto.getId());
 			}
+			
+		} else if(command.equals("login")) {
+			
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			
+			MemberDto dto = biz.login(id,pw);
+			
+			if(dto.getId() != null) {
+				System.out.println(dto.getName());
+			}
+					
 		}
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	public void dispatch(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher(url);
+		dispatch.forward(request, response);
+	}
 }

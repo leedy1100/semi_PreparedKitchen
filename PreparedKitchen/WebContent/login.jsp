@@ -19,7 +19,7 @@
 		<h1>로그인 / 회원가입</h1>
 	
 		<form action="login.do" method="post" id="loginform">
-		<input type="hidden" name="command" value="login">
+			<input type="hidden" name="command" value="login">
 			<div id="snsbtn">
 				<input type="button" value="카카오" onclick="">
 				<input type="button" value="네이버" onclick="">
