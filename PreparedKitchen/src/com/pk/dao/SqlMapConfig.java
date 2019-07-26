@@ -1,31 +1,27 @@
 package com.pk.dao;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class SqlMapConfig {
+
+	private SqlSessionFactory sqlSessionFactroy;
 	
-	private SqlSessionFactory sqlSessionFactory;
-	
-	public SqlSessionFactory getSqlsessionFactory() {
+	public SqlSessionFactory getSqlSessionFactory() {
 		
 		String resource = "com/pk/db/mybatis-config.xml";
 		
 		try {
-			Reader reader = Resources.getResourceAsReader(resource);
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-			
-			reader.close();
-			
+			InputStream inputStream = Resources.getResourceAsStream(resource);
+			sqlSessionFactroy = new SqlSessionFactoryBuilder().build(inputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		return sqlSessionFactory;
+		return sqlSessionFactroy;
 	}
-
 }
