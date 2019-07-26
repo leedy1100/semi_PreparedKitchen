@@ -77,7 +77,7 @@ public class RecipeBoard extends HttpServlet {
 			dispatch(request, response, "recipeboardselectone.jsp");
 
 		} else if (command.equals("insert")) {
-			response.sendRedirect("summernote.jsp");
+			response.sendRedirect("recipeboardinsert.jsp");
 		} else if (command.equals("insertres")) {
 			String id = request.getParameter("id");
 			String recipeBoard_title = request.getParameter("recipeBoard_title");
