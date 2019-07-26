@@ -23,7 +23,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class RecipeBoard
  */
-@WebServlet("/RecipeBoard.do")
+@WebServlet("/recipeboard.do")
 public class RecipeBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,6 @@ public class RecipeBoard extends HttpServlet {
 	 */
 	public RecipeBoard() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,7 +40,6 @@ public class RecipeBoard extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(request, response);
 	}
 
@@ -56,7 +54,6 @@ public class RecipeBoard extends HttpServlet {
 
 		int currentPageNo = 1;
 		int recordsPerPage = 0;
-		String url = null;
 
 		if (request.getParameter("pages") != null) {
 			currentPageNo = Integer.parseInt(request.getParameter("pages"));
@@ -74,10 +71,10 @@ public class RecipeBoard extends HttpServlet {
 		RecipeBoardDto recipeBoardDto = null;
 
 		if (command.equals("selectone")) {
-			int myno = Integer.parseInt(request.getParameter("myno"));
-			recipeBoardDto = recipeBoardDao.selectOne(myno);
-			request.setAttribute("dto", recipeBoardDto);
-			dispatch(request, response, "selectone.jsp");
+			int no = Integer.parseInt(request.getParameter("no"));
+			recipeBoardDto = recipeBoardDao.selectOne(no);
+			request.setAttribute("recipeBoardDto", recipeBoardDto);
+			dispatch(request, response, "recipeboardselectone.jsp");
 
 		} else if (command.equals("insert")) {
 			response.sendRedirect("summernote.jsp");
@@ -85,8 +82,8 @@ public class RecipeBoard extends HttpServlet {
 			String id = request.getParameter("id");
 			String recipeBoard_title = request.getParameter("recipeBoard_title");
 			String recipeBoard_content = request.getParameter("recipeBoard_content");
-			String recipeBoard_readCount = request.getParameter("recipeBoard_readCount");
-			String recipeBoard_like = request.getParameter("recipeBoard_like");
+			int recipeBoard_readCount = Integer.parseInt(request.getParameter("recipeBoard_readCount"));
+			int recipeBoard_like = Integer.parseInt(request.getParameter("recipeBoard_like"));
 			recipeBoardDto = new RecipeBoardDto();
 
 			recipeBoardDto.setId(id);
@@ -98,9 +95,9 @@ public class RecipeBoard extends HttpServlet {
 			int res = recipeBoardDao.insert(recipeBoardDto);
 
 			if (res > 0) {
-				alert(response, "등록성공", "img.do?command=list");
+				alert(response, "등록성공", "recipeboard.do?command=list");
 			} else {
-				alert(response, "등록실패", "img.do?command=insert");
+				alert(response, "등록실패", "recipeboard.do?command=insert");
 			}
 
 		} else if (command.equals("imgupload")) {
@@ -124,7 +121,7 @@ public class RecipeBoard extends HttpServlet {
 			}
 
 			// 업로드된 경로와 파일명을 통해 이미지의 경로를 생성
-			String uploadPath2 = "/BoardTest/upload/" + fileName;
+			String uploadPath2 = "/PreparedKitchen/upload/" + fileName;
 
 			// 생성된 경로를 JSON 형식으로 보내주기 위한 설정
 			JSONObject jobj = new JSONObject();
@@ -133,6 +130,7 @@ public class RecipeBoard extends HttpServlet {
 			response.setContentType("application/json"); // 데이터 타입을 json으로 설정하기 위한 세팅
 			PrintWriter out = response.getWriter();
 			out.print(jobj.toJSONString());
+			
 		} else if (command.equals("list")) {
 			List<RecipeBoardDto> list = recipeBoardDao.selectList(offset, paging.getRecordsPerPage());
 
@@ -142,7 +140,7 @@ public class RecipeBoard extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
 
-			dispatch(request, response, "boardlist.jsp");
+			dispatch(request, response, "recipeboardlist.jsp");
 
 		} else if (command.equals("search")) {
 			String searchFiled = request.getParameter("searchFiled");

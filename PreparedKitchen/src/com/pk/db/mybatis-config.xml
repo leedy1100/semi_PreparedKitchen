@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-  <properties resource="com/pky/db/db.properties"></properties>
+  <properties resource="com/pk/db/db.properties"></properties>
   
   <typeAliases>
   	<typeAlias type="com.pk.dto.RecipeBoardDto" alias="RecipeBoardDto"/>

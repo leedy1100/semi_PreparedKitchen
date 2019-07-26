@@ -12,10 +12,10 @@
 
 	function goPage(pages, lines) {
 	    var url = "&pages=" + pages + "&lines=" + lines;
-	    var searchFiled = "${paging.searchFiled}";
-	    var searchValue = "${paging.searchValue}";
+	    var searchFiled = "${pagingdto.searchFiled}";
+	    var searchValue = "${pagingdto.searchValue}";
 	    	url += "&searchFiled=" + searchFiled + "&searchValue=" + searchValue;
-			location.href = 'img.do?command=search'+url;
+			location.href = 'recipeboard.do?command=search'+url;
 	}
 
 </script>
