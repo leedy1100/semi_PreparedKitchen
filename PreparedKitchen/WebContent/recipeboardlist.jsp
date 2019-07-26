@@ -61,16 +61,16 @@
 	</table>
 	
 	    <jsp:include page="paging.jsp" flush="true">
-	  		<jsp:param name="searchFiled" value="${pagingdto.searchFiled }"/>
-	    	<jsp:param name="searchValue" value="${pagingdto.searchValue }"/>
-            <jsp:param name="recordsPerPage" value="${pagingdto.recordsPerPage}" />
-            <jsp:param name="firstPageNo" value="${pagingdto.firstPageNo}" />
-            <jsp:param name="prevPageNo" value="${pagingdto.prevPageNo}" />
-            <jsp:param name="startPageNo" value="${pagingdto.startPageNo}" />
-            <jsp:param name="currentPageNo" value="${pagingdto.currentPageNo}" />
-            <jsp:param name="endPageNo" value="${pagingdto.endPageNo}" />
-            <jsp:param name="nextPageNo" value="${pagingdto.nextPageNo}" />
-            <jsp:param name="finalPageNo" value="${pagingdto.finalPageNo}" />
+	  		<jsp:param name="searchFiled" value="${paging.searchFiled }"/>
+	    	<jsp:param name="searchValue" value="${paging.searchValue }"/>
+            <jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
+            <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+            <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+            <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+            <jsp:param name="currentPageNo" value="${paging.currentPageNo}" />
+            <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+            <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+            <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
         </jsp:include>
 
 </body>

@@ -12,7 +12,7 @@ public class RecipeBoardDto {
 
 	public RecipeBoardDto() {
 		super();
-	}
+	}	
 
 	public RecipeBoardDto(int recipeBoard_no, String id, String recipeBoard_title, String recipeBoard_content,
 			String recipeBoard_regdate, int recipeBoard_readCount, int recipeBoard_like) {

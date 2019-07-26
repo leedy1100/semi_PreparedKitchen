@@ -38,5 +38,19 @@ public class RecipeBoardBiz {
 
 		return recipeBoardDao.delete(no);
 	};
+	
+	public int hits(int no) {
+		
+		return recipeBoardDao.hits(no);
+	};
+	
+	public int getNoOfRecords() {
+
+		return recipeBoardDao.getNoOfRecords();
+	}
+	
+	public int like(int no, String id) {
+		return recipeBoardDao.like(no, id);
+	}
 
 }

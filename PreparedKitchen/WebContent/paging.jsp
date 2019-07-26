@@ -12,8 +12,8 @@
 
 	function goPage(pages, lines) {
 	    var url = "&pages=" + pages + "&lines=" + lines;
-	    var searchFiled = "${pagingdto.searchFiled}";
-	    var searchValue = "${pagingdto.searchValue}";
+	    var searchFiled = "${paging.searchFiled}";
+	    var searchValue = "${paging.searchValue}";
 	    	url += "&searchFiled=" + searchFiled + "&searchValue=" + searchValue;
 			location.href = 'recipeboard.do?command=search'+url;
 	}
