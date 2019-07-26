@@ -13,4 +13,7 @@ public interface BoardDao {
 	public int insert(RecipeBoardDto dto);
 	public int update(RecipeBoardDto dto);
 	public int delete(int no);
+	public int hits(int no);
+	public int getNoOfRecords();
+	public int like(int no, String id);
 }

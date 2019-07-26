@@ -25,6 +25,29 @@
 		return text;	
 	}
 */
+
+	$(function() {
+		$('#recipelike').click(function(){
+	
+			$.ajax({
+				url:"recipeboard.do?command=like",	//전송할 경로
+				method:"get",	//전송방식 get(), post()
+				async:true,		// 비동기(default)
+				dateType:"text",	//전송받을 datatype : xml,json,html,script
+				//data{"key","value"}	//서버에 전송할 데이터
+				success:function(msg){	//통신에 성공했을 때
+				//	alert(msg);
+					
+					
+				
+				}, error:function(request, error){	//통신에 실패했을 때
+					alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+				}
+			});				
+		});
+		
+	});
+
 </script>
 </head>
 <body>
@@ -34,36 +57,37 @@
 	<table border="1">
 		<tr>
 			<th>번호</th>
-			<td>${recipeBoardDto.recipeBoard_no }</td>
+			<td colspan="2">${recipeBoardDto.recipeBoard_no }</td>
 		</tr>
 		<tr>
 			<th>작성자</th>
-			<td>${recipeBoardDto.id }</td>
+			<td colspan="2">${recipeBoardDto.id }</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${recipeBoardDto.recipeBoard_title }</td>
+			<td colspan="2">${recipeBoardDto.recipeBoard_title }</td>
 		</tr>
 		<tr>
 			<th>조회수</th>
-			<td>${recipeBoardDto.recipeBoard_readCount }</td>
+			<td colspan="2">${recipeBoardDto.recipeBoard_readCount }</td>
 		</tr>
 		<tr>
 			<th>좋아요</th>
 			<td>${recipeBoardDto.recipeBoard_like }</td>
+			<td><input type="button" name="command" value="like" id="recipelike"/></td>
 		</tr>
 		<tr>
 			<th>내용</th>
-			<td>
+			<td colspan="2">
 				${recipeBoardDto.recipeBoard_content }
 			</td>
 		</tr>
 		<tr>
 			<th>작성일</th>
-			<td>${recipeBoardDto.recipeBoard_regdate }</td>
+			<td colspan="2">${recipeBoardDto.recipeBoard_regdate }</td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan="3">
 				<input type="button" value="수정" onclick="location.href='recipeboard.do?command=update&no=${recipeBoardDto.recipeBoard_no}'"/>
 				<input type="button" value="삭제" onclick="location.href='recipeboard.do?command=delete&no=${recipeBoardDto.recipeBoard_no}'"/>
 				<input type="button" value="목록" onclick="location.href='recipeboard.do?command=list'"/>

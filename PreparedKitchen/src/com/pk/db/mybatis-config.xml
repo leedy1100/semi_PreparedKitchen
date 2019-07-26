@@ -23,6 +23,6 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/pk/db/mybatis-mapper.xml"/>
+    <mapper resource="com/pk/db/board-mapper.xml"/>
   </mappers>
 </configuration>

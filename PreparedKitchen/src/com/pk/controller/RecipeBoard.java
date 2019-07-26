@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONObject;
 
+import com.pk.biz.RecipeBoardBiz;
 import com.pk.dao.RecipeBoardImpl;
 import com.pk.dto.PagingDto;
 import com.pk.dto.RecipeBoardDto;
@@ -67,12 +68,13 @@ public class RecipeBoard extends HttpServlet {
 
 		String command = request.getParameter("command");
 		System.out.println("[" + command + "]");
-		RecipeBoardImpl recipeBoardDao = new RecipeBoardImpl();
+		RecipeBoardBiz recipeBoardBiz = new RecipeBoardBiz();
 		RecipeBoardDto recipeBoardDto = null;
 
 		if (command.equals("selectone")) {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
-			recipeBoardDto = recipeBoardDao.selectOne(recipeBoard_no);
+			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
+			recipeBoardBiz.hits(recipeBoard_no);
 			request.setAttribute("recipeBoardDto", recipeBoardDto);
 			dispatch(request, response, "recipeboardselectone.jsp");
 
@@ -92,7 +94,7 @@ public class RecipeBoard extends HttpServlet {
 			recipeBoardDto.setRecipeBoard_readCount(recipeBoard_readCount);
 			recipeBoardDto.setRecipeBoard_like(recipeBoard_like);
 
-			int res = recipeBoardDao.insert(recipeBoardDto);
+			int res = recipeBoardBiz.insert(recipeBoardDto);
 
 			if (res > 0) {
 				alert(response, "등록성공", "recipeboard.do?command=list");
@@ -132,9 +134,9 @@ public class RecipeBoard extends HttpServlet {
 			out.print(jobj.toJSONString());
 			
 		} else if (command.equals("list")) {
-			List<RecipeBoardDto> list = recipeBoardDao.selectList(offset, paging.getRecordsPerPage());
+			List<RecipeBoardDto> list = recipeBoardBiz.selectList(offset, paging.getRecordsPerPage());
 
-			paging.setNumberOfRecords(recipeBoardDao.getNoOfRecords());
+			paging.setNumberOfRecords(recipeBoardBiz.getNoOfRecords());
 			paging.makePaging();
 
 			request.setAttribute("list", list);
@@ -145,11 +147,11 @@ public class RecipeBoard extends HttpServlet {
 		} else if (command.equals("search")) {
 			String searchFiled = request.getParameter("searchFiled");
 			String searchValue = request.getParameter("searchValue");
-			List<RecipeBoardDto> list = recipeBoardDao.searchFiled(offset, paging.getRecordsPerPage(), searchFiled,
+			List<RecipeBoardDto> list = recipeBoardBiz.searchFiled(offset, paging.getRecordsPerPage(), searchFiled,
 					searchValue);
 			paging.setSearchFiled(searchFiled);
 			paging.setSearchValue(searchValue);
-			paging.setNumberOfRecords(recipeBoardDao.getNoOfRecords());
+			paging.setNumberOfRecords(recipeBoardBiz.getNoOfRecords());
 			paging.makePaging();
 
 			request.setAttribute("list", list);
@@ -157,6 +159,16 @@ public class RecipeBoard extends HttpServlet {
 
 			dispatch(request, response, "recipeboardlist.jsp");
 
+		}else if(command.equals("like")) {
+			
+			String id = request.getParameter("id");
+			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
+			recipeBoardBiz.like(recipeBoard_no, id);
+			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
+			request.setAttribute("recipeBoardDto", recipeBoardDto);
+			PrintWriter out = response.getWriter();
+
+			
 		}
 	}
 

@@ -56,6 +56,7 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		return list;
 	}
 
+	@Override
 	public int getNoOfRecords() {
 
 		return noOfRecords;
@@ -91,6 +92,44 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 	public int delete(int no) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int hits(int no) {
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.update(namespace + "hits", no);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.close();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public int like(int no, String id) {
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		HashMap<String, Object> user = new HashMap<String, Object>();
+		user.put("recipeboard_no", no);
+		user.put("likeid", id);
+		
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.update(namespace + "recipelike", user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.close();
+		}
+		
+		return res;
 	}
 
 }
