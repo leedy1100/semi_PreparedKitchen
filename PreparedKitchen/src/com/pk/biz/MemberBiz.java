@@ -13,5 +13,15 @@ public class MemberBiz {
 		
 		return memberDao.selectList();
 	}
+	
+	public int signup(MemberDto dto) {
+		
+		return memberDao.signup(dto);
+	}
+	
+	public MemberDto idchk(String id) {
+		
+		return memberDao.idchk(id);
+	}
 
 }
