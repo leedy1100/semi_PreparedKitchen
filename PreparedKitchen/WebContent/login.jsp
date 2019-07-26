@@ -26,14 +26,14 @@
 			</div>
 			<div id="iddiv">
 				<img alt="" src="#">
-				<input type="text" name="id" id="idtext">
+				<input type="text" name="id" id="idtext" placeholder="I	D">
 			</div>
 			<div id="pwdiv">
 				<img alt="" src="">
-				<input type="password" name="pw" id="pwtext">
+				<input type="password" name="pw" id="pwtext" placeholder="PASSWORD">
 			</div>
 			<div id="subdiv">
-				<input type="button" value="회원가입">
+				<input type="button" value="회원가입" onclick="location.href='login.do?command=signup'">
 				<input type="submit" value="로그인">
 			</div>
 		</form>
