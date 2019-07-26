@@ -41,7 +41,7 @@
  		FROM RECIPEBOARD
  	</select>
  	
- 	<select id="titleCount" resultType="int">
+ 	<select id="fileCount" resultType="int">
  		SELECT COUNT(*)
  		FROM RECIPEBOARD
  		WHERE 1=1

@@ -74,7 +74,7 @@
 
 	 <div class="container">
     <h1 class="page-header">Summernote Sample</h1>
-    <form action="img.do" method="post" class="form-horizontal">
+    <form action="recipeboard.do" method="post" class="form-horizontal">
     <input type="hidden" name="command" value="insertres">
       <div class="form-group">
       	<input type="text" class="form-control" name="myname" placeholder="이름을 입력하세요"/>

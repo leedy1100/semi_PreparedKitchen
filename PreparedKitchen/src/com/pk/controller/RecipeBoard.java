@@ -71,8 +71,8 @@ public class RecipeBoard extends HttpServlet {
 		RecipeBoardDto recipeBoardDto = null;
 
 		if (command.equals("selectone")) {
-			int no = Integer.parseInt(request.getParameter("no"));
-			recipeBoardDto = recipeBoardDao.selectOne(no);
+			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
+			recipeBoardDto = recipeBoardDao.selectOne(recipeBoard_no);
 			request.setAttribute("recipeBoardDto", recipeBoardDto);
 			dispatch(request, response, "recipeboardselectone.jsp");
 
