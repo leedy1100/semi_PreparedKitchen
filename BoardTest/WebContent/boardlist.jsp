@@ -14,6 +14,7 @@
 	<h1>list</h1>
 	<form action="img.do" method="post">
 		<input type="hidden" value="search" name="command"/>
+<<<<<<< HEAD
 		<input type="text" name="title" placeholder="제목을 입력하시오"/>
 		<input type="submit" value="검색">
 	</form>
@@ -54,6 +55,51 @@
 	</table>
 	
 	    <jsp:include page="paging.jsp" flush="true">
+=======
+		<input type="text" name="searchFiled" value="MYTITLE"/>
+		<input type="text" name="searchValue" placeholder="제목을 입력하시오"/>
+		<input type="submit" value="검색">
+	</form>
+	<table border="1">
+		<col width="50" />
+		<col width="100" />
+		<col width="300" />
+		<col width="250" />
+		<tr>
+			<th>번호</th>
+			<th>이름</th>
+			<th>제목</th>
+			<th>날짜</th>
+		</tr>
+		<c:choose>
+			<c:when test="${empty list }">
+				<tr>
+					<td colspan="4">--------작성된 글이 존재하지 않습니다--------</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${list }" var="dto">
+					<tr>
+						<td>${dto.myno }</td>
+						<td>${dto.myname }</td>
+						<td><a href="img.do?command=selectone&myno=${dto.myno }">${dto.mytitle }</a></td>
+						<td>${dto.mydate }</td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+		<tr>
+			<td colspan="4">
+				<input type="button" value="글 작성" onclick="location.href='img.do?command=insert'" />
+				<input type="button" value="메인" onclick="location.href='index.html'" />
+			</td>
+		</tr>
+	</table>
+	
+	    <jsp:include page="paging.jsp" flush="true">
+	  		<jsp:param name="searchFiled" value="${paging.searchFiled }"/>
+	    	<jsp:param name="searchValue" value="${paging.searchValue }"/>
+>>>>>>> refs/remotes/origin/ldy
             <jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
             <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
             <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />

@@ -12,6 +12,7 @@
 
 	function goPage(pages, lines) {
 	    var url = "&pages=" + pages + "&lines=" + lines;
+<<<<<<< HEAD
 		var title = <%request.getParameter("title");%>
 		
 		if(title != null){
@@ -20,6 +21,12 @@
 		}else{
 	   		location.href = 'img.do?command=list'+url;
 		}
+=======
+	    var searchFiled = "${paging.searchFiled}";
+	    var searchValue = "${paging.searchValue}";
+	    	url += "&searchFiled=" + searchFiled + "&searchValue=" + searchValue;
+			location.href = 'img.do?command=search'+url;
+>>>>>>> refs/remotes/origin/ldy
 	}
 
 </script>

@@ -18,7 +18,11 @@
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		
 	</section>
+<<<<<<< HEAD
 	<%@ include file="static/remocon.jsp" %>
+=======
+	
+>>>>>>> refs/remotes/origin/ldy
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
 		<%@ include file="static/footer.jsp" %>

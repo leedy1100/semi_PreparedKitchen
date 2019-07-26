@@ -31,6 +31,7 @@ public class MyBoardDao extends SqlMapConfig {
 		return list;
 	}
 	
+<<<<<<< HEAD
 	public List<MyBoardDto> searchTitle(int offset, int noOfRecords, String title) {
 		SqlSession session = null;
 		List<MyBoardDto> list = new ArrayList<MyBoardDto>();
@@ -40,6 +41,18 @@ public class MyBoardDao extends SqlMapConfig {
 		params.put("offset", offset);
 		params.put("noOfRecords", offset + noOfRecords);
 		params.put("title", title);
+=======
+	public List<MyBoardDto> searchTitle(int offset, int noOfRecords, String searchFiled, String searchValue) {
+		SqlSession session = null;
+		List<MyBoardDto> list = new ArrayList<MyBoardDto>();
+
+		HashMap<String, Object> params = new HashMap<String, Object>();
+
+		params.put("offset", offset);
+		params.put("noOfRecords", offset + noOfRecords);
+		params.put("searchFiled", searchFiled);
+		params.put("searchValue", searchValue);
+>>>>>>> refs/remotes/origin/ldy
 
 		session = getSqlSessionFactory().openSession();
 		list = session.selectList(namespace + "selectList", params);

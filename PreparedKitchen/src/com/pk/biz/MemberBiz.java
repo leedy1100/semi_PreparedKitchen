@@ -1,5 +1,6 @@
 package com.pk.biz;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import com.pk.dao.MemberDao;
@@ -13,5 +14,8 @@ public class MemberBiz {
 		
 		return memberDao.selectList();
 	}
+=======
+public class MemberBiz {
+>>>>>>> refs/remotes/origin/ldy
 
 }

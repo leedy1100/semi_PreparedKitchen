@@ -1,5 +1,6 @@
 package com.pk.dao;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,5 +29,10 @@ public class MemberDao extends SqlMapConfig{
 		
 		return list;
 	}
+=======
+public class MemberDao {
+	
+	
+>>>>>>> refs/remotes/origin/ldy
 
 }
