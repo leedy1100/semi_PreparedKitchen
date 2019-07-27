@@ -69,13 +69,13 @@
  	<update id="hits" parameterType="RecipeBoardDto">
  		UPDATE RECIPEBOARD
  		SET RECIPEBOARD_READCOUNT = RECIPEBOARD_READCOUNT + 1
- 		WHERE RECIPEBOARD_NO = #{recipeBoard_no}
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
  	</update>
  	
- 	<update id="recipelike" parameterType="RecipeBoardDto">
+ 	<update id="recipelike" parameterType="hashmap">
  		UPDATE RECIPEBOARD
  		SET RECIPEBOARD_LIKE = RECIPEBOARD_LIKE + 1
- 		WHERE RECIPEBOARD_NO = #{recipeBoard_no}
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
  	
  	</update>
  	

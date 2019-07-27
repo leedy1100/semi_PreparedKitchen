@@ -30,15 +30,14 @@
 		$('#recipelike').click(function(){
 	
 			$.ajax({
-				url:"recipeboard.do?command=like",	//전송할 경로
+				url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",	//전송할 경로
 				method:"get",	//전송방식 get(), post()
 				async:true,		// 비동기(default)
 				dateType:"text",	//전송받을 datatype : xml,json,html,script
 				//data{"key","value"}	//서버에 전송할 데이터
 				success:function(msg){	//통신에 성공했을 때
-				//	alert(msg);
-					
-					
+			
+					$('#favorite').text(msg);
 				
 				}, error:function(request, error){	//통신에 실패했을 때
 					alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -73,8 +72,8 @@
 		</tr>
 		<tr>
 			<th>좋아요</th>
-			<td>${recipeBoardDto.recipeBoard_like }</td>
-			<td><input type="button" name="command" value="like" id="recipelike"/></td>
+			<td id="favorite" style="width: 50px">${recipeBoardDto.recipeBoard_like }</td>
+			<td><input type="button"  value="좋아요" id="recipelike"/></td>
 		</tr>
 		<tr>
 			<th>내용</th>

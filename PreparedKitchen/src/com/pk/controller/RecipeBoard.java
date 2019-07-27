@@ -171,12 +171,13 @@ public class RecipeBoard extends HttpServlet {
 
 		}else if(command.equals("like")) {
 			
-			String id = request.getParameter("id");
+			//String id = request.getParameter("id");
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
-			recipeBoardBiz.like(recipeBoard_no, id);
+			recipeBoardBiz.like(recipeBoard_no, "홍길동");
 			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
-			request.setAttribute("recipeBoardDto", recipeBoardDto);
+
 			PrintWriter out = response.getWriter();
+			out.print(recipeBoardDto.getRecipeBoard_like());
 
 			
 		}

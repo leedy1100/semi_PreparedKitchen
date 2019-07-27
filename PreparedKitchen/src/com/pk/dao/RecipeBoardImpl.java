@@ -117,13 +117,13 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		SqlSession session = null;
 		int res = 0;
 		
-		HashMap<String, Object> user = new HashMap<String, Object>();
-		user.put("recipeboard_no", no);
-		user.put("likeid", id);
+		HashMap<String, Object> userlike = new HashMap<String, Object>();
+		userlike.put("recipeboard_no", no);
+		userlike.put("likeid", id);
 		
 		try {
 			session = getSqlSessionFactory().openSession(true);
-			res = session.update(namespace + "recipelike", user);
+			res = session.update(namespace + "recipelike", userlike);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.close();
