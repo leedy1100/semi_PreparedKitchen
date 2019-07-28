@@ -52,7 +52,7 @@
  	
  	<insert id="insert" parameterType="RecipeBoardDto">
  		INSERT INTO RECIPEBOARD
- 		VALUES(MYSEQ.NEXTVAL,#{id},#{recipeBoard_title},#{recipeBoard_content},SYSDATE, #{recipeBoard_readCount}, #{recipeBoard_like})
+ 		VALUES(RECIPEBOARDSEQ.NEXTVAL,#{id},#{recipeBoard_title},#{recipeBoard_content},SYSDATE, 0, 0)
  	</insert>
  	
  	<update id="update" parameterType="RecipeBoardDto">

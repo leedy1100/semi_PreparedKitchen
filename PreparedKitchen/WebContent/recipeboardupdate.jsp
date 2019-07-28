@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-<% response.setContentType("text/html; charset=UTF-8"); %>    
+<% response.setContentType("text/html; charset=UTF-8"); %>        
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- include libraries(jQuery, bootstrap) -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -72,26 +72,26 @@
 </head>
 <body>
 
-	 <div class="container">
-    <h1 class="page-header">insert</h1>
-    <form action="recipeboard.do" method="post" class="form-horizontal">
-    <input type="hidden" name="command" value="insertres">
-      <div class="form-group">
-      	<input type="text" class="form-control" name="id" placeholder="아이디를 입력하세요"/>
-      </div>	
-      <div class="form-group">	
-      	<input type="text" class="form-control" name="recipeBoard_title" placeholder="제목을 입력하세요"/>
-      </div>
-      <div class="form-group">
-          <textarea name="recipeBoard_content" id="summernote"></textarea>
-      </div>
-      <div class="form-group">
-          <button type="submit" class="btn btn-default">Save</button>
-          <input type="button" value="List" class="btn btn-default" onclick="location.href='recipeboard.do?command=list'"/>
-      </div>
-    </form>
-  </div>
-</body>
-
+	<div class="container">
+    <h1 class="page-header">update</h1>
+   		<form action="recipeboard.do" method="post" class="form-horizontal">
+   		<input type="hidden" name="command" value="updateres">
+   		<input type="hidden" name="recipeBoard_no" value="${recipeBoardDto.recipeBoard_no }"/>
+			<div class="form-group">
+				작성일<input type="text" class="form-control" name="recipeBoard_regdate" value="${recipeBoardDto.recipeBoard_regdate }" readonly="readonly"/>
+			</div>
+			<div class="form-group">
+				제목<input type="text" class="form-control" name="recipeBoard_title" value="${recipeBoardDto.recipeBoard_title }"/>
+			</div>
+			<div class="form-group">
+				<textarea name="recipeBoard_content" id="summernote">${recipeBoardDto.recipeBoard_content }</textarea>
+			</div>	
+			<div class="form-group">
+				<input type="submit" value="수정" class="btn btn-default"/>
+				<input type="button" value="취소" class="btn btn-default" onclick="location.href='recipeboard.do?command=selectone&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'"/>
+				<input type="button" value="목록" class="btn btn-default" onclick="location.href='recipeboard.do?command=list'"/>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

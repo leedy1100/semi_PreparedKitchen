@@ -75,10 +75,10 @@ public class RecipeBoard extends HttpServlet {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
 			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
 			recipeBoardBiz.hits(recipeBoard_no);
-			
+
 			String searchFiled = request.getParameter("searchFiled");
 			String searchValue = request.getParameter("searchValue");
-			
+
 			paging.setSearchFiled(searchFiled);
 			paging.setSearchValue(searchValue);
 			paging.setCurrentPageNo(currentPageNo);
@@ -94,15 +94,11 @@ public class RecipeBoard extends HttpServlet {
 			String id = request.getParameter("id");
 			String recipeBoard_title = request.getParameter("recipeBoard_title");
 			String recipeBoard_content = request.getParameter("recipeBoard_content");
-			int recipeBoard_readCount = Integer.parseInt(request.getParameter("recipeBoard_readCount"));
-			int recipeBoard_like = Integer.parseInt(request.getParameter("recipeBoard_like"));
 			recipeBoardDto = new RecipeBoardDto();
 
 			recipeBoardDto.setId(id);
 			recipeBoardDto.setRecipeBoard_title(recipeBoard_title);
 			recipeBoardDto.setRecipeBoard_content(recipeBoard_content);
-			recipeBoardDto.setRecipeBoard_readCount(recipeBoard_readCount);
-			recipeBoardDto.setRecipeBoard_like(recipeBoard_like);
 
 			int res = recipeBoardBiz.insert(recipeBoardDto);
 
@@ -142,7 +138,7 @@ public class RecipeBoard extends HttpServlet {
 			response.setContentType("application/json"); // 데이터 타입을 json으로 설정하기 위한 세팅
 			PrintWriter out = response.getWriter();
 			out.print(jobj.toJSONString());
-			
+
 		} else if (command.equals("list")) {
 			List<RecipeBoardDto> list = recipeBoardBiz.selectList(offset, paging.getRecordsPerPage());
 
@@ -169,9 +165,9 @@ public class RecipeBoard extends HttpServlet {
 
 			dispatch(request, response, "recipeboardlist.jsp");
 
-		}else if(command.equals("like")) {
-			
-			//String id = request.getParameter("id");
+		} else if (command.equals("like")) {
+
+			// String id = request.getParameter("id");
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
 			recipeBoardBiz.like(recipeBoard_no, "홍길동");
 			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
@@ -179,7 +175,47 @@ public class RecipeBoard extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(recipeBoardDto.getRecipeBoard_like());
 
+		} else if (command.equals("update")) {
+
+			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
+			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
+
+			request.setAttribute("recipeBoardDto", recipeBoardDto);
+			dispatch(request, response, "recipeboardupdate.jsp");
+
+		} else if (command.equals("updateres")) {
+
+			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
+			String recipeBoard_title = request.getParameter("recipeBoard_title");
+			String recipeBoard_content = request.getParameter("recipeBoard_content");
+			System.out.println(recipeBoard_no);
+			System.out.println(recipeBoard_title);
+			System.out.println(recipeBoard_content);
 			
+			RecipeBoardDto dto = new RecipeBoardDto();
+			dto.setRecipeBoard_no(recipeBoard_no);
+			dto.setRecipeBoard_title(recipeBoard_title);
+			dto.setRecipeBoard_content(recipeBoard_content);
+
+			int res = recipeBoardBiz.update(dto);
+
+			if (res > 0) {
+				alert(response, "수정 성공", "recipeboard.do?command=selectone&recipeBoard_no=" + recipeBoard_no);
+			} else {
+				alert(response, "수정 실패", "recipeboard.do?command=update&recipeBoard_no=" + recipeBoard_no);
+			}
+
+		} else if (command.equals("delete")) {
+
+			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
+
+			int res = recipeBoardBiz.delete(recipeBoard_no);
+
+			if (res > 0) {
+				alert(response, "삭제 성공", "recipeboard.do?command=list");
+			} else {
+				alert(response, "삭제 실패", "recipeboard.do?command=selectone&recipeBoard_no=" + recipeBoard_no);
+			}
 		}
 	}
 

@@ -81,20 +81,53 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 
 	@Override
 	public int insert(RecipeBoardDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.update(namespace + "insert", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.close();
+		}
+		
+		return res;
 	}
 
 	@Override
 	public int update(RecipeBoardDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		SqlSession session = null;
+		int res = 0;
+		
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.update(namespace + "update", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.close();
+		}
+		
+		return res;
 	}
 
 	@Override
 	public int delete(int no) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.delete(namespace + "delete", no);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.close();
+		}
+		
+		return res;
 	}
 
 	@Override
