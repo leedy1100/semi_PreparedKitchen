@@ -79,4 +79,30 @@
  	
  	</update>
  	
+ 	<insert id="insertlike" parameterType="hashmap">
+ 		INSERT INTO LIKETABLE
+ 		VALUES(LIKESEQ.NEXTVAL, #{likeid},#{recipeboard_no})
+ 	
+ 	</insert>
+ 	
+ 	<update id="recipelike_cancel" parameterType="hashmap">
+ 		UPDATE RECIPEBOARD
+ 		SET RECIPEBOARD_LIKE = RECIPEBOARD_LIKE - 1
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	
+ 	</update>
+ 	
+ 	<delete id="insertlike_cancel" parameterType="hashmap">
+ 		DELETE FROM LIKETABLE
+ 		WHERE ID = #{likeid} AND RECIPEBOARD_NO = #{recipeboard_no}
+ 	
+ 	</delete>
+ 	
+ 	<select id="selectOneLikeList" parameterType="hashmap" resultType="LikeDto">
+ 		SELECT LIKETABLE_NO, ID, RECIPEBOARD_NO
+ 		FROM LIKETABLE
+ 		WHERE ID = #{likeid} 
+ 		AND RECIPEBOARD_NO = #{recipeboard_no}
+ 	</select>
+ 	
 </mapper>

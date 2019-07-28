@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.websocket.Session;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.pk.dao.SqlMapConfig;
+import com.pk.dto.LikeDto;
 import com.pk.dto.RecipeBoardDto;
 
 public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
@@ -124,12 +127,53 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		try {
 			session = getSqlSessionFactory().openSession(true);
 			res = session.update(namespace + "recipelike", userlike);
+			res += session.insert(namespace + "insertlike", userlike);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.close();
 		}
 		
 		return res;
+	}
+
+	@Override
+	public int deleteLike(int no, String id) {
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		HashMap<String, Object> deletelike = new HashMap<String, Object>();
+		deletelike.put("recipeboard_no", no);
+		deletelike.put("likeid", id);
+		
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.update(namespace + "recipelike_cancel", deletelike);
+			res += session.insert(namespace + "insertlike_cancel", deletelike);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.close();
+		}
+		
+		return res;
+	}
+
+	@Override
+	public LikeDto selectLikeOne(int no, String id) {
+		
+		SqlSession session = null;
+		LikeDto likedto = new LikeDto();
+		HashMap<String, Object> likeList = new HashMap<String, Object>();
+		
+		likeList.put("recipeboard_no", no);
+		likeList.put("likeid", id);
+		
+		session = getSqlSessionFactory().openSession(true);
+		likedto = session.selectOne(namespace + "selectOneLikeList", likeList);
+
+		session.close();
+
+		return likedto;
 	}
 
 }

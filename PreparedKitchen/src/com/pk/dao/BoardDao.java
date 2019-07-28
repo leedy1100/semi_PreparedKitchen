@@ -2,6 +2,7 @@ package com.pk.dao;
 
 import java.util.List;
 
+import com.pk.dto.LikeDto;
 import com.pk.dto.RecipeBoardDto;
 
 
@@ -16,4 +17,6 @@ public interface BoardDao {
 	public int hits(int no);
 	public int getNoOfRecords();
 	public int like(int no, String id);
+	public int deleteLike(int no, String id);
+	public LikeDto selectLikeOne(int no, String id);
 }

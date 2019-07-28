@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pk.dao.BoardDao;
 import com.pk.dao.RecipeBoardImpl;
+import com.pk.dto.LikeDto;
 import com.pk.dto.RecipeBoardDto;
 
 public class RecipeBoardBiz {
@@ -50,6 +51,13 @@ public class RecipeBoardBiz {
 	}
 	
 	public int like(int no, String id) {
+		
+		LikeDto likedto =  recipeBoardDao.selectLikeOne(no, id);
+		System.out.println(likedto);
+		if(likedto != null) {
+			return recipeBoardDao.deleteLike(no, id);
+		}
+		
 		return recipeBoardDao.like(no, id);
 	}
 

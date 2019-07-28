@@ -8,6 +8,7 @@
   
   <typeAliases>
   	<typeAlias type="com.pk.dto.RecipeBoardDto" alias="RecipeBoardDto"/>
+  	<typeAlias type="com.pk.dto.LikeDto" alias="LikeDto"/>
   	<typeAlias type="com.pk.dto.PagingDto" alias="PagingDto" />
   	<typeAlias type="com.pk.dto.CartDto" alias="cartDto" />
   	<typeAlias type="com.pk.dto.InterestListDto" alias="interestDto" />
