@@ -14,8 +14,11 @@
 	<h1>list</h1>
 	<form action="recipeboard.do" method="post">
 		<input type="hidden" value="search" name="command"/>
-		<input type="text" name="searchFiled" value="RECIPEBOARD_TITLE"/>
-		<input type="text" name="searchValue" placeholder="제목을 입력하시오"/>
+		<select name="searchFiled">
+			<option value="RECIPEBOARD_TITLE" selected="selected">제목</option>
+			<option value="ID">작성자</option>
+		</select>
+		<input type="text" name="searchValue" placeholder="내용을 입력하시오"/>
 		<input type="submit" value="검색">
 	</form>
 	<table border="1">
