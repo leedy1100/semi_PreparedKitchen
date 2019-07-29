@@ -7,16 +7,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="static/base.css"/>
+<link rel="stylesheet" href="static/base.css" />
 <!-- include libraries(jQuery, bootstrap) -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" />
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery.form.min.js"></script>
 <!-- include summernote css/js-->
-<link href="summernote/dist/summernote.css" rel="stylesheet" type="text/css">
+<link href="summernote/dist/summernote.css" rel="stylesheet"
+	type="text/css">
 <script type="text/javascript" src="summernote/dist/summernote.js"></script>
-<script type="text/javascript" src="summernote/dist/lang/summernote-ko-KR.js"></script>
+<script type="text/javascript"
+	src="summernote/dist/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 
 	
@@ -74,33 +79,36 @@
 <body>
 	<header>
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
-		<%@ include file="static/header.jsp" %>
+		<%@ include file="static/header.jsp"%>
 	</header>
 	<section>
-	 <div class="container">
-    <h1 class="page-header">insert</h1>
-    <form action="recipeboard.do" method="post" class="form-horizontal">
-    <input type="hidden" name="command" value="insertres">
-      <div class="form-group">
-      	<input type="text" class="form-control" name="id" placeholder="아이디를 입력하세요"/>
-      </div>	
-      <div class="form-group">	
-      	<input type="text" class="form-control" name="recipeBoard_title" placeholder="제목을 입력하세요"/>
-      </div>
-      <div class="form-group">
-          <textarea name="recipeBoard_content" id="summernote"></textarea>
-      </div>
-      <div class="form-group">
-          <button type="submit" class="btn btn-default">Save</button>
-          <input type="button" value="List" class="btn btn-default" onclick="location.href='recipeboard.do?command=list'"/>
-      </div>
-    </form>
-  </div>
-  </section>
-  <%@ include file="static/remocon.jsp" %>
+		<div class="container">
+			<h1 class="page-header">insert</h1>
+			<form action="recipeboard.do" method="post" class="form-horizontal">
+				<input type="hidden" name="command" value="insertres">
+				<div class="form-group">
+					<input type="text" class="form-control" name="id"
+						placeholder="아이디를 입력하세요" />
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" name="recipeBoard_title"
+						placeholder="제목을 입력하세요" />
+				</div>
+				<div class="form-group">
+					<textarea name="recipeBoard_content" id="summernote"></textarea>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-default">Save</button>
+					<input type="button" value="List" class="btn btn-default"
+						onclick="location.href='recipeboard.do?command=list'" />
+				</div>
+			</form>
+		</div>
+	</section>
+	<%@ include file="static/remocon.jsp"%>
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
-		<%@ include file="static/footer.jsp" %>
+		<%@ include file="static/footer.jsp"%>
 	</footer>
 
 </body>
