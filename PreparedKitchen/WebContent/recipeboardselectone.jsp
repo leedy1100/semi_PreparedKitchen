@@ -35,12 +35,14 @@
 				url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",	//전송할 경로
 				method:"get",	//전송방식 get(), post()
 				async:true,		// 비동기(default)
-				dateType:"text",	//전송받을 datatype : xml,json,html,script
+				dateType:"script",	//전송받을 datatype : xml,json,html,script
 				//data{"key","value"}	//서버에 전송할 데이터
 				success:function(msg){	//통신에 성공했을 때
-			
-					$('#favorite').text(msg);
-				
+					if(msg == "nologin"){
+						alert("로그인이 필요합니다.")
+					}else{
+						$('#favorite').text(msg);
+					}
 				}, error:function(request, error){	//통신에 실패했을 때
 					alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 				}
@@ -90,12 +92,17 @@
 				<td colspan="2">${recipeBoardDto.recipeBoard_regdate }</td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="button" value="수정"
-					onclick="location.href='recipeboard.do?command=update&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />
-					<input type="button" value="삭제"
-					onclick="location.href='recipeboard.do?command=delete&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />
-					<input type="button" value="목록"
-					onclick="location.href='recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}'" />
+				<td colspan="3">
+				<c:choose>
+				<c:when test="${memberDto.id == recipeBoardDto.id }">
+				<input type="button" value="수정" onclick="location.href='recipeboard.do?command=update&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />
+					<input type="button" value="삭제" onclick="location.href='recipeboard.do?command=delete&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />
+					<input type="button" value="목록" onclick="location.href='recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}'" />
+				</c:when>
+				<c:otherwise>
+					<input type="button" value="목록" onclick="location.href='recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}'" />
+				</c:otherwise>
+				</c:choose>
 				</td>
 			</tr>
 		</table>

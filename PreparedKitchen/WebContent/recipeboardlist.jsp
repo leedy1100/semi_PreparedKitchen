@@ -33,13 +33,13 @@
 
 </style>
 </head>
+
 <body>
 	<header>
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
-		<%@ include file="static/header.jsp"%>
+		<%@ include file="static/header.jsp" %>
 	</header>
-
-	<section>
+		<section>
 		<div id="recipeboardlist">
 			<table class="boardtable">
 				<col width="50" />
@@ -79,11 +79,19 @@
 					</c:otherwise>
 				</c:choose>
 				<tr id="button">
-					<td colspan="6"><input type="button" value="글 작성"
-						onclick="location.href='recipeboard.do?command=insert'" /> <input
-						type="button" value="전체 목록"
-						onclick="location.href='recipeboard.do?command=list'" /> <input
-						type="button" value="메인" onclick="location.href='index.jsp'" /></td>
+					<td colspan="6">
+					<c:choose>
+						<c:when test="${memberDto.id != null }">
+							<input type="button" value="글 작성" onclick="location.href='recipeboard.do?command=insert'" /> 
+							<input type="button" value="전체 목록" onclick="location.href='recipeboard.do?command=list'" /> 
+							<input type="button" value="메인" onclick="location.href='index.jsp'" />
+						</c:when>
+						<c:otherwise>
+							<input type="button" value="전체 목록" onclick="location.href='recipeboard.do?command=list'" /> 
+							<input type="button" value="메인" onclick="location.href='index.jsp'" />
+						</c:otherwise>
+					</c:choose>
+					</td>
 				</tr>
 			</table>
 
@@ -108,11 +116,11 @@
 					type="submit" value="검색">
 			</form>
 		</div>
-	</section>
-	<%@ include file="static/remocon.jsp"%>
-	<footer>
+			</section>
+			<%@ include file="static/remocon.jsp" %>
+			<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
-		<%@ include file="static/footer.jsp"%>
+		<%@ include file="static/footer.jsp" %>
 	</footer>
 </body>
 </html>

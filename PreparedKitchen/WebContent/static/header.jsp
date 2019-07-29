@@ -18,13 +18,18 @@
 <%
 	MemberDto memberDto = (MemberDto)session.getAttribute("memberDto");
 %>
+
+<script type="text/javascript">
+
+</script>
+
 <body>
 	<div id="mainleft">
-		<img id="mainmenu" src="#">
+		<img id="mainmenu">
 		<a id="maintitle" href="index.jsp">Prepared Kitchen</a>
 	</div>
 	<div id="mainright">
-		<img id="search" src="#">
+		<img id="search">
 <%
 	if(memberDto == null){
 %>
@@ -32,7 +37,7 @@
 <%
 	} else {
 %>
-		<%=memberDto.getName() %>님 환영합니다.
+		<%= memberDto.getName() %>님 환영합니다.
 		<a id="headerlogin" href="login.do?command=logout">logout</a>
 <%
 	}

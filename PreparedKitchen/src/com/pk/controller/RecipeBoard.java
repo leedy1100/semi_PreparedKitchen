@@ -11,11 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.json.simple.JSONObject;
 
 import com.pk.biz.RecipeBoardBiz;
 import com.pk.dao.RecipeBoardImpl;
+import com.pk.dto.MemberDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.RecipeBoardDto;
 import com.oreilly.servlet.MultipartRequest;
@@ -41,6 +44,7 @@ public class RecipeBoard extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println(request.getHeader("referer"));
 		doPost(request, response);
 	}
 
@@ -52,6 +56,8 @@ public class RecipeBoard extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		HttpSession session = request.getSession();
+		MemberDto memberDto = (MemberDto) session.getAttribute("memberDto");
 
 		int currentPageNo = 1;
 		int recordsPerPage = 0;
@@ -91,9 +97,9 @@ public class RecipeBoard extends HttpServlet {
 		} else if (command.equals("insert")) {
 			response.sendRedirect("recipeboardinsert.jsp");
 		} else if (command.equals("insertres")) {
-			String id = request.getParameter("id");
 			String recipeBoard_title = request.getParameter("recipeBoard_title");
 			String recipeBoard_content = request.getParameter("recipeBoard_content");
+			String id = request.getParameter("id");
 			recipeBoardDto = new RecipeBoardDto();
 
 			recipeBoardDto.setId(id);
@@ -167,13 +173,19 @@ public class RecipeBoard extends HttpServlet {
 
 		} else if (command.equals("like")) {
 
-			// String id = request.getParameter("id");
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
-			recipeBoardBiz.like(recipeBoard_no, "홍길동");
-			recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
 
-			PrintWriter out = response.getWriter();
-			out.print(recipeBoardDto.getRecipeBoard_like());
+
+			if (memberDto == null) {
+				PrintWriter out = response.getWriter();
+				out.print("nologin");
+			}else {
+				String id = memberDto.getId();
+				recipeBoardBiz.like(recipeBoard_no, id);
+				recipeBoardDto = recipeBoardBiz.selectOne(recipeBoard_no);
+				PrintWriter out = response.getWriter();
+				out.print(recipeBoardDto.getRecipeBoard_like());
+			}
 
 		} else if (command.equals("update")) {
 
@@ -188,7 +200,7 @@ public class RecipeBoard extends HttpServlet {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
 			String recipeBoard_title = request.getParameter("recipeBoard_title");
 			String recipeBoard_content = request.getParameter("recipeBoard_content");
-			
+
 			RecipeBoardDto dto = new RecipeBoardDto();
 			dto.setRecipeBoard_no(recipeBoard_no);
 			dto.setRecipeBoard_title(recipeBoard_title);

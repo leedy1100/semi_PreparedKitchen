@@ -87,8 +87,7 @@
 			<form action="recipeboard.do" method="post" class="form-horizontal">
 				<input type="hidden" name="command" value="insertres">
 				<div class="form-group">
-					<input type="text" class="form-control" name="id"
-						placeholder="아이디를 입력하세요" />
+					<input type="text" class="form-control" name="id" value="${memberDto.id }" readonly="readonly"/>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" name="recipeBoard_title"

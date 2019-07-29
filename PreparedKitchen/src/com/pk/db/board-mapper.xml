@@ -23,7 +23,7 @@
 	 			<if test="searchFiled != null and searchFiled != ''">
 	 				AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
 	 			</if>
-	 			ORDER BY RECIPEBOARD_NO
+	 			ORDER BY RECIPEBOARD_NO DESC
  			) A
  			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
  		) X
