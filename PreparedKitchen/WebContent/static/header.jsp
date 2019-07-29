@@ -1,3 +1,4 @@
+<%@page import="com.pk.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,6 +15,9 @@
 	#search{}
 	#headerlogin{color: white; font-size: 14px; text-decoration: none;}
 </style>
+<%
+	MemberDto memberDto = (MemberDto)session.getAttribute("memberDto");
+%>
 <body>
 	<div id="mainleft">
 		<img id="mainmenu" src="#">
@@ -21,7 +25,18 @@
 	</div>
 	<div id="mainright">
 		<img id="search" src="#">
+<%
+	if(memberDto == null){
+%>
 		<a id="headerlogin" href="login.do?command=gologin">login</a>
+<%
+	} else {
+%>
+		<%=memberDto.getName() %>님 환영합니다.
+		<a id="headerlogin" href="login.do?command=logout">logout</a>
+<%
+	}
+%>
 	</div>
 </body>
 </html>

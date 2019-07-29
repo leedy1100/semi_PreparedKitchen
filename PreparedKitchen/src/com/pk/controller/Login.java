@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.pk.biz.MemberBiz;
 import com.pk.dto.MemberDto;
@@ -31,6 +32,7 @@ public class Login extends HttpServlet {
 		
 		MemberBiz biz = new MemberBiz();
 		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
 
 		if(command.equals("gologin")) {
 			
@@ -63,11 +65,13 @@ public class Login extends HttpServlet {
 			
 			if(res > 0) {
 				System.out.println("회원가입 성공");
+				response.sendRedirect("login.jsp");
+				
 			} else {
 				System.out.println("회원가입 실패");
+				response.sendRedirect("signup.jsp");
 			}
 			
-			response.sendRedirect("login.jsp");
 			
 		} else if(command.equals("idchk")) {
 			
@@ -86,10 +90,19 @@ public class Login extends HttpServlet {
 			
 			MemberDto dto = biz.login(id,pw);
 			
-			if(dto.getId() != null) {
-				System.out.println(dto.getName());
+			if(dto != null) {
+				
+				session.setAttribute("memberDto", dto);
+				response.sendRedirect("index.jsp");
+				
+			} else {
+				response.sendRedirect("login.jsp");
 			}
-					
+			
+		} else if(command.equals("logout")) {
+			
+			session.invalidate();
+			response.sendRedirect("index.jsp");
 		}
 	}
 
