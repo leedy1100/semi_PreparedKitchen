@@ -27,12 +27,19 @@
 					<th>ID</th>
 					<td>
 						<input type="text" name="id">
-						<span id="idchksapn"></span>
+						<span id="idchkSapn"></span>
 					</td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
 					<td><input type="password" name="pw"></td>
+				</tr>
+				<tr>
+					<th>비밀번호 확인</th>
+					<td>
+						<input type="password" name="pwConfirm">
+						<span id="pwSpan"></span>
+					</td>
 				</tr>
 				<tr>
 					<th>이름</th>
