@@ -1,7 +1,9 @@
 
 $(function(){
 	var idText = $("input[name=id]");
-	var idspan = $("#idchksapn");
+	var idSpan = $("#idchkSapn");
+	var pwText = $("input[name=pw]");
+	var pwConfirm = $("input[name=pwConfirm]");
 	
 	idText.blur(function(){
 		var id = idText.val();
@@ -12,15 +14,26 @@ $(function(){
 			success : function(data){
 				var trm = $.trim(data);
 				if(trm == id){
-					idspan.html("이미 존재하는 아이디 입니다.");
+					idSpan.html("이미 존재하는 아이디 입니다.");
 				} else {
-					idspan.html("가입 가능한 아이디 입니다.");
+					idSpan.html("가입 가능한 아이디 입니다.");
 				}
 			},
 			error : function(){
 				alert("통신실패")
 			}
 		});
+	});
+	
+	pwConfirm.blur(function(){
+		var pw = pwText.val();
+		var pwC = pwConfirm.val();
+		
+		if(pw != pwC){
+			$("#pwSpan").html("비밀번호가 일치하지 않습니다.");
+		}else{
+			$("#pwSpan").html("비밀번호 일치!");
+		}
 	});
 	
 	$("input[name=phone1]").keyup(function(){

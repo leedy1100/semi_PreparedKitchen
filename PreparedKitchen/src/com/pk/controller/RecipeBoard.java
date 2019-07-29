@@ -12,17 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.json.simple.JSONObject;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.pk.biz.RecipeBoardBiz;
-import com.pk.dao.RecipeBoardImpl;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.RecipeBoardDto;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
  * Servlet implementation class RecipeBoard
@@ -44,7 +42,6 @@ public class RecipeBoard extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println(request.getHeader("referer"));
 		doPost(request, response);
 	}
 
