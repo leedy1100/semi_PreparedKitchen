@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="static/base.css"/>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 /*
@@ -50,7 +51,11 @@
 </script>
 </head>
 <body>
-
+	<header>
+		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
+		<%@ include file="static/header.jsp" %>
+	</header>
+	<section>
 	<h1>selectOne</h1>
 	
 	<table border="1">
@@ -93,6 +98,11 @@
 			</td>
 		</tr>
 	</table>
-	
+	</section>
+	<%@ include file="static/remocon.jsp" %>
+	<footer>
+		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
+		<%@ include file="static/footer.jsp" %>
+	</footer>
 </body>
 </html>

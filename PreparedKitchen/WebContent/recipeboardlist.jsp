@@ -8,9 +8,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="static/base.css"/>
 </head>
 <body>
-
+	<header>
+		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
+		<%@ include file="static/header.jsp" %>
+	</header>
+	
+	<section>
 	<h1>list</h1>
 	<form action="recipeboard.do" method="post">
 		<input type="hidden" value="search" name="command"/>
@@ -78,6 +84,11 @@
             <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
             <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
         </jsp:include>
-
+	</section>
+	<%@ include file="static/remocon.jsp" %>
+	<footer>
+		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
+		<%@ include file="static/footer.jsp" %>
+	</footer>
 </body>
 </html>
