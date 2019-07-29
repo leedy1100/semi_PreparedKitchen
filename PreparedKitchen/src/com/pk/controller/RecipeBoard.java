@@ -188,9 +188,6 @@ public class RecipeBoard extends HttpServlet {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
 			String recipeBoard_title = request.getParameter("recipeBoard_title");
 			String recipeBoard_content = request.getParameter("recipeBoard_content");
-			System.out.println(recipeBoard_no);
-			System.out.println(recipeBoard_title);
-			System.out.println(recipeBoard_content);
 			
 			RecipeBoardDto dto = new RecipeBoardDto();
 			dto.setRecipeBoard_no(recipeBoard_no);
@@ -208,7 +205,6 @@ public class RecipeBoard extends HttpServlet {
 		} else if (command.equals("delete")) {
 
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
-
 			int res = recipeBoardBiz.delete(recipeBoard_no);
 
 			if (res > 0) {

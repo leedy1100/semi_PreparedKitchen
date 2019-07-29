@@ -61,9 +61,14 @@
  		WHERE RECIPEBOARD_NO = #{recipeBoard_no}
  	</update>
  	
- 	<delete id="delete" parameterType="int">
+ 	<delete id="delete" parameterType="hashmap">
  		DELETE FROM RECIPEBOARD
- 		WHERE RECIPEBOARD_NO = #{recipeBoard_no}
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	</delete>
+ 	
+ 	<delete id="deletelike">
+ 		DELETE FROM LIKETABLE
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
  	</delete>
  	
  	<update id="hits" parameterType="RecipeBoardDto">

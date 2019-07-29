@@ -53,7 +53,6 @@ public class RecipeBoardBiz {
 	public int like(int no, String id) {
 		
 		LikeDto likedto =  recipeBoardDao.selectLikeOne(no, id);
-		System.out.println(likedto);
 		if(likedto != null) {
 			return recipeBoardDao.deleteLike(no, id);
 		}

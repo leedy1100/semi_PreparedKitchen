@@ -121,7 +121,8 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		
 		try {
 			session = getSqlSessionFactory().openSession(true);
-			res = session.delete(namespace + "delete", no);
+			res = session.delete(namespace + "deletelike", no);
+			res += session.delete(namespace + "delete", no);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.close();
@@ -182,7 +183,7 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		try {
 			session = getSqlSessionFactory().openSession(true);
 			res = session.update(namespace + "recipelike_cancel", deletelike);
-			res += session.insert(namespace + "insertlike_cancel", deletelike);
+			res += session.delete(namespace + "insertlike_cancel", deletelike);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.close();
