@@ -1,3 +1,4 @@
+<%@page import="com.pk.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -48,14 +49,54 @@
 	#chatInput > input[type="text"] {width: 228px;}
 </style>
 <script type="text/javascript">
-
+	
+	
 	function chatOn() {
 		var form = document.getElementById("chatform");
 		if(form.style.display == "block") {
 			form.style.display = "none";
+			
 		}else {
-			form.style.display = "block";
-			window.open("chatclient.html", "chat", "");
+<%
+			/* MemberDto mDto = (MemberDto)session.getAttribute("member"); */
+
+			String chatAdmin = (String)application.getAttribute("chatadmin");
+			String chatUser = (String)application.getAttribute("chatuser");
+%>
+			<%-- var role = <%=mDto.getRole() %> --%>
+			var role = "admin";
+			
+			<%-- console.log("chatAdmin = " + <%=chatAdmin%> + " || chatUser = " + <%=chatUser%>); --%>
+			
+			if(role == "admin") {
+				form.style.display = "block";
+				window.open("chatclient.jsp", "chat", "");
+				
+			}else if(role == "user") {
+				var chatAdmin = <%=chatAdmin%>;
+				var chatUser = <%=chatUser%>;
+				
+				if(chatAdmin == "1") {
+					if(chatUser == "1") {
+						if(confirm("현재 다른 이용자가 상담중입니다. 챗봇을 이용하시겠습니까?")) {
+							window.open("chatclient.jsp", "chat", "");
+						}
+						
+					}else {
+						form.style.display = "block";
+						window.open("chatclient.jsp", "chat", "");
+						
+					}
+					
+				}else {
+					window.open("chatclient.jsp", "chat", "");
+				}
+				
+			}else {
+				if(confirm("로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?")) {
+					location.href = "login.jsp";
+				}
+			}
 		}
 	}
 
@@ -69,30 +110,6 @@
 			<p>1:1 상담<p>
 			<div id="chatContent">
 				<ul id="chatContentUl">
-					<li class="chatLeft">
-						<table>
-							<tr>
-								<td><img src="image/user_icon.png"></td>
-								<td>감도체크 하나둘삼넷</td>
-							</tr>
-						</table>
-					</li>
-					<li class="chatRight">
-						<table>
-							<tr>
-								<td>감도체크 수신양호</td>
-								<td><img src="image/user_icon.png"></td>
-							</tr>
-						</table>
-					</li>
-					<li class="chatLeft">
-						<table>
-							<tr>
-								<td><img src="image/user_icon.png"></td>
-								<td>완료</td>
-							</tr>
-						</table>
-					</li>
 				</ul>
 			</div>
 			<div id="chatInput">

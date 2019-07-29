@@ -19,7 +19,6 @@ public class ChatServer {
 
  @OnMessage
  public void onMessage(String message, Session session) throws IOException {
-  System.out.println(message);
   synchronized (clients) {
    // Iterate over the connected sessions
    // and broadcast the received message
@@ -34,9 +33,7 @@ public class ChatServer {
  @OnOpen
  public void onOpen(Session session) {
   // Add session to the connected sessions set
-  System.out.println(session);
   clients.add(session);
-  System.out.println(clients.size());
  }
 
  @OnClose
