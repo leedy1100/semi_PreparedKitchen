@@ -17,6 +17,7 @@ CREATE TABLE MEMBER(
 );
 
 INSERT INTO MEMBER VALUES('홍길동','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'USER');
+SELECT * FROM MEMBER;
 
 ---------------------------------------------------------------
 
