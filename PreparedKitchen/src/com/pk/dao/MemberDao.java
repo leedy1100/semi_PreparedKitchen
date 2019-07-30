@@ -87,5 +87,22 @@ public class MemberDao extends SqlMapConfig{
 		
 		return loginDto;
 	}
+	
+	public MemberDto emailchk(String email) {
+		
+		SqlSession session = null;
+		MemberDto dto = new MemberDto();
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			dto = session.selectOne(namespace+"emailchk", email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return dto;
+	}
 
 }

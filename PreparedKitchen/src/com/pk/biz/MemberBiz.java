@@ -28,5 +28,10 @@ public class MemberBiz {
 		
 		return memberDao.login(id, pw); 
 	}
+	
+	public MemberDto emailchk(String email) {
+		
+		return memberDao.emailchk(email);
+	}
 
 }

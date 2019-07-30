@@ -103,6 +103,18 @@ public class Login extends HttpServlet {
 			
 			session.invalidate();
 			response.sendRedirect("index.jsp");
+			
+		} else if(command.equals("emailchk")) {
+			
+			String email = request.getParameter("email");
+			
+			MemberDto dto = biz.emailchk(email);
+			
+			if(dto != null) {
+				out.println(dto.getEmail());
+				
+			}
+			
 		}
 	}
 

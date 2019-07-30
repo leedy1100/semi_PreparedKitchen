@@ -53,7 +53,14 @@
 					<th>이메일</th>
 					<td>
 						<input type="email" name="email">
-						<input type="button" value="인증받기" onclick="">
+						<select id="emailback">
+							<option>@naver.com</option>
+							<option>@gmail.com</option>
+							<option>@hanmail.net</option>
+							<option selected="selected" label="직접입력"></option>
+						</select>
+						<input type="button" value="인증받기" onclick="emailchk()">
+						<span id="emailSpan"></span>
 					</td>
 				</tr>
 				<tr>
