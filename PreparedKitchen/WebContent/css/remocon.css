@@ -1,0 +1,50 @@
+#d{
+	position: fixed; 
+	right: 50%; 
+	top: 300px; 
+	margin-right: -720px; 
+	text-align:center; 
+	width: 120px;
+	height: 400px;
+	background-color: rgb(225, 225, 225);
+}
+#chat{position: absolute; bottom: 5px; right: 2px;}
+#chatform{
+	position: relative;
+	padding: 10px 10px 10px 10px;
+	width: 280px;
+	height: 380px;
+	right: 300px;
+	bottom: 21px;
+	background-color: rgb(46, 204, 113);
+	display: none;
+}
+#chatform > p {margin: 0px; font-size: 20px; font-weight: bold;}
+#chatContent{
+	position: relative;
+	width: 280px;
+	height: 320px;
+	background-color: white;
+	overflow: auto;
+	overflow-w: hidden;  
+}
+#chatContent ul {padding: 0px;}
+#chatContent li {list-style: none; height: 50px;}
+#chatInput{
+	position: absolute;
+	bottom: 10px;
+}
+.chatLeft{float: left; text-align: center; clear: both;}
+.chatRight{float: right; text-align: center; clear: both;}
+#chatInput > input[type="text"] {width: 228px;}
+
+
+#chatBotForm{
+	position: relative;
+	padding: 10px 10px 10px 10px;
+	width: 350px;
+	height: 420px;
+	right: 365px;
+	bottom: 62px;
+	display: none;
+}

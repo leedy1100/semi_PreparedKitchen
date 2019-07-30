@@ -7,17 +7,16 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 </head> 
-<%/* 
+<%
 	MemberDto mDto = (MemberDto)session.getAttribute("member");
-	String role = mDto.getRole(); */
-	String role = "admin";
+	String role = mDto.getRole();
 %>
 	<script type="text/javascript">
         var webSocket = new WebSocket("ws://localhost:8787/PreparedKitchen/chatserver");
         var chatContent = opener.document.getElementById("chatContentUl");
         var inputMessage = opener.document.getElementById("inputMessage");
      	
-        var role = "admin";
+        var role = <%=role%>;
         
 	    webSocket.onerror = function(event) {
 	    	alert(event.data);
@@ -27,7 +26,7 @@
 <%
 			application.setAttribute("chat"+role, "1");
 %>
-	    	console.log(role + "챗시작");
+	    	/* console.log(role + "챗시작"); */
 	    };
 	    
 	    webSocket.onmessage = function(event) {
@@ -41,7 +40,7 @@
 <%
 			application.setAttribute("chat"+role, "0");
 %>
-	    	console.log(role + "챗종료");
+	    	/* console.log(role + "챗종료"); */
 
 	    };
 	    
