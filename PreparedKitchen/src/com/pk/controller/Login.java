@@ -2,7 +2,16 @@ package com.pk.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Properties;
 
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pk.biz.MemberBiz;
 import com.pk.dto.MemberDto;
+import com.pk.util.Gmail;
 
 @WebServlet("/login.do")
 public class Login extends HttpServlet {
@@ -115,6 +125,57 @@ public class Login extends HttpServlet {
 				
 			}
 			
+		} else if(command.equals("sendemail")) {
+			
+			String email = request.getParameter("email");
+			
+			String ran = "";
+			for(int i = 0; i < 4; i++) {
+				ran += (int)(Math.random() * 10);
+			}
+			
+			String from = "kmh5969@gmail.com";
+			String to = email;
+			String subject = "Prepared Kitchen 메일 인증입니다.";
+			String content = "인증번호 : " + ran;
+			
+			out.println(ran);
+			
+			Properties prop = new Properties();
+			prop.put("mail.smtp.user", from);
+			prop.put("mail.smtp.host", "smtp.googlemail.com");
+			prop.put("mail.smtp.port", "465");
+			prop.put("mail.smtp.starttls.enable", "true");
+			prop.put("mail.smtp.auth", "true");
+			prop.put("mail.smtp.debug", "true");
+			prop.put("mail.smtp.socketFactory.port", "465");
+			prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			prop.put("mail.smtp.socketFactory.fallback", "false");
+			
+			try {
+				
+				Authenticator auth = new Gmail();
+				Session ses = Session.getInstance(prop, auth);
+				ses.setDebug(true);
+				MimeMessage msg = new MimeMessage(ses);
+				msg.setSubject(subject);
+				Address fromAddr = new InternetAddress(from);
+				msg.setFrom(fromAddr);
+				Address toAddr = new InternetAddress(to);
+				msg.addRecipient(Message.RecipientType.TO, toAddr);
+				msg.setContent(content, "text/html; charset=UTF-8");
+				Transport.send(msg);
+				
+			} catch (MessagingException e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("noemail")) {
+			
+			out.println("<script>");
+			out.println("alert('메일인증을 해주세요.');");
+			out.println("history.back();");
+			out.println("</script>");
 		}
 	}
 

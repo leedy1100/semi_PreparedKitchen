@@ -21,7 +21,7 @@
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<form action="login.do" method="post">
-			<input type="hidden" name="command" value="signupres"/>
+			<input type="hidden" name="command" value="noemail"/>
 			<table>
 				<tr>
 					<th>ID</th>
@@ -52,15 +52,23 @@
 				<tr>
 					<th>이메일</th>
 					<td>
-						<input type="email" name="email">
+						<input type="text" name="email">
 						<select id="emailback">
+							<option selected="selected" label="직접입력"></option>
 							<option>@naver.com</option>
 							<option>@gmail.com</option>
 							<option>@hanmail.net</option>
-							<option selected="selected" label="직접입력"></option>
 						</select>
-						<input type="button" value="인증받기" onclick="emailchk()">
+						<input type="button" value="인증받기" onclick="emailChk()">
 						<span id="emailSpan"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>인증번호</th>
+					<td>
+						<input type="text" name="emailConfirm">
+						<input type="button" value="확인" onclick="emailCon()">
+						<span id="emailConSpan"></span>
 					</td>
 				</tr>
 				<tr>
