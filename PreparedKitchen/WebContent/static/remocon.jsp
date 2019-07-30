@@ -1,3 +1,5 @@
+<%@page import="com.pk.biz.ChatBiz"%>
+<%@page import="com.pk.dto.ChatDto"%>
 <%@page import="com.pk.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -7,51 +9,83 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<%
+	ChatBiz biz = new ChatBiz();
+%>
 <link rel="stylesheet" href="css/remocon.css"/>
 <script type="text/javascript">
 	
+	function enterkey() {
+		if (window.event.keyCode == 13) {
+			document.getElementById("sendMessage").click();
+		}
+	}
 	
 	function chatOn() {
 		var form = document.getElementById("chatform");
 		var chatBotForm = document.getElementById("chatBotForm");
+		var role = null;
 		
 		if(form.style.display == "block" || chatBotForm.style.display == "block") {
 			form.style.display = "none";
 			chatBotForm.style.display = "none";
+			if(role == "ADMIN") {
+				<%biz.outAdmin();%>
+			}else if(role == "USER") {
+				<%biz.outUser();%>
+			}
 			
 		}else {
 <%
 			MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
+			ChatDto cDto = biz.selectChatDao(1);
 
-			String chatAdmin = (String)application.getAttribute("chatadmin");
-			String chatUser = (String)application.getAttribute("chatuser");
-%>
-			<%-- var role = <%=mDto.getRole() %> --%>
-			var role = "user";
-			<%-- console.log("chatAdmin = " + <%=chatAdmin%> + " || chatUser = " + <%=chatUser%>); --%>
+			String has_admin = cDto.getHas_admin();
+			String has_user = cDto.getHas_user();
 			
-			if(role == "admin") {
+			if(mDto != null) {
+%>
+				role = "<%=mDto.getRole()%>";
+<%
+			}
+%>
+			has_admin = "<%=has_admin%>";
+			has_user = "<%=has_user%>";
+
+			console.log(has_admin);	
+			
+			if(role == "ADMIN" && has_admin == "N") {
 				form.style.display = "block";
 				window.open("chatclient.jsp", "chat", "");
+				<%biz.joinAdmin();%>
 				
-			}else if(role == "user") {
-				var chatAdmin = <%=chatAdmin%>;
-				var chatUser = <%=chatUser%>;
+			}else if(role == "USER") {
 				
-				if(chatAdmin == "1") {
-					if(chatUser == "1") {
+<%
+				cDto = biz.selectChatDao(1);
+
+				has_admin = cDto.getHas_admin();
+				has_user = cDto.getHas_user();
+%>
+				has_admin = "<%=has_admin%>";
+				has_user = "<%=has_user%>";
+				
+				
+				if(has_admin == "Y") {
+					if(has_user == "Y") {
+						
 						if(confirm("현재 다른 이용자가 상담중입니다. 챗봇을 이용하시겠습니까?")) {
 							chatBotForm.style.display = "block";
 						}
 						
-					}else {
+					}else if(has_user == "N"){
 						form.style.display = "block";
 						window.open("chatclient.jsp", "chat", "");
 						
 					}
 					
 				}else {
-					if(confirm("현재 다른 이용자가 상담중입니다. 챗봇을 이용하시겠습니까?")) {
+					if(confirm("현재 상담이 불가능 합니다. 챗봇을 이용하시겠습니까?")) {
 						chatBotForm.style.display = "block";
 					}
 				}
@@ -61,6 +95,8 @@
 					location.href = "login.jsp";
 				}
 			}
+
+			console.log("end "+has_admin);	
 		}
 	}
 
@@ -77,7 +113,7 @@
 				</ul>
 			</div>
 			<div id="chatInput">
-				<input id="inputMessage" type="text">
+				<input id="inputMessage" type="text" onkeyup="enterkey()">
 				<input id="sendMessage" type="button" value="전송">
 			</div>
 		</div>

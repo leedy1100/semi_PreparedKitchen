@@ -1,3 +1,5 @@
+<%@page import="com.pk.dto.ChatDto"%>
+<%@page import="com.pk.biz.ChatBiz"%>
 <%@page import="com.pk.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
@@ -8,25 +10,27 @@
 <title>Insert title here</title>
 </head> 
 <%
-	MemberDto mDto = (MemberDto)session.getAttribute("member");
+	MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
 	String role = mDto.getRole();
+	ChatBiz biz = new ChatBiz();
+	ChatDto cDto = biz.selectChatDao(1);
 %>
 	<script type="text/javascript">
-        var webSocket = new WebSocket("ws://localhost:8787/PreparedKitchen/chatserver");
+        var webSocket = new WebSocket("ws://192.168.10.147:8787/PreparedKitchen/chatserver");
         var chatContent = opener.document.getElementById("chatContentUl");
         var inputMessage = opener.document.getElementById("inputMessage");
      	
-        var role = <%=role%>;
+        var role = "<%=role%>";
+		console.log("client role " + role);
         
 	    webSocket.onerror = function(event) {
 	    	alert(event.data);
 	    };
 	    
 	    webSocket.onopen = function(event) {
-<%
-			application.setAttribute("chat"+role, "1");
-%>
-	    	/* console.log(role + "Ãª½ÃÀÛ"); */
+	    	console.log(role + "Ãª½ÃÀÛ"); 
+	    	
+			console.log("client "+ role + " <%=cDto.getHas_admin()%>");
 	    };
 	    
 	    webSocket.onmessage = function(event) {
@@ -35,12 +39,10 @@
 	    };
 	    
 	    webSocket.onclose = function(event) {
-			<%-- console.log("chatAdmin = " + <%=(String)application.getAttribute("chatadmin")%> + 
-						" || chatUser = " + <%=(String)application.getAttribute("chatuser")%>); --%>
-<%
-			application.setAttribute("chat"+role, "0");
-%>
-	    	/* console.log(role + "ÃªÁ¾·á"); */
+
+	    	console.log(role + "ÃªÁ¾·á");
+	    	
+			console.log("client "+ role + " <%=cDto.getHas_admin()%>");
 
 	    };
 	    
@@ -54,6 +56,8 @@
 					  + inputMessage.value
 					  + "</td></tr></table></li>");
 	        inputMessage.value = "";
+	        
+			console.log("client "+ role + " <%=cDto.getHas_admin()%>");
 	    });
 	    
 	    opener.document.getElementById("chat").addEventListener("click", function() {
