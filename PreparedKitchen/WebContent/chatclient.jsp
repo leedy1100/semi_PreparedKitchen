@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head> 
 <%
-	MemberDto mDto = (MemberDto)session.getAttribute("member");
+	MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
 	String role = mDto.getRole();
 %>
 	<script type="text/javascript">
@@ -16,7 +16,7 @@
         var chatContent = opener.document.getElementById("chatContentUl");
         var inputMessage = opener.document.getElementById("inputMessage");
      	
-        var role = <%=role%>;
+        var role = "<%=role%>";
         
 	    webSocket.onerror = function(event) {
 	    	alert(event.data);
@@ -26,7 +26,7 @@
 <%
 			application.setAttribute("chat"+role, "1");
 %>
-	    	/* console.log(role + "Ãª½ÃÀÛ"); */
+	    	console.log(role + "Ãª½ÃÀÛ"); 
 	    };
 	    
 	    webSocket.onmessage = function(event) {
@@ -40,7 +40,7 @@
 <%
 			application.setAttribute("chat"+role, "0");
 %>
-	    	/* console.log(role + "ÃªÁ¾·á"); */
+	    	console.log(role + "ÃªÁ¾·á");
 
 	    };
 	    

@@ -14,6 +14,7 @@
 	function chatOn() {
 		var form = document.getElementById("chatform");
 		var chatBotForm = document.getElementById("chatBotForm");
+		var role = null;
 		
 		if(form.style.display == "block" || chatBotForm.style.display == "block") {
 			form.style.display = "none";
@@ -23,23 +24,29 @@
 <%
 			MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
 
-			String chatAdmin = (String)application.getAttribute("chatadmin");
-			String chatUser = (String)application.getAttribute("chatuser");
-%>
-			<%-- var role = <%=mDto.getRole() %> --%>
-			var role = "user";
-			<%-- console.log("chatAdmin = " + <%=chatAdmin%> + " || chatUser = " + <%=chatUser%>); --%>
+			String chatAdmin = (String)application.getAttribute("chatADMIN");
+			String chatUser = (String)application.getAttribute("chatUSER");
 			
-			if(role == "admin") {
+			if(mDto != null) {
+%>
+			role = "<%=mDto.getRole()%>";
+			<%-- console.log("chatAdmin = " + <%=chatAdmin%> + " || chatUser = " + <%=chatUser%>); --%>
+<%
+			}
+%>
+			if(role == "ADMIN") {
 				form.style.display = "block";
 				window.open("chatclient.jsp", "chat", "");
+				console.log("chatAdmin = " + <%=chatAdmin%> + " || chatUser = " + <%=chatUser%>);
 				
-			}else if(role == "user") {
+			}else if(role == "USER") {
 				var chatAdmin = <%=chatAdmin%>;
 				var chatUser = <%=chatUser%>;
+				console.log("chatAdmin = " + <%=chatAdmin%> + " || chatUser = " + <%=chatUser%>);
 				
 				if(chatAdmin == "1") {
 					if(chatUser == "1") {
+						
 						if(confirm("현재 다른 이용자가 상담중입니다. 챗봇을 이용하시겠습니까?")) {
 							chatBotForm.style.display = "block";
 						}
