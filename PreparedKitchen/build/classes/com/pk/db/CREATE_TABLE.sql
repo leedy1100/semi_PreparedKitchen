@@ -55,7 +55,7 @@ CREATE TABLE RECIPEBOARD(
 );
 
 SELECT * FROM RECIPEBOARD;
-             45 dd  f                 <p><img style="width: 370px;" src="/PreparedKitchen/upload/cat cat.jpeg"><br></p>    2019-07-29 21:10:55.0                     0                0
+             45 dd  f                 <p>src<img style="width: 370px;" src="/PreparedKitchen/upload/cat cat.jpeg"><br>asdfasf</p>    2019-07-29 21:10:55.0                     0                0
 
 
 INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'홍길동','토마토파스타','맛있습니다.',SYSDATE,0,0);
@@ -98,16 +98,18 @@ SELECT * FROM LIKETABLE;
 ---------------------------------------------------------------
 
 DROP SEQUENCE RECIPECOMMENTSEQ;
+DROP SEQUENCE RECIPECOMMENTGROUPSEQ;
 DROP TABLE RECIPECOMMENT;
 
 CREATE SEQUENCE RECIPECOMMENTSEQ;
+CREATE SEQUENCE RECIPECOMMENTGROUPSEQ;
 CREATE TABLE RECIPECOMMENT(
 
 	COMMENT_NO 			NUMBER 			PRIMARY KEY,
 	RECIPEBOARD_NO		NUMBER 			NOT NULL,
 	ID					VARCHAR2(500) 	NOT NULL,
 	COMMENT_CONTENT 	VARCHAR2(4000) 	NOT NULL,
-	COMMENT_REGDATE 	VARCHAR2(500) 	NOT NULL,
+	COMMENT_REGDATE 	DATE		 	NOT NULL,
 	COMMENT_GROUPNO 	NUMBER 			NOT NULL,
 	COMMENT_ORDER 		NUMBER 			NOT NULL,
 	COMMENT_TAB 		NUMBER 			NOT NULL,

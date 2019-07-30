@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.websocket.Session;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -87,7 +86,7 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		
 		try {
 			session = getSqlSessionFactory().openSession(true);
-			res = session.update(namespace + "insert", dto);
+			res = session.insert(namespace + "insert", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.close();

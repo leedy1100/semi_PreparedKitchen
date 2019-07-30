@@ -2,4 +2,75 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="commentmapper">
 
+	<select id="selectListCmt" resultType="commentDto">
+		SELECT COMMENT_NO, RECIPEBOARD_NO, ID, COMMENT_CONTENT, COMMENT_REGDATE, COMMENT_GROUPNO, COMMENT_ORDER, COMMENT_TAB
+		FROM RECIPECOMMENT
+		ORDER BY COMMENT_NO DESC, COMMENT_ORDER;
+	</select>
+	
+	<select id="selectOneCmt" resultType="commentDto">
+		SELECT COMMENT_NO, RECIPEBOARD_NO, ID, COMMENT_CONTENT, COMMENT_REGDATE, COMMENT_GROUPNO, COMMENT_ORDER, COMMENT_TAB
+		FROM RECIPECOMMENT
+		WHERE COMMENT_NO = #{comment_no}
+		
+	</select>
+
+	<insert id="insertCmt" parameterType="commentDto">
+		INSERT INTO RECIPECOMMENT
+		VALUES(RECIPECOMMENTSEQ.NEXTVAL,#{recipeboard_no},#{id},#{comment_content},SYSDATE,
+		RECIPECOMMENTGROUPSEQ.NEXTVAL,#{comment_order},#{comment_tab}
+		)
+	</insert>
+	
+	<update id="updateGroupNO" parameterType="int">
+		UPDATE RECIPECOMMENT
+		SET COMMENT_ORDER = COMMENT_ORDER + 1
+		WHERE COMMENT_GROUPNO = 
+		(
+			SELECT COMMENT_GROUPNO
+			FROM RECIPECOMMENT
+			WHERE COMMENT_NO = #{comment_no}
+		)
+		AND COMMENT_ORDER <![CDATA[>]]>
+		(
+			SELECT COMMENT_ORDER
+			FROM RECIPECOMMENT
+			WHERE COMMENT_NO = #{comment_no}
+		)
+	</update>
+	
+	<insert id="insertCmtCmt" parameterType="commentDto">
+		INSERT INTO RECIPECOMMENT
+		VALUES(RECIPECOMMENTSEQ.NEXTVAL, #{recipeboard_no},#{comment_content},SYSDATE
+			(
+				SELECT COMMENT_GROUPNO
+				FROM RECIPECOMMENT
+				WHERE COMMENT_NO = #{comment_no}
+			),
+			(
+				SELECT COMMENT_ORDER
+				FROM RECIPECOMMENT
+				WHERE COMMENT_NO = #{comment_no} 
+			) + 1,
+			(
+				SELECT COMMENT_TAB
+				FROM RECIPECOMMENT
+				WHERE COMMENT_NO = #{comment_no} 
+			) + 1
+		)
+		
+	</insert>
+	
+	<update id="updateCmt" parameterType="commentDto">
+		UPDATE RECIPECOMMENT 
+		SET COMMENT_CONTENT = #{comment_content}
+		WHERE COMMENT_NO = #{comment_no}
+	</update>
+	
+	<delete id="deleteCmt" parameterType="int">
+		UPDATE RECIPECOMMENT 
+		SET COMMENT_CONTENT = '삭제된 글 입니다'
+		WHERE COMMENT_NO = #{comment_no} 
+	</delete>
+	
 </mapper>
