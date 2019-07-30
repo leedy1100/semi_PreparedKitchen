@@ -86,7 +86,7 @@
 				<tr>
 					<td colspan="2">
 						<input type="submit" value="확인">
-						<input type="button" value="취소" onclick="location.href='login.do?command=login'">
+						<input type="button" value="취소" onclick="location.href='login.do?command=gologin'">
 					</td>
 				</tr>
 			</table>
