@@ -66,6 +66,7 @@ public class RecipeComment extends HttpServlet {
 				HashMap<String, Object> cmt = new HashMap<String, Object>();
 				cmt.put("id", id);
 				cmt.put("comment_content", comment_content);
+				cmt.put("comment_regdate", dto.getComment_regdate());
 				
 				PrintWriter out = response.getWriter();
 				out.print(cmt);
