@@ -24,6 +24,7 @@
 				success:function(msg){	//통신에 성공했을 때
 						$('#cmtid').text(msg.id);
 						$('#cmtcontent').text(msg.comment_content);
+						$('#cmtregdate').text(msg.comment_regdate);
 				}, error:function(request, error){	//통신에 실패했을 때
 					alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 				}
@@ -60,7 +61,7 @@
 			<td colspan="2">
 				<textarea rows="5" cols="60" id="cmtcontent"></textarea>
 			</td>
-			<td>
+			<td id="cmtregdate">
 				작성날짜
 			</td>
 			<td>
