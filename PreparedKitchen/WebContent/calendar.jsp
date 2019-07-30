@@ -38,6 +38,11 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
 
         	locale:'ko',
+        	
+        	 resources: {
+        		    url: 'json/data.json',
+        		    method: 'POST'
+        		  },
 
           plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
           header: {
