@@ -25,4 +25,10 @@
   	WHERE ID = #{id} AND PW = #{pw}
   </select>
   
+  <select id="emailchk" parameterType="String" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE EMAIL = #{email}
+  </select>
+  
 </mapper>
