@@ -176,7 +176,21 @@ public class Login extends HttpServlet {
 			out.println("alert('메일인증을 해주세요.');");
 			out.println("history.back();");
 			out.println("</script>");
+			
+		} else if(command.equals("kakaologin")) {
+			
+			String id = request.getParameter("id");
+			String name = request.getParameter("nickname");
+			
+			MemberDto dto = new MemberDto();
+			dto.setId(id);
+			dto.setName(name);
+			
+			session.setAttribute("memberDto", dto);
+			response.sendRedirect("index.jsp");
+			
 		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
