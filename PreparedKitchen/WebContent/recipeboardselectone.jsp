@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="static/base.css" />
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 /*
 	$(function(){
@@ -35,7 +35,7 @@
 				url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",	//전송할 경로
 				method:"get",	//전송방식 get(), post()
 				async:true,		// 비동기(default)
-				dateType:"script",	//전송받을 datatype : xml,json,html,script
+				dateType:"text",	//전송받을 datatype : xml,json,html,script
 				//data{"key","value"}	//서버에 전송할 데이터
 				success:function(msg){	//통신에 성공했을 때
 					if(msg == "nologin"){
@@ -106,6 +106,7 @@
 				</td>
 			</tr>
 		</table>
+	<%@ include file="recipecomment.jsp"%>
 	</section>
 	<%@ include file="static/remocon.jsp"%>
 	<footer>
