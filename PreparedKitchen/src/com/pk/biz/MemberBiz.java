@@ -33,5 +33,10 @@ public class MemberBiz {
 		
 		return memberDao.emailchk(email);
 	}
+	
+	public int updateinfo(MemberDto dto) {
+		
+		return memberDao.updateinfo(dto);
+	}
 
 }
