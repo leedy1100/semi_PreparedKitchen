@@ -67,7 +67,6 @@ public class ChatDao extends SqlMapConfig {
 		try {
 			session = getSqlSessionFactory().openSession(false);
 			res = session.update(namespace + "joinUser");
-			
 			if(res > 0) {
 				session.commit();
 			}

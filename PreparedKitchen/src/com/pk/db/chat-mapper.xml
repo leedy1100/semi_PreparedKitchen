@@ -11,21 +11,25 @@
 	<update id="joinAdmin">
 		UPDATE CHAT
 		SET HAS_ADMIN = 'Y'
+		WHERE ROOM = 1
 	</update>
 	
 	<update id="outAdmin">
 		UPDATE CHAT
 		SET HAS_ADMIN = 'N'
+		WHERE ROOM = 1
 	</update>
 	
 	<update id="joinUser">
 		UPDATE CHAT
 		SET HAS_USER = 'Y'
+		WHERE ROOM = 1
 	</update>
 	
 	<update id="outUser">
 		UPDATE CHAT
 		SET HAS_USER = 'N'
+		WHERE ROOM = 1
 	</update>
 
 </mapper>
