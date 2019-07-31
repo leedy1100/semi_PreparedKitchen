@@ -56,7 +56,6 @@ CREATE TABLE RECIPEBOARD(
 );
 
 SELECT * FROM RECIPEBOARD;
-             45 dd  f                 <p>src<img style="width: 370px;" src="/PreparedKitchen/upload/cat cat.jpeg"><br>asdfasf</p>    2019-07-29 21:10:55.0                     0                0
 
 
 INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'홍길동','토마토파스타','맛있습니다.',SYSDATE,0,0);
@@ -119,6 +118,7 @@ CREATE TABLE RECIPECOMMENT(
 	REFERENCES RECIPEBOARD(RECIPEBOARD_NO)
 );
 
+SELECT * FROM RECIPECOMMENT;
 ---------------------------------------------------------------
 
 DROP SEQUENCE MATERIALSEQ;
