@@ -22,7 +22,7 @@
 			chatForm.style.display = "none";
 			chatBotForm.style.display = "none";
 		}else {
-			window.open("chatclient.jsp", "chat", "");
+			window.open("chatcontroll.jsp", "chat", "");
 		}
 	}
 

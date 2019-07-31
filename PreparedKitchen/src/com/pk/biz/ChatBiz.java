@@ -21,10 +21,10 @@ public class ChatBiz {
 		dao.outAdmin();
 	}
 	public void joinUser() {
-		dao.joinAdmin();
+		dao.joinUser();
 	}
 	
 	public void outUser() {
-		dao.outAdmin();
+		dao.outUser();
 	}
 }
