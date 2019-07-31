@@ -75,14 +75,13 @@ function emailChk() {
 
 				} else {
 
-					emailSpan.html("인증번호가 발송되었습니다.");
-
 					$.ajax({
 						type : "POST",
 						url : "login.do?command=sendemail&email=" + email,
 						dataType : "text",
 						success : function(data) {
 							ran = $.trim(data);
+							emailSpan.html("인증번호가 발송되었습니다.");
 						},
 						error : function() {
 							alert("통신실패")

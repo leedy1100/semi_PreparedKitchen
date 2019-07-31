@@ -38,7 +38,7 @@ public class MemberDao extends SqlMapConfig{
 		
 		try {
 			session = getSqlSessionFactory().openSession(false);
-			res = session.insert(namespace+"signup", dto);
+			res = session.insert(namespace+"signUp", dto);
 			
 			if(res > 0) {
 				session.commit();
@@ -60,7 +60,7 @@ public class MemberDao extends SqlMapConfig{
 		
 		try {
 			session = getSqlSessionFactory().openSession(false);
-			dto = session.selectOne(namespace+"idchk", id);
+			dto = session.selectOne(namespace+"idChk", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -95,7 +95,7 @@ public class MemberDao extends SqlMapConfig{
 		
 		try {
 			session = getSqlSessionFactory().openSession(false);
-			dto = session.selectOne(namespace+"emailchk", email);
+			dto = session.selectOne(namespace+"emailChk", email);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -103,6 +103,30 @@ public class MemberDao extends SqlMapConfig{
 		}
 		
 		return dto;
+	}
+	
+	public int kakaoLogin(String id, String name) {
+		
+		SqlSession session = null;
+		int res = 0;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("name", name);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.insert(namespace+"kakaoLogin", map);
+			if(res > 0) {
+				session.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
 	}
 
 }
