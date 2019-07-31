@@ -53,7 +53,7 @@
 					<th>이메일</th>
 					<td>
 						<input type="text" name="email">
-						<select id="emailback">
+						<select id="emailback" name="emailback">
 							<option selected="selected" label="직접입력"></option>
 							<option>@naver.com</option>
 							<option>@gmail.com</option>

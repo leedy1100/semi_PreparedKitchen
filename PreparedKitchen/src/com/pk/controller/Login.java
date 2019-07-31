@@ -57,7 +57,7 @@ public class Login extends HttpServlet {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
-			String email = request.getParameter("email");
+			String email = request.getParameter("email") + request.getParameter("emailback");
 			String phone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
 			String addr = request.getParameter("addr");
 			String birth = request.getParameter("birth");
@@ -182,9 +182,17 @@ public class Login extends HttpServlet {
 			String id = request.getParameter("id");
 			String name = request.getParameter("nickname");
 			
-			MemberDto dto = new MemberDto();
-			dto.setId(id);
-			dto.setName(name);
+			MemberDto dto = biz.idchk(id);
+			
+			if(dto == null) {
+				
+				int res = biz.kakaoLogin(id, name);
+				
+				if(res > 0) {
+					System.out.println("카카오 로그인 회원 db저장");
+					dto = biz.idchk(id);
+				}
+			}
 			
 			session.setAttribute("memberDto", dto);
 			response.sendRedirect("index.jsp");

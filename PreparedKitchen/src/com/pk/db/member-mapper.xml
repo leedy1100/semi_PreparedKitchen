@@ -8,13 +8,13 @@
 	ORDER BY REGDATE DESC
   </select>
   
-  <select id="idchk" parameterType="String" resultType="memberDto">
+  <select id="idChk" parameterType="String" resultType="memberDto">
   	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
   	FROM MEMBER
   	WHERE ID = #{id}
   </select>
   
-  <insert id="signup" parameterType="memberDto">
+  <insert id="signUp" parameterType="memberDto">
   	INSERT INTO MEMBER
   	VALUES(#{id}, #{pw}, #{name}, #{email}, #{phone}, #{addr}, 'Y', #{birth}, SYSDATE, 'USER')
   </insert>
@@ -22,13 +22,18 @@
   <select id="login" parameterType="map" resultType="memberDto">
   	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
   	FROM MEMBER
-  	WHERE ID = #{id} AND PW = #{pw}
+  	WHERE ID = #{id} AND PW = #{pw} AND BIRTH != 'KAKAO'
   </select>
   
-  <select id="emailchk" parameterType="String" resultType="memberDto">
+  <select id="emailNhk" parameterType="String" resultType="memberDto">
   	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
   	FROM MEMBER
   	WHERE EMAIL = #{email}
   </select>
+  
+  <insert id="kakaoLogin" parameterType="map">
+  	INSERT INTO MEMBER
+  	VALUES(#{id}, 'KAKAO', #{name}, 'KAKAO', 'KAKAO', 'KAKAO', 'Y', 'KAKAO', SYSDATE, 'USER')
+  </insert>
   
 </mapper>
