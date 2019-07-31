@@ -7,6 +7,8 @@ public class ChatBiz {
 	
 	ChatDao dao = new ChatDao();
 	
+	public ChatBiz() {}
+	
 	public ChatDto selectChatDao(int room) {
 		return dao.selectChatDto(room);
 	}
