@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% request.setCharacterEncoding("UTF-8"); %>
+<% response.setContentType("text/html; charset=UTF-8"); %>
 <!DOCTYPE html>
 
 <html lang='ko'>
@@ -14,6 +17,9 @@
 	<script src='packages/daygrid/main.js'></script>
 	<script src='packages/timegrid/main.js'></script>
     <script src='packages/core/locales/ko.js'></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="packages/moment-timezone/main.js"></script>
+    <script src="packages/moment/main.js"></script>
 
     <style type="text/css">
 
@@ -39,10 +45,8 @@
 
         	locale:'ko',
         	
-        	 resources: {
-        		    url: 'json/data.json',
-        		    method: 'POST'
-        		  },
+        	
+            
 
           plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
           header: {
