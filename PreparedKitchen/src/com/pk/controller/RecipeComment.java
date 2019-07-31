@@ -73,7 +73,7 @@ public class RecipeComment extends HttpServlet {
 			}
 
 			JSONObject jobj = new JSONObject();
-			jobj.put("cmt", result);
+			jobj.put("result", result);
 			
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
