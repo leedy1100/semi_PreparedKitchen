@@ -16,7 +16,8 @@
 	ChatDto cDto = biz.selectChatDao(1);
 %>
 	<script type="text/javascript">
-        var webSocket = new WebSocket("ws://192.168.10.147:8787/PreparedKitchen/chatserver");
+       // var webSocket = new WebSocket("ws://192.168.10.147:8787/PreparedKitchen/chatserver");
+       var webSocket = new WebSocket("ws://localhost:8787/PreparedKitchen/chatserver");
         var chatContent = opener.document.getElementById("chatContentUl");
         var inputMessage = opener.document.getElementById("inputMessage");
      	

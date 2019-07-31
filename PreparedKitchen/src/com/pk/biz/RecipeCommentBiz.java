@@ -1,5 +1,6 @@
 package com.pk.biz;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.pk.dao.RecipeCommentDao;
@@ -9,15 +10,15 @@ public class RecipeCommentBiz {
 
 	RecipeCommentDao recipeCommentDao = new RecipeCommentDao();
 
-	public List<RecipeCommentDto> selectListCmt() {
-		return recipeCommentDao.selectListCmt();
+	public List<RecipeCommentDto> selectListCmt(int no) {
+		return recipeCommentDao.selectListCmt(no);
 	}
 
 	public RecipeCommentDto selectOneCmt(int no) {
 		return recipeCommentDao.selectOneCmt(no);
 	}
 
-	public int insertCmt(RecipeCommentDto dto) {
+	public HashMap<String, Object> insertCmt(RecipeCommentDto dto) {
 		return recipeCommentDao.insertCmt(dto);
 	}
 

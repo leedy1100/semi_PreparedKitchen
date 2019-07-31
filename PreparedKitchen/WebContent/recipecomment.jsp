@@ -13,31 +13,52 @@
 	$(function() {
 		$('#recipeCmt').click(function(){
 			
-			var queryString = $("form[name=cmtinsert]").serialize();
+			var queryString = $("form[name=cmtform]").serialize();
 			
 			$.ajax({
-				url:"recipeComment.do?command=cmt",	//전송할 경로
+				url:"recipeComment.do",	//전송할 경로
 				data : queryString,
 				method:"post",	//전송방식 get(), post()
 				async:true,		// 비동기(default)
-				dateType:"text",	//전송받을 datatype : xml,json,html,script
-				success:function(msg){	//통신에 성공했을 때
-						$('#cmtid').text(msg.id);
-						$('#cmtcontent').text(msg.comment_content);
-						$('#cmtregdate').text(msg.comment_regdate);
+				dateType:"json",	//전송받을 datatype : xml,json,html,script
+				success:function(data){	//통신에 성공했을 때
+					$(data).each(function() {
+						var str = this.comment_content;
+					});
+					
 				}, error:function(request, error){	//통신에 실패했을 때
 					alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 				}
 			});				
+				$("#cmtid").html(str);
 		});
 		
 	});
+	
+	$(function() {
+		getCommentList();
+	});
+	
+	function getCommentList(){
+		$.ajax({
+			type:"GET",
+			url:"recipeComment.do",
+			dataType:"json",
+			data:$("#cmtform").serialize(),
+			success:function(data){
+				
+				}
+			}
+				
+		});
+	}
 	
 </script>
 </head>
 <body>
 	
-	<form action="recipeComment.do" method="post" name="cmtinsert">
+	<form action="recipeComment.do" method="post" id="cmtform" name="cmtform">
+		<input type="hidden" name="command" value="cmt" />
 		<input type="hidden" name="recipeBoard_no" value="${recipeBoardDto.recipeBoard_no }"/>
 		<input type="hidden" name="comment_order" value="1"/>
 		<input type="hidden" name="comment_tab" value="0"/>
@@ -55,8 +76,8 @@
 	
 	<table border="1">
 		<tr>
-			<td colspan="2" id="cmtid">
-				아이디: 
+			<td colspan="2">
+				아이디:<div id="cmtid">ㅎㅎ</div> 
 			</td>
 			<td colspan="2">
 				<textarea rows="5" cols="60" id="cmtcontent"></textarea>
@@ -70,5 +91,9 @@
 			</td>
 		</tr>
 	</table>
+	 <form id="commentListForm" name="commentListForm" method="post">
+        <div id="commentList">
+        </div>
+    </form>
 </body>
 </html>
