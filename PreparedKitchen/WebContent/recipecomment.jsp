@@ -11,10 +11,26 @@
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
-// Perform an asynchronous HTTP (Ajax) request.
-// 비동기 통신 Ajax를 Setting한다.
-
 $(function() {
+	
+		$.ajax({
+	        url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
+	        dataType:"text",
+	        // data:{}에서는 EL을 ""로 감싸야 한다. 이외에는 그냥 사용한다.
+	        success:function(data) {// 서버에 대한 정상응답이 오면 실행, callback
+				
+	        		var jdata =JSON.parse(data);
+	        		var jdata2 = jdata.comments;
+					console.log("comment 정상입력");
+					$("#comment_content").val("");
+					showAllCmt(jdata2);
+				
+	        },error:function(request, error){	//통신에 실패했을 때
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+	        
+	    });
+		
 	
 	
 	$("#commentWrite").click(function() {
@@ -27,12 +43,14 @@ $(function() {
             dataType:"text",
             // data:{}에서는 EL을 ""로 감싸야 한다. 이외에는 그냥 사용한다.
             success:function(data) {// 서버에 대한 정상응답이 오면 실행, callback
-            	alert(data);
-				if(data != null){
+				if(data == "comment null"){
+					alert("댓글을 입력해주세요.")
+				}else if(data != null){
+            		var jdata =JSON.parse(data);
+            		var jdata2 = jdata.result;
 					console.log("comment 정상입력");
 					$("#comment_content").val("");
-					showCmt(data.comments);
-					
+					showAllCmt(jdata2);
 				}
             },error:function(request, error){	//통신에 실패했을 때
 				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -42,27 +60,51 @@ $(function() {
     });
 });
 
-function showCmt(data) {
-	var html = "<table border='1'>";
-	html += "<td>" + "test" + "</td>";
-	$.each(data,function(index,item){
-		html += "<tr>";
-		html += "<td>" + item.id + "</td>";
-		html += "<td>" + item.comment_content + "</td>";
-		html += "<td>" + item.comment_regdate + "</td>";
-		html += "</tr>";
-	});
+
+	function showCmt(data) {
+		var html = "<table border='1'>";
+			if(data == null){
+				$("#comment_content").text("댓글이 없습니다.");
+			}else{
+			for (var i = 0; i < data.length; i++) {
+
+				html += "<tr>";
+				html += "<td>" + data[i].id + "</td>";
+				html += "<td>" + data[i].comment_content + "</td>";
+				html += "<td>" + data[i].comment_regdate + "</td>";
+				html += "</tr>";
+			}
+
+			html += "</table>";
+
+			$("#showComment").html(html);
+			$("#commentContent").val("");
+			$("#commentContent").focus();
+		}
+	}
 	
-	html += "</table>";
+	function showAllCmt(data) {
+		var html = "<table border='1'>";
+			if(isEmpty(data)){
+				$("#showAllComment").text("작성된 댓글이 없습니다");
+			}else{
+			for (var i = 0; i < data.length; i++) {
+
+				html += "<tr>";
+				html += "<td>" + data[i].id + "</td>";
+				html += "<td>" + data[i].comment_content + "</td>";
+				html += "<td>" + data[i].comment_regdate + "</td>";
+				html += "</tr>";
+			}
+
+			html += "</table>";
+
+			$("#showAllComment").html(html);
+			$("#commentContent").val("");
+			$("#commentContent").focus();
+		}
+	}
 	
-	$("#showComment").html(html);
-	$("#commentContent").val("");
-    $("#commentContent").focus();
-
-
-}
-
-
 </script>
 </head>
 <body>
@@ -79,14 +121,13 @@ function showCmt(data) {
         <c:if test="${memberDto.id != null}">
             <input type="button" value="댓글 쓰기" id="commentWrite">
         </c:if>
-        <input type="button" value="댓글 읽기()" 
-                onclick="getComment(1, event)" id="commentRead">
        </form> 
 </div>
  
 <!-- Comment 태그 추가 -->
 <div class="input-group" role="group" aria-label="..." style="margin-top: 10px; width: 100%;">
-    <div id="showComment" style="text-align: center;"></div>
+    <hr/>
+    <div id="showAllComment" style="text-align: center;"></div>
 </div>
 
 

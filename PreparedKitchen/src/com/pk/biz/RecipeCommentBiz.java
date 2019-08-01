@@ -3,6 +3,8 @@ package com.pk.biz;
 import java.util.HashMap;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+
 import com.pk.dao.RecipeCommentDao;
 import com.pk.dto.RecipeCommentDto;
 
@@ -10,6 +12,10 @@ public class RecipeCommentBiz {
 
 	RecipeCommentDao recipeCommentDao = new RecipeCommentDao();
 
+	public JSONArray selectListCmt2(int no) {
+		return recipeCommentDao.selectListCmt2(no);
+	}
+	
 	public List<RecipeCommentDto> selectListCmt(int no) {
 		return recipeCommentDao.selectListCmt(no);
 	}
@@ -18,7 +24,7 @@ public class RecipeCommentBiz {
 		return recipeCommentDao.selectOneCmt(no);
 	}
 
-	public HashMap<String, Object> insertCmt(RecipeCommentDto dto) {
+	public JSONArray insertCmt(RecipeCommentDto dto) {
 		return recipeCommentDao.insertCmt(dto);
 	}
 

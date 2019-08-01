@@ -16,6 +16,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.pk.biz.RecipeCommentBiz;
 import com.pk.dto.MemberDto;
 import com.pk.dto.RecipeCommentDto;
@@ -49,44 +51,68 @@ public class RecipeComment extends HttpServlet {
 
 		String command = request.getParameter("command");
 		RecipeCommentBiz recipeCommentBiz = new RecipeCommentBiz();
-
+		
 		if (command.equals("cmt")) {
+			
+			String ccon = request.getParameter("comment_content");
+			
+			if (ccon.trim().equals("") ||ccon == null) {
+				PrintWriter out = response.getWriter();
+				out.print("comment null");
+			} else {
 
+				int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
+				int comment_order = Integer.parseInt(request.getParameter("comment_order"));
+				int comment_tab = Integer.parseInt(request.getParameter("comment_tab"));
+				String id = memberDto.getId();
+				String comment_content = request.getParameter("comment_content");
+				JSONArray result = new JSONArray();
+
+				RecipeCommentDto dto = new RecipeCommentDto();
+				dto.setRecipeBoard_no(recipeBoard_no);
+				dto.setComment_order(comment_order);
+				dto.setComment_tab(comment_tab);
+				dto.setId(id);
+				dto.setComment_content(comment_content);
+
+				try {
+					result = recipeCommentBiz.insertCmt(dto);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				JSONObject jobj = new JSONObject();
+				jobj.put("result", result);
+
+				JsonParser parser = new JsonParser();
+				JsonElement element = parser.parse(jobj.toString());
+
+				System.out.println("element : " + element);
+				PrintWriter out = response.getWriter();
+				out.print(element);
+
+			}
+
+		} else if (command.equals("cmtread")) {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
-			int comment_order = Integer.parseInt(request.getParameter("comment_order"));
-			int comment_tab = Integer.parseInt(request.getParameter("comment_tab"));
-			String id = memberDto.getId();
-			String comment_content = request.getParameter("comment_content");
-			HashMap<String, Object> result = new HashMap<String, Object>();
-
-			RecipeCommentDto dto = new RecipeCommentDto();
-			dto.setRecipeBoard_no(recipeBoard_no);
-			dto.setComment_order(comment_order);
-			dto.setComment_tab(comment_tab);
-			dto.setId(id);
-			dto.setComment_content(comment_content);
+			JSONArray comments = new JSONArray();
 			
 			try {
-				result = recipeCommentBiz.insertCmt(dto);
+				comments = recipeCommentBiz.selectListCmt2(recipeBoard_no);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-		}else if(command.equals("cmtread")) {
-			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
-			List<RecipeCommentDto> comments = null;
-			
-			try {
-				comments = recipeCommentBiz.selectListCmt(recipeBoard_no);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			JSONArray jsonArr = new JSONArray();
-			jsonArr.add(comments);
+
+			JSONObject jobj = new JSONObject();
+			jobj.put("comments", comments);
+
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(jobj.toString());
+
+			System.out.println("element2 : " + element);
 			PrintWriter out = response.getWriter();
-			out.print(jsonArr);
-			
+			out.print(element);
+
 		}
 
 	}
