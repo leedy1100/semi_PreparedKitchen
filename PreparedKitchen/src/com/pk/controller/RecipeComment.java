@@ -57,7 +57,7 @@ public class RecipeComment extends HttpServlet {
 			int comment_tab = Integer.parseInt(request.getParameter("comment_tab"));
 			String id = memberDto.getId();
 			String comment_content = request.getParameter("comment_content");
-			HashMap<String, Object> result = null;
+			HashMap<String, Object> result = new HashMap<String, Object>();
 
 			RecipeCommentDto dto = new RecipeCommentDto();
 			dto.setRecipeBoard_no(recipeBoard_no);
@@ -65,20 +65,13 @@ public class RecipeComment extends HttpServlet {
 			dto.setComment_tab(comment_tab);
 			dto.setId(id);
 			dto.setComment_content(comment_content);
-
+			
 			try {
 				result = recipeCommentBiz.insertCmt(dto);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			JSONObject jobj = new JSONObject();
-			jobj.put("result", result);
 			
-			response.setContentType("application/json");
-			PrintWriter out = response.getWriter();
-			out.print(jobj);
-
 		}else if(command.equals("cmtread")) {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
 			List<RecipeCommentDto> comments = null;

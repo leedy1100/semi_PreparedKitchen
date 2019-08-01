@@ -20,23 +20,19 @@ public class Chat extends HttpServlet {
 		String command = request.getParameter("command");
 		String role = request.getParameter("role");
 		
-		System.out.println("서블릿 접속");
-		
 		if(command.equals("join")) {
 			if(role.equals("ADMIN")) {
 				biz.joinAdmin();
-				System.out.println("admin 접속");
+				
 			}else if(role.equals("USER")) {
 				biz.joinUser();
-				System.out.println("user 접속");
 			}
 		}else if(command.equals("out")) {
 			if(role.equals("ADMIN")) {
 				biz.outAdmin();
-				System.out.println("admin 접속 종료");
+				
 			}else if(role.equals("USER")) {
 				biz.outUser();
-				System.out.println("user 접속 종료");
 			}
 		}
 	}

@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email") + request.getParameter("emailback");
 			String phone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
-			String addr = request.getParameter("addr");
+			String addr = request.getParameter("addr1") + request.getParameter("addr2");
 			String birth = request.getParameter("birth");
 			
 			MemberDto dto = new MemberDto();
@@ -117,12 +117,11 @@ public class Login extends HttpServlet {
 		} else if(command.equals("emailchk")) {
 			
 			String email = request.getParameter("email");
-			
+			System.out.println(email);
 			MemberDto dto = biz.emailchk(email);
-			
 			if(dto != null) {
 				out.println(dto.getEmail());
-				
+				System.out.println(dto.getEmail());
 			}
 			
 		} else if(command.equals("sendemail")) {
