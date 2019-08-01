@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email") + request.getParameter("emailback");
 			String phone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
-			String addr = request.getParameter("addr");
+			String addr = request.getParameter("addr1") + request.getParameter("addr2");
 			String birth = request.getParameter("birth");
 			
 			MemberDto dto = new MemberDto();

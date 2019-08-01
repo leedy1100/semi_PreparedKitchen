@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<script type="text/javascript" src="js/signup.js"></script>
+
 <link rel="stylesheet" href="static/base.css"/>
 
 </head>
@@ -73,7 +75,17 @@
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="addr"></td>
+					<td>
+						<input type="text" name="addr1" placeholder="주소찾기 버튼을 눌러주세요" readonly="readonly" style="width: 300px;">
+						<input type="button" value="주소찾기" onclick="searchAddr()">
+					</td>
+				</tr>
+				<tr>
+					<th>상세주소</th>
+					<td>
+						<input type="text" name="addr2" placeholder="상세주소">
+						<input type="text" name="addr3" placeholder="참고사항" readonly="readonly">
+					</td>
 				</tr>
 				<tr>
 					<th>핸드폰</th>
