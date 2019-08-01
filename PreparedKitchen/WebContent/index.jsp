@@ -22,11 +22,8 @@
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<a href="recipeboard.do?command=list">recipeboardlist테스트용</a>
-<<<<<<< HEAD
 		<a href="member.do?command=mypage">MY PAGE</a>
-=======
-		<a href="login.do?command=mypage">MY PAGE</a>
->>>>>>> refs/remotes/origin/KSW
+
 	</section>
 
 	<%@ include file="static/remocon.jsp" %>
