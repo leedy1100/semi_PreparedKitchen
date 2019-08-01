@@ -41,6 +41,9 @@
 				<input type="button" value="회원가입" onclick="location.href='login.do?command=signup'">
 				<input type="submit" value="로그인">
 			</div>
+			<div>
+				<a href="javascript:forgot()" style="text-decoration: none;">아이디 / 비밀번호를 잊어버리셨나요?</a>
+			</div>
 		</form>
 	</div>
 	
