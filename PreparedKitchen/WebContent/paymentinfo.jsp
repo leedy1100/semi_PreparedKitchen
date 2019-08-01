@@ -23,10 +23,17 @@
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<h1>PAYMENT LIST</h1>
+<<<<<<< HEAD
 		<input type="button" value="회원 정보" class="button01" onclick="location.href='member.do?command=mypage'">
 		<input type="button" value="내가 쓴 글" class="button01" onclick="">
 		<input type="button" value="식단 관리" class="button01" onclick="">
 		<input type="button" value="장바구니" class="button01" onclick="location.href='member.do?command=cart'">
+=======
+		<input type="button" value="회원 정보" class="button01" onclick="location.href='login.do?command=mypage'">
+		<input type="button" value="내가 쓴 글" class="button01" onclick="">
+		<input type="button" value="식단 관리" class="button01" onclick="">
+		<input type="button" value="장바구니" class="button01" onclick="location.href='login.do?command=cart'">
+>>>>>>> refs/remotes/origin/KSW
 		<input type="button" value="관심 레시피" class="button01" onclick="">
 		<input type="button" value="결제 내역" class="button01">
 		<br/><br/>

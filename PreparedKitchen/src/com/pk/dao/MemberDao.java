@@ -104,7 +104,7 @@ public class MemberDao extends SqlMapConfig{
 		
 		return dto;
 	}
-	
+
 	public int kakaoLogin(String id, String name) {
 		
 		SqlSession session = null;
@@ -129,6 +129,7 @@ public class MemberDao extends SqlMapConfig{
 		return res;
 	}
 	
+
 	public int updateinfo(MemberDto dto) {
 		SqlSession session = null;
 		int res = 0;

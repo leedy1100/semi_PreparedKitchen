@@ -33,12 +33,13 @@ public class MemberBiz {
 		
 		return memberDao.emailchk(email);
 	}
-	
+
 	public int kakaoLogin(String id, String name) {
 		
 		return memberDao.kakaoLogin(id, name);
 	}
 	
+
 	public int updateinfo(MemberDto dto) {
 		
 		return memberDao.updateinfo(dto);

@@ -31,9 +31,15 @@
   	WHERE EMAIL = #{email}
   </select>
   
+  
   <insert id="kakaoLogin" parameterType="map">
   	INSERT INTO MEMBER
   	VALUES(#{id}, 'KAKAO', #{name}, 'KAKAO', 'KAKAO', 'KAKAO', 'Y', 'KAKAO', SYSDATE, 'USER')
   </insert>
-  
+
+  <update id="updateinfo" parameterType="memberDto">
+  	UPDATE MEMBER SET PW=#{pw}, NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, ADDR=#{addr}, BIRTH=#{birth} 
+  	WHERE ID=#{id}
+  </update>
+
 </mapper>

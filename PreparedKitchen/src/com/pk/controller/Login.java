@@ -196,6 +196,47 @@ public class Login extends HttpServlet {
 			session.setAttribute("memberDto", dto);
 			response.sendRedirect("index.jsp");
 			
+		}else if(command.equals("mypage")) {
+			dispatch(request, response, "userinfo.jsp");
+		}else if(command.equals("paymentinfo")) {
+			dispatch(request, response, "paymentinfo.jsp");
+		}else if(command.equals("cart")) {
+			dispatch(request, response, "cart.jsp");
+		}else if(command.equals("updateinfo")) {
+			MemberDto dto = new MemberDto();
+			
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String addr = request.getParameter("addr");
+			String birth = request.getParameter("birth");
+			String email = request.getParameter("email");
+			
+			
+			dto.setId(id);
+			dto.setPw(pw);
+			dto.setName(name);
+			dto.setPhone(phone);
+			dto.setAddr(addr);
+			dto.setBirth(birth);
+			dto.setEmail(email);
+			
+			int res = biz.updateinfo(dto);
+			
+			if(res>0) {
+				out.println("<script>");
+				out.println("alert('입력 성공');");
+				out.println("location.href='login.do?command=mypage';");
+				out.println("</script>");
+			}
+			else {
+				out.println("<script>");
+				out.println("alert('입력 실패');");
+				out.println("location.href='login.do?command=mypage';");
+				out.println("</script>");
+			}
+			
 		}
 		
 	}

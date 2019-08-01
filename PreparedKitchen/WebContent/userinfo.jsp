@@ -35,11 +35,19 @@
 		<input type="button" value="회원 정보" class="button01">
 		<input type="button" value="내가 쓴 글" class="button01" onclick="">
 		<input type="button" value="식단 관리" class="button01" onclick="">
+<<<<<<< HEAD
 		<input type="button" value="장바구니" class="button01" onclick="location.href='member.do?command=cart'">
 		<input type="button" value="관심 레시피" class="button01" onclick="">
 		<input type="button" value="결제 내역" class="button01" onclick="location.href='member.do?command=paymentinfo'">
 		<br/><br/>
 		<form action="member.do?command=updateinfo&id=<%=dto.getId() %>" method="post" >
+=======
+		<input type="button" value="장바구니" class="button01" onclick="">
+		<input type="button" value="관심 레시피" class="button01" onclick="">
+		<input type="button" value="결제 내역" class="button01" onclick="location.href='login.do?command=paymentinfo'">
+		<br/><br/>
+		<form action="login.do?command=updateinfo&id=<%=dto.getId() %>" method="post" >
+>>>>>>> refs/remotes/origin/KSW
 		<table>
 			<tr>
 			<th class="th01">아이디</th>
