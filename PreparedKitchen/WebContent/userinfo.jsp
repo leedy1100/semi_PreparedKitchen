@@ -50,7 +50,7 @@
 			<td><input type="password" value="<%=dto.getPw()%>" name="pw"></td>
 			</tr>
 			<tr>
-			<th class="th01">이름</th>
+			<th class="th01">성명</th>
 			<td><input type="text" value="<%=dto.getName()%>" name="name"></td>
 			</tr>
 			<tr>
