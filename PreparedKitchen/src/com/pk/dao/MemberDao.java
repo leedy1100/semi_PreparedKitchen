@@ -131,6 +131,7 @@ public class MemberDao extends SqlMapConfig{
 	
 
 	public int updateinfo(MemberDto dto) {
+		
 		SqlSession session = null;
 		int res = 0;
 		
@@ -144,6 +145,72 @@ public class MemberDao extends SqlMapConfig{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
+			session.close();
+		}
+		
+		return res;
+	}
+	
+	public MemberDto forgotId(String name, String email) {
+		
+		SqlSession session = null;
+		MemberDto dto = new MemberDto();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("email", email);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			dto = session.selectOne(namespace+"forgotId", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return dto;
+	}
+	
+	public MemberDto forgotPw(String id, String name, String email) {
+		
+		SqlSession session = null;
+		MemberDto dto = new MemberDto();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("name", name);
+		map.put("email", email);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			dto = session.selectOne(namespace+"forgotId", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return dto;
+	}
+	
+	public int updatePw(String id, String pw) {
+		
+		SqlSession session = null;
+		int res = 0;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("pw", pw);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.update(namespace+"updatePw", map);
+			
+			if(res > 0) {
+				session.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
 			session.close();
 		}
 		

@@ -59,7 +59,7 @@ public class Login extends HttpServlet {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email") + request.getParameter("emailback");
 			String phone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
-			String addr = request.getParameter("addr1") + request.getParameter("addr2");
+			String addr = request.getParameter("addr1") + " " + request.getParameter("addr2");
 			String birth = request.getParameter("birth");
 			
 			MemberDto dto = new MemberDto();
@@ -235,6 +235,89 @@ public class Login extends HttpServlet {
 				out.println("alert('입력 실패');");
 				out.println("location.href='login.do?command=mypage';");
 				out.println("</script>");
+			}
+			
+		} else if(command.equals("forgotid")) {
+			
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			MemberDto dto = biz.forgotId(name, email);
+			
+			if(dto != null) {
+				out.println(dto.getId());
+			} else {
+				out.println("noid");
+			}
+			
+		} else if(command.equals("forgotpw")) {
+			
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			MemberDto dto = biz.forgotPw(id, name, email);
+			
+			if(dto != null) {
+				
+				String from = "semi3jo@gmail.com";
+				String to = email;
+				String subject = "Prepared Kitchen 비밀번호 변경";
+				String content = "<a href='http://localhost:8787/PreparedKitchen/forgotpw.jsp?id="+id+"'>비밀번호 변경하기</a>";
+				
+				Properties prop = new Properties();
+				prop.put("mail.smtp.user", from);
+				prop.put("mail.smtp.host", "smtp.googlemail.com");
+				prop.put("mail.smtp.port", "465");
+				prop.put("mail.smtp.starttls.enable", "true");
+				prop.put("mail.smtp.auth", "true");
+				prop.put("mail.smtp.debug", "true");
+				prop.put("mail.smtp.socketFactory.port", "465");
+				prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+				prop.put("mail.smtp.socketFactory.fallback", "false");
+				
+				try {
+					
+					Authenticator auth = new Gmail();
+					Session ses = Session.getInstance(prop, auth);
+					ses.setDebug(true);
+					MimeMessage msg = new MimeMessage(ses);
+					msg.setSubject(subject);
+					Address fromAddr = new InternetAddress(from);
+					msg.setFrom(fromAddr);
+					Address toAddr = new InternetAddress(to);
+					msg.addRecipient(Message.RecipientType.TO, toAddr);
+					msg.setContent(content, "text/html; charset=UTF-8");
+					Transport.send(msg);
+					
+				} catch (MessagingException e) {
+					e.printStackTrace();
+				}
+				
+				out.println("ok!");
+				
+			} else {
+				out.println("nopw");
+			}
+			
+		} else if(command.equals("noConfirmPw")) {
+			
+			out.println("<script>");
+			out.println("alert('비밀번호가 일치하지 않습니다.');");
+			out.println("history.back();");
+			out.println("</script>");
+			
+		} else if(command.equals("updatepw")) {
+			
+			String id = request.getParameter("id");
+			String pw = request.getParameter("pw");
+			
+			int res = biz.updatePw(id, pw);
+			
+			if(res > 0) {
+				System.out.println("비밀번호 변경 성공");
+			} else {
+				System.out.println("비밀번호 변경 실패");
 			}
 			
 		}
