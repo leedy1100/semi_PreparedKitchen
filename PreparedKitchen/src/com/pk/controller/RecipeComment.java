@@ -76,10 +76,10 @@ public class RecipeComment extends HttpServlet {
 
 			JSONObject jobj = new JSONObject();
 			jobj.put("result", result);
-			
+			System.out.println("여기");
 			response.setContentType("application/json");
 			PrintWriter out = response.getWriter();
-			out.println(jobj);
+			out.print(jobj);
 
 		}else if(command.equals("cmtread")) {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
