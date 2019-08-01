@@ -117,12 +117,11 @@ public class Login extends HttpServlet {
 		} else if(command.equals("emailchk")) {
 			
 			String email = request.getParameter("email");
-			
+			System.out.println(email);
 			MemberDto dto = biz.emailchk(email);
-			
 			if(dto != null) {
 				out.println(dto.getEmail());
-				
+				System.out.println(dto.getEmail());
 			}
 			
 		} else if(command.equals("sendemail")) {

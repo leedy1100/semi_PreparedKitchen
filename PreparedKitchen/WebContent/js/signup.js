@@ -61,7 +61,7 @@ var ran = null;
 
 function emailChk() {
 	var email = $("input[name=email]").val() + $("#emailback").val();
-	var emailSpan = $("#emailSpan")
+	var emailSpan = $("#emailSpan");
 
 	$.ajax({
 		type : "POST",
@@ -74,7 +74,6 @@ function emailChk() {
 					emailSpan.html("이미 존재하는 이메일 입니다.");
 
 				} else {
-
 					$.ajax({
 						type : "POST",
 						url : "login.do?command=sendemail&email=" + email,
