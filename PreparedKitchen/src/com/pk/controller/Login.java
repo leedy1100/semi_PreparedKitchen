@@ -133,7 +133,7 @@ public class Login extends HttpServlet {
 				ran += (int)(Math.random() * 10);
 			}
 			
-			String from = "kmh5969@gmail.com";
+			String from = "semi3jo@gmail.com";
 			String to = email;
 			String subject = "Prepared Kitchen 메일 인증입니다.";
 			String content = "인증번호 : " + ran;
