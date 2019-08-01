@@ -25,7 +25,7 @@
 		<form action="login.do" method="post" id="loginform">
 			<input type="hidden" name="command" value="login">
 			<div id="snsbtn">
-				<a id="custom-login-btn" href="javascript:loginWithKakao()">
+				<a id="custom-login-btn" href="javascript:loginWithKakao()" style="text-decoration: none;">
 					<img src="image/kakao_login_btn_small.png"/>
 				</a>
 				
