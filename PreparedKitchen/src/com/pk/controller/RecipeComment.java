@@ -2,8 +2,6 @@ package com.pk.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -87,7 +85,6 @@ public class RecipeComment extends HttpServlet {
 				JsonParser parser = new JsonParser();
 				JsonElement element = parser.parse(jobj.toString());
 
-				System.out.println("element : " + element);
 				PrintWriter out = response.getWriter();
 				out.print(element);
 
@@ -109,7 +106,6 @@ public class RecipeComment extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
 
-			System.out.println("element2 : " + element);
 			PrintWriter out = response.getWriter();
 			out.print(element);
 

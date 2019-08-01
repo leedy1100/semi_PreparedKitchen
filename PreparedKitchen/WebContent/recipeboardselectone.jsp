@@ -8,48 +8,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#button{
+	text-align: left;
+}
+table{
+	margin : auto;
+	text-align: center;
+}
+tr td{
+	border: 1px solid black;
+}
+</style>
 <link rel="stylesheet" href="static/base.css" />
-<script type="text/javascript"
-	src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-/*
-	$(function(){
-		var content = removeHTML("${dto.mycontent}");
-		$('#content').text(content);
-	});	
-		
-	function removeHTML(text) {
-		var text = text.replace(/<p>/gi,'<br>')
-		var text = text.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
-		var text = text.replace(/<(\/)?([a-zA-Z]*)(\s[a-zA-Z]*=[^>]*)?(\s)*(\/)?>/ig, "");
-		var text = text.replace(/&nbsp;/gi,'');
-		
-		return text;	
-	}
-*/
 
-	$(function() {
-		$('#recipelike').click(function(){
-	
-			$.ajax({
-				url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",	//전송할 경로
-				method:"get",	//전송방식 get(), post()
-				async:true,		// 비동기(default)
-				dateType:"text",	//전송받을 datatype : xml,json,html,script
-				//data{"key","value"}	//서버에 전송할 데이터
-				success:function(msg){	//통신에 성공했을 때
-					if(msg == "nologin"){
-						alert("로그인이 필요합니다.")
-					}else{
-						$('#favorite').text(msg);
-					}
-				}, error:function(request, error){	//통신에 실패했을 때
-					alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+$(function() {
+	$('#recipelike').click(function(){
+
+		$.ajax({
+			url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",	//전송할 경로
+			method:"get",
+			async:true,	
+			dateType:"text",
+			success:function(msg){
+				if(msg == "nologin"){
+					alert("로그인이 필요합니다.")
+				}else{
+					$('#favorite').text(msg);
 				}
-			});				
-		});
-		
+			}, error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+		});				
 	});
+	
+});
 
 </script>
 </head>
@@ -92,12 +87,12 @@
 				<td colspan="2">${recipeBoardDto.recipeBoard_regdate }</td>
 			</tr>
 			<tr>
-				<td colspan="3">
+				<td colspan="3" id="button">
 				<c:choose>
 				<c:when test="${memberDto.id == recipeBoardDto.id }">
 				<input type="button" value="수정" onclick="location.href='recipeboard.do?command=update&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />
-					<input type="button" value="삭제" onclick="location.href='recipeboard.do?command=delete&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />
-					<input type="button" value="목록" onclick="location.href='recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}'" />
+				<input type="button" value="삭제" onclick="location.href='recipeboard.do?command=delete&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />
+				<input type="button" value="목록" onclick="location.href='recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}'" />
 				</c:when>
 				<c:otherwise>
 					<input type="button" value="목록" onclick="location.href='recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}'" />

@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
-<%
-	response.setContentType("text/html; charset=UTF-8");
-%>
+<%request.setCharacterEncoding("UTF-8");%>
+<%response.setContentType("text/html; charset=UTF-8");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +12,9 @@
 <style type="text/css">
 
 #recipeboardlist{
+	position: relative;
 	text-align: center;
-	align-content: center;
+	top: 100px;
 }
 
 #button{
@@ -25,10 +22,10 @@
 }
 
 .boardtable{
-	margin-top: 300px;
 	border: 1px solid black;
-	align-content: center;
 	position: relative;
+	margin: auto;
+	text-align: center;
 }
 
 </style>
