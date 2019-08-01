@@ -38,5 +38,10 @@ public class MemberBiz {
 		
 		return memberDao.kakaoLogin(id, name);
 	}
+	
+	public int updateinfo(MemberDto dto) {
+		
+		return memberDao.updateinfo(dto);
+	}
 
 }

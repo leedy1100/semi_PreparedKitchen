@@ -128,5 +128,25 @@ public class MemberDao extends SqlMapConfig{
 		
 		return res;
 	}
+	
+	public int updateinfo(MemberDto dto) {
+		SqlSession session = null;
+		int res = 0;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.update(namespace+"updateinfo",dto);
+			if(res>0) {
+				session.commit();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return res;
+	}
 
 }
