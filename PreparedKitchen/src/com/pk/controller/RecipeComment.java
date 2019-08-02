@@ -108,7 +108,32 @@ public class RecipeComment extends HttpServlet {
 
 			PrintWriter out = response.getWriter();
 			out.print(element);
-
+			System.out.println("element : " + element);
+		}else if(command.equals("deleteCmt")) {
+			
+			int comment_no = Integer.parseInt(request.getParameter("comment_no"));
+			int recipeboard_no = Integer.parseInt(request.getParameter("recipeboard_no"));
+			
+			int res = recipeCommentBiz.deleteCmt(comment_no);
+			
+			PrintWriter out = response.getWriter();
+			
+			if(res > 0) {
+				JSONArray comments = new JSONArray();
+				try {
+					comments = recipeCommentBiz.selectListCmt2(recipeboard_no);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				JSONObject jobj = new JSONObject();
+				jobj.put("delres", comments);
+				JsonParser parser = new JsonParser();
+				JsonElement element = parser.parse(jobj.toString());
+				out.print(element);
+			}else {
+				out.print("삭제실패");
+			}
+			
 		}
 
 	}
