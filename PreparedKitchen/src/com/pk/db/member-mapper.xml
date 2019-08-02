@@ -25,15 +25,40 @@
   	WHERE ID = #{id} AND PW = #{pw} AND BIRTH != 'KAKAO'
   </select>
   
-  <select id="emailNhk" parameterType="String" resultType="memberDto">
+  <select id="emailChk" parameterType="String" resultType="memberDto">
   	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
   	FROM MEMBER
   	WHERE EMAIL = #{email}
   </select>
   
+  
   <insert id="kakaoLogin" parameterType="map">
   	INSERT INTO MEMBER
   	VALUES(#{id}, 'KAKAO', #{name}, 'KAKAO', 'KAKAO', 'KAKAO', 'Y', 'KAKAO', SYSDATE, 'USER')
   </insert>
+
+  <update id="updateinfo" parameterType="memberDto">
+  	UPDATE MEMBER 
+  	SET PW=#{pw}, NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, ADDR=#{addr}, BIRTH=#{birth} 
+  	WHERE ID=#{id}
+  </update>
   
+  <select id="forgotId" parameterType="map" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE NAME = #{name} AND EMAIL = #{email}
+  </select>
+  
+  <select id="forgotPw" parameterType="map" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE ID = #{id} AND NAME = #{name} AND EMAIL = #{email}
+  </select>
+  
+  <update id="updatePw" parameterType="map">
+  	UPDATE MEMBER
+  	SET PW = #{pw}
+  	WHERE ID = #{id}
+  </update>
+
 </mapper>

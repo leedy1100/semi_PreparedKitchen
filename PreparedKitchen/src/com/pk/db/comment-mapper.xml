@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="commentmapper">
 
-	<select id="selectListCmt" resultType="commentDto">
+	<select id="selectListCmt" parameterType="hashMap" resultType="commentDto">
 		SELECT COMMENT_NO, RECIPEBOARD_NO, ID, COMMENT_CONTENT, COMMENT_REGDATE, COMMENT_GROUPNO, COMMENT_ORDER, COMMENT_TAB
 		FROM RECIPECOMMENT
 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
@@ -69,8 +69,7 @@
 	</update>
 	
 	<delete id="deleteCmt" parameterType="int">
-		UPDATE RECIPECOMMENT 
-		SET COMMENT_CONTENT = '삭제된 글 입니다'
+		DELETE FROM RECIPECOMMENT 
 		WHERE COMMENT_NO = #{comment_no} 
 	</delete>
 	

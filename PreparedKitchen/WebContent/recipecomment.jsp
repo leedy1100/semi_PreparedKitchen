@@ -8,126 +8,138 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+
+</style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
-// Perform an asynchronous HTTP (Ajax) request.
-// 비동기 통신 Ajax를 Setting한다.
-$.ajaxSetup({
-    type:"POST",
-    async:true,
-    dataType:"json",
-    error:function(xhr) {
-        console.log("error html = " + xhr.statusText);
-    }
-});
-
 $(function() {
-    $("#commentWrite").on("click", function() {
-        $.ajax({
-            url:"recipeComment.do",
-            // data:{}에서는 EL을 ""로 감싸야 한다. 이외에는 그냥 사용한다.
-            data:${"#insertform"}.serialize(),
-            success:function(data) {            // 서버에 대한 정상응답이 오면 실행, callback
-                if(data.result == 1) {            // 쿼리 정상 완료, executeUpdate 결과
-                    console.log("comment가 정상적으로 입력되었습니다.");
-                    $("#commentContent").val("");
-                    showHtml(data.comments, 1);
-                }
-            }
-        })
+	
+	$.ajax({
+        url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
+        dataType:"text",
+        success:function(data) {
+			
+        		var jdata =JSON.parse(data);
+        		var jdata2 = jdata.comments;
+				console.log("comment 정상입력");
+				$("#comment_content").val("");
+				showAllCmt(jdata2);
+			
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+        
     });
+
+	$("#commentWrite").click(function() {
+		var str = $("#insertform").serialize();
+		
+	    $.ajax({
+	        url:"recipeComment.do",
+	        data:str,
+	        dataType:"text",
+	        success:function(data) {
+				if(data == "comment null"){
+					alert("댓글을 입력해주세요.")
+				}else if(data != null){
+	        		var jdata =JSON.parse(data);
+	        		var jdata2 = jdata.result;
+					console.log("comment 정상입력");
+					$("#comment_content").val("");
+					showAllCmt(jdata2);
+				}
+	        },error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+	        
+	    });
+	});
+	
 });
 
-function showHtml(data, commPageNum) {
-    let html = "<table style='margin-top: 10px;'><tbody>";
-    $.each(data, function(index, item) {
-        html += "<tr align='center'>";
-        html += "<td>" + (index+1) + "</td>";
-        html += "<td>" + item.id + "</td>";
-        html += "<td align='left'>" + item.commentContent + "</td>";
-        let presentDay = item.commentDate.substring(0, 10);
-        html += "<td>" + presentDay + "</td>";
-        html += "</tr>";
-    });
-    html += "</tbody></table>";
-    commPageNum = parseInt(commPageNum);        // 정수로 변경
-    // commentCount는 동기화되어 값을 받아오기 때문에, 댓글 insert에 즉각적으로 처리되지 못한다.
-    if("${article.commentCount}" > commPageNum * 10) {
-        nextPageNum = commPageNum + 1;
-        html +="<input type='button' class='btn btn-default' onclick='getComment(nextPageNum, event)' value='다음 comment 보기'>";
-    }
-    
-    $("#showComment").html(html);
-    $("#commentContent").val("");
-    $("#commentContent").focus();
+function deleteCmt2(cmtno,rebono) {
+	
+	 if (confirm("정말 삭제하시겠습니까??") == true){
+		$.ajax({
+	        url:"recipeComment.do?command=deleteCmt&comment_no="+cmtno+"&recipeboard_no="+rebono,
+	        dataType:"text",
+	        success:function(data) {
+	        	var jdata =JSON.parse(data);
+	    		var jdata2 = jdata.delres;
+				console.log("comment 정상입력");
+				$("#comment_content").val("");
+				showAllCmt(jdata2);
+	        },error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+	    });
+
+	 }else{ 
+	     return false;
+	 }
+	
 }
 
-function getComment(commPageNum, event) {
-    $.ajax({
-        url:"/bbs/commentRead.bbs",
-        data:{
-            commPageNum:commPageNum*10,
-            articleNumber:"${article.articleNumber}"
-        },
-        beforeSend:function() {
-            console.log("읽어오기 시작 전...");
-        },
-        complete:function() {
-            console.log("읽어오기 완료 후...");
-        },
-        success:function(data) {
-            console.log("comment를 정상적으로 조회하였습니다.");
-            showHtml(data, commPageNum);
-            
-            let position = $("#showComment table tr:last").position();
-            $('html, body').animate({scrollTop : position.top}, 400);        // 두 번째 param은 스크롤 이동하는 시간
-        }
-    })
+function showAllCmt(data) {
+		if($.isEmptyObject(data)){
+			
+			$("#showAllComment").text("작성된 댓글이 없습니다");
+			$("#commentContent").val("");
+			$("#commentContent").focus();
+		}else{
+		var html = "<form action='recipeComment.do' method='post' id='updelcmt'>";
+			html += "<table>";
+		
+		for (var i = 0; i < data.length; i++) {
+			
+			var id = "${memberDto.id}";
+			var cmtId = data[i].id;
+			var boo = (id == cmtId);
+			
+			html += "<tr>";
+			html += "<td style='width:10%;'>"+data[i].id + "</td>";
+			html += "<td style='width:80%; text-align:left;'>" + data[i].comment_content + "</td>";
+			html += "<td style='width:20%;'>" + data[i].comment_regdate + "</td>";
+			if(boo){
+				html += "<td><input type='button' value='수정' id='updateCmt'>";
+				html += "<input type='button' value='삭제' id='deleteCmt' onclick='deleteCmt2("+data[i].comment_no+","+data[i].recipeBoard_no+")'/></td>";
+			}
+			html += "</tr>";
+		}
+
+		html += "</table>";
+
+		$("#showAllComment").html(html);
+		$("#commentContent").val("");
+		$("#commentContent").focus();
+	}
 }
+
 
 
 </script>
 </head>
 <body>
 	
-<%-- 	<form action="recipeComment.do" method="post" id="cmtform" name="cmtform">
-		<input type="hidden" name="command" value="cmt" />
-		<input type="hidden" name="recipeBoard_no" value="${recipeBoardDto.recipeBoard_no }"/>
-		<input type="hidden" name="comment_order" value="1"/>
-		<input type="hidden" name="comment_tab" value="0"/>
-		<table border="1">
-			<tr>
-				<td>
-					<textarea rows="5" cols="60" name="comment_content"></textarea>
-				</td>
-				<td>
-					<input type="submit" value="작성" id="recipeCmt"/>
-				</td>
-			</tr>
-		</table>
-	</form> --%>
 	<div style="margin-top: 10px; width: 100%;">
-	<form id="insertform">
+	<form action="recipeComment.do" method="post" id="insertform">
+	<input type="hidden" name="command" value="cmt"/>
 	<input type="hidden" name="comment_order" value="1"/>
 	<input type="hidden" name="comment_tab" value="0"/>
 	<input type="hidden" name="recipeBoard_no" value="${recipeBoardDto.recipeBoard_no }"/>
-	<input type="hidden" name="" value=""/>
-    <textarea rows="3" id="commentContent" name="comment_content" placeholder="댓글을 입력하세요." style="width: 100%;" ></textarea>
-        <c:if test="${memberDto.id == null}">
-            <input type="button" class="btn btn-default" value="댓글 쓰기" disabled="disabled">
-        </c:if>
+    <textarea rows="3" id="comment_content" name="comment_content" placeholder="댓글을 입력하세요." style="width: 100%;"></textarea>
         <c:if test="${memberDto.id != null}">
             <input type="button" value="댓글 쓰기" id="commentWrite">
         </c:if>
-        <input type="button" value="댓글 읽기()" 
-                onclick="getComment(1, event)" id="commentRead">
-       </form> 
+       </form>
 </div>
  
-<!-- Comment 태그 추가 -->
-<div class="input-group" role="group" aria-label="..." style="margin-top: 10px; width: 100%;">
-    <div id="showComment" style="text-align: center;"></div>
+<div style="margin-top: 10px; width: 100%;">
+    <hr/>
+    <div id="showAllComment" style="text-align: center;">
+    </div>
 </div>
 
 

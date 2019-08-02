@@ -33,10 +33,31 @@ public class MemberBiz {
 		
 		return memberDao.emailchk(email);
 	}
-	
+
 	public int kakaoLogin(String id, String name) {
 		
 		return memberDao.kakaoLogin(id, name);
+	}
+	
+
+	public int updateinfo(MemberDto dto) {
+		
+		return memberDao.updateinfo(dto);
+	}
+	
+	public MemberDto forgotId(String name, String email) {
+		
+		return memberDao.forgotId(name, email);
+	}
+	
+	public MemberDto forgotPw(String id, String name, String email) {
+		
+		return memberDao.forgotPw(id, name, email);
+	}
+	
+	public int updatePw(String id, String pw) {
+		
+		return memberDao.updatePw(id, pw);
 	}
 
 }

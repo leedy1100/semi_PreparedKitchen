@@ -61,7 +61,7 @@ var ran = null;
 
 function emailChk() {
 	var email = $("input[name=email]").val() + $("#emailback").val();
-	var emailSpan = $("#emailSpan")
+	var emailSpan = $("#emailSpan");
 
 	$.ajax({
 		type : "POST",
@@ -74,7 +74,6 @@ function emailChk() {
 					emailSpan.html("이미 존재하는 이메일 입니다.");
 
 				} else {
-
 					$.ajax({
 						type : "POST",
 						url : "login.do?command=sendemail&email=" + email,
@@ -112,22 +111,49 @@ function emailCon() {
 	}
 }
 
-Kakao.init('9224c175adc04d7602e956fcdd3fd17f');
-function loginWithKakao() {
-	Kakao.Auth.login({
-		success : function(authObj) {
-			Kakao.API.request({
-				url : '/v1/user/me',
-				success : function(res) {
-					var id = res.kaccount_email;
-					var nickname = res.properties.nickname;
-					location.href="login.do?command=kakaologin&id="+id+"&nickname="+nickname;
-				}
-			})
-		},
-		fail : function(err) {
-			alert("로그인 실패");
-		}
-	});
-};
 
+function searchAddr(){
+	    daum.postcode.load(function(){
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	            	
+	            	var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    // 조합된 참고항목을 해당 필드에 넣는다.
+	                    $("input[name=addr3]").val(extraAddr);
+	                
+	                } else {
+	                	$("input[name=addr3]").val('');
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                $("input[name=addr1]").val(addr);
+	                // 커서를 상세주소 필드로 이동한다.
+	                $("input[name=addr2]").focus();
+	            }
+	        }).open();
+	    });
+}

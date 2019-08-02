@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/login.css"/>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="js/kakaoLogin.js"></script>
 </head>
 <body>
 	
@@ -25,11 +25,9 @@
 		<form action="login.do" method="post" id="loginform">
 			<input type="hidden" name="command" value="login">
 			<div id="snsbtn">
-				<a id="custom-login-btn" href="javascript:loginWithKakao()">
+				<a id="custom-login-btn" href="javascript:loginWithKakao()" style="text-decoration: none;">
 					<img src="image/kakao_login_btn_small.png"/>
 				</a>
-				
-				<input type="button" value="네이버" onclick="">
 			</div>
 			<div id="iddiv">
 				<img alt="" src="#">
@@ -42,6 +40,9 @@
 			<div id="subdiv">
 				<input type="button" value="회원가입" onclick="location.href='login.do?command=signup'">
 				<input type="submit" value="로그인">
+			</div>
+			<div>
+				<a href="javascript:forgot()" style="text-decoration: none;">아이디 / 비밀번호를 잊어버리셨나요?</a>
 			</div>
 		</form>
 	</div>
