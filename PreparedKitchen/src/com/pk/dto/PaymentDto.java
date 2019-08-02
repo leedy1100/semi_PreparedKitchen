@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class PaymentDto {
 
-	private int payment_no;
-	private int payment_groupno;
+	private int payment_no;				// 주문 번호
+	private int payment_groupno;		
 	private String id;
 	private String payment_price;
 	private int recipe_no;
