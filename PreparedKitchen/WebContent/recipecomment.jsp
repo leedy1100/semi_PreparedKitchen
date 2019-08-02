@@ -71,15 +71,22 @@ function showAllCmt(data) {
 		var html = "<table>";
 		
 		for (var i = 0; i < data.length; i++) {
-
+			
+			var id = "${memberDto.id}";
+			var cmtId = data[i].id;
+			var boo = (id == cmtId);
+			
 			html += "<tr>";
-			html += "<td style='width:10%;'>" + data[i].id + "</td>";
+			html += "<td style='width:10%;'>"+data[i].id + "</td>";
 			html += "<td style='width:80%; text-align:left;'>" + data[i].comment_content + "</td>";
 			html += "<td style='width:20%;'>" + data[i].comment_regdate + "</td>";
-			html += "<td><input type='button' value='수정' id='updateCmt'>";
-			html += "<input type='button' value='삭제' id='deleteCmt'></td>";
+			if(boo){
+				html += "<td><input type='button' value='수정' id='updateCmt'>";
+				html += "<input type='button' value='삭제' id='deleteCmt'></td>";
+			}
 			html += "</tr>";
 			
+				
 		}
 
 		html += "</table>";
@@ -105,7 +112,7 @@ function showAllCmt(data) {
         <c:if test="${memberDto.id != null}">
             <input type="button" value="댓글 쓰기" id="commentWrite">
         </c:if>
-       </form> 
+       </form>
 </div>
  
 <div style="margin-top: 10px; width: 100%;">
