@@ -32,34 +32,55 @@ $(function() {
 		}
         
     });
-	
 
+	$("#commentWrite").click(function() {
+		var str = $("#insertform").serialize();
+		
+	    $.ajax({
+	        url:"recipeComment.do",
+	        data:str,
+	        dataType:"text",
+	        success:function(data) {
+				if(data == "comment null"){
+					alert("댓글을 입력해주세요.")
+				}else if(data != null){
+	        		var jdata =JSON.parse(data);
+	        		var jdata2 = jdata.result;
+					console.log("comment 정상입력");
+					$("#comment_content").val("");
+					showAllCmt(jdata2);
+				}
+	        },error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+	        
+	    });
+	});
+	
+});
 
-$("#commentWrite").click(function() {
+function deleteCmt2(cmtno,rebono) {
 	
-	var str = $("#insertform").serialize();
-	
-    $.ajax({
-        url:"recipeComment.do",
-        data:str,
-        dataType:"text",
-        success:function(data) {
-			if(data == "comment null"){
-				alert("댓글을 입력해주세요.")
-			}else if(data != null){
-        		var jdata =JSON.parse(data);
-        		var jdata2 = jdata.result;
+	 if (confirm("정말 삭제하시겠습니까??") == true){
+		$.ajax({
+	        url:"recipeComment.do?command=deleteCmt&comment_no="+cmtno+"&recipeboard_no="+rebono,
+	        dataType:"text",
+	        success:function(data) {
+	        	var jdata =JSON.parse(data);
+	    		var jdata2 = jdata.delres;
 				console.log("comment 정상입력");
 				$("#comment_content").val("");
 				showAllCmt(jdata2);
+	        },error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 			}
-        },error:function(request, error){
-			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
-		}
-        
-    });
-});
-});
+	    });
+
+	 }else{ 
+	     return false;
+	 }
+	
+}
 
 function showAllCmt(data) {
 		if($.isEmptyObject(data)){
@@ -68,7 +89,8 @@ function showAllCmt(data) {
 			$("#commentContent").val("");
 			$("#commentContent").focus();
 		}else{
-		var html = "<table>";
+		var html = "<form action='recipeComment.do' method='post' id='updelcmt'>";
+			html += "<table>";
 		
 		for (var i = 0; i < data.length; i++) {
 			
@@ -82,11 +104,9 @@ function showAllCmt(data) {
 			html += "<td style='width:20%;'>" + data[i].comment_regdate + "</td>";
 			if(boo){
 				html += "<td><input type='button' value='수정' id='updateCmt'>";
-				html += "<input type='button' value='삭제' id='deleteCmt'></td>";
+				html += "<input type='button' value='삭제' id='deleteCmt' onclick='deleteCmt2("+data[i].comment_no+","+data[i].recipeBoard_no+")'/></td>";
 			}
 			html += "</tr>";
-			
-				
 		}
 
 		html += "</table>";
@@ -96,6 +116,7 @@ function showAllCmt(data) {
 		$("#commentContent").focus();
 	}
 }
+
 
 
 </script>
