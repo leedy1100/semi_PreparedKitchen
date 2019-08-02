@@ -316,8 +316,10 @@ public class Login extends HttpServlet {
 			
 			if(res > 0) {
 				System.out.println("비밀번호 변경 성공");
+				response.sendRedirect("login.jsp");
 			} else {
 				System.out.println("비밀번호 변경 실패");
+				response.sendRedirect("forgotpw.jsp?id="+id);
 			}
 			
 		}

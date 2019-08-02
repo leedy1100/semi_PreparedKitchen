@@ -55,7 +55,7 @@ $(function(){
 		var command = $("input[name=command]");
 		
 		if(pw.length != 0){
-			if(pw.val() == pwC){
+			if(pw == pwC){
 				pwSpan.html("비밀번호 일치!");
 				command.val("updatepw");
 			} else {
