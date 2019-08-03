@@ -28,4 +28,31 @@ public class PaymentDao extends SqlMapConfig{
 		return list;
 	}
 	
+	public int insert(List<PaymentDto> list) {
+		int res = 0;
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			int seq = session.selectOne(namespace + "incrementSeq");
+			
+			for(PaymentDto dto : list) {
+				dto.setPayment_groupno(seq);
+				res += session.insert(namespace + "insert", dto);
+			}
+			
+			if(res == list.size()) {
+				session.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		
+		return res;
+	}
+	
 }

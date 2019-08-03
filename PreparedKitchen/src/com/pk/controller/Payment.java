@@ -7,8 +7,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,11 +25,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.pk.biz.PaymentBiz;
+import com.pk.dto.PaymentDto;
+
 
 @WebServlet("/payment")
 public class Payment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private PaymentBiz pBiz = new PaymentBiz();   
+	
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
@@ -51,12 +59,13 @@ public class Payment extends HttpServlet {
 	        params.put("partner_order_id", "0000001");
 	        params.put("partner_user_id", "0000011");
 	        params.put("item_name", "레시피 이름 [ 돼지고기, 마늘, 양파 ] ...");
+	        params.put("item_code", "000013,123123");
 	        params.put("quantity", "1");
 	        params.put("total_amount", "10000");
 	        params.put("tax_free_amount", "1000");
-	        params.put("approval_url", "http://localhost:8787/PreparedKitchen/payment/approval.jsp");
-	        params.put("cancel_url", "http://localhost:8787/PreparedKitchen/payment/cancel.jsp");
-	        params.put("fail_url", "http://localhost:8787/PreparedKitchen/payment/fail.jsp");
+	        params.put("approval_url", "http://localhost:8080/PreparedKitchen/payment/approval.jsp");
+	        params.put("cancel_url", "http://localhost:8080/PreparedKitchen/payment/cancel.jsp");
+	        params.put("fail_url", "http://localhost:8080/PreparedKitchen/payment/fail.jsp");
 	        
 	        String string_params = new String(); // 보낼 파라미터
 			for(Map.Entry<String, String> elem : params.entrySet()) {
@@ -73,28 +82,24 @@ public class Payment extends HttpServlet {
 	        
 	        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 	        String successUrl = null; // 준비 성공 시 연결할 url
-			String tid = null; // 준비 성공시 받을 결제 고유 번호
 			
 	        try { // 응답받은 json 파싱작업
 				JSONParser parser = new JSONParser();
 				JSONObject obj = (JSONObject)parser.parse(in);
+				
 				successUrl = (String)obj.get("next_redirect_pc_url");
-				tid = (String)obj.get("tid");
+				
 				HttpSession session = request.getSession();
-				session.setAttribute("tid", tid);
-				session.setAttribute("partner_order_id", "0000001");
-				session.setAttribute("partner_user_id", "0000011");
-				System.out.println(successUrl);
-				System.out.println(tid);
+				session.setAttribute("tid", (String)obj.get("tid"));
+				session.setAttribute("partner_order_id", (String)obj.get("partner_order_id"));
+				session.setAttribute("partner_user_id", (String)obj.get("partner_user_id"));
+				session.setAttribute("item_code", (String)obj.get("item_code"));
+				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} finally {
 				in.close(); // 응답 스트림 닫기
 			}
-	        
-	        System.out.print(conn.getResponseCode());
-			System.out.println(conn.getResponseMessage());
-			System.out.println(conn.getRequestMethod());
 			
 			response.sendRedirect(successUrl);
 			
@@ -129,6 +134,9 @@ public class Payment extends HttpServlet {
 			
 			conn.getOutputStream().write(param.toString().getBytes());
 			
+			System.out.println(conn.getResponseCode());
+			System.out.println(conn.getResponseMessage());
+			
 			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			
 			try {
@@ -144,6 +152,27 @@ public class Payment extends HttpServlet {
 				
 				session.setAttribute("item_name", (String)obj.get("item_name"));
 				session.setAttribute("total", total);
+				
+				// subString 으로 item_code 자른 후 각각의 재료 db 가져와서 list에 담는다
+				List<PaymentDto> list = new ArrayList<PaymentDto>();
+				
+				PaymentDto pDto = new PaymentDto();
+				pDto.setId("user");
+				pDto.setPayment_price(total);
+				pDto.setRecipe_no(2);
+				pDto.setMaterial_no(3);
+				pDto.setShipping_addr("배송지");
+				
+				list.add(pDto);
+				
+				int res = pBiz.insert(list);
+				
+				if(res == list.size()) {
+					System.out.println("db 저장 성공");
+				}else {
+					System.out.println("db 저장 실패");
+				}
+				
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} finally {
