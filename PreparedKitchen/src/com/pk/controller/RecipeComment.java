@@ -50,7 +50,7 @@ public class RecipeComment extends HttpServlet {
 		String command = request.getParameter("command");
 		RecipeCommentBiz recipeCommentBiz = new RecipeCommentBiz();
 		
-		if (command.equals("cmt")) {
+		if (command.equals("insertcmt")) {
 			
 			String ccon = request.getParameter("comment_content");
 			
@@ -73,21 +73,10 @@ public class RecipeComment extends HttpServlet {
 				dto.setId(id);
 				dto.setComment_content(comment_content);
 
-				try {
-					result = recipeCommentBiz.insertCmt(dto);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				JSONObject jobj = new JSONObject();
-				jobj.put("result", result);
-
-				JsonParser parser = new JsonParser();
-				JsonElement element = parser.parse(jobj.toString());
-
+				int res = recipeCommentBiz.insertCmt(dto);
 				PrintWriter out = response.getWriter();
-				out.print(element);
-
+				out.print(res);
+				
 			}
 
 		} else if (command.equals("cmtread")) {
@@ -112,30 +101,23 @@ public class RecipeComment extends HttpServlet {
 		}else if(command.equals("deleteCmt")) {
 			
 			int comment_no = Integer.parseInt(request.getParameter("comment_no"));
-			int recipeboard_no = Integer.parseInt(request.getParameter("recipeboard_no"));
-			
 			int res = recipeCommentBiz.deleteCmt(comment_no);
 			
 			PrintWriter out = response.getWriter();
+			out.print(res);
+		}else if(command.equals("updateCmt")) {
+			RecipeCommentDto dto = new RecipeCommentDto();
+			int comment_no = Integer.parseInt(request.getParameter("comment_no"));
+			String comment_content = request.getParameter("comment_content");
 			
-			if(res > 0) {
-				JSONArray comments = new JSONArray();
-				try {
-					comments = recipeCommentBiz.selectListCmt2(recipeboard_no);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				JSONObject jobj = new JSONObject();
-				jobj.put("delres", comments);
-				JsonParser parser = new JsonParser();
-				JsonElement element = parser.parse(jobj.toString());
-				out.print(element);
-			}else {
-				out.print("삭제실패");
-			}
+			dto.setComment_content(comment_content);
+			dto.setComment_no(comment_no);
+			int res = recipeCommentBiz.updateCmt(dto);
+			
+			PrintWriter out = response.getWriter();
+			out.print(res);
 			
 		}
-
 	}
 
 	/**

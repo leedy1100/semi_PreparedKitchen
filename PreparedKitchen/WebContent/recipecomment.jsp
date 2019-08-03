@@ -43,12 +43,8 @@ $(function() {
 	        success:function(data) {
 				if(data == "comment null"){
 					alert("댓글을 입력해주세요.")
-				}else if(data != null){
-	        		var jdata =JSON.parse(data);
-	        		var jdata2 = jdata.result;
-					console.log("comment 정상입력");
-					$("#comment_content").val("");
-					showAllCmt(jdata2);
+				}else if(data > 0){
+					cmtList();
 				}
 	        },error:function(request, error){
 				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -59,28 +55,75 @@ $(function() {
 	
 });
 
-function deleteCmt2(cmtno,rebono) {
+function deleteCmtfn(cmtno) {
 	
 	 if (confirm("정말 삭제하시겠습니까??") == true){
 		$.ajax({
-	        url:"recipeComment.do?command=deleteCmt&comment_no="+cmtno+"&recipeboard_no="+rebono,
+	        url:"recipeComment.do?command=deleteCmt&comment_no="+cmtno,
 	        dataType:"text",
 	        success:function(data) {
-	        	var jdata =JSON.parse(data);
-	    		var jdata2 = jdata.delres;
-				console.log("comment 정상입력");
-				$("#comment_content").val("");
-				showAllCmt(jdata2);
+	        	if(data > 0){
+	        		cmtList();
+	        	}else{
+	        		alert("삭제 실패");
+	        	}
 	        },error:function(request, error){
 				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 			}
 	    });
-
 	 }else{ 
 	     return false;
 	 }
 	
 }
+
+function updateCmtfn(cmtno,cmtcontent) {
+	
+	var html = "<tr>";
+	html += "<td colspan='3'><textarea style='width: 100%;'>"+cmtcontent+"</textarea></td>";
+	html += "<td><input type='button' value='저장' onclick='update("+cmtno+",\""+cmtcontent+"\")'/>";
+	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
+	html += "</tr>";
+	
+	$('#'+cmtno).empty();
+	
+	$('#'+cmtno).unwrap().wrap(html);
+			
+}
+
+function cmtList() {
+	$.ajax({
+        url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
+        dataType:"text",
+        success:function(data) {
+        		var jdata =JSON.parse(data);
+        		var jdata2 = jdata.comments;
+				console.log("comment 정상입력");
+				$("#comment_content").val("");
+				showAllCmt(jdata2);
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+        
+    });
+}
+
+function update(cmtno,cmtcontent) {
+ 	$.ajax({
+        url:"recipeComment.do?command=updateCmt&comment_no="+cmtno+"&comment_content="+cmtcontent,
+        dataType:"text",
+        success:function(data) {
+        	if(data > 0){
+        		cmtList();
+        	}else{
+        		alert("저장 실패");
+        		cmtList();
+        	}
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+    });
+}	
 
 function showAllCmt(data) {
 		if($.isEmptyObject(data)){
@@ -89,22 +132,20 @@ function showAllCmt(data) {
 			$("#commentContent").val("");
 			$("#commentContent").focus();
 		}else{
-		var html = "<form action='recipeComment.do' method='post' id='updelcmt'>";
-			html += "<table>";
+		var	html = "<table border='0'>";
 		
 		for (var i = 0; i < data.length; i++) {
 			
 			var id = "${memberDto.id}";
 			var cmtId = data[i].id;
 			var boo = (id == cmtId);
-			
-			html += "<tr>";
+			html += "<tr id='"+data[i].comment_no+"'>";
 			html += "<td style='width:10%;'>"+data[i].id + "</td>";
 			html += "<td style='width:80%; text-align:left;'>" + data[i].comment_content + "</td>";
 			html += "<td style='width:20%;'>" + data[i].comment_regdate + "</td>";
 			if(boo){
-				html += "<td><input type='button' value='수정' id='updateCmt'>";
-				html += "<input type='button' value='삭제' id='deleteCmt' onclick='deleteCmt2("+data[i].comment_no+","+data[i].recipeBoard_no+")'/></td>";
+				html += "<td><input type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
+				html += "<input type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/></td>";
 			}
 			html += "</tr>";
 		}
@@ -125,7 +166,7 @@ function showAllCmt(data) {
 	
 	<div style="margin-top: 10px; width: 100%;">
 	<form action="recipeComment.do" method="post" id="insertform">
-	<input type="hidden" name="command" value="cmt"/>
+	<input type="hidden" name="command" value="insertcmt"/>
 	<input type="hidden" name="comment_order" value="1"/>
 	<input type="hidden" name="comment_tab" value="0"/>
 	<input type="hidden" name="recipeBoard_no" value="${recipeBoardDto.recipeBoard_no }"/>
@@ -135,7 +176,7 @@ function showAllCmt(data) {
         </c:if>
        </form>
 </div>
- 
+
 <div style="margin-top: 10px; width: 100%;">
     <hr/>
     <div id="showAllComment" style="text-align: center;">

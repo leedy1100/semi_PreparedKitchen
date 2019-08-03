@@ -1,6 +1,5 @@
 package com.pk.biz;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -24,7 +23,7 @@ public class RecipeCommentBiz {
 		return recipeCommentDao.selectOneCmt(no);
 	}
 
-	public JSONArray insertCmt(RecipeCommentDto dto) {
+	public int insertCmt(RecipeCommentDto dto) {
 		return recipeCommentDao.insertCmt(dto);
 	}
 

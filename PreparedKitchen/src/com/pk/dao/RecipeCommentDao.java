@@ -24,23 +24,6 @@ public class RecipeCommentDao extends SqlMapConfig {
 		session = getSqlSessionFactory().openSession();
 		list = session.selectList(namespace + "selectListCmt", recipeno);
 		
-		HashMap<String, Object> hm = null;
-		JSONArray jArr = new JSONArray();
-
-		for (int i = 0; i < list.size(); i++) {
-			hm = new HashMap<String, Object>();
-			hm.put("comment_no", list.get(i).getComment_no());
-			hm.put("recipeBoard_no", list.get(i).getRecipeBoard_no());
-			hm.put("id", list.get(i).getId());
-			hm.put("comment_content", list.get(i).getComment_content());
-			hm.put("comment_regdate", list.get(i).getComment_regdate());
-			hm.put("comment_groupno", list.get(i).getComment_groupno());
-			hm.put("comment_order", list.get(i).getComment_order());
-			hm.put("comment_tab", list.get(i).getComment_tab());
-
-			jArr.add(hm);
-		}
-
 		session.close();
 
 		return list;
@@ -92,36 +75,19 @@ public class RecipeCommentDao extends SqlMapConfig {
 
 	}
 
-	public JSONArray insertCmt(RecipeCommentDto dto) {
+	public int insertCmt(RecipeCommentDto dto) {
 
 		SqlSession session = null;
 		int res = 0;
 
-		session = getSqlSessionFactory().openSession(true);
-		res = session.insert(namespace + "insertCmt", dto);
-		List<RecipeCommentDto> comments = new ArrayList<RecipeCommentDto>();
-		comments = selectListCmt(dto.getRecipeBoard_no());
-
-		HashMap<String, Object> hm = null;
-		JSONArray jArr = new JSONArray();
-		for (int i = 0; i < comments.size(); i++) {
-			hm = new HashMap<String, Object>();
-			hm.put("comment_no", comments.get(i).getComment_no());
-			hm.put("recipeBoard_no", comments.get(i).getRecipeBoard_no());
-			hm.put("id", comments.get(i).getId());
-			hm.put("comment_content", comments.get(i).getComment_content());
-			hm.put("comment_regdate", comments.get(i).getComment_regdate());
-			hm.put("comment_groupno", comments.get(i).getComment_groupno());
-			hm.put("comment_order", comments.get(i).getComment_order());
-			hm.put("comment_tab", comments.get(i).getComment_tab());
-
-			jArr.add(hm);
-
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.insert(namespace + "insertCmt", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.close();
 		}
-
-		session.close();
-
-		return jArr;
+		return res;
 	}
 
 	public int updateCmt(RecipeCommentDto dto) {
