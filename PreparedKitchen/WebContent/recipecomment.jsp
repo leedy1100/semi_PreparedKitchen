@@ -9,7 +9,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-
+.cmttable td{
+	border: 1px solid rgba(0, 0, 0, .2);
+}
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
@@ -80,8 +82,8 @@ function deleteCmtfn(cmtno) {
 function updateCmtfn(cmtno,cmtcontent) {
 	
 	var html = "<tr>";
-	html += "<td colspan='3'><textarea id='updatecnt' style='width: 100%;'>"+cmtcontent+"</textarea></td>";
-	html += "<td><input type='button' value='저장' onclick='update("+cmtno+","+"$(\""+"#updatecnt\""+").val()"+")'/>";
+	html += "<td style='border:none;' colspan='3'><textarea rows='3' id='updatecnt' style='width: 99%;'>"+cmtcontent+"</textarea></td>";
+	html += "<td style='border:none;'><input type='button' value='저장' onclick='update("+cmtno+","+"$(\""+"#updatecnt\""+").val()"+")'/>";
 	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
 	html += "</tr>";
 
@@ -132,11 +134,11 @@ function update(cmtno,cmtcontent) {
 function showAllCmt(data) {
 		if($.isEmptyObject(data)){
 			
-			$("#showAllComment").text("작성된 댓글이 없습니다");
+			$("#showAllComment").html("<p>작성된 댓글이 없습니다</p>");
 			$("#commentContent").val("");
 			$("#commentContent").focus();
 		}else{
-		var	html = "<table border='0'>";
+		var	html = "<table class='cmttable' >";
 		
 		for (var i = 0; i < data.length; i++) {
 			
@@ -148,7 +150,7 @@ function showAllCmt(data) {
 			html += "<td style='width:80%; text-align:left;'>" + data[i].comment_content + "</td>";
 			html += "<td style='width:20%;'>" + data[i].comment_regdate + "</td>";
 			if(boo){
-				html += "<td><input type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
+				html += "<td style='border:none;'><input type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
 				html += "<input type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/></td>";
 			}
 			html += "</tr>";
