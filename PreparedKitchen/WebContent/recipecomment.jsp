@@ -57,7 +57,7 @@ $(function() {
 
 function deleteCmtfn(cmtno) {
 	
-	 if (confirm("정말 삭제하시겠습니까??") == true){
+	 if (confirm("삭제하시겠습니까?") == true){
 		$.ajax({
 	        url:"recipeComment.do?command=deleteCmt&comment_no="+cmtno,
 	        dataType:"text",
@@ -80,14 +80,14 @@ function deleteCmtfn(cmtno) {
 function updateCmtfn(cmtno,cmtcontent) {
 	
 	var html = "<tr>";
-	html += "<td colspan='3'><textarea style='width: 100%;'>"+cmtcontent+"</textarea></td>";
-	html += "<td><input type='button' value='저장' onclick='update("+cmtno+",\""+cmtcontent+"\")'/>";
+	html += "<td colspan='3'><textarea id='updatecnt' style='width: 100%;'>"+cmtcontent+"</textarea></td>";
+	html += "<td><input type='button' value='저장' onclick='update("+cmtno+","+"$(\""+"#updatecnt\""+").val()"+")'/>";
 	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
 	html += "</tr>";
-	
+
 	$('#'+cmtno).empty();
-	
 	$('#'+cmtno).unwrap().wrap(html);
+	
 			
 }
 
@@ -109,20 +109,24 @@ function cmtList() {
 }
 
 function update(cmtno,cmtcontent) {
- 	$.ajax({
-        url:"recipeComment.do?command=updateCmt&comment_no="+cmtno+"&comment_content="+cmtcontent,
-        dataType:"text",
-        success:function(data) {
-        	if(data > 0){
-        		cmtList();
-        	}else{
-        		alert("저장 실패");
-        		cmtList();
-        	}
-        },error:function(request, error){
-			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
-		}
-    });
+	if (confirm("저장하시겠습니까?") == true){
+	 	$.ajax({
+	        url:"recipeComment.do?command=updateCmt&comment_no="+cmtno+"&comment_content="+cmtcontent,
+	        dataType:"text",
+	        success:function(data) {
+	        	if(data > 0){
+	        		cmtList();
+	        	}else{
+	        		alert("저장 실패");
+	        		cmtList();
+	        	}
+	        },error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+	    });
+	}else{
+		return false;
+	}
 }	
 
 function showAllCmt(data) {
