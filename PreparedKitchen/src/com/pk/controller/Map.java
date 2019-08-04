@@ -1,6 +1,7 @@
 package com.pk.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.pk.dto.MemberDto;
 
 @WebServlet("/map.do")
 public class Map extends HttpServlet {
@@ -26,10 +29,22 @@ public class Map extends HttpServlet {
 		String command = request.getParameter("command");
 		System.out.println("["+ command +"]");
 		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
 		
 		if(command.equals("map")) {
 			
-			response.sendRedirect("map/mapsample.jsp");
+			MemberDto dto = (MemberDto)session.getAttribute("memberDto");
+			
+			if(dto != null) {
+				response.sendRedirect("map/mapsample.jsp");
+				
+			} else {
+				
+				out.println("<script>");
+				out.println("alert('로그인을 해주세요.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
 		}
 		
 	}
