@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -156,20 +157,29 @@ public class Payment extends HttpServlet {
 				session.setAttribute("item_name", (String)obj.get("item_name"));
 				session.setAttribute("total", total);
 				
-				// subString 으로 item_code 자른 후 각각의 재료 db 가져와서 list에 담는다
+				// subString 으로 item_code 자른 후 각각의 재료no로 list에 담는다
 				List<PaymentDto> list = new ArrayList<PaymentDto>();
 				
-				PaymentDto pDto = new PaymentDto();
-				pDto.setPayment_group(tid);
-				pDto.setId(partner_user_id);
-				pDto.setItem_name(item_name);
-				pDto.setItem_code(item_code);
-				pDto.setPayment_price(total);
-				pDto.setRecipe_no(2);
-				pDto.setMaterial_no(2);
-				pDto.setShipping_addr("배송지");
+				String[] split = item_code.split(",");
+				Date date = new Date();
+				SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-dd  hh시");
+				String payment_date = dateform.format(date);
 				
-				list.add(pDto);
+				for(String sp : split) {
+					PaymentDto pDto = new PaymentDto();
+					pDto.setPayment_group(tid);
+					pDto.setId(partner_user_id);
+					pDto.setItem_name(item_name);
+					pDto.setItem_code(item_code);
+					pDto.setPayment_price(total);
+					pDto.setRecipe_no(2);
+					pDto.setMaterial_no(Integer.parseInt(sp));
+					pDto.setPayment_date(payment_date);
+					pDto.setShipping_addr("배송지");
+					
+					list.add(pDto);
+					
+				}
 				
 				int res = pBiz.insert(list);
 				

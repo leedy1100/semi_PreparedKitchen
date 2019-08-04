@@ -54,7 +54,7 @@
 			<input type="hidden" name="partner_order_id" value="0000001">
 			<input type="hidden" name="partner_user_id" value="user">
 			<input type="hidden" name="item_name" value="레시피 이름 [ 돼지고기, 마늘, 양파 ] ...">
-			<input type="hidden" name="item_code" value="000013,123123">
+			<input type="hidden" name="item_code" value="2,3,4">
 			<input type="hidden" name="quantity" value="1">
 			<input type="hidden" name="total_amount" value="10000">
 			<input type="hidden" name="tax_free_amount" value="1000">

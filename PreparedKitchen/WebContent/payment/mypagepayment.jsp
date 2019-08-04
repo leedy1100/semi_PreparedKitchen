@@ -13,7 +13,6 @@
 <%
 	PaymentBiz pBiz = new PaymentBiz();
 	List<PaymentDto> pList = pBiz.mySelectList("user");
-	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh시 mm분");
 %>
 </head>
 <body>
@@ -39,7 +38,7 @@
 				<th>결제 번호</th><th>내용</th><th>가격</th><th>결제날짜</th><th>취소/환불</th>
 			</tr>
 <%
-			if(pList.isEmpty()) {
+			if(pList == null) {
 %>
 				<tr><td colspan="4">결제 내역이 없습니다.</td></tr>
 <%
@@ -50,7 +49,7 @@
 						<td><%=pDto.getPayment_group() %></td>
 						<td><%=pDto.getItem_name() %></td>
 						<td><%=pDto.getPayment_price() %></td>
-						<td><%=dateFormat.format(pDto.getPayment_date()).toString()%></td>
+						<td><%=pDto.getPayment_date()%></td>
 						<td><input type="button" value="취소" onclick="location.href='canclepage.jsp?tid=<%=pDto.getPayment_group()%>'"></td>
 					</tr>
 <%
