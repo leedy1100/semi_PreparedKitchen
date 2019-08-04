@@ -123,7 +123,7 @@ public class RecipeComment extends HttpServlet {
 
 			PrintWriter out = response.getWriter();
 			out.print(element);
-			
+			System.out.println("element:" + element);
 		}else if(command.equals("deleteCmt")) {
 			
 			int comment_no = Integer.parseInt(request.getParameter("comment_no"));
@@ -143,6 +143,22 @@ public class RecipeComment extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.print(res);
 			
+		}else if(command.equals("cmtcmtupdate")) {
+			RecipeCommentDto dto = new RecipeCommentDto();
+			int comment_no = Integer.parseInt(request.getParameter("comment_no"));
+			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
+			String comment_content = request.getParameter("comment_content");
+			String id = memberDto.getId();
+			
+			dto.setComment_no(comment_no);
+			dto.setRecipeBoard_no(recipeBoard_no);
+			dto.setComment_content(comment_content);
+			dto.setId(id);
+			
+			int res = recipeCommentBiz.insertCmtCmt(dto);
+			
+			PrintWriter out = response.getWriter();
+			out.print(res);
 		}
 	}
 

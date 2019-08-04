@@ -9,12 +9,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.cmttable td{
-	border: 1px solid rgba(0, 0, 0, .2);
+#cmttable{
+	text-align: center;
 }
-
 #cmtPageNum{
 	cursor: pointer;
+}
+.cmtcnt{
+	cursor: pointer;
+}
+.cmtbox{
+display: inline-block;
+margin: 10px;
+}
+.cmtidbox{
+}
+.cmtcntbox{
+	width: 600px;
+}
+.cmtdatebox{
+}
+.cmtcnt{
+	width:500px;
+}
+.cmtonebox{
+ border: 1px solid rgba(0,0,0,.2);
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -30,7 +49,9 @@ $(function() {
         		var jdata =JSON.parse(data);
         		var jdata2 = jdata.comments;
 				showAllCmt(jdata2);
-				pageNum(jdata);
+				if(!$.isEmptyObject(jdata2)){
+					pageNum(jdata);
+				}
 			
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -58,6 +79,25 @@ $(function() {
 	});
 	
 });
+
+function cmtList() {
+	$.ajax({
+        url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
+        dataType:"text",
+        success:function(data) {
+        		var jdata =JSON.parse(data);
+        		var jdata2 = jdata.comments;
+				$("#comment_content").val("");
+				showAllCmt(jdata2);
+				if(!$.isEmptyObject(jdata2)){
+					pageNum(jdata);
+				}
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+        
+    });
+}
 
 function pageNum(paging) {
 
@@ -101,6 +141,36 @@ function goPage(pages, lines) {
     });
 }
 
+function cmtcmt(cmtno) {
+	
+	var html = "<div>";
+	html += "<div style='border:none;' colspan='3'><textarea rows='3' id='cmtcmtcontent' style='width: 99%;' placeholder='댓글을 입력하세요.'></textarea></div>";
+	html += "<div style='border:none;'><input type='button' value='저장' onclick='cmtcmtUpdate("+cmtno+","+"$(\""+"#cmtcmtcontent\""+").val()"+")'/>";
+	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
+	html += "</div>";
+	
+	$('#'+cmtno).after(html);
+}
+
+function cmtcmtUpdate(cmtno,cmtcmtcontent) {
+	
+	$.ajax({
+        url:"recipeComment.do?command=cmtcmtupdate&recipeBoard_no=${recipeBoardDto.recipeBoard_no }&comment_no="+cmtno+"&comment_content="+cmtcmtcontent,
+        dataType:"text",
+        success:function(data) {
+				if(data > 0){
+					cmtList();
+				}else{
+					alert("저장 실패");					
+				}
+			
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+    });
+	
+}
+
 function deleteCmtfn(cmtno) {
 	
 	 if (confirm("삭제하시겠습니까?") == true){
@@ -125,32 +195,16 @@ function deleteCmtfn(cmtno) {
 
 function updateCmtfn(cmtno,cmtcontent) {
 	
-	var html = "<tr>";
-	html += "<td style='border:none;' colspan='3'><textarea rows='3' id='updatecnt' style='width: 99%;'>"+cmtcontent+"</textarea></td>";
-	html += "<td style='border:none;'><input type='button' value='저장' onclick='update("+cmtno+","+"$(\""+"#updatecnt\""+").val()"+")'/>";
-	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
-	html += "</tr>";
+	var html = "<div>";
+	html += "<div style='border:none;' colspan='3'><textarea rows='3' id='updatecnt' style='width: 99%;'>"+cmtcontent+"</textarea></div>";
+	html += "<div style='border:none;'><input type='button' value='저장' onclick='update("+cmtno+","+"$(\""+"#updatecnt\""+").val()"+")'/>";
+	html += "<input type='button' value='취소' onclick='cmtList()'/></div>";
+	html += "</div>";
 
 	$('#'+cmtno).empty();
 	$('#'+cmtno).unwrap().wrap(html);
 	
 			
-}
-
-function cmtList() {
-	$.ajax({
-        url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
-        dataType:"text",
-        success:function(data) {
-        		var jdata =JSON.parse(data);
-        		var jdata2 = jdata.comments;
-				$("#comment_content").val("");
-				showAllCmt(jdata2);
-        },error:function(request, error){
-			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
-		}
-        
-    });
 }
 
 function update(cmtno,cmtcontent) {
@@ -181,25 +235,32 @@ function showAllCmt(data) {
 			$("#commentContent").val("");
 			$("#commentContent").focus();
 		}else{
-		var	html = "<table class='cmttable' >";
+		var	html = "<div id='cmttable'>";
 		
 		for (var i = 0; i < data.length; i++) {
 			
 			var id = "${memberDto.id}";
 			var cmtId = data[i].id;
 			var boo = (id == cmtId);
-			html += "<tr id='"+data[i].comment_no+"'>";
-			html += "<td style='width:10%;'>"+data[i].id + "</td>";
-			html += "<td style='width:80%; text-align:left;'>" + data[i].comment_content + "</td>";
-			html += "<td style='width:20%;'>" + data[i].comment_regdate + "</td>";
-			if(boo){
-				html += "<td style='border:none;'><input type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
-				html += "<input type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/></td>";
+			html += "<div class='cmtonebox'>"
+			html += "<div id='"+data[i].comment_no+"'>";
+			for(var j = 0; j<data[i].comment_tab; j++){
+				html += "<div class='cmtbox'><div>&nbsp;</div></div>";
+				if(j+1==data[i].comment_tab){
+					html += "<div class='cmtbox'><div>ㄴ</div></div>";
+				}
 			}
-			html += "</tr>";
+			html += "<div class='cmtbox'><div class='cmtidbox'>"+data[i].id + "</div></div>";
+			html += "<div class='cmtbox'><div class='cmtcntbox'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></div></div>";
+			html += "<div class='cmtbox'><div class='cmtdatebox'>" + data[i].comment_regdate + "</div></div>";
+			if(boo){
+				html += "<input type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
+				html += "<input type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/>";
+			}
+			html += "</div>";
+			html += "</div>";
 		}
-
-		html += "</table>";
+		html += "</div>";
 
 		$("#showAllComment").html(html);
 		$("#commentContent").val("");
@@ -228,7 +289,7 @@ function showAllCmt(data) {
 	</div>
 	<div style="margin-top: 10px; width: 100%;">
 	    <hr/>
-	    <div id="showAllComment" style="text-align: center;"></div>
+	    <div id="showAllComment"></div>
 	</div>
 	<div id="showPageNum" style="text-align: center;"></div>
 
