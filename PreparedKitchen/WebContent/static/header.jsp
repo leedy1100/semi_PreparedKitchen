@@ -26,7 +26,7 @@
 <body>
 	<div id="mainleft">
 		<img id="mainmenu">
-		<a id="maintitle" href="index.jsp">Prepared Kitchen</a>
+		<a id="maintitle" href="/PreparedKitchen/index.jsp">Prepared Kitchen</a>
 	</div>
 	<div id="mainright">
 		<img id="search">
