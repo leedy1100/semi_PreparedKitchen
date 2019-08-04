@@ -16,6 +16,9 @@
 #cmtPageNum{
 	cursor: pointer;
 }
+.cmtcnt{
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
@@ -30,7 +33,9 @@ $(function() {
         		var jdata =JSON.parse(data);
         		var jdata2 = jdata.comments;
 				showAllCmt(jdata2);
-				pageNum(jdata);
+				if(!$.isEmptyObject(data2)){
+					pageNum(jdata);
+				}
 			
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -58,6 +63,23 @@ $(function() {
 	});
 	
 });
+
+function cmtList() {
+	$.ajax({
+        url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
+        dataType:"text",
+        success:function(data) {
+        		var jdata =JSON.parse(data);
+        		var jdata2 = jdata.comments;
+				$("#comment_content").val("");
+				showAllCmt(jdata2);
+				pageNum(jdata);
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+        
+    });
+}
 
 function pageNum(paging) {
 
@@ -101,6 +123,36 @@ function goPage(pages, lines) {
     });
 }
 
+function cmtcmt(cmtno) {
+	
+	var html = "<tr>";
+	html += "<td style='border:none;' colspan='3'><textarea rows='3' id='cmtcmtcontent' style='width: 99%;' placeholder='댓글을 입력하세요.'></textarea></td>";
+	html += "<td style='border:none;'><input type='button' value='저장' onclick='cmtcmtUpdate("+cmtno+","+"$(\""+"#cmtcmtcontent\""+").val()"+")'/>";
+	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
+	html += "</tr>";
+	
+	$('#'+cmtno).after(html);
+}
+
+function cmtcmtUpdate(cmtno,cmtcmtcontent) {
+	
+	$.ajax({
+        url:"recipeComment.do?command=cmtcmtupdate&recipeBoard_no=${recipeBoardDto.recipeBoard_no }&comment_no="+cmtno+"&comment_content="+cmtcmtcontent,
+        dataType:"text",
+        success:function(data) {
+				if(data > 0){
+					cmtList();
+				}else{
+					alert("저장 실패");					
+				}
+			
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+    });
+	
+}
+
 function deleteCmtfn(cmtno) {
 	
 	 if (confirm("삭제하시겠습니까?") == true){
@@ -135,22 +187,6 @@ function updateCmtfn(cmtno,cmtcontent) {
 	$('#'+cmtno).unwrap().wrap(html);
 	
 			
-}
-
-function cmtList() {
-	$.ajax({
-        url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
-        dataType:"text",
-        success:function(data) {
-        		var jdata =JSON.parse(data);
-        		var jdata2 = jdata.comments;
-				$("#comment_content").val("");
-				showAllCmt(jdata2);
-        },error:function(request, error){
-			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
-		}
-        
-    });
 }
 
 function update(cmtno,cmtcontent) {
@@ -189,8 +225,11 @@ function showAllCmt(data) {
 			var cmtId = data[i].id;
 			var boo = (id == cmtId);
 			html += "<tr id='"+data[i].comment_no+"'>";
+			for(var i =0; i<data[i].comment_tab; i++){
+				html += "<td>&nbsp;</td>";
+			}
 			html += "<td style='width:10%;'>"+data[i].id + "</td>";
-			html += "<td style='width:80%; text-align:left;'>" + data[i].comment_content + "</td>";
+			html += "<td style='width:80%; text-align:left;'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></td>";
 			html += "<td style='width:20%;'>" + data[i].comment_regdate + "</td>";
 			if(boo){
 				html += "<td style='border:none;'><input type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";

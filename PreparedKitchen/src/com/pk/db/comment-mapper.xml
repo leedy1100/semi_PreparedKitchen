@@ -56,7 +56,7 @@
 	
 	<insert id="insertCmtCmt" parameterType="commentDto">
 		INSERT INTO RECIPECOMMENT
-		VALUES(RECIPECOMMENTSEQ.NEXTVAL, #{recipeBoard_no},#{comment_content},SYSDATE
+		VALUES(RECIPECOMMENTSEQ.NEXTVAL, #{recipeBoard_no},#{id},#{comment_content},SYSDATE,
 			(
 				SELECT COMMENT_GROUPNO
 				FROM RECIPECOMMENT
