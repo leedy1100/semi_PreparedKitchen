@@ -123,7 +123,7 @@ public class RecipeComment extends HttpServlet {
 
 			PrintWriter out = response.getWriter();
 			out.print(element);
-			
+			System.out.println("element:" + element);
 		}else if(command.equals("deleteCmt")) {
 			
 			int comment_no = Integer.parseInt(request.getParameter("comment_no"));
