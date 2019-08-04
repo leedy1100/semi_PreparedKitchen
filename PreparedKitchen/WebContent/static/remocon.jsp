@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<link rel="stylesheet" href="css/remocon.css"/>
+<link rel="stylesheet" href="/PreparedKitchen/css/remocon.css"/>
 <script type="text/javascript">
 	
 	function enterkey() {
@@ -31,7 +31,7 @@
 
 	<div id="d">
 		<a href="#">top</a>
-		<img id="chat" alt="1:1문의" src="image/chat1.png" onclick="chatOn()">
+		<img id="chat" alt="1:1문의" src="/PreparedKitchen/image/chat1.png" onclick="chatOn()">
 		<div id="chatform">
 			<p>1:1 상담<p>
 			<div id="chatContent">

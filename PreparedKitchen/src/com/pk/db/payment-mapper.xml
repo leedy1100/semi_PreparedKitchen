@@ -3,18 +3,32 @@
 <mapper namespace="paymentmapper">
 
 	<select id="selectList" resultType="paymentDto">
-		SELECT PAYMENT_NO, PAYMENT_GROUPNO, ID, PAYMENT_PRICE, RECIPE_NO, MATERIAL_NO, PAYMENT_DATE, SHIPPING_ADDR
+		SELECT PAYMENT_NO, PAYMENT_GROUP, ID, ITEM_NAME, ITEM_CODE, PAYMENT_PRICE, RECIPE_NO, MATERIAL_NO, PAYMENT_DATE, SHIPPING_ADDR
 		FROM PAYMENT
-		ORDER BY PAYMENT_GROUPNO, PAYMENT_NO
+		ORDER BY PAYMENT_GROUP, PAYMENT_NO
 	</select>
-
-	<select id="incrementSeq" resultType="int">
-		SELECT PAYMENT_GROUPSEQ.NEXTVAL FROM DUAL
+	
+	<select id="mySelectList" parameterType="String" resultType="paymentDto">
+		SELECT PAYMENT_NO, PAYMENT_GROUP, ID, ITEM_NAME, ITEM_CODE, PAYMENT_PRICE, RECIPE_NO, MATERIAL_NO, PAYMENT_DATE, SHIPPING_ADDR
+		FROM PAYMENT
+		WHERE ID = #{value}
+		ORDER BY PAYMENT_GROUP, PAYMENT_NO
+	</select>
+	
+	<select id="selectOneList" parameterType="String" resultType="paymentDto">
+		SELECT PAYMENT_NO, PAYMENT_GROUP, ID, ITEM_NAME, ITEM_CODE, PAYMENT_PRICE, RECIPE_NO, MATERIAL_NO, PAYMENT_DATE, SHIPPING_ADDR
+		FROM PAYMENT
+		WHERE PAYMENT_GROUP = #{value}
 	</select>
 
 	<insert id="insert" parameterType="paymentDto">
 		INSERT INTO PAYMENT
-		VALUES(PAYMENTSEQ.NEXTVAL, #{payment_groupno}, #{id}, #{payment_price}, #{recipe_no}, #{material_no}, SYSDATE, #{shipping_addr})
+		VALUES(PAYMENTSEQ.NEXTVAL, #{payment_group}, #{id}, #{item_name}, #{item_code}, #{payment_price}, #{recipe_no}, #{material_no}, SYSDATE, #{shipping_addr})
 	</insert>
+	
+	<delete id="delete" parameterType="String">
+		DELETE PAYMENT
+		WHERE PAYMENT_GROUP = #{value}
+	</delete>
 	
 </mapper>

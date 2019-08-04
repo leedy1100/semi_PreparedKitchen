@@ -5,8 +5,10 @@ import java.util.Date;
 public class PaymentDto {
 
 	private int payment_no;				// 주문 번호
-	private int payment_groupno;		
+	private String payment_group;		
 	private String id;
+	private String item_name;
+	private String item_code;
 	private String payment_price;
 	private int recipe_no;
 	private int material_no;
@@ -15,11 +17,14 @@ public class PaymentDto {
 	
 	public PaymentDto() {}
 
-	public PaymentDto(int payment_no, int payment_groupno, String id, String payment_price, int recipe_no,
-			int material_no, Date payment_date, String shipping_addr) {
+	public PaymentDto(int payment_no, String payment_group, String id, String item_name, String item_code,
+			String payment_price, int recipe_no, int material_no, Date payment_date, String shipping_addr) {
+		super();
 		this.payment_no = payment_no;
-		this.payment_groupno = payment_groupno;
+		this.payment_group = payment_group;
 		this.id = id;
+		this.item_name = item_name;
+		this.item_code = item_code;
 		this.payment_price = payment_price;
 		this.recipe_no = recipe_no;
 		this.material_no = material_no;
@@ -35,12 +40,12 @@ public class PaymentDto {
 		this.payment_no = payment_no;
 	}
 
-	public int getPayment_groupno() {
-		return payment_groupno;
+	public String getPayment_group() {
+		return payment_group;
 	}
 
-	public void setPayment_groupno(int payment_groupno) {
-		this.payment_groupno = payment_groupno;
+	public void setPayment_group(String payment_group) {
+		this.payment_group = payment_group;
 	}
 
 	public String getId() {
@@ -49,6 +54,22 @@ public class PaymentDto {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getItem_name() {
+		return item_name;
+	}
+
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
+	}
+
+	public String getItem_code() {
+		return item_code;
+	}
+
+	public void setItem_code(String item_code) {
+		this.item_code = item_code;
 	}
 
 	public String getPayment_price() {
@@ -90,5 +111,5 @@ public class PaymentDto {
 	public void setShipping_addr(String shipping_addr) {
 		this.shipping_addr = shipping_addr;
 	}
-	
+
 }

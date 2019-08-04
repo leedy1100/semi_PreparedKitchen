@@ -13,7 +13,19 @@ public class PaymentBiz {
 		return dao.selectList();
 	}
 	
+	public List<PaymentDto> mySelectList(String id) {
+		return dao.mySelectList(id);
+	}
+
+	public List<PaymentDto> selectOneList(String tid) {
+		return dao.selectOneList(tid);
+	}
+	
+	
 	public int insert(List<PaymentDto> list) {
 		return dao.insert(list);
+	}
+	public int delete(String tid) {
+		return dao.delete(tid);
 	}
 }

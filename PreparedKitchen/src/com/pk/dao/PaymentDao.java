@@ -28,16 +28,47 @@ public class PaymentDao extends SqlMapConfig{
 		return list;
 	}
 	
+	public List<PaymentDto> mySelectList(String id) {
+		List<PaymentDto> list = new ArrayList<PaymentDto>();
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace + "mySelectList", id);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
+	
+	public List<PaymentDto> selectOneList(String tid) {
+		List<PaymentDto> list = new ArrayList<PaymentDto>();
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace + "selectOneList", tid);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
 	public int insert(List<PaymentDto> list) {
 		int res = 0;
 		SqlSession session = null;
 		
 		try {
 			session = getSqlSessionFactory().openSession(false);
-			int seq = session.selectOne(namespace + "incrementSeq");
 			
 			for(PaymentDto dto : list) {
-				dto.setPayment_groupno(seq);
 				res += session.insert(namespace + "insert", dto);
 			}
 			
@@ -55,4 +86,24 @@ public class PaymentDao extends SqlMapConfig{
 		return res;
 	}
 	
+	public int delete(String tid) {
+		int res = 0;
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			
+			res += session.delete(namespace + "delete", tid);
+			
+			if(res > 0) {
+				session.commit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
 }
