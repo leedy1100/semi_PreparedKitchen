@@ -18,6 +18,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.pk.biz.RecipeCommentBiz;
 import com.pk.dto.MemberDto;
+import com.pk.dto.PagingDto;
 import com.pk.dto.RecipeCommentDto;
 
 /**
@@ -46,7 +47,20 @@ public class RecipeComment extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		MemberDto memberDto = (MemberDto) session.getAttribute("memberDto");
+		
+		int currentPageNo = 1;
+		int recordsPerPage = 0;
 
+		if (request.getParameter("pages") != null) {
+			currentPageNo = Integer.parseInt(request.getParameter("pages"));
+		}
+		if (request.getParameter("lines") != null) {
+			recordsPerPage = Integer.parseInt(request.getParameter("lines"));
+		}
+
+		PagingDto paging = new PagingDto(recordsPerPage, currentPageNo);
+		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
+		
 		String command = request.getParameter("command");
 		RecipeCommentBiz recipeCommentBiz = new RecipeCommentBiz();
 		
@@ -64,7 +78,6 @@ public class RecipeComment extends HttpServlet {
 				int comment_tab = Integer.parseInt(request.getParameter("comment_tab"));
 				String id = memberDto.getId();
 				String comment_content = request.getParameter("comment_content");
-				JSONArray result = new JSONArray();
 
 				RecipeCommentDto dto = new RecipeCommentDto();
 				dto.setRecipeBoard_no(recipeBoard_no);
@@ -83,21 +96,34 @@ public class RecipeComment extends HttpServlet {
 			int recipeBoard_no = Integer.parseInt(request.getParameter("recipeBoard_no"));
 			JSONArray comments = new JSONArray();
 			
-			try {
-				comments = recipeCommentBiz.selectListCmt2(recipeBoard_no);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			comments = recipeCommentBiz.selectListCmt(recipeBoard_no,offset, paging.getRecordsPerPage());
+			paging.setNumberOfRecords(recipeCommentBiz.getNoOfRecords());
+			paging.makePaging();
 
+			int firstPageNo = paging.getFirstPageNo();
+			int prevPageNo = paging.getPrevPageNo();
+			int startPageNo = paging.getStartPageNo();
+			int endPageNo = paging.getEndPageNo();
+			int nextPageNo = paging.getNextPageNo();
+			int finalPageNo = paging.getFinalPageNo();
+			
 			JSONObject jobj = new JSONObject();
 			jobj.put("comments", comments);
+			jobj.put("recordsPerPage", recordsPerPage);
+			jobj.put("firstPageNo", firstPageNo);
+			jobj.put("prevPageNo", prevPageNo);
+			jobj.put("startPageNo", startPageNo);
+			jobj.put("currentPageNo", currentPageNo);
+			jobj.put("endPageNo", endPageNo);
+			jobj.put("nextPageNo", nextPageNo);
+			jobj.put("finalPageNo", finalPageNo);
 
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
 
 			PrintWriter out = response.getWriter();
 			out.print(element);
-			System.out.println("element : " + element);
+			
 		}else if(command.equals("deleteCmt")) {
 			
 			int comment_no = Integer.parseInt(request.getParameter("comment_no"));

@@ -12,6 +12,10 @@
 .cmttable td{
 	border: 1px solid rgba(0, 0, 0, .2);
 }
+
+#cmtPageNum{
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
@@ -25,14 +29,12 @@ $(function() {
 			
         		var jdata =JSON.parse(data);
         		var jdata2 = jdata.comments;
-				console.log("comment 정상입력");
-				$("#comment_content").val("");
 				showAllCmt(jdata2);
+				pageNum(jdata);
 			
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 		}
-        
     });
 
 	$("#commentWrite").click(function() {
@@ -56,6 +58,48 @@ $(function() {
 	});
 	
 });
+
+function pageNum(paging) {
+
+	var html = "";
+		if(paging.currentPageNo != paging.firstPageNo){
+			html += "<a id='cmtPageNum' onclick='goPage("+paging.prevPageNo+","+paging.recordsPerPage+")'>이전</a>&nbsp;";
+		}
+        for(var i = paging.startPageNo; i<=paging.endPageNo; i++){
+        	if(i == paging.currentPageNo){
+        		html += "<b><font size=+1>";
+                html += "<a id='cmtPageNum' onclick='goPage("+i+","+paging.recordsPerPage+")'>"+i+"</a>&nbsp;";
+                html += "</font></b>";
+        	}else{
+        		html += "<a id='cmtPageNum' onclick='goPage("+i+","+paging.recordsPerPage+")'>"+i+"</a>&nbsp;";
+        	}
+        }
+        if(paging.currentPageNo != paging.finalPageNo){
+        	 html += "&nbsp;<a id='cmtPageNum' onclick='goPage("+paging.nextPageNo+","+paging.recordsPerPage+")'>다음</a>";
+        }
+		
+		$("#showPageNum").html(html);
+}
+
+function goPage(pages, lines) {
+	
+	var url = "&pages=" + pages + "&lines=" + lines + "&recipeBoard_no=${recipeBoardDto.recipeBoard_no }";
+	
+	$.ajax({
+        url:'recipeComment.do?command=cmtread'+url,
+        dataType:"text",
+        success:function(data) {
+			
+        		var jdata =JSON.parse(data);
+        		var jdata2 = jdata.comments;
+				showAllCmt(jdata2);
+				pageNum(jdata);
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+        
+    });
+}
 
 function deleteCmtfn(cmtno) {
 	
@@ -100,7 +144,6 @@ function cmtList() {
         success:function(data) {
         		var jdata =JSON.parse(data);
         		var jdata2 = jdata.comments;
-				console.log("comment 정상입력");
 				$("#comment_content").val("");
 				showAllCmt(jdata2);
         },error:function(request, error){
@@ -161,6 +204,7 @@ function showAllCmt(data) {
 		$("#showAllComment").html(html);
 		$("#commentContent").val("");
 		$("#commentContent").focus();
+		
 	}
 }
 
@@ -171,24 +215,22 @@ function showAllCmt(data) {
 <body>
 	
 	<div style="margin-top: 10px; width: 100%;">
-	<form action="recipeComment.do" method="post" id="insertform">
-	<input type="hidden" name="command" value="insertcmt"/>
-	<input type="hidden" name="comment_order" value="1"/>
-	<input type="hidden" name="comment_tab" value="0"/>
-	<input type="hidden" name="recipeBoard_no" value="${recipeBoardDto.recipeBoard_no }"/>
-    <textarea rows="3" id="comment_content" name="comment_content" placeholder="댓글을 입력하세요." style="width: 100%;"></textarea>
-        <c:if test="${memberDto.id != null}">
-            <input type="button" value="댓글 쓰기" id="commentWrite">
-        </c:if>
-       </form>
-</div>
-
-<div style="margin-top: 10px; width: 100%;">
-    <hr/>
-    <div id="showAllComment" style="text-align: center;">
-    </div>
-</div>
-
+		<form action="recipeComment.do" method="post" id="insertform">
+			<input type="hidden" name="command" value="insertcmt"/>
+			<input type="hidden" name="comment_order" value="1"/>
+			<input type="hidden" name="comment_tab" value="0"/>
+			<input type="hidden" name="recipeBoard_no" value="${recipeBoardDto.recipeBoard_no }"/>
+		    <textarea rows="3" id="comment_content" name="comment_content" placeholder="댓글을 입력하세요." style="width: 100%;"></textarea>
+	        <c:if test="${memberDto.id != null}">
+	            <input type="button" value="댓글 쓰기" id="commentWrite">
+	        </c:if>
+        </form>
+	</div>
+	<div style="margin-top: 10px; width: 100%;">
+	    <hr/>
+	    <div id="showAllComment" style="text-align: center;"></div>
+	</div>
+	<div id="showPageNum" style="text-align: center;"></div>
 
 </body>
 </html>

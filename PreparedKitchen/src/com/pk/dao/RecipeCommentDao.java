@@ -13,31 +13,25 @@ import com.pk.dto.RecipeCommentDto;
 public class RecipeCommentDao extends SqlMapConfig {
 
 	private String namespace = "commentmapper.";
+	int noOfRecords;
+	
+	public int getNoOfRecords() {
 
-	public List<RecipeCommentDto> selectListCmt(int no) {
-
-		SqlSession session = null;
-		List<RecipeCommentDto> list = new ArrayList<RecipeCommentDto>();
-		HashMap<String, Object> recipeno = new HashMap<String, Object>();
-		recipeno.put("recipeboard_no", no);
-
-		session = getSqlSessionFactory().openSession();
-		list = session.selectList(namespace + "selectListCmt", recipeno);
-		
-		session.close();
-
-		return list;
+		return noOfRecords;
 	}
 	
-	public JSONArray selectListCmt2(int no) {
+	public JSONArray selectListCmt(int no, int offset, int noOfRecords) {
 
 		SqlSession session = null;
 		List<RecipeCommentDto> list = new ArrayList<RecipeCommentDto>();
 		HashMap<String, Object> recipeno = new HashMap<String, Object>();
 		recipeno.put("recipeboard_no", no);
+		recipeno.put("offset", offset);
+		recipeno.put("noOfRecords", offset + noOfRecords);
 
 		session = getSqlSessionFactory().openSession();
 		list = session.selectList(namespace + "selectListCmt", recipeno);
+		this.noOfRecords = session.selectOne(namespace + "countCmt",recipeno);
 		
 		HashMap<String, Object> hm = null;
 		JSONArray jArr = new JSONArray();
@@ -55,6 +49,7 @@ public class RecipeCommentDao extends SqlMapConfig {
 
 			jArr.add(hm);
 		}
+	
 
 		session.close();
 

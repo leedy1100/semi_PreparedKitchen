@@ -11,12 +11,8 @@ public class RecipeCommentBiz {
 
 	RecipeCommentDao recipeCommentDao = new RecipeCommentDao();
 
-	public JSONArray selectListCmt2(int no) {
-		return recipeCommentDao.selectListCmt2(no);
-	}
-	
-	public List<RecipeCommentDto> selectListCmt(int no) {
-		return recipeCommentDao.selectListCmt(no);
+	public JSONArray selectListCmt(int no, int offset, int noOfRecords) {
+		return recipeCommentDao.selectListCmt(no, offset, noOfRecords);
 	}
 
 	public RecipeCommentDto selectOneCmt(int no) {
@@ -39,6 +35,10 @@ public class RecipeCommentBiz {
 		recipeCommentDao.updateGroupNO(dto.getRecipeBoard_no());
 
 		return recipeCommentDao.insertCmtCmt(dto);
+	}
+
+	public int getNoOfRecords() {
+		return recipeCommentDao.getNoOfRecords();
 	}
 
 }
