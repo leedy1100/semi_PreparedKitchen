@@ -33,12 +33,12 @@
 <%
 	if(memberDto == null){
 %>
-		<a id="headerlogin" href="login.do?command=gologin">login</a>
+		<a id="headerlogin" href="/PreparedKitchen/login.do?command=gologin">login</a>
 <%
 	} else {
 %>
 		<%= memberDto.getName() %>님 환영합니다.
-		<a id="headerlogin" href="login.do?command=logout">logout</a>
+		<a id="headerlogin" href="/PreparedKitchen/login.do?command=logout">logout</a>
 <%
 	}
 %>
