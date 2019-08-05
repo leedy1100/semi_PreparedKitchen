@@ -69,6 +69,7 @@ public class RecipeBoard extends HttpServlet {
 			recordsPerPage = Integer.parseInt(request.getParameter("lines"));
 		}
 
+		
 		PagingDto paging = new PagingDto(recordsPerPage, currentPageNo);
 		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
 
