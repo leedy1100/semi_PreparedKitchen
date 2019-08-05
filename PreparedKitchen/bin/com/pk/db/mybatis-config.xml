@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+  <properties resource="com/pk/db/db.properties"></properties>
+  
+  <typeAliases>
+  	<typeAlias type="com.pk.dto.RecipeBoardDto" alias="RecipeBoardDto"/>
+  	<typeAlias type="com.pk.dto.LikeDto" alias="LikeDto"/>
+  	<typeAlias type="com.pk.dto.PagingDto" alias="PagingDto" />
+  	<typeAlias type="com.pk.dto.CartDto" alias="cartDto" />
+  	<typeAlias type="com.pk.dto.InterestListDto" alias="interestDto" />
+  	<typeAlias type="com.pk.dto.MaterialDto" alias="materialDto" />
+  	<typeAlias type="com.pk.dto.MemberDto" alias="memberDto" />
+  	<typeAlias type="com.pk.dto.PaymentDto" alias="paymentDto" />
+  	<typeAlias type="com.pk.dto.ProductListDto" alias="productDto" />
+  	<typeAlias type="com.pk.dto.RecipeBoardDto" alias="boardDto" />
+  	<typeAlias type="com.pk.dto.RecipeCommentDto" alias="commentDto" />
+  	<typeAlias type="com.pk.dto.RecipeDto" alias="recipeDto" />
+  	<typeAlias type="com.pk.dto.ChatDto" alias="chatDto" />
+  </typeAliases>	
+	
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/pk/db/board-mapper.xml"/>
+    <mapper resource="com/pk/db/cart-mapper.xml"/>
+    <mapper resource="com/pk/db/comment-mapper.xml"/>
+    <mapper resource="com/pk/db/interest-mapper.xml"/>
+    <mapper resource="com/pk/db/member-mapper.xml"/>
+    <mapper resource="com/pk/db/material-mapper.xml"/>
+    <mapper resource="com/pk/db/payment-mapper.xml"/>
+    <mapper resource="com/pk/db/product-mapper.xml"/>
+    <mapper resource="com/pk/db/recipe-mapper.xml"/>
+    <mapper resource="com/pk/db/board-mapper.xml"/>
+    <mapper resource="com/pk/db/chat-mapper.xml"/>
+  </mappers>
+</configuration>
