@@ -207,7 +207,7 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		likedto = session.selectOne(namespace + "selectOneLikeList", likeList);
 
 		session.close();
-
+		
 		return likedto;
 	}
 	
