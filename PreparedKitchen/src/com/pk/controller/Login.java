@@ -43,8 +43,12 @@ public class Login extends HttpServlet {
 		MemberBiz biz = new MemberBiz();
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
+		String url = null;
 
 		if(command.equals("gologin")) {
+			
+			url = request.getHeader("referer");
+			session.setAttribute("url", url);
 			
 			response.sendRedirect("login.jsp");
 			
@@ -103,7 +107,9 @@ public class Login extends HttpServlet {
 			if(dto != null) {
 				
 				session.setAttribute("memberDto", dto);
-				response.sendRedirect("index.jsp");
+				url = (String)session.getAttribute("url");
+				System.out.println(url);
+				response.sendRedirect(url);
 				
 			} else {
 				response.sendRedirect("login.jsp");
