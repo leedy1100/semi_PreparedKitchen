@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONArray;
 
 import com.pk.dao.SqlMapConfig;
 import com.pk.dto.LikeDto;
@@ -208,6 +209,28 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		session.close();
 
 		return likedto;
+	}
+	
+	public JSONArray likeChart(){
+		
+		SqlSession session = null;
+		List<RecipeBoardDto> list = new ArrayList<RecipeBoardDto>();
+		
+		session = getSqlSessionFactory().openSession();
+		list = session.selectList(namespace + "likeChart");
+		HashMap<String, Object> chart = null;
+		JSONArray jArr = new JSONArray();
+		for(int i = 0; i < list.size(); i++) {
+			chart = new HashMap<String, Object>();
+			chart.put("x", list.get(i).getRecipeBoard_title());
+			chart.put("y", list.get(i).getRecipeBoard_like());
+			
+			jArr.add(chart);
+		}
+		
+		session.close();
+		System.out.println("jArr : "+jArr);
+		return jArr;
 	}
 
 }
