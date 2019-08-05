@@ -11,14 +11,28 @@
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="static/base.css"/>
+<style type="text/css">
+
+	#main_slide{
+		min-height: 672px;
+		width: 1008px;
+		margin: 0px auto;
+		background-image: url("/PreparedKitchen/image/main.jpg");
+		background-repeat: no-repeat;
+	}
+
+</style>
 </head>
 <body>
 	
 	<header>
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="static/header.jsp" %>
+		
 	</header>
-	
+	<div id="main_slide">
+			d
+	</div>
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<a href="recipeboard.do?command=list">recipeboardlist테스트용</a><br/>
