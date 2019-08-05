@@ -1,5 +1,4 @@
 
-
 Kakao.init('9224c175adc04d7602e956fcdd3fd17f');
 function loginWithKakao() {
 	Kakao.Auth.login({
@@ -18,3 +17,19 @@ function loginWithKakao() {
 		}
 	});
 };
+
+function forgot(){
+	open("forgotid.jsp","","width=500,height=600,left=600,top=200")
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -27,7 +27,6 @@
     <c:if test="${param.currentPageNo ne param.firstPageNo}">
         <a href="javascript:goPage(${param.prevPageNo}, ${param.recordsPerPage})" class="prev">이전</a>
     </c:if>
-    
     <span>
         <c:forEach var="i" begin="${param.startPageNo}" end="${param.endPageNo}" step="1">
             <c:choose>
@@ -43,7 +42,6 @@
             </c:choose>
         </c:forEach>
     </span>
-    
     <c:if test="${param.currentPageNo ne param.finalPageNo}">
         <a href="javascript:goPage(${param.nextPageNo}, ${param.recordsPerPage})" class="next">다음</a>
     </c:if>

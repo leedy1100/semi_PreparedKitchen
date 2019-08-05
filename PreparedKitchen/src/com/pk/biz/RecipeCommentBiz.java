@@ -1,7 +1,8 @@
 package com.pk.biz;
 
-import java.util.HashMap;
 import java.util.List;
+
+import org.json.simple.JSONArray;
 
 import com.pk.dao.RecipeCommentDao;
 import com.pk.dto.RecipeCommentDto;
@@ -10,15 +11,15 @@ public class RecipeCommentBiz {
 
 	RecipeCommentDao recipeCommentDao = new RecipeCommentDao();
 
-	public List<RecipeCommentDto> selectListCmt(int no) {
-		return recipeCommentDao.selectListCmt(no);
+	public JSONArray selectListCmt(int no, int offset, int noOfRecords) {
+		return recipeCommentDao.selectListCmt(no, offset, noOfRecords);
 	}
 
 	public RecipeCommentDto selectOneCmt(int no) {
 		return recipeCommentDao.selectOneCmt(no);
 	}
 
-	public HashMap<String, Object> insertCmt(RecipeCommentDto dto) {
+	public int insertCmt(RecipeCommentDto dto) {
 		return recipeCommentDao.insertCmt(dto);
 	}
 
@@ -34,6 +35,10 @@ public class RecipeCommentBiz {
 		recipeCommentDao.updateGroupNO(dto.getRecipeBoard_no());
 
 		return recipeCommentDao.insertCmtCmt(dto);
+	}
+
+	public int getNoOfRecords() {
+		return recipeCommentDao.getNoOfRecords();
 	}
 
 }
