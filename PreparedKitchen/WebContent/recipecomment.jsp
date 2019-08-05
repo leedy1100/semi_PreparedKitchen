@@ -10,7 +10,8 @@
 <title>Insert title here</title>
 <style type="text/css">
 #cmttable{
-	text-align: center;
+	font-size: 12px;
+	margin: 30px;
 }
 #cmtPageNum{
 	cursor: pointer;
@@ -19,21 +20,28 @@
 	cursor: pointer;
 }
 .cmtbox{
-display: inline-block;
-margin: 10px;
+	display: inline-block;
+	margin: 10px;
 }
 .cmtidbox{
+	width: 50px;
+	text-align: left;
 }
 .cmtcntbox{
 	width: 600px;
 }
 .cmtdatebox{
+	text-align: center;
+	width: 100%;
 }
 .cmtcnt{
 	width:500px;
 }
 .cmtonebox{
- border: 1px solid rgba(0,0,0,.2);
+ border-bottom: 1px solid rgba(0,0,0,.2);
+}
+.btnud{
+	font-size: 10px;
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -254,8 +262,8 @@ function showAllCmt(data) {
 			html += "<div class='cmtbox'><div class='cmtcntbox'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></div></div>";
 			html += "<div class='cmtbox'><div class='cmtdatebox'>" + data[i].comment_regdate + "</div></div>";
 			if(boo){
-				html += "<input type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
-				html += "<input type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/>";
+				html += "<input class='btnud' type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
+				html += "<input class='btnud' type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/>";
 			}
 			html += "</div>";
 			html += "</div>";

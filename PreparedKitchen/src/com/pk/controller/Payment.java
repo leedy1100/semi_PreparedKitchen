@@ -70,9 +70,9 @@ public class Payment extends HttpServlet {
 	        params.put("quantity", request.getParameter("quantity"));
 	        params.put("total_amount", request.getParameter("total_amount"));
 	        params.put("tax_free_amount", request.getParameter("tax_free_amount"));
-	        params.put("approval_url", "http://localhost:8080/PreparedKitchen/payment/approval.jsp");
-	        params.put("cancel_url", "http://localhost:8080/PreparedKitchen/payment/cancel.jsp");
-	        params.put("fail_url", "http://localhost:8080/PreparedKitchen/payment/fail.jsp");
+	        params.put("approval_url", "http://localhost:8787/PreparedKitchen/payment/approval.jsp");
+	        params.put("cancel_url", "http://localhost:8787/PreparedKitchen/payment/cancel.jsp");
+	        params.put("fail_url", "http://localhost:8787/PreparedKitchen/payment/fail.jsp");
 	        
 	        String string_params = new String(); // 보낼 파라미터
 			for(Map.Entry<String, String> elem : params.entrySet()) {
