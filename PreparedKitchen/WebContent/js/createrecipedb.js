@@ -8,11 +8,11 @@ $(function(){
 function getJsonInfo(){
 	$.getJSON("/PreparedKitchen/json/recipeInfo.json",function(infoData){
 		$.ajax({
-			url : "/PreparedKitchen/product.do?command=createdb",
+			url : "/PreparedKitchen/product.do?command=createdbinfo",
 			method : "post",
 			data : {"info" : JSON.stringify(infoData)},
 			success : function(msg){
-				alert("info 통신성공");
+				alert(msg);
 			},
 			error : function(){
 				alert("info 통신실패")
@@ -25,11 +25,11 @@ function getJsonInfo(){
 function getJsonContent(){
 	$.getJSON("/PreparedKitchen/json/recipeContent.json",function(conData){
 		$.ajax({
-			url : "/PreparedKitchen/product.do?command=createdb",
+			url : "/PreparedKitchen/product.do?command=createdbcon",
 			method : "post",
 			data : {"con" : JSON.stringify(conData)},
-			success : function(){
-				alert("content 통신성공");
+			success : function(msg){
+				
 			},
 			error : function(){
 				alert("content 통신실패");
@@ -41,11 +41,11 @@ function getJsonContent(){
 function getJsonMaterial(){
 	$.getJSON("/PreparedKitchen/json/recipeMaterial.json",function(matData){
 		$.ajax({
-			url : "/PreparedKitchen/product.do?command=createdb",
+			url : "/PreparedKitchen/product.do?command=createdbmat",
 			method : "post",
 			data : {"mat" : JSON.stringify(matData)},
 			success : function(){
-				alert("material 통신성공");
+				
 			},
 			error : function(){
 				alert("material 통신실패");
