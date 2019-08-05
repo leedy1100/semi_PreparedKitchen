@@ -48,7 +48,7 @@
   .tooltip {
     position: absolute;
     z-index: 9999;
-    background: #FFC107;
+    background: white;
     color: black;
     width: 150px;
     border-radius: 3px;
@@ -75,7 +75,7 @@
 
   .tooltip .tooltip-arrow,
   .popper .popper__arrow {
-    border-color: #FFC107;
+    border-color: white;
   }
   .style5 .tooltip .tooltip-arrow {
     border-color: #1E252B;
@@ -209,7 +209,8 @@
           
           eventRender: function(info) {
               var tooltip = new Tooltip(info.el, {
-                title: info.event.extendedProps.description,
+            	  title : info.event.title + '<p>' + info.event.extendedProps.description + '</p>',
+                  
                 delay: {
                     show: "800",
                     hide: "50"
