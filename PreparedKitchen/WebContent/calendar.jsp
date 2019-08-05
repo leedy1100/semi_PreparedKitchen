@@ -152,14 +152,7 @@
         	locale:'ko',
         	
         	events: [
-        		
-        		      {
-        		        groupId: '999',
-        		        title: 'Repeating Event',
-        		        description: '와 진짜 답도없다..',
-        		        start: '2019-08-16'
-        		      },
-        		
+      
         	    {
         	      title: 'My Event',
         	      start: '2019-08-01',

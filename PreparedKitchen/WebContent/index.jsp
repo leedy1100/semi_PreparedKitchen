@@ -19,7 +19,8 @@
 		<a href="recipeboard.do?command=list">recipeboardlist테스트용</a><br/>
 		<a href="member.do?command=mypage">MY PAGE</a><br/>
 		<a href="payment/mypagepayment.jsp">결제 내역</a><br/>
-		<a href="map.do?command=map">지도 테스트</a>
+		<a href="map.do?command=map">지도 테스트</a><br/>
+		<a href="cal.do?command=calendar">달력</a>
 
 	</section>
 

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
@@ -21,8 +22,7 @@ public class calcontroller extends HttpServlet {
        
    
     public calcontroller() {
-        super();
-        // TODO Auto-generated constructor stub
+       
     }
 
 	
@@ -40,10 +40,16 @@ public class calcontroller extends HttpServlet {
 		if(command.equals("calendar")) {
 			String id = request.getParameter("id");
 			
+			System.out.println(id);
+			
 			Caldto dto = biz.mycal(id);
+			
+			
 			request.setAttribute("dto", dto);
 			RequestDispatcher dispatch = request.getRequestDispatcher("calendar.jsp");
 			dispatch.forward(request, response);
+			
+		
 		}
 		
 	}

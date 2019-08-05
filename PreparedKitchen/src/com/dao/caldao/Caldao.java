@@ -18,7 +18,7 @@ public class Caldao extends JDBCTemplate{
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		
-		String sql = " SELECT R.RECIPE_NAME, P.PAYMENT_DATE, M.MATERIAL_NAME FROM RECIPE R, PAYMENT P, MATERIAL M WHERE P.ID = ? ";
+		String sql = " SELECT R.RECIPE_NAME, P.PAYMENT_DATE, M.MATERIAL_NAME, P.ID FROM RECIPE R, PAYMENT P, MATERIAL M WHERE P.ID = ? ";
 		
 		try {
 			pstm = con.prepareStatement(sql);
@@ -30,6 +30,7 @@ public class Caldao extends JDBCTemplate{
 				dto.setTitle(rs.getString(1));
 				dto.setPaymentdate(rs.getDate(2));
 				dto.setMaterialname(rs.getString(3));
+				dto.setId(rs.getString(4));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

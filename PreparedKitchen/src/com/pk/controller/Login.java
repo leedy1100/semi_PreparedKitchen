@@ -1,6 +1,7 @@
 package com.pk.controller;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.Properties;
 
@@ -101,6 +102,7 @@ public class Login extends HttpServlet {
 			
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
+			
 			
 			MemberDto dto = biz.login(id,pw);
 			
