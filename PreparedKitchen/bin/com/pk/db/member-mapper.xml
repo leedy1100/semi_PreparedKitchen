@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="membermapper">
+  
+  <select id="selectList" resultType="memberDto">
+	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+	FROM MEMBER
+	ORDER BY REGDATE DESC
+  </select>
+  
+  <select id="idChk" parameterType="String" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE ID = #{id}
+  </select>
+  
+  <insert id="signUp" parameterType="memberDto">
+  	INSERT INTO MEMBER
+  	VALUES(#{id}, #{pw}, #{name}, #{email}, #{phone}, #{addr}, 'Y', #{birth}, SYSDATE, 'USER')
+  </insert>
+  
+  <select id="login" parameterType="map" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE ID = #{id} AND PW = #{pw} AND BIRTH != 'KAKAO'
+  </select>
+  
+  <select id="emailChk" parameterType="String" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE EMAIL = #{email}
+  </select>
+  
+  
+  <insert id="kakaoLogin" parameterType="map">
+  	INSERT INTO MEMBER
+  	VALUES(#{id}, 'KAKAO', #{name}, 'KAKAO', 'KAKAO', 'KAKAO', 'Y', 'KAKAO', SYSDATE, 'USER')
+  </insert>
+
+  <update id="updateinfo" parameterType="memberDto">
+  	UPDATE MEMBER 
+  	SET PW=#{pw}, NAME=#{name}, EMAIL=#{email}, PHONE=#{phone}, ADDR=#{addr}, BIRTH=#{birth} 
+  	WHERE ID=#{id}
+  </update>
+  
+  <select id="forgotId" parameterType="map" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE NAME = #{name} AND EMAIL = #{email}
+  </select>
+  
+  <select id="forgotPw" parameterType="map" resultType="memberDto">
+  	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
+  	FROM MEMBER
+  	WHERE ID = #{id} AND NAME = #{name} AND EMAIL = #{email}
+  </select>
+  
+  <update id="updatePw" parameterType="map">
+  	UPDATE MEMBER
+  	SET PW = #{pw}
+  	WHERE ID = #{id}
+  </update>
+
+</mapper>

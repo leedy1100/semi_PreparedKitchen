@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pk.db.mapper">
+ 
+<!--  	<resultMap type="myBoardDto" id="dtoMap">
+ 		<result property="myno" column="MYNO"/>
+ 		<result property="myname" column="MYNAME"/>
+ 		<result property="mytitle" column="MYTITLE"/>
+ 		<result property="mycontent" column="MYCONTENT"/>
+ 		<result property="mydate" column="MYDATE"/>
+ 	</resultMap>
+ --> 
+ 	<select id="selectList" parameterType="hashmap" resultType="RecipeBoardDto">
+ 		SELECT X.RNUM, X.RECIPEBOARD_NO, X.ID, X.RECIPEBOARD_TITLE, X.RECIPEBOARD_CONTENT, X.RECIPEBOARD_REGDATE, X.RECIPEBOARD_READCOUNT, X.RECIPEBOARD_LIKE
+ 		FROM(
+ 			SELECT ROWNUM AS RNUM, A.RECIPEBOARD_NO, A.ID, A.RECIPEBOARD_TITLE, A.RECIPEBOARD_CONTENT, A.RECIPEBOARD_REGDATE, A.RECIPEBOARD_READCOUNT, A.RECIPEBOARD_LIKE
+ 			FROM(
+				SELECT RECIPEBOARD_NO, ID, RECIPEBOARD_TITLE, RECIPEBOARD_CONTENT, RECIPEBOARD_REGDATE, RECIPEBOARD_READCOUNT, RECIPEBOARD_LIKE
+	 			FROM RECIPEBOARD
+	 			WHERE 1=1
+	 			<if test="searchFiled != null and searchFiled != ''">
+	 				AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
+	 			</if>
+	 			ORDER BY RECIPEBOARD_NO DESC
+ 			) A
+ 			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
+ 		) X
+ 		WHERE X.RNUM <![CDATA[>]]> #{offset}
+ 	</select>
+ 
+ 	<select id="selectOne" parameterType="int" resultType="RecipeBoardDto">
+ 		SELECT RECIPEBOARD_NO, ID, RECIPEBOARD_TITLE, RECIPEBOARD_CONTENT, RECIPEBOARD_REGDATE, RECIPEBOARD_READCOUNT, RECIPEBOARD_LIKE
+		FROM RECIPEBOARD
+		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	</select>
+ 	
+ 	<select id="totalCountList" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM RECIPEBOARD
+ 	</select>
+ 	
+ 	<select id="fileCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM RECIPEBOARD
+ 		WHERE 1=1
+ 		<if test="searchFiled != null and searchFiled != ''">
+	 		AND ${searchFiled} LIKE '%' || #{searchValue} || '%'
+	 	</if>
+ 	</select>
+ 	
+ 	<insert id="insert" parameterType="RecipeBoardDto">
+ 		INSERT INTO RECIPEBOARD
+ 		VALUES(RECIPEBOARDSEQ.NEXTVAL,#{id},#{recipeBoard_title},#{recipeBoard_content},SYSDATE, 0, 0)
+ 	</insert>
+ 	
+ 	<update id="update" parameterType="RecipeBoardDto">
+ 		UPDATE RECIPEBOARD
+ 		SET RECIPEBOARD_TITLE = #{recipeBoard_title}, RECIPEBOARD_CONTENT = #{recipeBoard_content}
+ 		WHERE RECIPEBOARD_NO = #{recipeBoard_no}
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="hashmap">
+ 		DELETE FROM RECIPEBOARD
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	</delete>
+ 	
+ 	<delete id="deletelike" parameterType="hashmap">
+ 		DELETE FROM LIKETABLE
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	</delete>
+ 	
+ 	<update id="hits" parameterType="RecipeBoardDto">
+ 		UPDATE RECIPEBOARD
+ 		SET RECIPEBOARD_READCOUNT = RECIPEBOARD_READCOUNT + 1
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	</update>
+ 	
+ 	<update id="recipelike" parameterType="hashmap">
+ 		UPDATE RECIPEBOARD
+ 		SET RECIPEBOARD_LIKE = RECIPEBOARD_LIKE + 1
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	
+ 	</update>
+ 	
+ 	<insert id="insertlike" parameterType="hashmap">
+ 		INSERT INTO LIKETABLE
+ 		VALUES(LIKESEQ.NEXTVAL, #{likeid},#{recipeboard_no})
+ 	
+ 	</insert>
+ 	
+ 	<update id="recipelike_cancel" parameterType="hashmap">
+ 		UPDATE RECIPEBOARD
+ 		SET RECIPEBOARD_LIKE = RECIPEBOARD_LIKE - 1
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	
+ 	</update>
+ 	
+ 	<delete id="insertlike_cancel" parameterType="hashmap">
+ 		DELETE FROM LIKETABLE
+ 		WHERE ID = #{likeid} AND RECIPEBOARD_NO = #{recipeboard_no}
+ 	
+ 	</delete>
+ 	
+ 	<select id="selectOneLikeList" parameterType="hashmap" resultType="LikeDto">
+ 		SELECT LIKETABLE_NO, ID, RECIPEBOARD_NO
+ 		FROM LIKETABLE
+ 		WHERE ID = #{likeid} 
+ 		AND RECIPEBOARD_NO = #{recipeboard_no}
+ 	</select>
+ 	
+ 	<delete id="deletecmt" parameterType="hashmap">
+ 		DELETE FROM RECIPECOMMENT
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	</delete>
+</mapper>
