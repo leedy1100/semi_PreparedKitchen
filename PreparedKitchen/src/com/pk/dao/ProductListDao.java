@@ -54,4 +54,17 @@ public class ProductListDao extends SqlMapConfig{
 		session.close();
 		return jArr;
 	}
+	
+	public List<ProductListDto> recipeList(String category){
+	
+		SqlSession session = null;
+		List<ProductListDto> list = new ArrayList<ProductListDto>();
+
+		session = getSqlSessionFactory().openSession();
+		list = session.selectList(namespace + "recipeList",category);
+		
+		session.close();
+		
+		return list;
+	}
 }
