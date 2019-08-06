@@ -84,6 +84,7 @@ public class Product extends HttpServlet {
 					dto.setRecipe_content("a");
 					dto.setRecipe_nutrient(recipe_nutrient);
 					dto.setRecipe_category(recipe_category);
+					dto.setRecipe_reg("N");
 					
 					recip.add(dto);
 				}

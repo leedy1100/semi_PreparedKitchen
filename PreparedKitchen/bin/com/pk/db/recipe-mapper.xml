@@ -3,14 +3,14 @@
 <mapper namespace="recipemapper">
 
 	<select id="selectList" resultType="recipeDto">
-		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY
+		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY,RECIPE_REG
 		FROM RECIPE
 	</select>
 	
 	<update id="dummyInsert" parameterType="map">
 		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">		
 			INTO RECIPE
-			VALUES(#{list.recipe_no}, #{list.recipe_name}, #{list.recipe_content}, #{list.recipe_nutrient}, #{list.recipe_category})
+			VALUES(#{list.recipe_no}, #{list.recipe_name}, #{list.recipe_content}, #{list.recipe_nutrient}, #{list.recipe_category},#{list.recipe_reg})
 		</foreach>
 	</update>
 

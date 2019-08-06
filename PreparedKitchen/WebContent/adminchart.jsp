@@ -199,6 +199,7 @@ function productSalesChart(data) {
 <title>adminchart</title>
 </head>
 <body>
+<a href="index.jsp">메인</a>
 <h1>레시피추천좋아요 순위 top5</h1>
 <div id="boardlike"><svg></svg></div>
 <h1>상품 조회수 top5</h1>
