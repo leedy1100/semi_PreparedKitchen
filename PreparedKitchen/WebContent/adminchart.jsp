@@ -45,7 +45,9 @@ $(function() {
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-			boardLikeChart(jdata.chart);
+        	if(jdata.chart != null){
+				boardLikeChart(jdata.chart);
+        	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 		}
@@ -56,7 +58,9 @@ $(function() {
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-        	productViewChart(jdata.proview);
+        	if(jdata.proview != null){
+	        	productViewChart(jdata.proview);
+        	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 		}
@@ -67,7 +71,9 @@ $(function() {
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-        	productSalesChart(jdata.proview);
+        	if(jdata.prosales != null){
+        		productSalesChart(jdata.prosales);
+        	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 		}

@@ -122,20 +122,20 @@ public class Product extends HttpServlet {
 			
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
-
 			out.print(element);
+			System.out.println(element);
 		}else if(command.equals("productsales")) {
 			JSONArray jArr = new JSONArray();
 			jArr = productListBiz.productSalesChart();
 			
 			JSONObject jobj = new JSONObject();
 			
-			jobj.put("proview",jArr);
+			jobj.put("prosales",jArr);
 			
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
-
 			out.print(element);
+			System.out.println(element);
 		}
 		
 		
