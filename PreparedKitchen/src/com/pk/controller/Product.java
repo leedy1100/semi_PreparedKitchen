@@ -304,6 +304,10 @@ public class Product extends HttpServlet {
 			out.print(element);
 			System.out.println(element);
 
+		}else if(command.equals("adminchart")) {
+			response.sendRedirect("admin/adminchart.jsp");
+		}else if(command.equals("adminrecipeview")) {
+			response.sendRedirect("admin/adminrecipeview.jsp");
 		}
 		
 		

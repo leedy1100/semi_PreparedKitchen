@@ -75,4 +75,5 @@ public class RecipeDao extends SqlMapConfig{
 		
 		return res;
 	}
+
 }
