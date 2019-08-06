@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="commentmapper">
+
+	<select id="selectListCmt" parameterType="hashMap" resultType="commentDto">
+		SELECT X.RNUM, X.COMMENT_NO, X.RECIPEBOARD_NO, X.ID, X.COMMENT_CONTENT, X.COMMENT_REGDATE, X.COMMENT_GROUPNO, X.COMMENT_ORDER, X.COMMENT_TAB
+		FROM(
+			SELECT ROWNUM AS RNUM, A.COMMENT_NO, A.RECIPEBOARD_NO, A.ID, A.COMMENT_CONTENT, A.COMMENT_REGDATE, A.COMMENT_GROUPNO, A.COMMENT_ORDER, A.COMMENT_TAB
+			FROM(
+				SELECT COMMENT_NO, RECIPEBOARD_NO, ID, COMMENT_CONTENT, COMMENT_REGDATE, COMMENT_GROUPNO, COMMENT_ORDER, COMMENT_TAB
+				FROM RECIPECOMMENT
+				WHERE RECIPEBOARD_NO = #{recipeboard_no}
+				ORDER BY COMMENT_GROUPNO DESC, COMMENT_ORDER
+			) A
+			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
+		) X
+		WHERE X.RNUM <![CDATA[>]]> #{offset}
+	</select>
+	
+	<select id="countCmt" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM RECIPECOMMENT
+ 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
+ 	</select>
+	
+	<select id="selectOneCmt" resultType="commentDto">
+		SELECT COMMENT_NO, RECIPEBOARD_NO, ID, COMMENT_CONTENT, COMMENT_REGDATE, COMMENT_GROUPNO, COMMENT_ORDER, COMMENT_TAB
+		FROM RECIPECOMMENT
+		WHERE COMMENT_NO = #{comment_no}
+		
+	</select>
+
+	<insert id="insertCmt" parameterType="commentDto">
+		INSERT INTO RECIPECOMMENT
+		VALUES(RECIPECOMMENTSEQ.NEXTVAL,#{recipeBoard_no},#{id},#{comment_content},SYSDATE,
+		RECIPECOMMENTGROUPSEQ.NEXTVAL,#{comment_order},#{comment_tab}
+		)
+	</insert>
+	
+	<update id="updateGroupNO" parameterType="int">
+		UPDATE RECIPECOMMENT
+		SET COMMENT_ORDER = COMMENT_ORDER + 1
+		WHERE COMMENT_GROUPNO = 
+		(
+			SELECT COMMENT_GROUPNO
+			FROM RECIPECOMMENT
+			WHERE COMMENT_NO = #{comment_no}
+		)
+		AND COMMENT_ORDER <![CDATA[>]]>
+		(
+			SELECT COMMENT_ORDER
+			FROM RECIPECOMMENT
+			WHERE COMMENT_NO = #{comment_no}
+		)
+	</update>
+	
+	<insert id="insertCmtCmt" parameterType="commentDto">
+		INSERT INTO RECIPECOMMENT
+		VALUES(RECIPECOMMENTSEQ.NEXTVAL, #{recipeBoard_no},#{id},#{comment_content},SYSDATE,
+			(
+				SELECT COMMENT_GROUPNO
+				FROM RECIPECOMMENT
+				WHERE COMMENT_NO = #{comment_no}
+			),
+			(
+				SELECT COMMENT_ORDER
+				FROM RECIPECOMMENT
+				WHERE COMMENT_NO = #{comment_no} 
+			) + 1,
+			(
+				SELECT COMMENT_TAB
+				FROM RECIPECOMMENT
+				WHERE COMMENT_NO = #{comment_no} 
+			) + 1
+		)
+		
+	</insert>
+	
+	<update id="updateCmt" parameterType="commentDto">
+		UPDATE RECIPECOMMENT 
+		SET COMMENT_CONTENT = #{comment_content}
+		WHERE COMMENT_NO = #{comment_no}
+	</update>
+	
+	<delete id="deleteCmt" parameterType="int">
+		DELETE FROM RECIPECOMMENT 
+		WHERE COMMENT_NO = #{comment_no} 
+	</delete>
+	
+</mapper>

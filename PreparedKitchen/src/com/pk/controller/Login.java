@@ -1,6 +1,7 @@
 package com.pk.controller;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.util.Properties;
 
@@ -43,8 +44,12 @@ public class Login extends HttpServlet {
 		MemberBiz biz = new MemberBiz();
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
+		String url = null;
 
 		if(command.equals("gologin")) {
+			
+			url = request.getHeader("referer");
+			session.setAttribute("url", url);
 			
 			response.sendRedirect("login.jsp");
 			
@@ -98,12 +103,15 @@ public class Login extends HttpServlet {
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			
+			
 			MemberDto dto = biz.login(id,pw);
 			
 			if(dto != null) {
 				
 				session.setAttribute("memberDto", dto);
-				response.sendRedirect("index.jsp");
+				url = (String)session.getAttribute("url");
+				System.out.println(url);
+				response.sendRedirect(url);
 				
 			} else {
 				response.sendRedirect("login.jsp");

@@ -32,7 +32,7 @@ public class RecipeCommentBiz {
 	}
 
 	public int insertCmtCmt(RecipeCommentDto dto) {
-		recipeCommentDao.updateGroupNO(dto.getRecipeBoard_no());
+		recipeCommentDao.updateGroupNO(dto.getComment_no());
 
 		return recipeCommentDao.insertCmtCmt(dto);
 	}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="paymentmapper">
+
+	<select id="selectList" resultType="paymentDto">
+		SELECT PAYMENT_NO, PAYMENT_GROUP, ID, ITEM_NAME, ITEM_CODE, PAYMENT_PRICE, RECIPE_NO, MATERIAL_NO, PAYMENT_DATE, SHIPPING_ADDR
+		FROM PAYMENT
+		ORDER BY PAYMENT_GROUP, PAYMENT_NO DESC
+	</select>
+	
+	<select id="mySelectList" parameterType="String" resultType="paymentDto">
+		SELECT PAYMENT_GROUP, ID, ITEM_NAME, ITEM_CODE, PAYMENT_PRICE, RECIPE_NO, PAYMENT_DATE
+		FROM PAYMENT
+		WHERE ID = #{value}
+		GROUP BY PAYMENT_GROUP, ID, ITEM_NAME, ITEM_CODE, PAYMENT_PRICE, RECIPE_NO, PAYMENT_DATE
+		ORDER BY PAYMENT_GROUP DESC
+	</select>
+	
+	<select id="selectOneList" parameterType="String" resultType="paymentDto">
+		SELECT PAYMENT_NO, PAYMENT_GROUP, ID, ITEM_NAME, ITEM_CODE, PAYMENT_PRICE, RECIPE_NO, MATERIAL_NO, PAYMENT_DATE, SHIPPING_ADDR
+		FROM PAYMENT
+		WHERE PAYMENT_GROUP = #{value}
+		ORDER BY PAYMENT_NO
+	</select>
+
+	<insert id="insert" parameterType="paymentDto">
+		INSERT INTO PAYMENT
+		VALUES(PAYMENTSEQ.NEXTVAL, #{payment_group}, #{id}, #{item_name}, #{item_code}, #{payment_price}, #{recipe_no}, #{material_no}, #{payment_date}, #{shipping_addr})
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		DELETE PAYMENT
+		WHERE PAYMENT_GROUP = #{value}
+	</delete>
+	
+</mapper>

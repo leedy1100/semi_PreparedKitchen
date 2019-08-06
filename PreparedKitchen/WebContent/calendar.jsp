@@ -23,7 +23,7 @@
     <script src="js/bootstrap.min.js"></script>
     
 	<script src="packages/bootstrap/main.js"></script>
-	<script src="daygrid/main.js"></script>
+
 	
 	<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
 	<script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
@@ -152,31 +152,24 @@
         	locale:'ko',
         	
         	events: [
-        		
-        		      {
-        		        groupId: '999',
-        		        title: 'Repeating Event',
-        		        description: '와 진짜 답도없다..',
-        		        start: '2019-08-16'
-        		      },
-        		
+      
         	    {
-        	      title: 'My Event',
-        	      start: '2019-08-01',
-        	      description: '살려줘'
+        	      title: '${dto.title}',
+        	      start: '${dto.paymentdate}',
+        	      description: '${dto.materialname}'
         	    }
         	    // more events here
         	  ],
         	
     
-          plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+          plugins: [ 'interaction', 'dayGrid'],
           header: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            right: ''
           },
 
-          navLinks: true, // can click day/week names to navigate views
+          //navLinks: true,  can click day/week names to navigate views
           selectable: true,
           selectMirror: true,
           
@@ -204,8 +197,11 @@
           eventClick: function(info){
         	  alert('Event : ' + info.event.title);
         	  
-        	  info.event.remove();
+        	  
           },
+          dateClick: function(info) {
+        	  eventSource.remove ()
+        	  },
           
           eventRender: function(info) {
               var tooltip = new Tooltip(info.el, {

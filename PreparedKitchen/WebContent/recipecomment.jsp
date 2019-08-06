@@ -239,7 +239,7 @@ function update(cmtno,cmtcontent) {
 function showAllCmt(data) {
 		if($.isEmptyObject(data)){
 			
-			$("#showAllComment").html("<p>작성된 댓글이 없습니다</p>");
+			$("#showAllComment").html("<p style='text-align:center;'>작성된 댓글이 없습니다</p>");
 			$("#commentContent").val("");
 			$("#commentContent").focus();
 		}else{

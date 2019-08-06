@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="calendarmapper">
+
+<select id="CalendarList" resultType="calDto">
+		SELECT R.RECIPE_NAME, P.PAYMENT_DATE, M.MATERIAL_NAME, P.ID FROM RECIPE R, PAYMENT P, MATERIAL M WHERE P.ID = ${id}
+	</select>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chatmapper">
+
+	<select id="selectChatDto" parameterType="int" resultType="chatDto">
+		SELECT ROOM, HAS_ADMIN, HAS_USER
+		FROM CHAT
+		WHERE ROOM = #{room}
+	</select>
+	
+	<update id="joinAdmin">
+		UPDATE CHAT
+		SET HAS_ADMIN = 'Y'
+		WHERE ROOM = 1
+	</update>
+	
+	<update id="outAdmin">
+		UPDATE CHAT
+		SET HAS_ADMIN = 'N'
+		WHERE ROOM = 1
+	</update>
+	
+	<update id="joinUser">
+		UPDATE CHAT
+		SET HAS_USER = 'Y'
+		WHERE ROOM = 1
+	</update>
+	
+	<update id="outUser">
+		UPDATE CHAT
+		SET HAS_USER = 'N'
+		WHERE ROOM = 1
+	</update>
+
+</mapper>
