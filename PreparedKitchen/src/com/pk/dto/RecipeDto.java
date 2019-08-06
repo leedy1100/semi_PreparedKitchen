@@ -7,16 +7,21 @@ public class RecipeDto {
 	private String recipe_content;
 	private String recipe_nutrient;
 	private String recipe_category;
+	private String recipe_reg;
 	
-	public RecipeDto() {}
+	public RecipeDto() {
+		super();
+	}
 
 	public RecipeDto(int recipe_no, String recipe_name, String recipe_content, String recipe_nutrient,
-			String recipe_category) {
+			String recipe_category, String recipe_reg) {
+		super();
 		this.recipe_no = recipe_no;
 		this.recipe_name = recipe_name;
 		this.recipe_content = recipe_content;
 		this.recipe_nutrient = recipe_nutrient;
 		this.recipe_category = recipe_category;
+		this.recipe_reg = recipe_reg;
 	}
 
 	public int getRecipe_no() {
@@ -58,6 +63,13 @@ public class RecipeDto {
 	public void setRecipe_category(String recipe_category) {
 		this.recipe_category = recipe_category;
 	}
+
+	public String getRecipe_reg() {
+		return recipe_reg;
+	}
+
+	public void setRecipe_reg(String recipe_reg) {
+		this.recipe_reg = recipe_reg;
+	}
 	
-	
-}
+}	
