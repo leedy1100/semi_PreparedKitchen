@@ -1,21 +1,21 @@
-package com.dto.caldto;
+package com.pk.dto;
 
 import java.util.Date;
 
-public class Caldto {
+public class CalDto {
 	
 	private String title;
-	private Date paymentdate;
+	private String paymentdate;
 	private String materialname;
 	private String id;
 	
 	
-	public Caldto() {
+	public CalDto() {
 		
 	}
 
 
-	public Caldto(String title, Date paymentdate, String materialname, String id) {
+	public CalDto(String title, String paymentdate, String materialname, String id) {
 		
 		this.title = title;
 		this.paymentdate = paymentdate;
@@ -34,12 +34,12 @@ public class Caldto {
 	}
 
 
-	public Date getPaymentdate() {
+	public String getPaymentdate() {
 		return paymentdate;
 	}
 
 
-	public void setPaymentdate(Date paymentdate) {
+	public void setPaymentdate(String paymentdate) {
 		this.paymentdate = paymentdate;
 	}
 

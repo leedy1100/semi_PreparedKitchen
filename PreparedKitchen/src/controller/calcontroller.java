@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.biz.calbiz.Calbiz;
-import com.dto.caldto.Caldto;
+import com.pk.biz.CalendarBiz;
+import com.pk.dto.CalDto;
 
 
 @WebServlet("/cal.do")
@@ -34,18 +34,17 @@ public class calcontroller extends HttpServlet {
 		String command = request.getParameter("command");
 		System.out.println("<" + command + ">");
 		
-		Calbiz biz = new Calbiz();
+		CalendarBiz biz = new CalendarBiz();
 		
 		
 		if(command.equals("calendar")) {
-			String id = request.getParameter("id");
-			
-			System.out.println(id);
-			
-			Caldto dto = biz.mycal(id);
+			String id = "user";
 			
 			
-			request.setAttribute("dto", dto);
+			
+			
+			
+			//request.setAttribute("dto", dto);
 			RequestDispatcher dispatch = request.getRequestDispatcher("calendar.jsp");
 			dispatch.forward(request, response);
 			

@@ -20,6 +20,7 @@
   	<typeAlias type="com.pk.dto.RecipeCommentDto" alias="commentDto" />
   	<typeAlias type="com.pk.dto.RecipeDto" alias="recipeDto" />
   	<typeAlias type="com.pk.dto.ChatDto" alias="chatDto" />
+  	<typeAlias type="com.pk.dto.CalDto" alias="calDto" />
   </typeAliases>	
 	
   <environments default="development">
@@ -45,5 +46,6 @@
     <mapper resource="com/pk/db/recipe-mapper.xml"/>
     <mapper resource="com/pk/db/board-mapper.xml"/>
     <mapper resource="com/pk/db/chat-mapper.xml"/>
+    <mapper resource="com/pk/db/cal-mapper.xml"/>
   </mappers>
 </configuration>
