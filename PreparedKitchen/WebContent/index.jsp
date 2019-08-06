@@ -11,17 +11,6 @@
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="static/base.css"/>
-<style type="text/css">
-
-	#main_slide{
-		min-height: 672px;
-		width: 1008px;
-		margin: 0px auto;
-		background-image: url("/PreparedKitchen/image/main.jpg");
-		background-repeat: no-repeat;
-	}
-
-</style>
 </head>
 <body>
 	
@@ -30,9 +19,7 @@
 		<%@ include file="static/header.jsp" %>
 		
 	</header>
-	<div id="main_slide">
-			d
-	</div>
+	<%@ include file="mainimg.html" %>
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<a href="recipeboard.do?command=list">recipeboardlist테스트용</a><br/>
@@ -42,8 +29,6 @@
 
 	</section>
 
-	<%@ include file="static/remocon.jsp" %>
-	
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
 		<%@ include file="payment/payment.jsp" %>
