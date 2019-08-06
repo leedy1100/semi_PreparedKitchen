@@ -21,7 +21,7 @@
 		<a href="payment/mypagepayment.jsp">결제 내역</a><br/>
 		<a href="map.do?command=map">지도 테스트</a><br/>
 <<<<<<< HEAD
-		<a href="cal.do?command=calendar">달력</a>
+		<a href="cal.do?command=calendar2">달력</a>
 =======
 <<<<<<< HEAD
 		<a href="product.do?command=recipedb">더미데이터 만들기</a><br/>

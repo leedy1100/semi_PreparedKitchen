@@ -143,7 +143,7 @@
 
 </style>
 
-    <script>
+<script type="text/javascript">
 
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -151,15 +151,24 @@
 
         	locale:'ko',
         	
-        	events: [
-      
-        	    {
-        	      title: '${dto.title}',
-        	      start: '${dto.paymentdate}',
-        	      description: '${dto.materialname}'
-        	    }
-        	    // more events here
-        	  ],
+        	events: function(start, title, description, callback) {
+        		$.ajax({
+        	        url:"cal.do?command=calendar",
+        	        dataType:"text",
+        	        success:function(data) {
+        	        	var events = [];
+        	        	$(data).find('event').each(function() {
+        	                events.push({
+        	                  title: $(this).attr('title'),
+        	                  start: $(this).attr('start'),
+        	                  description: $(this).attr('description')// will be parsed
+        	                });
+        	              });
+        	        	callback(events);
+        	        }
+        	    });
+				
+			},
         	
     
           plugins: [ 'interaction', 'dayGrid'],
@@ -199,9 +208,6 @@
         	  
         	  
           },
-          dateClick: function(info) {
-        	  eventSource.remove ()
-        	  },
           
           eventRender: function(info) {
               var tooltip = new Tooltip(info.el, {

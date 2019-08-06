@@ -1,5 +1,8 @@
 package com.pk.biz;
 
+
+
+
 import java.util.List;
 
 import com.pk.dao.CalDao;
@@ -9,8 +12,8 @@ public class CalendarBiz {
 	
 	CalDao dao = new CalDao();
 	
-	public List<CalDto> mycalendar() {
-		return dao.mycalendar();
+	public List<CalDto> mycalendar(String id) {
+		return dao.mycalendar(id);
 	}
 
 }

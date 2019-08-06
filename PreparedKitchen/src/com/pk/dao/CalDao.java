@@ -1,5 +1,7 @@
 package com.pk.dao;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +14,13 @@ public class CalDao extends SqlMapConfig {
 	
 	private String namespace = "calendarmapper.";
 	
-	public List<CalDto> mycalendar() {
-		List<CalDto> list = new ArrayList<CalDto>();
-		SqlSession session = null;
+	public List<CalDto> mycalendar(String id) {
 		
+		SqlSession session = null;
+		List<CalDto>list = new ArrayList<CalDto>();
 		try {
 			session = getSqlSessionFactory().openSession(false);
-			list = session.selectList(namespace + "CalendarList");
+			list = session.selectList(namespace + "mycalendar", id);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
