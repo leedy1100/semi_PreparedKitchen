@@ -144,6 +144,10 @@ CREATE TABLE MATERIAL(
 	REFERENCES RECIPE(RECIPE_NO)
 );
 
+DELETE FROM MATERIAL;
+
+SELECT * FROM MATERIAL;
+
 ---------------------------------------------------------------
 
 DROP SEQUENCE PRODUCTLISTSEQ;

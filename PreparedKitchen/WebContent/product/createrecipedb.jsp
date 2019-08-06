@@ -9,15 +9,12 @@
 <script type="text/javascript" src="/PreparedKitchen/js/createrecipedb.js"></script>
 </head>
 <body>
-
-	<form action="/PreparedKitchen/product.do" method="post">
-		<input type="hidden" name="command" value="createdb"/>
-		<input type="submit" value="db에 저장하기">
-		<table>
-			<thead></thead>
-			<tbody></tbody>
-		</table>
-	</form>
+	
+	<h1>1번을 눌러주세요</h1>
+	
+	<input type="button" value="1번" onclick="getJsonInfo()">
+	<input type="button" value="2번" onclick="getJsonContent()">
+	<input type="button" value="3번" onclick="getJsonMaterial()">
 
 </body>
 </html>
