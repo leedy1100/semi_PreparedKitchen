@@ -47,5 +47,6 @@
     <mapper resource="com/pk/db/board-mapper.xml"/>
     <mapper resource="com/pk/db/chat-mapper.xml"/>
     <mapper resource="com/pk/db/cal-mapper.xml"/>
+    <mapper resource="com/pk/db/productDetail-mapper.xml"/>
   </mappers>
 </configuration>

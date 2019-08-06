@@ -110,7 +110,6 @@ public class Login extends HttpServlet {
 				
 				session.setAttribute("memberDto", dto);
 				url = (String)session.getAttribute("url");
-				System.out.println(url);
 				response.sendRedirect(url);
 				
 			} else {

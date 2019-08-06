@@ -48,11 +48,7 @@ public class Product extends HttpServlet {
 		MaterialBiz mBiz = new MaterialBiz();
 
 		
-		if(command.equals("detail")) {
-			
-			response.sendRedirect("product/productdetail.jsp");
-			
-		} else if(command.equals("recipedb")) {
+		if(command.equals("recipedb")) {
 			
 			response.sendRedirect("product/createrecipedb.jsp");
 			

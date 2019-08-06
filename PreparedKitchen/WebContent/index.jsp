@@ -23,7 +23,7 @@
 		<a href="map.do?command=map">지도 테스트</a><br/>
 		<a href="cal.do?command=calendar">달력</a><br/>
 		<a href="product.do?command=recipedb">더미데이터 만들기</a><br/>
-		<a href="product.do?command=detail">상품디테일</a><br/>
+		<a href="prodetail.do?command=detail">상품디테일</a><br/>
 		<a href="adminchart.jsp">차트</a>
 	</section>
 
