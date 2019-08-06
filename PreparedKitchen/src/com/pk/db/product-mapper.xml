@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="productmapper">
 
+	<select id="productviewChart" resultType="productDto">
+		SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO, RK
+ 		FROM (SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO,
+ 		ROW_NUMBER() OVER(ORDER BY VIEW_NO DESC) AS RK
+ 		FROM PRODUCTLIST)
+ 		WHERE RK <![CDATA[<=]]> 5
+	</select>
+	
+	<select id="productsalesChart" resultType="productDto">
+		SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO, RK
+ 		FROM (SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO,
+ 		ROW_NUMBER() OVER(ORDER BY SALES_COUNT DESC) AS RK
+ 		FROM PRODUCTLIST)
+ 		WHERE RK <![CDATA[<=]]> 5
+	</select>
 </mapper>

@@ -7,10 +7,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
 <style>
+div{
+	margin: 50px;
+}
+#boardlike{
+	
+}
 svg {
 	border: 1px solid;
+	width: 500px;
+	height: 300px;
 }
 
 .bar {
@@ -27,7 +34,6 @@ svg {
 }
 </style>
 
-<svg width="500" height="300"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
@@ -45,13 +51,35 @@ $(function() {
 		}
     });
 	
+	$.ajax({
+        url:"product.do?command=productview",
+        dataType:"text",
+        success:function(data) {
+        	var jdata =JSON.parse(data);
+        	productViewChart(jdata.proview);
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+    });
+	
+	$.ajax({
+        url:"product.do?command=productsales",
+        dataType:"text",
+        success:function(data) {
+        	var jdata =JSON.parse(data);
+        	productSalesChart(jdata.proview);
+        },error:function(request, error){
+			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+		}
+    });
+	
 });	
 	
 	
 function boardLikeChart(data) {
 	
 	var dataset = data;
-	var svg = d3.select("svg"); 
+	var svg = d3.select("#boardlike").select("svg"); 
 	var width  = parseInt(svg.style("width"), 10)-30;
 	var height = parseInt(svg.style("height"), 10)-20;
 	var svgG = svg.append("g")
@@ -88,87 +116,95 @@ function boardLikeChart(data) {
 	   .call(d3.axisLeft(yScale).ticks(5));  
 }	
 
+function productViewChart(data) {
+	
+	var dataset = data;
+	var svg = d3.select("#proview").select("svg"); 
+	var width  = parseInt(svg.style("width"), 10)-30;
+	var height = parseInt(svg.style("height"), 10)-20;
+	var svgG = svg.append("g")
+		.attr("transform", "translate(30, 0)");
 	
 	
+	var xScale = d3.scaleBand()                                        
+	    .domain(dataset.map(function(d) { return d.x;} ))
+	    .range([0, width]).padding(0.2);
+
+	var yScale = d3.scaleLinear()                                            
+	    .domain([0, d3.max(dataset, function(d){ return d.y; })])
+	    .range([height, 0]);  
 	
+	svgG.selectAll("rect") .data(dataset) .enter().append("rect") 
+		.attr("class", "bar") 
+		.attr("height", function(d, i) {return height-yScale(d.y)})
+		.attr("width", xScale.bandwidth())                            
+        .attr("x", function(d, i) {return xScale(d.x)})
+		.attr("y", function(d, i) {return yScale(d.y)});
+
+	svgG.selectAll("text") .data(dataset) .enter().append("text") 
+		.text(function(d) {return d.y}) 
+		.attr("class", "text") 
+		.attr("x", function(d, i) {return xScale(d.x)+xScale.bandwidth()/2})
+        .style("text-anchor", "middle")
+		.attr("y", function(d, i) {return yScale(d.y) + 15});
+
+	svgG.append("g")                                                       
+	    .attr("transform", "translate(0," + height + ")")
+	    .call(d3.axisBottom(xScale));
+
+	svgG.append("g")
+	   .call(d3.axisLeft(yScale).ticks(5));  
+}	
+	
+function productSalesChart(data) {
+	
+	var dataset = data;
+	var svg = d3.select("#prosales").select("svg"); 
+	var width  = parseInt(svg.style("width"), 10)-30;
+	var height = parseInt(svg.style("height"), 10)-20;
+	var svgG = svg.append("g")
+		.attr("transform", "translate(30, 0)");
+	
+	
+	var xScale = d3.scaleBand()                                        
+	    .domain(dataset.map(function(d) { return d.x;} ))
+	    .range([0, width]).padding(0.2);
+
+	var yScale = d3.scaleLinear()                                            
+	    .domain([0, d3.max(dataset, function(d){ return d.y; })])
+	    .range([height, 0]);  
+	
+	svgG.selectAll("rect") .data(dataset) .enter().append("rect") 
+		.attr("class", "bar") 
+		.attr("height", function(d, i) {return height-yScale(d.y)})
+		.attr("width", xScale.bandwidth())                            
+        .attr("x", function(d, i) {return xScale(d.x)})
+		.attr("y", function(d, i) {return yScale(d.y)});
+
+	svgG.selectAll("text") .data(dataset) .enter().append("text") 
+		.text(function(d) {return d.y}) 
+		.attr("class", "text") 
+		.attr("x", function(d, i) {return xScale(d.x)+xScale.bandwidth()/2})
+        .style("text-anchor", "middle")
+		.attr("y", function(d, i) {return yScale(d.y) + 15});
+
+	svgG.append("g")                                                       
+	    .attr("transform", "translate(0," + height + ")")
+	    .call(d3.axisBottom(xScale));
+
+	svgG.append("g")
+	   .call(d3.axisLeft(yScale).ticks(5));  
+}	
 </script>
-
-=======
-<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
-<style>
-svg {
-	border: 1px solid;
-}
-
-.bar {
-	fill: skyblue;
-}
-
-.bar:hover {
-	fill: blue;
-}
-
-.text {
-	fill: white;
-	font-weight: bold;
-}
-</style>
-<svg width="500" height="300"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
-	 
-	var dataset = [ {
-		x : 'A',
-		y : 9
-	}, {
-		x : 'B',
-		y : 19
-	}, {
-		x : 'C',
-		y : 29
-	}, {
-		x : 'D',
-		y : 39
-	}, {
-		x : 'E',
-		y : 29
-	}, {
-		x : 'F',
-		y : 19
-	}, {
-		x : 'G',
-		y : 9
-	} ];
-	var svg = d3.select("svg");
-	svg.selectAll("rect")
-	.data(dataset).enter().append("rect")
-		.attr("class","bar")
-		.attr("height", function(d, i) { return (d.y * 5)})
-		.attr("width", 40)
-		.attr("x", function(d, i) { return (50 * i)})
-		.attr("y", function(d, i) {return (250 - d.y * 5)});
-	
-	svg.selectAll("text")
-	.data(dataset).enter().append("text").text(function(d) {return d.y})
-		.attr("class", "text")
-		.attr("x", function(d, i) {return 50 * i + 10})
-		.attr("y", function(d, i) {return 250 - d.y * 5 + 15});
-</script>
-
-<style type="text/css">
-.bar {
-    fill: skyblue;
-}
-.bar:hover {
-    fill: blue;
-}
-
-
-</style>
->>>>>>> branch 'ldy' of https://github.com/KOKOPA/PreparedKitchen
 <title>adminchart</title>
 </head>
 <body>
+<h1>레시피추천좋아요 순위 top5</h1>
+<div id="boardlike"><svg></svg></div>
+<h1>상품 조회수 top5</h1>
+<div id="proview"><svg></svg></div>
+<h1>상품 구매 top5</h1>
+<div id="prosales"><svg></svg></div>
 
 </body>
 </html>

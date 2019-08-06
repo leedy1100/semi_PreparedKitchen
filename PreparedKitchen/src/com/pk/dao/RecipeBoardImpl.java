@@ -227,9 +227,8 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 			
 			jArr.add(chart);
 		}
-		
 		session.close();
-		System.out.println("jArr : "+jArr);
+		
 		return jArr;
 	}
 

@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MaterialDto;
 import com.pk.dto.RecipeDto;
@@ -38,6 +42,7 @@ public class Product extends HttpServlet {
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
 		RecipeBiz biz = new RecipeBiz();
+		ProductListBiz productListBiz = new ProductListBiz();
 		
 		if(command.equals("detail")) {
 			
@@ -105,6 +110,31 @@ public class Product extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement matEle = parser.parse(mat);
 			
+		} else if(command.equals("productview")) {
+			
+			JSONArray jArr = new JSONArray();
+			jArr = productListBiz.productViewChart();
+			
+			JSONObject jobj = new JSONObject();
+			
+			jobj.put("proview",jArr);
+			
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(jobj.toString());
+
+			out.print(element);
+		}else if(command.equals("productsales")) {
+			JSONArray jArr = new JSONArray();
+			jArr = productListBiz.productSalesChart();
+			
+			JSONObject jobj = new JSONObject();
+			
+			jobj.put("proview",jArr);
+			
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(jobj.toString());
+
+			out.print(element);
 		}
 		
 		
