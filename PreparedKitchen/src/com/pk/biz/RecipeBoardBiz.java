@@ -2,14 +2,15 @@ package com.pk.biz;
 
 import java.util.List;
 
-import com.pk.dao.BoardDao;
+import org.json.simple.JSONArray;
+
 import com.pk.dao.RecipeBoardImpl;
 import com.pk.dto.LikeDto;
 import com.pk.dto.RecipeBoardDto;
 
 public class RecipeBoardBiz {
 
-	BoardDao recipeBoardDao = new RecipeBoardImpl();
+	RecipeBoardImpl recipeBoardDao = new RecipeBoardImpl();
 
 	public List<RecipeBoardDto> selectList(int offset, int noOfRecords) {
 		return recipeBoardDao.selectList(offset, noOfRecords);
@@ -58,6 +59,10 @@ public class RecipeBoardBiz {
 		}
 		
 		return recipeBoardDao.like(no, id);
+	}
+	
+	public JSONArray likeChart(){
+		return recipeBoardDao.likeChart();
 	}
 
 }
