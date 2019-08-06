@@ -18,5 +18,10 @@ public class RecipeBiz {
 		
 		return dao.insert(list);
 	}
+	
+	public int update(List<RecipeDto> list) {
+		
+		return dao.update(list);
+	}
 
 }

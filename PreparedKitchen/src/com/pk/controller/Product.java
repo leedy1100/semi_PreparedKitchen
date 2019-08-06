@@ -19,6 +19,7 @@ import org.json.simple.JSONObject;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MaterialDto;
@@ -43,6 +44,9 @@ public class Product extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		RecipeBiz biz = new RecipeBiz();
 		ProductListBiz productListBiz = new ProductListBiz();
+		RecipeBiz rBiz = new RecipeBiz();
+		MaterialBiz mBiz = new MaterialBiz();
+
 		
 		if(command.equals("detail")) {
 			
@@ -59,9 +63,9 @@ public class Product extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement infoEle = parser.parse(info);
 			
-			List<RecipeDto> recip = biz.selectList();
+			List<RecipeDto> recipe = rBiz.selectList();
 			
-			if(recip.size() == 0) {
+			if(recipe.size() == 0) {
 				
 				for(int i = 0; i < infoEle.getAsJsonObject().get("data").getAsJsonArray().size(); i++) {
 					
@@ -86,11 +90,15 @@ public class Product extends HttpServlet {
 					dto.setRecipe_category(recipe_category);
 					dto.setRecipe_reg("N");
 					
-					recip.add(dto);
+					recipe.add(dto);
+					
+					if(dto.getRecipe_no() == 100) {
+						break;
+					}
 				}
 				
-				int res = biz.insert(recip);
-				out.println(res+"개의 더미데이터가 등록되었습니다.");
+				int res = rBiz.insert(recipe);
+				out.println(res+"개의 더미데이터가 등록되었습니다.\n2번을 눌러주세요");
 				
 			} else {
 				out.println("이미 등록되어 있습니다.");
@@ -104,6 +112,114 @@ public class Product extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement conEle = parser.parse(con);
 			
+			List<RecipeDto> list = new ArrayList<RecipeDto>();
+			
+			for(int i = 0; i < conEle.getAsJsonObject().get("data").getAsJsonArray().size(); i++) {
+				
+				JsonObject conObj = conEle.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
+				
+				JsonElement recipe_id = conObj.get("RECIPE_ID");
+				JsonElement cooking_no = conObj.get("COOKING_NO");
+				JsonElement cooking_dc = conObj.get("COOKING_DC");
+				JsonElement step_img = conObj.get("STRE_STEP_IMAGE_URL");
+				JsonElement step_tip = conObj.get("STEP_TIP");
+				
+				int recipe_no = recipe_id.getAsInt();
+				int step_no = cooking_no.getAsInt();
+				String step_content = cooking_dc.getAsString();
+				String img = null;
+				String tip = null;
+				
+				if (!step_img.isJsonNull()) {
+					img = step_img.getAsString();
+				}
+				
+				if (!step_tip.isJsonNull()) {
+					tip = step_tip.getAsString();
+				}
+				
+				RecipeDto dto = new RecipeDto();
+				
+				dto.setRecipe_no(recipe_no);
+				
+				if (img != null && tip != null) {
+					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + " img : " + img +  " / ");
+				} else if(img != null && tip == null) {
+					dto.setRecipe_content(step_no + " : " + step_content + " img : " + img +  " / ");
+				} else if(img == null && tip != null) {
+					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + " / ");
+				} else {
+					dto.setRecipe_content(step_no + " : " + step_content + " / ");
+				}
+				
+				if(dto.getRecipe_no() == 101) {
+					break;
+				}
+				
+				list.add(dto);
+				
+			}
+			
+			List<RecipeDto> conList = new ArrayList<RecipeDto>();
+			String content = "";
+			
+			for(int i = 0; i < list.size(); i++) {
+				
+				if(i > 0) {
+					
+					if (list.get(i).getRecipe_no() == list.get(i-1).getRecipe_no()) {
+						content += list.get(i).getRecipe_content();
+						
+					} else {
+						
+						RecipeDto dto = new RecipeDto();
+						dto.setRecipe_no(list.get(i-1).getRecipe_no());
+						dto.setRecipe_content(content);
+						
+						conList.add(dto);
+						
+						content = list.get(i).getRecipe_content();
+					}
+					
+				} else if(i == 0) {
+					content = list.get(i).getRecipe_content();
+					
+				} else if(i == list.size()) {
+					
+					if(list.get(i).getRecipe_no() == list.get(i-1).getRecipe_no()) {
+						
+						content += list.get(i).getRecipe_content();
+						
+						RecipeDto dto = new RecipeDto();
+						dto.setRecipe_no(list.get(i).getRecipe_no());
+						dto.setRecipe_content(content);
+						
+						conList.add(dto);
+						
+					} else {
+						
+						RecipeDto dto = new RecipeDto();
+						dto.setRecipe_no(list.get(i-1).getRecipe_no());
+						dto.setRecipe_content(content);
+						conList.add(dto);
+						
+						RecipeDto lastDto = new RecipeDto();
+						content = list.get(i).getRecipe_content();
+						lastDto.setRecipe_no(list.get(i).getRecipe_no());
+						lastDto.setRecipe_content(content);
+						conList.add(lastDto);
+					}
+				}
+			}
+			
+			int res = rBiz.update(conList);
+			
+			if(res == -1) {
+				out.println("2번 성공!!\n3번을 눌러주세요");
+			} else {
+				out.println("2번 실패!!");
+			}
+			
 		} else if(command.equals("createdbmat")) {
 
 			String mat = request.getParameter("mat");
@@ -111,6 +227,61 @@ public class Product extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement matEle = parser.parse(mat);
 			
+			List<MaterialDto> list = mBiz.selectList();
+			
+			if (list.size() == 0) {
+				for (int i = 0; i < matEle.getAsJsonObject().get("data").getAsJsonArray().size(); i++) {
+
+					JsonObject matObj = matEle.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
+
+					JsonElement recipe_id = matObj.get("RECIPE_ID");
+					JsonElement irdnt_sn = matObj.get("IRDNT_SN");
+					JsonElement irdnt_nm = matObj.get("IRDNT_NM");
+					JsonElement irdnt_cpcty = matObj.get("IRDNT_CPCTY");
+					JsonElement irdnt_ty_code = matObj.get("IRDNT_TY_CODE");
+					JsonElement irdnt_ty_nm = matObj.get("IRDNT_TY_NM");
+
+					int recipe_no = recipe_id.getAsInt();
+					int material_no = irdnt_sn.getAsInt();
+					String material_name = irdnt_nm.getAsString();
+					String material_capacity = "";
+					int material_typeCode = irdnt_ty_code.getAsInt();
+					String material_typeName = irdnt_ty_nm.getAsString();
+
+					if (!irdnt_cpcty.isJsonNull()) {
+						material_capacity = irdnt_cpcty.getAsString();
+					} else {
+						continue;
+					}
+
+					MaterialDto dto = new MaterialDto();
+					dto.setRecipe_no(recipe_no);
+					dto.setMaterial_no(material_no);
+					dto.setMaterial_name(material_name);
+					dto.setMaterial_capacity(material_capacity);
+					dto.setMaterial_typeCode(material_typeCode);
+					dto.setMaterial_typeName(material_typeName);
+
+					if (dto.getRecipe_no() == 101) {
+						break;
+					}
+
+					list.add(dto);
+				}
+				int res = mBiz.insert(list);
+				
+				if (res > 0) {
+					out.println("더미데이터 생성 완료");
+					
+				} else {
+					out.println("뭔가 잘못되었다...");
+				} 
+				
+			} else {
+				out.println("이미 등록되어 있습니다");
+			}
+			
+
 		} else if(command.equals("productview")) {
 			
 			JSONArray jArr = new JSONArray();
@@ -136,6 +307,7 @@ public class Product extends HttpServlet {
 			JsonElement element = parser.parse(jobj.toString());
 			out.print(element);
 			System.out.println(element);
+
 		}
 		
 		

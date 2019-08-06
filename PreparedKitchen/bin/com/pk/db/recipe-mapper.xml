@@ -7,11 +7,19 @@
 		FROM RECIPE
 	</select>
 	
-	<update id="dummyInsert" parameterType="map">
+	<insert id="dummyInsert" parameterType="map">
 		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">		
 			INTO RECIPE
 			VALUES(#{list.recipe_no}, #{list.recipe_name}, #{list.recipe_content}, #{list.recipe_nutrient}, #{list.recipe_category},#{list.recipe_reg})
 		</foreach>
+	</insert>
+	
+	<update id="dummyUpdate" parameterType="map">
+		<foreach collection="lists" item="list" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE RECIPE
+			SET	RECIPE_CONTENT = #{list.recipe_content}
+			WHERE RECIPE_NO = #{list.recipe_no}
+		</foreach>	
 	</update>
 
 </mapper>
