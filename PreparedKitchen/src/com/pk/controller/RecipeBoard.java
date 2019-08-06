@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.pk.biz.RecipeBoardBiz;
@@ -66,6 +69,7 @@ public class RecipeBoard extends HttpServlet {
 			recordsPerPage = Integer.parseInt(request.getParameter("lines"));
 		}
 
+		
 		PagingDto paging = new PagingDto(recordsPerPage, currentPageNo);
 		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
 
@@ -221,6 +225,21 @@ public class RecipeBoard extends HttpServlet {
 			} else {
 				alert(response, "삭제 실패", "recipeboard.do?command=selectone&recipeBoard_no=" + recipeBoard_no);
 			}
+		}else if(command.equals("likechart")) {
+			
+			JSONArray jArr = new JSONArray();
+			jArr = recipeBoardBiz.likeChart();
+			
+			JSONObject jobj = new JSONObject();
+			
+			jobj.put("chart",jArr);
+			
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(jobj.toString());
+
+			System.out.println("element : " + element);
+			PrintWriter out = response.getWriter();
+			out.print(element);
 		}
 	}
 

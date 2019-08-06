@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="recipemapper">
 
+	<select id="selectList" resultType="recipeDto">
+		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY
+		FROM RECIPE
+	</select>
+	
+	<update id="dummyInsert" parameterType="map">
+		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">		
+			INTO RECIPE
+			VALUES(#{list.recipe_no}, #{list.recipe_name}, #{list.recipe_content}, #{list.recipe_nutrient}, #{list.recipe_category})
+		</foreach>
+	</update>
+
 </mapper>

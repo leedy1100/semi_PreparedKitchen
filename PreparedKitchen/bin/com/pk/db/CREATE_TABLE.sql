@@ -36,6 +36,10 @@ CREATE TABLE RECIPE(
 	RECIPE_CATEGORY 	VARCHAR2(300) 	NOT NULL
 );
 
+DELETE FROM RECIPE;
+
+SELECT * FROM RECIPE;
+
 ---------------------------------------------------------------
 
 DROP SEQUENCE RECIPEBOARDSEQ;
