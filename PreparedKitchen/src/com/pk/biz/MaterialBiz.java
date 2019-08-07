@@ -19,4 +19,9 @@ public class MaterialBiz {
 		return dao.insert(list);
 	}
 	
+	public List<MaterialDto> materialInRecipe(int recipe_no){
+		
+		return dao.materialInRecipe(recipe_no);
+	}
+	
 }

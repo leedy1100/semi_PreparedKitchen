@@ -1,23 +1,24 @@
 package com.pk.dto;
 
 public class RecipeDto {
-
+	
 	private int recipe_no;
 	private String recipe_name;
+	private String recipe_img;
 	private String recipe_content;
 	private String recipe_nutrient;
 	private String recipe_category;
 	private String recipe_reg;
 	
 	public RecipeDto() {
-		super();
+		
 	}
 
-	public RecipeDto(int recipe_no, String recipe_name, String recipe_content, String recipe_nutrient,
-			String recipe_category, String recipe_reg) {
-		super();
+	public RecipeDto(int recipe_no, String recipe_name, String recipe_img, String recipe_content,
+			String recipe_nutrient, String recipe_category, String recipe_reg) {
 		this.recipe_no = recipe_no;
 		this.recipe_name = recipe_name;
+		this.recipe_img = recipe_img;
 		this.recipe_content = recipe_content;
 		this.recipe_nutrient = recipe_nutrient;
 		this.recipe_category = recipe_category;
@@ -38,6 +39,14 @@ public class RecipeDto {
 
 	public void setRecipe_name(String recipe_name) {
 		this.recipe_name = recipe_name;
+	}
+
+	public String getRecipe_img() {
+		return recipe_img;
+	}
+
+	public void setRecipe_img(String recipe_img) {
+		this.recipe_img = recipe_img;
 	}
 
 	public String getRecipe_content() {

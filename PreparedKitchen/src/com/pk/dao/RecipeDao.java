@@ -75,5 +75,22 @@ public class RecipeDao extends SqlMapConfig{
 		
 		return res;
 	}
+	
+	public RecipeDto selectOne(int recipe_no) {
+		
+		SqlSession session = null;
+		RecipeDto dto = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			dto = session.selectOne(namespace+"selectOne", recipe_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return dto;
+	}
 
 }

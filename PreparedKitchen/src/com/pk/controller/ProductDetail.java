@@ -2,6 +2,8 @@ package com.pk.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import com.pk.biz.MaterialBiz;
 import com.pk.biz.RecipeBiz;
+import com.pk.dto.MaterialDto;
+import com.pk.dto.RecipeDto;
 
 @WebServlet("/prodetail.do")
 public class ProductDetail extends HttpServlet {
@@ -36,7 +40,14 @@ public class ProductDetail extends HttpServlet {
 		
 		if(command.equals("detail")) {
 			
-			response.sendRedirect("/PreparedKitchen/product/productdetail.jsp");
+			int recipeno = Integer.parseInt(request.getParameter("recipeno"));
+			
+			RecipeDto rDto = rBiz.selectOne(recipeno);
+			List<MaterialDto> mList = mBiz.materialInRecipe(recipeno);
+			
+			request.setAttribute("recipe", rDto);
+			request.setAttribute("material", mList);
+			dispatch(request, response, "product/productdetail.jsp");
 		}
 		
 	}

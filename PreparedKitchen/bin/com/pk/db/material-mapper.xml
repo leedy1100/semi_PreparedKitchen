@@ -13,5 +13,12 @@
 			VALUES(#{list.material_no}, #{list.recipe_no}, #{list.material_name}, #{list.material_capacity}, #{list.material_typeCode}, #{list.material_typeName})
 		</foreach>
 	</insert>
+	
+	<select id="materialInRecipe" parameterType="int" resultType="materialDto">
+		SELECT MATERIAL_NO, RECIPE_NO, MATERIAL_NAME, MATERIAL_CAPACITY, MATERIAL_TYPECODE, MATERIAL_TYPENAME
+		FROM MATERIAL
+		WHERE RECIPE_NO = #{recipe_no}
+		ORDER BY MATERIAL_NO
+	</select>
 
 </mapper>

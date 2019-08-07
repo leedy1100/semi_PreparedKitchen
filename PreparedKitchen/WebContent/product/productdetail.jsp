@@ -1,5 +1,9 @@
+<%@page import="com.pk.dto.MaterialDto"%>
+<%@page import="java.util.List"%>
+<%@page import="com.pk.dto.RecipeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +20,7 @@
 	
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
-		<h1>레시피 이름</h1>
+		<h1><c:out value="${recipe.recipe_name }"></c:out></h1>
 		<div>
 			<article>
 				

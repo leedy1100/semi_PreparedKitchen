@@ -69,18 +69,21 @@ public class Product extends HttpServlet {
 					
 					JsonElement recipe_id = infoObj.get("RECIPE_ID");
 					JsonElement recipe_nm = infoObj.get("RECIPE_NM_KO");
+					JsonElement recipe_img_url = infoObj.get("IMG_URL");
 					JsonElement recipe_cal = infoObj.get("CALORIE");
 					JsonElement recipe_cate1 = infoObj.get("NATION_NM");
 					JsonElement recipe_cate2 = infoObj.get("TY_NM");
 					
 					int recipe_no = recipe_id.getAsInt();
 					String recipe_name = recipe_nm.getAsString();
+					String recipe_img = recipe_img_url.getAsString();
 					String recipe_nutrient = recipe_cal.getAsString();
 					String recipe_category = recipe_cate1.getAsString() + "," + recipe_cate2.getAsString();
 					
 					RecipeDto dto = new RecipeDto();
 					dto.setRecipe_no(recipe_no);
 					dto.setRecipe_name(recipe_name);
+					dto.setRecipe_img(recipe_img);
 					dto.setRecipe_content("a");
 					dto.setRecipe_nutrient(recipe_nutrient);
 					dto.setRecipe_category(recipe_category);

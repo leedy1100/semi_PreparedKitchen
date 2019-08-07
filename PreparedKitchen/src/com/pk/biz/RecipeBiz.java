@@ -23,5 +23,10 @@ public class RecipeBiz {
 		
 		return dao.update(list);
 	}
+	
+	public RecipeDto selectOne(int recipe_no) {
+		
+		return dao.selectOne(recipe_no);
+	}
 
 }

@@ -50,7 +50,23 @@ public class MaterialDao extends SqlMapConfig{
 		}
 		
 		return res;
+	}
+	
+	public List<MaterialDto> materialInRecipe(int recipe_no){
 		
+		SqlSession session = null;
+		List<MaterialDto> list = new ArrayList<MaterialDto>();
+		
+		try {
+			session = getSqlSessionFactory().openSession();
+			list = session.selectList(namespace+"materialInRecipe", recipe_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
 	}
 
 }
