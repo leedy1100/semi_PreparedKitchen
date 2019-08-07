@@ -324,8 +324,8 @@ public class Product extends HttpServlet {
 			response.sendRedirect("admin/adminchart.jsp");
 		}else if(command.equals("adminrecipeview")) {
 			
-			List<RecipeDto> list = rBiz.selectListCategory();
-			request.setAttribute("list", list);
+			List<RecipeDto> listcategory = rBiz.selectListCategory();
+			request.setAttribute("listcategory", listcategory);
 			dispatch(request, response, "admin/adminrecipeview.jsp");
 			
 		}else if(command.equals("category")) {
