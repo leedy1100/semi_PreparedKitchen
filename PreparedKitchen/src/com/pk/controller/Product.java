@@ -23,6 +23,8 @@ import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MaterialDto;
+import com.pk.dto.PagingDto;
+import com.pk.dto.PagingRecipeDto;
 import com.pk.dto.RecipeDto;
 
 @WebServlet("/product.do")
@@ -42,11 +44,22 @@ public class Product extends HttpServlet {
 		System.out.println("[" + command + "]");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-		RecipeBiz biz = new RecipeBiz();
 		ProductListBiz productListBiz = new ProductListBiz();
 		RecipeBiz rBiz = new RecipeBiz();
 		MaterialBiz mBiz = new MaterialBiz();
 
+		int currentPageNo = 1;
+		int recordsPerPage = 0;
+
+		if (request.getParameter("pages") != null) {
+			currentPageNo = Integer.parseInt(request.getParameter("pages"));
+		}
+		if (request.getParameter("lines") != null) {
+			recordsPerPage = Integer.parseInt(request.getParameter("lines"));
+		}
+
+		PagingRecipeDto paging = new PagingRecipeDto(recordsPerPage, currentPageNo);
+		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
 		
 		if(command.equals("recipedb")) {
 			
@@ -311,6 +324,19 @@ public class Product extends HttpServlet {
 			response.sendRedirect("admin/adminchart.jsp");
 		}else if(command.equals("adminrecipeview")) {
 			response.sendRedirect("admin/adminrecipeview.jsp");
+		}else if(command.equals("category")) {
+			String categoryname = request.getParameter("categoryname");
+			
+			List<RecipeDto> list = rBiz.recipeList(categoryname, offset, paging.getRecordsPerPage());
+			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.makePaging();
+			
+			request.setAttribute("categoryname", categoryname);
+			request.setAttribute("list", list);
+			request.setAttribute("paging", paging);
+			
+			dispatch(request, response, "admin/detaillist.jsp");
+			
 		}
 		
 		

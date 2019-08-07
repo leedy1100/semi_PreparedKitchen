@@ -1,6 +1,6 @@
 package com.pk.dto;
 
-public class PagingDto {
+public class PagingRecipeDto {
 
 	private int recordsPerPage; // 페이지당 레코드 수
 	private int firstPageNo; // 첫번째 페이지 번호
@@ -15,9 +15,9 @@ public class PagingDto {
 	private String searchFiled;
 	private String searchValue;
 
-	public PagingDto(int recordsPerPage, int currentPageNo) {
+	public PagingRecipeDto(int recordsPerPage, int currentPageNo) {
 		super();
-		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 8;
+		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 15;
 		this.currentPageNo = currentPageNo;
 		this.sizeOfPage = 5;
 	}

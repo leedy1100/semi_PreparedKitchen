@@ -29,4 +29,13 @@ public class RecipeBiz {
 		return dao.selectOne(recipe_no);
 	}
 
+	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords){
+		
+		return dao.recipeList(category, offset, noOfRecords);
+	}
+	
+	public int getNoOfRecords() {
+		
+		return dao.getNoOfRecords();
+	}
 }
