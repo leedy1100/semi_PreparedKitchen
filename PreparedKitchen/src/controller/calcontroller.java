@@ -61,15 +61,15 @@ public class calcontroller extends HttpServlet {
 				
 				jArr.add(hm);
 			}
-			
+			System.out.println(jArr);
 			JSONObject jobj = new JSONObject();
-			jobj.put("cal", jArr);
+			jobj.put("event", jArr);
 			
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
-			System.out.println("element : " + element);
+			System.out.println(element);
 			PrintWriter out = response.getWriter();
-			out.print(element);
+			out.print(jArr.toString());
 			
 		}else if(command.equals("calendar2")) {
 			response.sendRedirect("calendar.jsp");
