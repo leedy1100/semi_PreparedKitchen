@@ -31,6 +31,19 @@ ul{
 	list-style-type: none;
 }
 </style>
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	
+	$(function() {
+		$("#menuname").click(function() {
+			//$(this).next().slideToggle();
+			//$("b").not(this).next().slideUp();
+			//$(this).parent().siblings.find("ul").slideUp();
+			$(this).next().slideToggle().end().parent().siblings().find("ul").slideUp();
+		});
+	});
+
+</script>
 <title>레시피 세부리스트</title>
 </head>
 <body>
@@ -48,7 +61,7 @@ ul{
 		</c:if>
 	</c:forEach>
 </ul>
-<h1>퓨전</h1>
+<div class="menuname">퓨전</div>
 <ul>
 	<c:forEach items="${listcategory }" var="listcategory">
 		<c:set var="category" value="${listcategory.recipe_category }"/>
@@ -59,7 +72,7 @@ ul{
 		</c:if>
 	</c:forEach>
 </ul>
-<h1>중국</h1>
+<div class="menuname">중국</div>
 <ul>
 	<c:forEach items="${listcategory }" var="listcategory">
 		<c:set var="category" value="${listcategory.recipe_category }"/>
@@ -70,7 +83,7 @@ ul{
 		</c:if>
 	</c:forEach>
 </ul>
-<h1>일본</h1>
+<div class="menuname">일본</div>
 <ul>
 	<c:forEach items="${listcategory }" var="listcategory">
 		<c:set var="category" value="${listcategory.recipe_category }"/>
@@ -81,7 +94,7 @@ ul{
 		</c:if>
 	</c:forEach>
 </ul>
-<h1>이탈리아</h1>
+<div class="menuname">이탈리아</div>
 <ul>
 	<c:forEach items="${listcategory }" var="listcategory">
 		<c:set var="category" value="${listcategory.recipe_category }"/>
@@ -92,7 +105,7 @@ ul{
 		</c:if>
 	</c:forEach>
 </ul>
-<h1>서양</h1>
+<div class="menuname">서양</div>
 <ul>
 	<c:forEach items="${listcategory }" var="listcategory">
 		<c:set var="category" value="${listcategory.recipe_category }"/>
@@ -103,7 +116,7 @@ ul{
 		</c:if>
 	</c:forEach>
 </ul>
-<h1>동남아시아</h1>
+<div class="menuname">동남아시아</div>
 <ul>
 	<c:forEach items="${listcategory }" var="listcategory">
 		<c:set var="category" value="${listcategory.recipe_category }"/>
