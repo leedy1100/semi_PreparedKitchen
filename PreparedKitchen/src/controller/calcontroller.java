@@ -3,6 +3,9 @@ package controller;
 import java.io.IOException;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
@@ -12,6 +15,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.pk.biz.CalendarBiz;
 import com.pk.dto.CalDto;
 
@@ -34,21 +44,35 @@ public class calcontroller extends HttpServlet {
 		String command = request.getParameter("command");
 		System.out.println("<" + command + ">");
 		
-		CalendarBiz biz = new CalendarBiz();
 		
+		CalendarBiz biz = new CalendarBiz();
 		
 		if(command.equals("calendar")) {
 			String id = "user";
 			
+			List<CalDto>list = biz.mycalendar(id);
+			JSONArray jArr = new JSONArray();
+			HashMap<String, Object> hm = null;
+			for(int i=0; i<list.size(); i++) {
+				hm = new HashMap<String, Object>();
+				hm.put("title", list.get(i).getTitle());
+				hm.put("start", list.get(i).getPaymentdate());
+				hm.put("description", list.get(i).getMaterialname());
+				
+				jArr.add(hm);
+			}
+			System.out.println(jArr);
+			JSONObject jobj = new JSONObject();
+			jobj.put("event", jArr);
 			
+			JsonParser parser = new JsonParser();
+			JsonElement element = parser.parse(jobj.toString());
+			System.out.println(element);
+			PrintWriter out = response.getWriter();
+			out.print(jArr.toString());
 			
-			
-			
-			//request.setAttribute("dto", dto);
-			RequestDispatcher dispatch = request.getRequestDispatcher("calendar.jsp");
-			dispatch.forward(request, response);
-			
-		
+		}else if(command.equals("calendar2")) {
+			response.sendRedirect("calendar.jsp");
 		}
 		
 	}

@@ -34,7 +34,7 @@ public class PaymentDao extends SqlMapConfig{
 		
 		try {
 			session = getSqlSessionFactory().openSession(false);
-			list = session.selectList(namespace + "mySelectList", id);
+			list = session.selectList(namespace + "mycalendar", id);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
