@@ -17,4 +17,5 @@
  		FROM PRODUCTLIST)
  		WHERE RK <![CDATA[<=]]> 5
 	</select>
+	
 </mapper>
