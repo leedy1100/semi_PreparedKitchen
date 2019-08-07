@@ -1,5 +1,6 @@
 package com.pk.biz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pk.dao.RecipeDao;
@@ -18,5 +19,46 @@ public class RecipeBiz {
 		
 		return dao.insert(list);
 	}
+	
+	public int update(List<RecipeDto> list) {
+		
+		return dao.update(list);
+	}
+	
+	public RecipeDto selectOne(int recipe_no) {
+		
+		return dao.selectOne(recipe_no);
+	}
 
+	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords){
+		
+		return dao.recipeList(category, offset, noOfRecords);
+	}
+	
+	public int getNoOfRecords() {
+		
+		return dao.getNoOfRecords();
+	}
+	
+	public List<RecipeDto> selectListCategory(){
+		
+		List<RecipeDto> list = selectList();
+		List<RecipeDto> listcategory = new ArrayList<RecipeDto>();
+		RecipeDto dto = null;
+
+		for(int i = 0; i < list.size(); i++) {
+			dto = new RecipeDto();
+			if(i != 0) {
+				if(!list.get(i).getRecipe_category().equals(list.get(i-1).getRecipe_category())) {
+					dto.setRecipe_category(list.get(i).getRecipe_category());
+					listcategory.add(dto);
+				}
+			} else {
+				dto.setRecipe_category(list.get(i).getRecipe_category());
+				listcategory.add(dto);
+			}
+		}
+		
+		return listcategory;
+	}
 }

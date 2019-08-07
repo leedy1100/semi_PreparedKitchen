@@ -19,9 +19,12 @@ import org.json.simple.JSONObject;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MaterialDto;
+import com.pk.dto.PagingDto;
+import com.pk.dto.PagingRecipeDto;
 import com.pk.dto.RecipeDto;
 
 @WebServlet("/product.do")
@@ -41,14 +44,24 @@ public class Product extends HttpServlet {
 		System.out.println("[" + command + "]");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-		RecipeBiz biz = new RecipeBiz();
 		ProductListBiz productListBiz = new ProductListBiz();
+		RecipeBiz rBiz = new RecipeBiz();
+		MaterialBiz mBiz = new MaterialBiz();
+
+		int currentPageNo = 1;
+		int recordsPerPage = 0;
+
+		if (request.getParameter("pages") != null) {
+			currentPageNo = Integer.parseInt(request.getParameter("pages"));
+		}
+		if (request.getParameter("lines") != null) {
+			recordsPerPage = Integer.parseInt(request.getParameter("lines"));
+		}
+
+		PagingRecipeDto paging = new PagingRecipeDto(recordsPerPage, currentPageNo);
+		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
 		
-		if(command.equals("detail")) {
-			
-			response.sendRedirect("product/productdetail.jsp");
-			
-		} else if(command.equals("recipedb")) {
+		if(command.equals("recipedb")) {
 			
 			response.sendRedirect("product/createrecipedb.jsp");
 			
@@ -59,9 +72,9 @@ public class Product extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement infoEle = parser.parse(info);
 			
-			List<RecipeDto> recip = biz.selectList();
+			List<RecipeDto> recipe = rBiz.selectList();
 			
-			if(recip.size() == 0) {
+			if(recipe.size() == 0) {
 				
 				for(int i = 0; i < infoEle.getAsJsonObject().get("data").getAsJsonArray().size(); i++) {
 					
@@ -69,27 +82,35 @@ public class Product extends HttpServlet {
 					
 					JsonElement recipe_id = infoObj.get("RECIPE_ID");
 					JsonElement recipe_nm = infoObj.get("RECIPE_NM_KO");
+					JsonElement recipe_img_url = infoObj.get("IMG_URL");
 					JsonElement recipe_cal = infoObj.get("CALORIE");
 					JsonElement recipe_cate1 = infoObj.get("NATION_NM");
 					JsonElement recipe_cate2 = infoObj.get("TY_NM");
 					
 					int recipe_no = recipe_id.getAsInt();
 					String recipe_name = recipe_nm.getAsString();
+					String recipe_img = recipe_img_url.getAsString();
 					String recipe_nutrient = recipe_cal.getAsString();
 					String recipe_category = recipe_cate1.getAsString() + "," + recipe_cate2.getAsString();
 					
 					RecipeDto dto = new RecipeDto();
 					dto.setRecipe_no(recipe_no);
 					dto.setRecipe_name(recipe_name);
+					dto.setRecipe_img(recipe_img);
 					dto.setRecipe_content("a");
 					dto.setRecipe_nutrient(recipe_nutrient);
 					dto.setRecipe_category(recipe_category);
+					dto.setRecipe_reg("N");
 					
-					recip.add(dto);
+					recipe.add(dto);
+					
+					if(dto.getRecipe_no() == 100) {
+						break;
+					}
 				}
 				
-				int res = biz.insert(recip);
-				out.println(res+"개의 더미데이터가 등록되었습니다.");
+				int res = rBiz.insert(recipe);
+				out.println(res+"개의 더미데이터가 등록되었습니다.\n2번을 눌러주세요");
 				
 			} else {
 				out.println("이미 등록되어 있습니다.");
@@ -103,6 +124,114 @@ public class Product extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement conEle = parser.parse(con);
 			
+			List<RecipeDto> list = new ArrayList<RecipeDto>();
+			
+			for(int i = 0; i < conEle.getAsJsonObject().get("data").getAsJsonArray().size(); i++) {
+				
+				JsonObject conObj = conEle.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
+				
+				JsonElement recipe_id = conObj.get("RECIPE_ID");
+				JsonElement cooking_no = conObj.get("COOKING_NO");
+				JsonElement cooking_dc = conObj.get("COOKING_DC");
+				JsonElement step_img = conObj.get("STRE_STEP_IMAGE_URL");
+				JsonElement step_tip = conObj.get("STEP_TIP");
+				
+				int recipe_no = recipe_id.getAsInt();
+				int step_no = cooking_no.getAsInt();
+				String step_content = cooking_dc.getAsString();
+				String img = null;
+				String tip = null;
+				
+				if (!step_img.isJsonNull()) {
+					img = step_img.getAsString();
+				}
+				
+				if (!step_tip.isJsonNull()) {
+					tip = step_tip.getAsString();
+				}
+				
+				RecipeDto dto = new RecipeDto();
+				
+				dto.setRecipe_no(recipe_no);
+				
+				if (img != null && tip != null) {
+					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + " <img alt=recipe_img src='" + img +   "'>  <br/> ");
+				} else if(img != null && tip == null) {
+					dto.setRecipe_content(step_no + " : " + step_content + " <img alt=recipe_img src='" + img +   "'>  <br/> ");
+				} else if(img == null && tip != null) {
+					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + " <br/> ");
+				} else {
+					dto.setRecipe_content(step_no + " : " + step_content + " <br/> ");
+				}
+				
+				if(dto.getRecipe_no() == 101) {
+					break;
+				}
+				
+				list.add(dto);
+				
+			}
+			
+			List<RecipeDto> conList = new ArrayList<RecipeDto>();
+			String content = "";
+			
+			for(int i = 0; i < list.size(); i++) {
+				
+				if(i > 0) {
+					
+					if (list.get(i).getRecipe_no() == list.get(i-1).getRecipe_no()) {
+						content += list.get(i).getRecipe_content();
+						
+					} else {
+						
+						RecipeDto dto = new RecipeDto();
+						dto.setRecipe_no(list.get(i-1).getRecipe_no());
+						dto.setRecipe_content(content);
+						
+						conList.add(dto);
+						
+						content = list.get(i).getRecipe_content();
+					}
+					
+				} else if(i == 0) {
+					content = list.get(i).getRecipe_content();
+					
+				} else if(i == list.size()) {
+					
+					if(list.get(i).getRecipe_no() == list.get(i-1).getRecipe_no()) {
+						
+						content += list.get(i).getRecipe_content();
+						
+						RecipeDto dto = new RecipeDto();
+						dto.setRecipe_no(list.get(i).getRecipe_no());
+						dto.setRecipe_content(content);
+						
+						conList.add(dto);
+						
+					} else {
+						
+						RecipeDto dto = new RecipeDto();
+						dto.setRecipe_no(list.get(i-1).getRecipe_no());
+						dto.setRecipe_content(content);
+						conList.add(dto);
+						
+						RecipeDto lastDto = new RecipeDto();
+						content = list.get(i).getRecipe_content();
+						lastDto.setRecipe_no(list.get(i).getRecipe_no());
+						lastDto.setRecipe_content(content);
+						conList.add(lastDto);
+					}
+				}
+			}
+			
+			int res = rBiz.update(conList);
+			
+			if(res == -1) {
+				out.println("2번 성공!!\n3번을 눌러주세요");
+			} else {
+				out.println("2번 실패!!");
+			}
+			
 		} else if(command.equals("createdbmat")) {
 
 			String mat = request.getParameter("mat");
@@ -110,6 +239,61 @@ public class Product extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement matEle = parser.parse(mat);
 			
+			List<MaterialDto> list = mBiz.selectList();
+			
+			if (list.size() == 0) {
+				for (int i = 0; i < matEle.getAsJsonObject().get("data").getAsJsonArray().size(); i++) {
+
+					JsonObject matObj = matEle.getAsJsonObject().get("data").getAsJsonArray().get(i).getAsJsonObject();
+
+					JsonElement recipe_id = matObj.get("RECIPE_ID");
+					JsonElement irdnt_sn = matObj.get("IRDNT_SN");
+					JsonElement irdnt_nm = matObj.get("IRDNT_NM");
+					JsonElement irdnt_cpcty = matObj.get("IRDNT_CPCTY");
+					JsonElement irdnt_ty_code = matObj.get("IRDNT_TY_CODE");
+					JsonElement irdnt_ty_nm = matObj.get("IRDNT_TY_NM");
+
+					int recipe_no = recipe_id.getAsInt();
+					int material_no = irdnt_sn.getAsInt();
+					String material_name = irdnt_nm.getAsString();
+					String material_capacity = "";
+					int material_typeCode = irdnt_ty_code.getAsInt();
+					String material_typeName = irdnt_ty_nm.getAsString();
+
+					if (!irdnt_cpcty.isJsonNull()) {
+						material_capacity = irdnt_cpcty.getAsString();
+					} else {
+						continue;
+					}
+
+					MaterialDto dto = new MaterialDto();
+					dto.setRecipe_no(recipe_no);
+					dto.setMaterial_no(material_no);
+					dto.setMaterial_name(material_name);
+					dto.setMaterial_capacity(material_capacity);
+					dto.setMaterial_typeCode(material_typeCode);
+					dto.setMaterial_typeName(material_typeName);
+
+					if (dto.getRecipe_no() == 101) {
+						break;
+					}
+
+					list.add(dto);
+				}
+				int res = mBiz.insert(list);
+				
+				if (res > 0) {
+					out.println("더미데이터 생성 완료");
+					
+				} else {
+					out.println("뭔가 잘못되었다...");
+				} 
+				
+			} else {
+				out.println("이미 등록되어 있습니다");
+			}
+			
+
 		} else if(command.equals("productview")) {
 			
 			JSONArray jArr = new JSONArray();
@@ -121,20 +305,44 @@ public class Product extends HttpServlet {
 			
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
-
 			out.print(element);
+			System.out.println(element);
 		}else if(command.equals("productsales")) {
 			JSONArray jArr = new JSONArray();
 			jArr = productListBiz.productSalesChart();
 			
 			JSONObject jobj = new JSONObject();
 			
-			jobj.put("proview",jArr);
+			jobj.put("prosales",jArr);
 			
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
-
 			out.print(element);
+			System.out.println(element);
+
+		}else if(command.equals("adminchart")) {
+			response.sendRedirect("admin/adminchart.jsp");
+		}else if(command.equals("adminrecipeview")) {
+			
+			List<RecipeDto> listcategory = rBiz.selectListCategory();
+			request.setAttribute("listcategory", listcategory);
+			dispatch(request, response, "admin/adminrecipeview.jsp");
+			
+		}else if(command.equals("category")) {
+			String categoryname = request.getParameter("categoryname");
+			
+			List<RecipeDto> listcategory = rBiz.selectListCategory();
+			List<RecipeDto> list = rBiz.recipeList(categoryname, offset, paging.getRecordsPerPage());
+			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.makePaging();
+			
+			request.setAttribute("categoryname", categoryname);
+			request.setAttribute("listcategory", listcategory);
+			request.setAttribute("list", list);
+			request.setAttribute("paging", paging);
+			
+			dispatch(request, response, "admin/detaillist.jsp");
+			
 		}
 		
 		

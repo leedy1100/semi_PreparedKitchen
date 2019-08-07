@@ -3,15 +3,50 @@
 <mapper namespace="recipemapper">
 
 	<select id="selectList" resultType="recipeDto">
-		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY
+		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_IMG, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY, RECIPE_REG
 		FROM RECIPE
+		ORDER BY RECIPE_CATEGORY
 	</select>
 	
-	<update id="dummyInsert" parameterType="map">
+	<insert id="dummyInsert" parameterType="map">
 		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">		
 			INTO RECIPE
-			VALUES(#{list.recipe_no}, #{list.recipe_name}, #{list.recipe_content}, #{list.recipe_nutrient}, #{list.recipe_category})
+			VALUES(#{list.recipe_no}, #{list.recipe_name}, #{list.recipe_img}, #{list.recipe_content}, #{list.recipe_nutrient}, #{list.recipe_category},#{list.recipe_reg})
 		</foreach>
+	</insert>
+	
+	<update id="dummyUpdate" parameterType="map">
+		<foreach collection="lists" item="list" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE RECIPE
+			SET	RECIPE_CONTENT = #{list.recipe_content}
+			WHERE RECIPE_NO = #{list.recipe_no}
+		</foreach>	
 	</update>
+	
+	<select id="selectOne" parameterType="int" resultType="recipeDto">
+		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_IMG, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY, RECIPE_REG
+		FROM RECIPE
+		WHERE RECIPE_NO = #{recipe_no}
+	</select>
 
+	<select id="recipeList" parameterType="hashmap" resultType="recipeDto">
+		SELECT X.RECIPE_NO, X.RECIPE_NAME, X.RECIPE_IMG, X.RECIPE_CONTENT, X.RECIPE_NUTRIENT, X.RECIPE_CATEGORY, X.RECIPE_REG
+		FROM(
+			SELECT ROWNUM AS RNUM, A.RECIPE_NO, A.RECIPE_NAME, A.RECIPE_IMG, A.RECIPE_CONTENT, A.RECIPE_NUTRIENT, A.RECIPE_CATEGORY, A.RECIPE_REG
+			FROM(
+				SELECT RECIPE_NO, RECIPE_NAME, RECIPE_IMG, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY,RECIPE_REG
+				FROM RECIPE
+				WHERE RECIPE_CATEGORY = #{category}
+				ORDER BY RECIPE_NO DESC
+			) A
+			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
+		) X
+		WHERE X.RNUM <![CDATA[>]]> #{offset}
+	</select>
+	
+	<select id="fileCount" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM RECIPE
+ 		WHERE RECIPE_CATEGORY = #{category}
+ 	</select>
 </mapper>

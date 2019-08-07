@@ -1,10 +1,4 @@
 
-$(function(){
-	getJsonInfo();
-	getJsonContent();
-	getJsonMaterial();
-})
-
 function getJsonInfo(){
 	$.getJSON("/PreparedKitchen/json/recipeInfo.json",function(infoData){
 		$.ajax({
@@ -29,7 +23,7 @@ function getJsonContent(){
 			method : "post",
 			data : {"con" : JSON.stringify(conData)},
 			success : function(msg){
-				
+				alert(msg);
 			},
 			error : function(){
 				alert("content 통신실패");
@@ -44,8 +38,8 @@ function getJsonMaterial(){
 			url : "/PreparedKitchen/product.do?command=createdbmat",
 			method : "post",
 			data : {"mat" : JSON.stringify(matData)},
-			success : function(){
-				
+			success : function(msg){
+				alert(msg)
 			},
 			error : function(){
 				alert("material 통신실패");

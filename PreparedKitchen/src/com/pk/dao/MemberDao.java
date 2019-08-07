@@ -84,6 +84,8 @@ public class MemberDao extends SqlMapConfig{
 			loginDto = session.selectOne(namespace+"login", map);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
 		}
 		
 		return loginDto;

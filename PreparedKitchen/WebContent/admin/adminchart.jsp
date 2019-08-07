@@ -35,39 +35,45 @@ svg {
 </style>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/PreparedKitchen/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	
 $(function() {
 	
 	$.ajax({
-        url:"recipeboard.do?command=likechart",
+        url:"/PreparedKitchen/recipeboard.do?command=likechart",
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-			boardLikeChart(jdata.chart);
+        	if(jdata.chart != null){
+				boardLikeChart(jdata.chart);
+        	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 		}
     });
 	
 	$.ajax({
-        url:"product.do?command=productview",
+        url:"/PreparedKitchen/product.do?command=productview",
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-        	productViewChart(jdata.proview);
+        	if(jdata.proview != null){
+	        	productViewChart(jdata.proview);
+        	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 		}
     });
 	
 	$.ajax({
-        url:"product.do?command=productsales",
+        url:"/PreparedKitchen/product.do?command=productsales",
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-        	productSalesChart(jdata.proview);
+        	if(jdata.prosales != null){
+        		productSalesChart(jdata.prosales);
+        	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
 		}
@@ -199,6 +205,7 @@ function productSalesChart(data) {
 <title>adminchart</title>
 </head>
 <body>
+<a href="/PreparedKitchen/index.jsp">메인</a>
 <h1>레시피추천좋아요 순위 top5</h1>
 <div id="boardlike"><svg></svg></div>
 <h1>상품 조회수 top5</h1>
