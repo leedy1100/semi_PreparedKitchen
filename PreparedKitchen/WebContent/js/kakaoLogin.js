@@ -1,7 +1,7 @@
 
 Kakao.init('9224c175adc04d7602e956fcdd3fd17f');
 function loginWithKakao() {
-	Kakao.Auth.login({
+	Kakao.Auth.loginForm({
 		success : function(authObj) {
 			Kakao.API.request({
 				url : '/v1/user/me',
