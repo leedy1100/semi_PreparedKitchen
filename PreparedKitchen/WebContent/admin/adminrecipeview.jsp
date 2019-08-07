@@ -11,6 +11,7 @@
 
 div{
 	display: inline-block;
+	margin: 50px;
 }
 </style>
 <title>레시피목록</title>
