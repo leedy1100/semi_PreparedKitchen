@@ -10,6 +10,7 @@
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
+<link rel="stylesheet" href="/PreparedKitchen/css/proDetail.css"/>
 </head>
 <body>
 	
@@ -19,12 +20,44 @@
 	</header>
 	
 	<section>
-		<!-- 본문 내용 소분류는 article 태그 이용 -->
+
 		<h1><c:out value="${recipe.recipe_name }"></c:out></h1>
-		<div>
-			<article>
-				
-			</article>
+		
+		<div id="detailHeader">
+			<div id="headerLeft">
+				<img alt="recipe_img" src="${recipe.recipe_img }">
+			</div>
+			<div id="headerRigth">
+				<div id="detailNutrient">영양정보
+					<table border="1">
+						<tr>
+							<th>탄수화물</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>단백질</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>지방</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th>칼로리</th>
+							<td><c:out value="${recipe.recipe_nutrient }"></c:out></td>
+						</tr>
+					</table>
+				</div>
+				<div id="detailMaterial" style="width:500px;">
+					<c:forEach items="${material }" var="mDto">
+						<input type="button" value="${mDto.material_name }">
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+		
+		<div id="detailBody">
+			${recipe.recipe_content }
 		</div>
 		
 	</section>
