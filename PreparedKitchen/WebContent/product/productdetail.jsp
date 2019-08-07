@@ -11,6 +11,8 @@
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
 <link rel="stylesheet" href="/PreparedKitchen/css/proDetail.css"/>
+<script type="text/javascript" src="/PreparedKitchen/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/PreparedKitchen/js/prodetail.js"></script>
 </head>
 <body>
 	
@@ -20,7 +22,7 @@
 	</header>
 	
 	<section>
-
+		
 		<h1><c:out value="${recipe.recipe_name }"></c:out></h1>
 		
 		<div id="detailHeader">
@@ -48,10 +50,15 @@
 						</tr>
 					</table>
 				</div>
-				<div id="detailMaterial" style="width:500px;">
-					<c:forEach items="${material }" var="mDto">
-						<input type="button" value="${mDto.material_name }">
-					</c:forEach>
+				<div id="detailMaterial">
+					<div id="dmLeft">
+						<c:forEach items="${material }" var="mDto">
+							<input class="selected" type="text" value="${mDto.material_name }" readonly="readonly"/>
+						</c:forEach>
+					</div>
+					<div id="dmRight">
+						<input id="btn" type="button" value="확인" onclick="conf()">
+					</div>
 				</div>
 			</div>
 		</div>
@@ -62,8 +69,11 @@
 		
 	</section>
 	
+		<%@ include file="../static/remocon.jsp" %>
+		
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
+		<%@ include file="../payment/payment.jsp" %>
 		<%@ include file="../static/footer.jsp" %>
 	</footer>
 </body>
