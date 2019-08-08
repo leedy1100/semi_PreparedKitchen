@@ -69,7 +69,6 @@ public class ProductListDao extends SqlMapConfig{
 			for(int i =0; i < list.size(); i++) {
 				session = getSqlSessionFactory().openSession(false);
 				seq = session.selectOne(namespace + "seqnextval");
-				System.out.println(seq);
 				list.get(i).setProductList_no(seq);
 			}
 			
@@ -96,13 +95,12 @@ public class ProductListDao extends SqlMapConfig{
 		Map<String, List<ProductListDto>> map = new HashMap<String, List<ProductListDto>>();
 		map.put("lists", list);
 		
+		for(int i = 0; i<list.size(); i++) {
+			System.out.println("recipe_no : " + list.get(i).getRecipe_no());
+		}
 		try {
-			session = getSqlSessionFactory().openSession(false);
+			session = getSqlSessionFactory().openSession(true);
 			res = session.update(namespace + "updateRecipeN", map);
-
-			if (res == list.size()) {
-				session.commit();
-			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

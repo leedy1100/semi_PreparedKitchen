@@ -189,6 +189,9 @@ VALUES(PRODUCTLISTSEQ.NEXTVAL, 5, '약식','준비중입니다.',6,46);
 SELECT PRODUCTLISTSEQ.NEXTVAL
 		FROM DUAL;
 
+		UPDATE RECIPE
+			SET RECIPE_REG = 'N'
+			WHERE RECIPE_NO = 100;
 ---------------------------------------------------------------
 
 DROP SEQUENCE PAYMENTSEQ;
