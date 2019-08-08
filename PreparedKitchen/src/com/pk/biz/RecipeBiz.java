@@ -15,6 +15,11 @@ public class RecipeBiz {
 		return dao.selectList();
 	}
 	
+	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords){
+		
+		return dao.recipeList(category, offset, noOfRecords);
+	}
+	
 	public int insert(List<RecipeDto> list) {
 		
 		return dao.insert(list);
@@ -30,10 +35,6 @@ public class RecipeBiz {
 		return dao.selectOne(recipe_no);
 	}
 
-	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords){
-		
-		return dao.recipeList(category, offset, noOfRecords);
-	}
 	
 	public int getNoOfRecords() {
 		
@@ -42,7 +43,7 @@ public class RecipeBiz {
 	
 	public List<RecipeDto> selectListCategory(){
 		
-		List<RecipeDto> list = selectList();
+		List<RecipeDto> list = dao.selectList();
 		List<RecipeDto> listcategory = new ArrayList<RecipeDto>();
 		RecipeDto dto = null;
 
@@ -61,4 +62,5 @@ public class RecipeBiz {
 		
 		return listcategory;
 	}
+	
 }

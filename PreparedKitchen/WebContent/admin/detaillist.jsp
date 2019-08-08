@@ -46,7 +46,30 @@
 		$(".menuname").click(function() {
 			$(this).next().slideToggle().end().parent().siblings().find("ul").slideUp();
 		});
+		
+		$("#productinsert").submit(function() {
+			if($("input[name=recipe_no]:checked").length == 0){
+				alert("선택한 레시피가 없습니다.");
+				return false;
+			}
+		});
+		
+		
+		$("input[name=recipe_no]").click(function() {
+			if($("input[name=recipe_no]").length==$("input[name=recipe_no]:checked").length){
+				$("input[name=all]").prop("checked",true);
+			}else{
+				$("input[name=all]").prop("checked",false);
+			}
+		})
+		
 	});
+	
+	function allchk(bool) {
+		$("input[name=recipe_no]").each(function() {
+				$(this).prop("checked",bool);	
+		});
+	}
 
 </script>
 <title>레시피 세부리스트</title>
@@ -154,14 +177,18 @@
 </div>
 </div>
 <div class="menulist">
+	<form action="product.do" id="productinsert">
+	<input type="hidden" name="command" value="productinsert"/>
 	<table id="menulist">
 		<col width="50px">
+		<col width="50px">
+		<col width="50px">
+		<col width="180px">
 		<col width="80px">
 		<col width="200px">
 		<col width="80px">
-		<col width="200px">
-		<col width="100px">
 		<tr>
+			<th><input type="checkbox" value="전체" name="all" onclick="allchk(this.checked)"/></th>
 			<th>번호</th>
 			<th>이미지</th>
 			<th>이름</th>
@@ -177,7 +204,10 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
+					<input type="hidden" value="${dto.recipe_img }" name="recipe_img"/>
+					<input type="hidden" value="${dto.recipe_name }" name="recipe_name"/>
 					<tr>
+						<td><input type="checkbox" value="${dto.recipe_no }" name="recipe_no"/></td>
 						<td>${dto.recipe_no }</td>
 						<td><img src='${dto.recipe_img }' alt='이미지없음' style="width: 50px;"/></td>
 						<td>${dto.recipe_name }</td>
@@ -188,7 +218,13 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
+		<tr>
+			<td colspan="7">
+				<input type="submit" value="등록">
+			</td>
+		</tr>
 	</table>
+	</form>
 	<div id="pagingbutton">
 		<jsp:include page="adminrecipelistpaging.jsp" flush="true">
 			<jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
