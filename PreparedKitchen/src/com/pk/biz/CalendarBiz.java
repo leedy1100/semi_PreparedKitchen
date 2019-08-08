@@ -15,5 +15,9 @@ public class CalendarBiz {
 	public List<CalDto> mycalendar(String id) {
 		return dao.mycalendar(id);
 	}
+	
+	public int updatecalendar(CalDto dto) {
+		return dao.updatecalendar(dto);
+	}
 
 }

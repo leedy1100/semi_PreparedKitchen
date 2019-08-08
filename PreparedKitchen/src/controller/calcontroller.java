@@ -1,13 +1,10 @@
 package controller;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,12 +16,11 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pk.biz.CalendarBiz;
 import com.pk.dto.CalDto;
+import com.pk.dto.MemberDto;
 
 
 @WebServlet("/cal.do")
@@ -43,8 +39,8 @@ public class calcontroller extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		HttpSession session = request.getSession();
-		String url = null;
-		
+	
+		PrintWriter out = response.getWriter();
 		String command = request.getParameter("command");
 		System.out.println("<" + command + ">");
 		
@@ -52,7 +48,10 @@ public class calcontroller extends HttpServlet {
 		CalendarBiz biz = new CalendarBiz();
 		
 		if(command.equals("calendar")) {
-			String id = "user";
+			
+			MemberDto dto = (MemberDto)session.getAttribute("memberDto");
+			String id = dto.getId();
+			
 			
 			List<CalDto>list = biz.mycalendar(id);
 			JSONArray jArr = new JSONArray();
@@ -72,11 +71,40 @@ public class calcontroller extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
 			
-			PrintWriter out = response.getWriter();
+		
 			out.print(jArr.toString());
 			
 		}else if(command.equals("calendar2")) {
-			response.sendRedirect("calendar.jsp");
+			
+			MemberDto dto = (MemberDto)session.getAttribute("memberDto");
+			if(dto != null) {
+			dispatch(request, response, "calendar.jsp");
+			}else {
+				out.println("<script>");
+				out.println("alert('로그인을 해주세요.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+		}else if(command.contentEquals("calendarupdate")) {
+			String start = request.getParameter("start");
+			MemberDto dtoo = (MemberDto)session.getAttribute("memberDto");
+			String id = dtoo.getId();
+			System.out.println(id);
+			System.out.println(start);
+			CalDto dto = new CalDto();
+			dto.setPaymentdate(start);
+			dto.setId(id);
+			
+			int res = biz.updatecalendar(dto);
+			if(res>0) {
+				out.println("<script>");
+				out.println("location.href='cal.do?command=calendar2'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("error'");
+				out.println("</script>");
+			}
 		}
 		
 	}
@@ -85,6 +113,12 @@ public class calcontroller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+public void dispatch(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
+		
+		RequestDispatcher dispatch = request.getRequestDispatcher(url);
+		dispatch.forward(request, response);
 	}
 
 }

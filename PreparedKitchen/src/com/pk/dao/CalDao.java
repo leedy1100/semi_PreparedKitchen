@@ -31,6 +31,29 @@ public class CalDao extends SqlMapConfig {
 		return list;
 	}
 	
+	public int updatecalendar(CalDto dto) {
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.update(namespace+"updatecalendar",dto);
+			if(res>0) {
+				session.commit();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return res;
+	}
+		
+	
+	
 	
 
 }

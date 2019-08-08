@@ -11,9 +11,14 @@
 
 
 <select id="mycalendar"  resultMap="dtoMap">
-		SELECT R.RECIPE_NAME, P.PAYMENT_DATE, M.MATERIAL_NAME 
-		FROM RECIPE R, PAYMENT P, MATERIAL M 
+		SELECT R.RECIPE_NAME, P.PAYMENT_DATE
+		FROM RECIPE R, PAYMENT P
 		WHERE P.ID = #{id}
 	</select>
-
+	
+<update id="updatecalendar" parameterType="CalDto">
+UPDATE  PAYMENT
+  	SET  PAYMENT_DATE =#{paymentdate}
+  	WHERE ID=#{id}
+</update>
 </mapper>

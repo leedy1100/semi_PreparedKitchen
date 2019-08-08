@@ -1,3 +1,4 @@
+<%@page import="com.pk.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -22,7 +23,9 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
 
-
+<%
+	MemberDto dto = (MemberDto)session.getAttribute("memberDto");
+%>
 
 <style>
 
@@ -44,12 +47,14 @@
   
 <script>
 
+
+
   $(function() {
 
     $('#calendar').fullCalendar({
      
 
-      eventRender: function(eventObj, $el) {
+    /*   eventRender: function(eventObj, $el) {
         $el.popover({
           title: eventObj.title,
           content: eventObj.description,
@@ -57,10 +62,16 @@
           placement: 'top',
           container: 'body'
         });
-      },
+      }, */
       editable: true,
       eventLimit: true, // when too many events in a day, show the popover
-      
+      eventDrop: function(event, delta, revertFunc) {
+    	   
+    	    var datedate = event.start.format();
+    	    
+			location.href="cal.do?command=calendarupdate&start="+datedate;
+    	  },
+    	
       
       events: function(start, end, timezone, callback) {
   		$.ajax({
@@ -74,7 +85,9 @@
 	                events.push({
 	                  title: $(this).attr('title'),
 	                  start: $(this).attr('start'),
-	                  description: $(this).attr('description')// will be parsed
+	                  url:"//www.google.com"
+	                  //description: $(this).attr('description')
+	                  // will be parsed
 	                  
 	                });
 	                
@@ -83,7 +96,8 @@
 	        	callback(events);
 	        }
   		});
-      }
+      },
+     
       
      
 
@@ -108,6 +122,13 @@
  
 
     <div id='calendar'></div>
+    
+    	<table>
+    		<tr>
+    			<input type="button" value="뒤로가기" onclick="location.href='index.jsp'">
+    		</tr>
+    	</table>
+    
 
  
 
