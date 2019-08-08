@@ -16,6 +16,10 @@ public class RecipeBoardBiz {
 		return recipeBoardDao.selectList(offset, noOfRecords);
 	};
 
+	public List<RecipeBoardDto> selectListId(int offset, int noOfRecords, String id) {
+		return recipeBoardDao.selectListId(offset, noOfRecords, id);
+	};
+
 	public List<RecipeBoardDto> searchFiled(int offset, int noOfRecords, String searchFiled, String searchValue) {
 
 		return recipeBoardDao.searchFiled(offset, noOfRecords, searchFiled, searchValue);

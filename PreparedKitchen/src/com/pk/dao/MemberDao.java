@@ -13,6 +13,7 @@ import com.pk.dto.MemberDto;
 public class MemberDao extends SqlMapConfig{
 	
 	private String namespace = "membermapper.";
+	int noOfRecords;
 	
 	public List<MemberDto> selectList(){
 		

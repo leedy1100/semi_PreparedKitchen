@@ -20,7 +20,9 @@
 		<input type="button" value="관심 레시피" class="button01" onclick="location.href='member.do?command=interest'">
 		<input type="button" value="결제 내역" class="button01" onclick="location.href='member.do?command=paymentinfo'">
 		<hr>
-		<h2></h2>
+		<h2>식단 관리</h2>
+		<iframe src="calendar.jsp" style="width: 1000px; height: 900px;">
+		</iframe>
 		
 	</section>
 	<%@ include file="static/remocon.jsp" %>

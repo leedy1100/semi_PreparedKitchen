@@ -17,6 +17,7 @@
 	MemberDto memberDto = (MemberDto)session.getAttribute("memberDto");
 %>
 
+<script type="text/javascript" src="/PreparedKitchen/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/PreparedKitchen/js/header.js"></script>
 
 <body>
@@ -43,8 +44,6 @@
 			<li>회사 소개
 				<ul class="mainmenu_small">
 					<li><a href="/PreparedKitchen/recipeboard.do?command=list">recipeboardlist</a></li>
-					<li><a href="/PreparedKitchen/member.do?command=mypage">MY PAGE</a></li>
-					<li><a href="/PreparedKitchen/payment/mypagepayment.jsp">결제 내역</a></li>
 					<li><a href="/PreparedKitchen/map.do?command=map">지도 테스트</a></li>
 					<li><a href="/PreparedKitchen/cal.do?command=calendar">달력</a></li>
 					<li><a href="/PreparedKitchen/product.do?command=recipedb">더미데이터 만들기</a></li>
@@ -84,9 +83,12 @@
 		<ul class="mainmenu_big">
 			<li>마이페이지
 				<ul class="mainmenu_small">
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=mypage">회원 정보</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=id">내가 쓴 글</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=cal">식단 관리</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=cart">장바구니</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=like">관심 레시피</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=paymentinfo">결제 내역</a></li>
 				</ul>
 			</li>
 		</ul>
