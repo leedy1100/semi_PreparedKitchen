@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
-<link rel="stylesheet" href="static/base.css"/>
+<link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
+<script type="text/javascript" src="/PreparedKitchen/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 	
@@ -17,15 +18,9 @@
 	<%@ include file="mainimg.html" %>
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
-		<a href="recipeboard.do?command=list">recipeboardlist테스트용</a><br/>
-		<a href="member.do?command=mypage">MY PAGE</a><br/>
-		<a href="payment/mypagepayment.jsp">결제 내역</a><br/>
-		<a href="map.do?command=map">지도 테스트</a><br/>
-		<a href="cal.do?command=calendar">달력</a><br/>
-		<a href="product.do?command=recipedb">더미데이터 만들기</a><br/>
-		<a href="prodetail.do?command=detail&recipeno=1">상품디테일</a><br/>
-		<a href="product.do?command=adminchart">차트</a><br/>
-		<a href="product.do?command=adminrecipeview">상품등록</a>
+		<article>
+			<h2>상품</h2>
+		</article>
 	</section>
 
 	<footer>

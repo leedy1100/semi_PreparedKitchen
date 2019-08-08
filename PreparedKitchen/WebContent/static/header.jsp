@@ -11,26 +11,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/PreparedKitchen/css/header.css"/>
 </head>
-<style>
-	#mainleft{float: left; margin: 10px 0px 0px 20px;}
-	#mainright{float: right; margin: 25px 30px 0px 0px;}
-	#mainmenu{width: 60; height: 60; margin: 10px 10px 10px 10px;}
-	#maintitle{color: rgb(241, 255, 76); font-size: 40px; text-decoration: none; font-weight: bold;}
-	#search{}
-	#headerlogin{color: white; font-size: 14px; text-decoration: none;}
-</style>
 <%
 	MemberDto memberDto = (MemberDto)session.getAttribute("memberDto");
 %>
 
-<script type="text/javascript">
-
-</script>
+<script type="text/javascript" src="/PreparedKitchen/js/header.js"></script>
 
 <body>
 	<div id="mainleft">
-		<img id="mainmenu">
 		<a id="maintitle" href="/PreparedKitchen/index.jsp">Prepared Kitchen</a>
 	</div>
 	<div id="mainright">
@@ -47,6 +37,59 @@
 <%
 	}
 %>
+	</div>
+	<div id="mainmenu">
+		<ul class="mainmenu_big">
+			<li>회사 소개
+				<ul class="mainmenu_small">
+					<li><a href="/PreparedKitchen/recipeboard.do?command=list">recipeboardlist</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=mypage">MY PAGE</a></li>
+					<li><a href="/PreparedKitchen/payment/mypagepayment.jsp">결제 내역</a></li>
+					<li><a href="/PreparedKitchen/map.do?command=map">지도 테스트</a></li>
+					<li><a href="/PreparedKitchen/cal.do?command=calendar">달력</a></li>
+					<li><a href="/PreparedKitchen/product.do?command=recipedb">더미데이터 만들기</a></li>
+					<li><a href="/PreparedKitchen/prodetail.do?command=detail&recipeno=1">상품디테일</a></li>
+					<li><a href="/PreparedKitchen/product.do?command=adminchart">차트</a></li>
+					<li><a href="/PreparedKitchen/product.do?command=adminrecipeview">상품등록</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="mainmenu_big">
+			<li>상품
+				<ul class="mainmenu_small">
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="mainmenu_big">
+			<li>유저 레시피
+				<ul class="mainmenu_small">
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="mainmenu_big">
+			<li>고객 센터
+				<ul class="mainmenu_small">
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="mainmenu_big">
+			<li>마이페이지
+				<ul class="mainmenu_small">
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="#">세부 메뉴</a></li>
+				</ul>
+			</li>
+		</ul>
 	</div>
 </body>
 </html>
