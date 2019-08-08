@@ -87,13 +87,14 @@ public class calcontroller extends HttpServlet {
 			}
 		}else if(command.contentEquals("calendarupdate")) {
 			String start = request.getParameter("start");
+			String title = request.getParameter("title");
 			MemberDto dtoo = (MemberDto)session.getAttribute("memberDto");
 			String id = dtoo.getId();
-			System.out.println(id);
-			System.out.println(start);
+			
 			CalDto dto = new CalDto();
 			dto.setPaymentdate(start);
 			dto.setId(id);
+			
 			
 			int res = biz.updatecalendar(dto);
 			if(res>0) {

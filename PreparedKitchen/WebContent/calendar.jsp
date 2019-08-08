@@ -67,9 +67,13 @@
       eventLimit: true, // when too many events in a day, show the popover
       eventDrop: function(event, delta, revertFunc) {
     	   
-    	    var datedate = event.start.format();
-    	    
-			location.href="cal.do?command=calendarupdate&start="+datedate;
+    	    var datestart = event.start.format();
+    	 
+    	    if (!confirm("수정을 하실려나 마실려나")) {
+    	        revertFunc();
+    	      }else{
+			location.href="cal.do?command=calendarupdate&start="+datestart;
+    	      }
     	  },
     	
       
