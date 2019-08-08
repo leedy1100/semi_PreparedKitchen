@@ -83,6 +83,7 @@ public class member extends HttpServlet {
 			dispatch(request, response, "myboard.jsp");
 			
 		}else if(command.equals("cal")) {
+			dispatch(request, response, "mycalendar.jsp");
 			
 			
 		}else if(command.equals("paymentinfo")) {
@@ -100,6 +101,7 @@ public class member extends HttpServlet {
 			dispatch(request, response, "cart.jsp");
 			
 		}else if(command.equals("interest")) {
+			dispatch(request, response, "interest.jsp");
 			
 			
 		}else if(command.equals("updateinfo")) {
