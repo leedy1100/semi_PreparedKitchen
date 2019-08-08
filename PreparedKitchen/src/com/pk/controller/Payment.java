@@ -48,20 +48,20 @@ public class Payment extends HttpServlet {
 		String command = request.getParameter("command");
 		
 		if(command.equals("pay")) {
-			URL url = new URL("https://kapi.kakao.com/v1/payment/ready"); // url 준비
-			HttpURLConnection conn = (HttpURLConnection)url.openConnection(); // url로 통신 시작
+			URL url = new URL("https://kapi.kakao.com/v1/payment/ready");
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 			conn.setRequestMethod("POST"); // POST 방식으로 요청
-			conn.setRequestProperty("Authorization", "KakaoAK 247d7866a02bfad3351e76235bc0f663"); // 요청 헤더 정의
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8"); // 요청 헤더 정의
-			conn.setDoInput(true); // inputstream 으로 응답 헤더와 메시지를 읽겠다
-			conn.setDoOutput(true); // outputstream 으로 POST 방식의 요청을 하겠다
+			conn.setRequestProperty("Authorization", "KakaoAK 247d7866a02bfad3351e76235bc0f663"); 
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8"); 
+			conn.setDoInput(true); 
+			conn.setDoOutput(true); 
 	        
 			String partner_order_id = request.getParameter("partner_order_id");
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
 			
-	        Map<String, String> params = new HashMap<String, String>(); // 파라미터 세팅
+	        Map<String, String> params = new HashMap<String, String>();
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
 	        params.put("partner_user_id", partner_user_id);
@@ -74,9 +74,9 @@ public class Payment extends HttpServlet {
 	        params.put("cancel_url", "http://localhost:8787/PreparedKitchen/payment/cancel.jsp");
 	        params.put("fail_url", "http://localhost:8787/PreparedKitchen/payment/fail.jsp");
 	        
-	        String string_params = new String(); // 보낼 파라미터
+	        String string_params = new String();
 			for(Map.Entry<String, String> elem : params.entrySet()) {
-				string_params += (elem.getKey() + "=" + elem.getValue() + "&"); // 파라미터 전송 준비
+				string_params += (elem.getKey() + "=" + elem.getValue() + "&");
 			}
 	        
 	        System.out.println(string_params);

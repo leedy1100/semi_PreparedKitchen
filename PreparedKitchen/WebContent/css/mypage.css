@@ -1,0 +1,33 @@
+h1{
+	margin: 50px 0px 40px 20px;
+	font-size: 42px;
+}
+h2{
+	margin: 30px 0px 30px 50px;
+}
+#mypage_menubar{
+	position: relative;
+	left: 20px;
+	margin: 30px auto;
+	width: 1000px;
+	height: 60px;
+}
+#mypage_menubar + hr{ 
+	border: 0.3px solid rgb(200,200,200);
+	width: 100%;
+}
+.mypage_menu{
+	float: left;
+	margin: 0px;
+	border: 1px solid rgb(230,230,230);
+	width: 16%;
+	height: 45pt;
+	background-color: rgb(245,245,245);
+	color: rgb(100,100,100);
+	font-weight: bold;
+	transition: 1s;
+	cursor: pointer;
+}
+.mypage_menu:hover{
+	background-color: rgb(200,200,200);
+}
