@@ -1,6 +1,7 @@
 package com.pk.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,6 +11,7 @@ import com.pk.dto.PaymentDto;
 public class PaymentDao extends SqlMapConfig{
 
 	private String namespace = "paymentmapper.";
+	int noOfRecords;
 	
 	public List<PaymentDto> selectList() {
 		List<PaymentDto> list = new ArrayList<PaymentDto>();
@@ -28,10 +30,20 @@ public class PaymentDao extends SqlMapConfig{
 		return list;
 	}
 	
-	public List<PaymentDto> mySelectList(String id) {
+	public List<PaymentDto> mySelectList(int offset, int noOfRecords, String id) {
 		List<PaymentDto> list = new ArrayList<PaymentDto>();
 		SqlSession session = null;
 		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("offset", offset);
+		params.put("noOfRecords", offset + noOfRecords);
+
+		session = getSqlSessionFactory().openSession();
+		list = session.selectList(namespace + "selectList", params);
+		this.noOfRecords = session.selectOne(namespace + "totalCountList");
+		
+
 		try {
 			session = getSqlSessionFactory().openSession(false);
 			list = session.selectList(namespace + "mySelectList", id);

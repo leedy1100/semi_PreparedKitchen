@@ -22,6 +22,15 @@
 		WHERE PAYMENT_GROUP = #{value}
 		ORDER BY PAYMENT_NO
 	</select>
+	
+ 	<select id="totalCountList" resultType="int">
+ 		SELECT COUNT(*)
+ 		FROM RECIPEBOARD
+ 		WHERE 1=1
+ 		<if test="id != null">
+	 		AND ID = #{id} 
+	 	</if>
+ 	</select>
 
 	<insert id="insert" parameterType="paymentDto">
 		INSERT INTO PAYMENT

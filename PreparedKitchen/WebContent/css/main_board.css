@@ -14,6 +14,7 @@ article h2{
 	height: 200px;
 	border-radius: 50%;
 	overflow: hidden;
+	cursor: pointer;
 	transition: 1s;
 }
 .main_board_one img{

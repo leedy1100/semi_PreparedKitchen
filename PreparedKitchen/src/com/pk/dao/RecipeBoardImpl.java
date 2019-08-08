@@ -36,6 +36,30 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 
 		return list;
 	}
+	
+	public List<RecipeBoardDto> selectListId(int offset, int noOfrecords, String id) {
+		List<RecipeBoardDto> list = new ArrayList<RecipeBoardDto>();
+		SqlSession session = null;
+		
+		HashMap<String, Object> params = new HashMap<String, Object>();
+
+		params.put("offset", offset);
+		params.put("noOfRecords", offset + noOfrecords);
+		params.put("id", id);
+		
+		try {
+			session = getSqlSessionFactory().openSession();
+			list = session.selectList(namespace + "selectList", params);
+			this.noOfRecords = session.selectOne(namespace + "totalCountList",params);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
 
 	@Override
 	public List<RecipeBoardDto> searchFiled(int offset, int noOfRecords, String searchFiled, String searchValue) {

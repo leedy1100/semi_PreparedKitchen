@@ -13,8 +13,8 @@ public class PaymentBiz {
 		return dao.selectList();
 	}
 	
-	public List<PaymentDto> mySelectList(String id) {
-		return dao.mySelectList(id);
+	public List<PaymentDto> mySelectList(int offset, int noOfRecords, String id) {
+		return dao.mySelectList(offset, noOfRecords, id);
 	}
 
 	public List<PaymentDto> selectOneList(String tid) {

@@ -2,6 +2,7 @@ package com.pk.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pk.biz.MemberBiz;
+import com.pk.biz.PaymentBiz;
+import com.pk.biz.RecipeBoardBiz;
 import com.pk.dto.MemberDto;
+import com.pk.dto.PagingDto;
+import com.pk.dto.PaymentDto;
+import com.pk.dto.RecipeBoardDto;
 
 /**
  * Servlet implementation class member
@@ -38,18 +44,64 @@ public class member extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		String command = request.getParameter("command");
-		System.out.println("["+ command +"]");
 		
 		MemberBiz biz = new MemberBiz();
+		PaymentBiz pBiz = new PaymentBiz();
+		RecipeBoardBiz rBiz = new RecipeBoardBiz();
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		
+		MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
+		
+		int currentPageNo = 1;
+		int recordsPerPage = 0;
+
+		if (request.getParameter("pages") != null) {
+			currentPageNo = Integer.parseInt(request.getParameter("pages"));
+		}
+		if (request.getParameter("lines") != null) {
+			recordsPerPage = Integer.parseInt(request.getParameter("lines"));
+		}
+
+		PagingDto paging = new PagingDto(recordsPerPage, currentPageNo);
+		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
+		
+		
+		
 		if(command.equals("mypage")) {
 			dispatch(request, response, "userinfo.jsp");
+				
+		}else if(command.equals("id")) {
+			List<RecipeBoardDto> rList = rBiz.selectListId(offset, paging.getRecordsPerPage(),mDto.getId());
+			
+			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.makePaging();
+
+			request.setAttribute("paging", paging);
+			request.setAttribute("rList", rList);
+			
+			dispatch(request, response, "myboard.jsp");
+			
+		}else if(command.equals("cal")) {
+			
+			
 		}else if(command.equals("paymentinfo")) {
+			List<PaymentDto> pList = pBiz.mySelectList(offset, paging.getRecordsPerPage(), mDto.getId());
+			
+			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.makePaging();
+
+			request.setAttribute("paging", paging);
+			request.setAttribute("pList", pList);
+			
 			dispatch(request, response, "paymentinfo.jsp");
+			
 		}else if(command.equals("cart")) {
 			dispatch(request, response, "cart.jsp");
+			
+		}else if(command.equals("interest")) {
+			
+			
 		}else if(command.equals("updateinfo")) {
 			MemberDto dto = new MemberDto();
 			
