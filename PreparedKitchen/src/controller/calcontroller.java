@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -41,6 +42,9 @@ public class calcontroller extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
+		HttpSession session = request.getSession();
+		String url = null;
+		
 		String command = request.getParameter("command");
 		System.out.println("<" + command + ">");
 		
@@ -61,13 +65,13 @@ public class calcontroller extends HttpServlet {
 				
 				jArr.add(hm);
 			}
-			System.out.println(jArr);
+			
 			JSONObject jobj = new JSONObject();
 			jobj.put("event", jArr);
 			
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
-			System.out.println(element);
+			
 			PrintWriter out = response.getWriter();
 			out.print(jArr.toString());
 			

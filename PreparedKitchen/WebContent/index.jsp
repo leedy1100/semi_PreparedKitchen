@@ -37,7 +37,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-		<a href="cal.do?command=calendar">달력</a>
 =======
 		<a href="cal.do?command=calendar2">달력</a>
 >>>>>>> refs/heads/LJS123
