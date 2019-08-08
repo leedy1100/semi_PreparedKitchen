@@ -18,4 +18,23 @@
  		WHERE RK <![CDATA[<=]]> 5
 	</select>
 	
+	<insert id="insertProduct" parameterType="map">
+		<foreach collection="lists" item="list" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO PRODUCTLIST 
+			VALUES(#{list.productList_no},#{list.recipe_no},#{list.recipe_name},#{list.recipe_img},0,0)
+		</foreach>
+	</insert>
+	
+	<select id="seqnextval" resultType="int">
+		SELECT PRODUCTLISTSEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<update id="updateRecipeN" parameterType="map">
+		<foreach collection="lists" item="list" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE RECIPE
+			SET RECIPE_REG = 'Y'
+			WHERE RECIPE_NO = #{list.recipe_no}
+		</foreach>
+	</update>
 </mapper>

@@ -30,7 +30,7 @@ public class RecipeDao extends SqlMapConfig {
 
 		return list;
 	}
-
+	
 	public int insert(List<RecipeDto> list) {
 
 		SqlSession session = null;
@@ -48,6 +48,8 @@ public class RecipeDao extends SqlMapConfig {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			session.close();
 		}
 
 		return res;
@@ -115,5 +117,6 @@ public class RecipeDao extends SqlMapConfig {
 
 		return noOfRecords;
 	}
+	
 
 }

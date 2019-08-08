@@ -3,11 +3,13 @@ package com.pk.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONArray;
 
 import com.pk.dto.ProductListDto;
+import com.pk.dto.RecipeDto;
 
 public class ProductListDao extends SqlMapConfig{
 
@@ -54,4 +56,61 @@ public class ProductListDao extends SqlMapConfig{
 		session.close();
 		return jArr;
 	}
+	
+	public int insertProduct(List<ProductListDto> list) {
+
+		SqlSession session = null;
+		int res = 0;
+		Map<String, List<ProductListDto>> map = new HashMap<String, List<ProductListDto>>();
+		int seq = 0;
+		
+		try {
+			
+			for(int i =0; i < list.size(); i++) {
+				session = getSqlSessionFactory().openSession(false);
+				seq = session.selectOne(namespace + "seqnextval");
+				System.out.println(seq);
+				list.get(i).setProductList_no(seq);
+			}
+			
+			map.put("lists", list);
+			res = session.insert(namespace + "insertProduct", map);
+			
+			if (res == list.size()) {
+				session.commit();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+
+		return res;
+	}
+	
+	public int updateRecipeN(List<ProductListDto> list) {
+		
+		SqlSession session = null;
+		int res = 0;
+		Map<String, List<ProductListDto>> map = new HashMap<String, List<ProductListDto>>();
+		map.put("lists", list);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.update(namespace + "updateRecipeN", map);
+
+			if (res == list.size()) {
+				session.commit();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+
+		return res;
+	}
+	
 }
