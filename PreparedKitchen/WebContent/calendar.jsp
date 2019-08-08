@@ -5,57 +5,101 @@
 <% response.setContentType("text/html; charset=UTF-8"); %>
 <!DOCTYPE html>
 
-<html lang='ko'>
+<html>
 
 <head>
 <meta charset="UTF-8">
- <link href='fullcalendar/fullcalendar.css' rel='stylesheet' />
- <link href='fullcalendar/fullcalendar.print.css' rel='stylesheet' />
+ 
 
-	<script src='fullcalendar/fullcalendar.js'></script>
+<link href='https://unpkg.com/fullcalendar@3.10.0/dist/fullcalendar.min.css' rel='stylesheet' />
+<link href='https://unpkg.com/fullcalendar@3.10.0/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
 
-    <script src="js/jquery-3.4.1.min.js"></script>
-  
-    <script src="js/bootstrap.min.js"></script>
-    
-	<script src="fullcalendar/lib/moment.min.js"></script>
+<script src='https://unpkg.com/moment@2.24.0/min/moment.min.js'></script>
+<script src='https://unpkg.com/jquery@3.4.1/dist/jquery.min.js'></script>
+<script src='https://unpkg.com/fullcalendar@3.10.0/dist/fullcalendar.min.js'></script>
+<script src='fullcalendar/locale/ko.js'></script>
+<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
 
-	
-	
 
-    <style type="text/css">
 
-  
-  
+<style>
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    max-width: 900px;
+    margin: 40px auto;
+  }
+
 </style>
 
-<script type="text/javascript">
+ 
+  
+<script>
 
-$(function() {
+  $(function() {
 
     $('#calendar').fullCalendar({
+     
 
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,listYear'
+      eventRender: function(eventObj, $el) {
+        $el.popover({
+          title: eventObj.title,
+          content: eventObj.description,
+          trigger: 'hover',
+          placement: 'top',
+          container: 'body'
+        });
       },
-
-      displayEventTime: false, // don't show the time column in list view
-
-    
-
-      eventClick: function(event) {
-       
-        window.open(event.url, '_blank', 'width=700,height=600');
-        return false;
+      editable: true,
+      eventLimit: true, // when too many events in a day, show the popover
+      
+      
+      events: function(start, end, timezone, callback) {
+  		$.ajax({
+	        url:"cal.do?command=calendar",
+	        dataType:"text",
+	        success:function(data) {
+	        	var parse = JSON.parse(data);
+	        	var events = [];
+	        	
+	        	$(parse).each(function() {
+	                events.push({
+	                  title: $(this).attr('title'),
+	                  start: $(this).attr('start'),
+	                  description: $(this).attr('description')// will be parsed
+	                  
+	                });
+	                
+	              });
+	        	
+	        	callback(events);
+	        }
+  		});
       }
+      
+     
 
     });
 
   });
 
-    </script>
+</script>
+<style>
+
+  #calendar a.fc-event {
+    color: #fff; /* bootstrap default styles make it black. undo */
+  }
+
+</style>
+
 
   </head>
 
