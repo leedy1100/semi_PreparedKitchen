@@ -25,6 +25,7 @@ import com.pk.biz.RecipeBiz;
 import com.pk.dto.MaterialDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.PagingRecipeDto;
+import com.pk.dto.ProductListDto;
 import com.pk.dto.RecipeDto;
 
 @WebServlet("/product.do")
@@ -44,7 +45,7 @@ public class Product extends HttpServlet {
 		System.out.println("[" + command + "]");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-		ProductListBiz productListBiz = new ProductListBiz();
+		ProductListBiz pBiz = new ProductListBiz();
 		RecipeBiz rBiz = new RecipeBiz();
 		MaterialBiz mBiz = new MaterialBiz();
 
@@ -297,7 +298,7 @@ public class Product extends HttpServlet {
 		} else if(command.equals("productview")) {
 			
 			JSONArray jArr = new JSONArray();
-			jArr = productListBiz.productViewChart();
+			jArr = pBiz.productViewChart();
 			
 			JSONObject jobj = new JSONObject();
 			
@@ -309,7 +310,7 @@ public class Product extends HttpServlet {
 			System.out.println(element);
 		}else if(command.equals("productsales")) {
 			JSONArray jArr = new JSONArray();
-			jArr = productListBiz.productSalesChart();
+			jArr = pBiz.productSalesChart();
 			
 			JSONObject jobj = new JSONObject();
 			
@@ -343,6 +344,35 @@ public class Product extends HttpServlet {
 			
 			dispatch(request, response, "admin/detaillist.jsp");
 			
+		}else if(command.equals("productinsert")) {
+			ProductListDto dto = null;
+			List<ProductListDto> list = new ArrayList<ProductListDto>();
+			
+			String recipe_no[] = request.getParameterValues("recipe_no");
+			String recipe_img[] = request.getParameterValues("recipe_img");
+			String recipe_name[] = request.getParameterValues("recipe_name");
+			
+			for(int i = 0; i < recipe_no.length; i++){
+				dto = new ProductListDto();
+				dto.setRecipe_no(Integer.parseInt(recipe_no[i]));
+				dto.setRecipe_img(recipe_img[i]);
+				dto.setRecipe_name(recipe_name[i]);
+				
+				list.add(dto);
+			}
+			
+			for(int i = 0; i<list.size(); i++) {
+				System.out.println(list.get(i).getRecipe_no());
+				System.out.println(list.get(i).getRecipe_img());
+				System.out.println(list.get(i).getRecipe_name());
+			}
+			int res = pBiz.insertProduct(list);
+			
+			if(res > 0) {
+				alert(response, "상품등록이 되었습니다", "product.do?command=adminrecipeview");
+			}else {
+				alert(response, "상품등록에 실패했습니다", "product.do?command=adminrecipeview");
+			}
 		}
 		
 		
@@ -365,6 +395,15 @@ public class Product extends HttpServlet {
 		
 		RequestDispatcher dispatch = request.getRequestDispatcher(url);
 		dispatch.forward(request, response);
+	}
+	
+	public void alert(HttpServletResponse response, String msg, String url) throws IOException {
+
+		PrintWriter out = response.getWriter();
+		String res = "<script type='text/javascript'>\r\n" + "alert('" + msg + "');\r\n" + "location.href='" + url
+				+ "';\r\n" + "</script>";
+
+		out.println(res);
 	}
 
 }
