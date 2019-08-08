@@ -155,13 +155,13 @@ public class Product extends HttpServlet {
 				dto.setRecipe_no(recipe_no);
 				
 				if (img != null && tip != null) {
-					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + " <img alt=recipe_img src='" + img +   "'>  <br/> ");
+					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + " <img alt=recipe_img src='" + img +   "'><br/> ");
 				} else if(img != null && tip == null) {
-					dto.setRecipe_content(step_no + " : " + step_content + " <img alt=recipe_img src='" + img +   "'>  <br/> ");
+					dto.setRecipe_content(step_no + " : " + step_content + " <img class='contentImg' alt=recipe_img src='" + img +   "'><br/> ");
 				} else if(img == null && tip != null) {
-					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + " <br/> ");
+					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + "<br/> ");
 				} else {
-					dto.setRecipe_content(step_no + " : " + step_content + " <br/> ");
+					dto.setRecipe_content(step_no + " : " + step_content + "<br/> ");
 				}
 				
 				if(dto.getRecipe_no() == 101) {

@@ -1,1 +1,50 @@
 
+.selected{
+	color: white;
+	background-color: black;
+	width: 40%;
+}
+.noSelected{
+	color: white;
+	background-color: gray;
+	width: 40%;
+}
+#detailHeader div{
+	float: left;
+}
+#detailHeader{
+	height: 320px;
+}
+#headerLeft{
+	width: 30%;
+}
+#headerLeft img{
+	border-radius: 50%;
+}
+#headerRigth{
+	width: 70%;
+}
+#detailNutrient{
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+#detailNutrient table{
+	width: 80%;
+	text-align: center;
+	margin: 0 auto;
+
+}
+#detailMaterial{
+	float: right;
+	width: 50%;
+	margin-top: 20px;
+}
+#dmLeft{
+	width: 80%;
+	float: left;
+}
+#dmRight{
+	width: 10%;
+	float: right;
+}
