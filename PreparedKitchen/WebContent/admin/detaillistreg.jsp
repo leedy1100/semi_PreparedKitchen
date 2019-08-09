@@ -14,20 +14,24 @@
 	display: inline-block;
 }
 #menu{
-	min-height: 1000px;
+	min-height: 500px;
+	flex-basis: 400px;
 }
 #menulist{
 	text-align: center;
+	flex-basis: 500px;
 }
 #pagingbutton{
 	text-align: center;
 }
 #menubox{
 	margin: 50px;
+	display: flex;
 }
 .menuname{
 	font-size: 20px;
 	cursor: default;
+	font-weight: 1000;
 }
 .menuname2{
 	list-style-type: none;
@@ -37,6 +41,7 @@
 .menulink{
 	text-decoration: none;
 	color: black;
+	font-weight: 700;
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -83,7 +88,6 @@
 	<section>
 <div id="menubox">
 <div id="menu" class="menulist">
-<a href="/PreparedKitchen/index.jsp">메인</a>
 <div class="menulistbox">
 <div class="menuname">한식</div>
 <ul class="menuname2">
@@ -185,12 +189,12 @@
 	<table id="menulist">
 		<col width="50px">
 		<col width="50px">
-		<col width="50px">
-		<col width="180px">
+		<col width="100px">
+		<col width="350px">
 		<col width="80px">
-		<col width="200px">
-		<col width="80px">
-		<tr>
+		<col width="300px">
+		<col width="150px">
+		<tr style="background-color: #FFCCCC;">
 			<th><input type="checkbox" value="전체" name="all" onclick="allchk(this.checked)"/></th>
 			<th>번호</th>
 			<th>이미지</th>
@@ -201,13 +205,13 @@
 		</tr>
 		<c:choose>
 			<c:when test="${empty list }">
-				<tr>
-					<td colspan="6">--------상품등록 된 레시피가 없습니다.--------</td>
+				<tr style="background-color: #FFFFFF;">
+					<td colspan="7" style="text-align: center;">-------------------------상품등록 된 레시피가 없습니다.-------------------------</td>
 				</tr>
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
-					<tr>
+					<tr style="background-color: #FFFFFF;">
 						<td><input type="checkbox" value="${dto.recipe_no }" name="recipe_no"/></td>
 						<td>${dto.recipe_no }</td>
 						<td><img src='${dto.recipe_img }' alt='이미지없음' style="width: 50px;"/></td>

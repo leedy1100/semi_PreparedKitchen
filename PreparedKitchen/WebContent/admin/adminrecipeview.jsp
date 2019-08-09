@@ -14,27 +14,34 @@
 	display: inline-block;
 }
 #menu{
+	min-height: 500px;
+	flex-basis: 400px;
 }
 #menulist{
 	text-align: center;
+	flex-basis: 500px;
 }
 #pagingbutton{
 	text-align: center;
 }
 #menubox{
 	margin: 50px;
+	display: flex;
 }
 .menuname{
 	font-size: 20px;
 	cursor: default;
+	font-weight: 1000;
 }
 .menuname2{
 	list-style-type: none;
 	display: none;
+	font-size: 15px;
 }
 .menulink{
 	text-decoration: none;
 	color: black;
+	font-weight: 700;
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -58,7 +65,6 @@
 	<section>
 <div id="menubox">
 <div id="menu" class="menulist">
-<a href="/PreparedKitchen/index.jsp">메인</a>
 <div class="menulistbox">
 <div class="menuname">한식</div>
 <ul class="menuname2">
