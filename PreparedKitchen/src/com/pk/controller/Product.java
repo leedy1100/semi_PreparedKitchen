@@ -182,7 +182,7 @@ public class Product extends HttpServlet {
 
 			for (int i = 0; i < list.size(); i++) {
 
-				if (i > 0) {
+				if (i > 0 && i != (list.size() - 1)) {
 
 					if (list.get(i).getRecipe_no() == list.get(i - 1).getRecipe_no()) {
 						content += list.get(i).getRecipe_content();
@@ -201,7 +201,7 @@ public class Product extends HttpServlet {
 				} else if (i == 0) {
 					content = list.get(i).getRecipe_content();
 
-				} else if (i == list.size()) {
+				} else if (i == (list.size() - 1)) {
 
 					if (list.get(i).getRecipe_no() == list.get(i - 1).getRecipe_no()) {
 
