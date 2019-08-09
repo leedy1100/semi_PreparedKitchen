@@ -16,9 +16,9 @@ public class RecipeBiz {
 		return dao.selectList();
 	}
 
-	public List<RecipeDto> recipeList(String category, String recipe_reg, int offset, int noOfRecords){
+	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords){
 		
-		return dao.recipeList(category, recipe_reg, offset, noOfRecords);
+		return dao.recipeList(category, offset, noOfRecords);
 	}
 
 	public int insert(List<RecipeDto> list) {

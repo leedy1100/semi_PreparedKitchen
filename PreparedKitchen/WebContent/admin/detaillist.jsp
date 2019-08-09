@@ -92,7 +92,7 @@
 		<c:set var="cate" value="한식" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=category">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -105,7 +105,7 @@
 		<c:set var="cate" value="퓨전" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -118,7 +118,7 @@
 		<c:set var="cate" value="중국" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -131,7 +131,7 @@
 		<c:set var="cate" value="일본" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -144,7 +144,7 @@
 		<c:set var="cate" value="이탈리아" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -157,7 +157,7 @@
 		<c:set var="cate" value="서양" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -170,7 +170,7 @@
 		<c:set var="cate" value="동남아시아" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
