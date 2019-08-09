@@ -68,15 +68,19 @@
       eventDrop: function(event, delta, revertFunc) {
     	   
     	    var datestart = event.start.format();
-    	 
+    	 	var datedescription = event.description;
     	    if (!confirm("수정을 하실려나 마실려나")) {
     	        revertFunc();
     	      }else{
-			location.href="cal.do?command=calendarupdate&start="+datestart;
+    	    	  
+			location.href="cal.do?command=calendarupdate&start="+datestart+"&payment_no="+datedescription;
     	      }
     	  },
-    	
-      
+    	 /*  eventClick: function(calEvent, jsEvent, view) {
+
+    		    alert('Event: ' +description );
+    	  },
+       */
       events: function(start, end, timezone, callback) {
   		$.ajax({
 	        url:"cal.do?command=calendar",
@@ -89,8 +93,8 @@
 	                events.push({
 	                  title: $(this).attr('title'),
 	                  start: $(this).attr('start'),
-	                  url:"//www.google.com"
-	                  //description: $(this).attr('description')
+	                  //url:"//www.google.com"
+	                  description: $(this).attr('description')
 	                  // will be parsed
 	                  
 	                });
