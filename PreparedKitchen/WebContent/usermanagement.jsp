@@ -24,7 +24,7 @@ td{text-align: center;}
 	
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
-		<%@ include file="mypage_menu.jsp" %>
+		<%@ include file="manager_menu.jsp" %>
 		<h2>회원 정보</h2>
 		
 		<table border="1">
@@ -64,11 +64,23 @@ td{text-align: center;}
 						<td>${dto.addr }</td>
 						<td>
 						${dto.enabled }
-						<input type = "button" value="탈퇴시키기" onclick="">
+							<c:if test="${dto.role eq 'USER' and dto.enabled eq 'Y'}">
+								<input type="button" value="탈퇴시키기" onclick="location.href='member.do?command=goodbyeuser&id=${dto.id}'">
+							</c:if>
 						</td>
 						<td>${dto.birth }</td>
 						<td>${dto.regdate }</td>
-						<td>${dto.role }</td>
+						<td>
+						${dto.role }
+							<c:choose>
+								<c:when test="${dto.role eq 'USER' }">
+									<input type="button" value="관리자권한 부여" onclick="location.href='member.do?command=managergrant&id=${dto.id}'">
+								</c:when>
+								<c:when test="${dto.role eq 'MANAGER' }">
+									<input type="button" value="관리자권한 회수" onclick="location.href='member.do?command=managercollect&id=${dto.id}'">
+								</c:when>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
