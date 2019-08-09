@@ -45,7 +45,7 @@
 				<ul class="mainmenu_small">
 					<li><a href="/PreparedKitchen/recipeboard.do?command=list">recipeboardlist</a></li>
 					<li><a href="/PreparedKitchen/map.do?command=map">지도 테스트</a></li>
-					<li><a href="/PreparedKitchen/cal.do?command=calendar">달력</a></li>
+					<li><a href="/PreparedKitchen/cal.do?command=calendar2">달력</a></li>
 					<li><a href="/PreparedKitchen/product.do?command=recipedb">더미데이터 만들기</a></li>
 					<li><a href="/PreparedKitchen/prodetail.do?command=detail&recipeno=1">상품디테일</a></li>
 					<li><a href="/PreparedKitchen/product.do?command=adminchart">차트</a></li>
