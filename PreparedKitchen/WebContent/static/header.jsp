@@ -88,7 +88,7 @@
 					<li><a href="/PreparedKitchen/member.do?command=id">내가 쓴 글</a></li>
 					<li><a href="/PreparedKitchen/member.do?command=cal">식단 관리</a></li>
 					<li><a href="/PreparedKitchen/member.do?command=cart">장바구니</a></li>
-					<li><a href="/PreparedKitchen/member.do?command=like">관심 레시피</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=interest">관심 레시피</a></li>
 					<li><a href="/PreparedKitchen/member.do?command=paymentinfo">결제 내역</a></li>
 				</ul>
 			</li>

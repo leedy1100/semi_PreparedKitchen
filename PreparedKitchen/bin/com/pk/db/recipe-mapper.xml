@@ -8,6 +8,15 @@
 		ORDER BY RECIPE_CATEGORY
 	</select>
 	
+	<select id="selectListOne" parameterType="map" resultType="recipeDto">		
+		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_IMG, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY, RECIPE_REG
+		FROM RECIPE
+		WHERE RECIPE_NO in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
 	<insert id="dummyInsert" parameterType="map">
 		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">		
 			INTO RECIPE
