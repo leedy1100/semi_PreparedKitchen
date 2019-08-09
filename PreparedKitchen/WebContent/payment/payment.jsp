@@ -37,22 +37,15 @@
 		f1.submit();
 	}
 </script>
-<%
-	MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
-	String id = "";
-	if(mDto != null) {
-		id = mDto.getId();
-	}
-%>
 <body>
 
 	<form action="/PreparedKitchen/payment" method="post" id="pay_form" target="pay_target" name="f1">
-		<div class="pay_block">1111</div>
-		<div class="pay_block">2222</div>
+		<div class="pay_block">장바구니</div>
+		<div class="pay_block">관심 레시피</div>
 		<div class="pay_block">
 			<input type="hidden" name="command" value="pay">
 			<input type="hidden" name="partner_order_id" value="0000001">
-			<input type="hidden" name="partner_user_id" value="user">
+			<input type="hidden" name="partner_user_id" value="${memberDto.id }">
 			<input type="hidden" name="item_name" value="레시피 이름 [ 돼지고기, 마늘, 양파 ] ...">
 			<input type="hidden" name="item_code" value="2,3,4">
 			<input type="hidden" name="quantity" value="1">
