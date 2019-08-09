@@ -21,6 +21,8 @@ INSERT INTO MEMBER VALUES('홍길동','0000','홍길동','a@g.com','010-0000-000
 INSERT INTO MEMBER VALUES('admin','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'ADMIN');
 SELECT * FROM MEMBER;
 
+
+
 ---------------------------------------------------------------
 
 DROP SEQUENCE RECIPESEQ;

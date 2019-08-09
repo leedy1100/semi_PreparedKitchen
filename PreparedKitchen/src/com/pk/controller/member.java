@@ -139,6 +139,14 @@ public class member extends HttpServlet {
 				out.println("</script>");
 			}
 			
+		}else if(command.equals("usermanagement")) {
+			List<MemberDto>list = biz.selectList();
+			
+			request.setAttribute("list", list);
+			RequestDispatcher dispatch = request.getRequestDispatcher("usermanagement.jsp");
+			dispatch.forward(request, response);
+			
+			
 		}
 	}
 
