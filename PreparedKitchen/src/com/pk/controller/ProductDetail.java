@@ -52,7 +52,7 @@ public class ProductDetail extends HttpServlet {
 			
 			String mProduct = request.getParameter("mPro");
 			String[] material = mProduct.split("/");
-			
+			 
 			
 		}
 		

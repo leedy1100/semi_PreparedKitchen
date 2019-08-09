@@ -15,6 +15,7 @@
 	<input type="button" value="1번" onclick="getJsonInfo()">
 	<input type="button" value="2번" onclick="getJsonContent()">
 	<input type="button" value="3번" onclick="getJsonMaterial()">
+	<input type="button" value="4번" onclick="martDummy()">
 	
 	<h1>더미데이터 삭제하기</h1>
 	<input type="button" value="삭제" onclick="deleteDummy()">

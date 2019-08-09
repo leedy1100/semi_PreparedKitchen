@@ -2,7 +2,7 @@
 function getJsonInfo(){
 	$.getJSON("/PreparedKitchen/json/recipeInfo.json",function(infoData){
 		$.ajax({
-			url : "/PreparedKitchen/product.do?command=createdbinfo",
+			url : "/PreparedKitchen/dummy.do?command=createdbinfo",
 			method : "post",
 			data : {"info" : JSON.stringify(infoData)},
 			success : function(msg){
@@ -20,7 +20,7 @@ function getJsonInfo(){
 function getJsonContent(){
 	$.getJSON("/PreparedKitchen/json/recipeContent.json",function(conData){
 		$.ajax({
-			url : "/PreparedKitchen/product.do?command=createdbcon",
+			url : "/PreparedKitchen/dummy.do?command=createdbcon",
 			method : "post",
 			data : {"con" : JSON.stringify(conData)},
 			success : function(msg){
@@ -37,7 +37,7 @@ function getJsonContent(){
 function getJsonMaterial(){
 	$.getJSON("/PreparedKitchen/json/recipeMaterial.json",function(matData){
 		$.ajax({
-			url : "/PreparedKitchen/product.do?command=createdbmat",
+			url : "/PreparedKitchen/dummy.do?command=createdbmat",
 			method : "post",
 			data : {"mat" : JSON.stringify(matData)},
 			success : function(msg){
@@ -51,9 +51,23 @@ function getJsonMaterial(){
 	});
 }
 
+function martDummy(){
+	$.ajax({
+		url : "/PreparedKitchen/dummy.do?command=martdummy",
+		method : "post",
+		dataType : "text",
+		success : function(msg){
+			alert(msg)
+		},
+		error : function(){
+			alert("더미 삭제 실패")
+		}
+	});
+}
+
 function deleteDummy(){
 	$.ajax({
-		url : "/PreparedKitchen/product.do?command=deletedummy",
+		url : "/PreparedKitchen/dummy.do?command=deletedummy",
 		method : "post",
 		dataType : "text",
 		success : function(msg){
