@@ -157,15 +157,15 @@ public class Product extends HttpServlet {
 				dto.setRecipe_no(recipe_no);
 
 				if (img != null && tip != null) {
-					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip
-							+ " <img alt=recipe_img src='" + img + "'><br/> ");
+					dto.setRecipe_content("<div class='contentDiv'>" + step_no + " : " + step_content + " tip : " + tip
+							+ " <img class='contentImg' alt=recipe_img src='" + img + "'></div> ");
 				} else if (img != null && tip == null) {
-					dto.setRecipe_content(step_no + " : " + step_content
-							+ " <img class='contentImg' alt=recipe_img src='" + img + "'><br/> ");
+					dto.setRecipe_content("<div class='contentDiv'>" + step_no + " : " + step_content
+							+ " <img class='contentImg' alt=recipe_img src='" + img + "'></div> ");
 				} else if (img == null && tip != null) {
-					dto.setRecipe_content(step_no + " : " + step_content + " tip : " + tip + "<br/> ");
+					dto.setRecipe_content("<div class='contentDiv'>" + step_no + " : " + step_content + " tip : " + tip + "</div> ");
 				} else {
-					dto.setRecipe_content(step_no + " : " + step_content + "<br/> ");
+					dto.setRecipe_content("<div class='contentDiv'>" + step_no + " : " + step_content + "</div> ");
 				}
 
 				if (dto.getRecipe_no() == 101) {
@@ -297,6 +297,16 @@ public class Product extends HttpServlet {
 				out.println("이미 등록되어 있습니다");
 			}
 
+		} else if(command.equals("deletedummy")) {
+			
+			int res = rBiz.deleteDummy();
+			
+			if(res > 0) {
+				out.println("삭제완료");
+			} else {
+				out.println("더미데이터가 없습니다.");
+			}
+			
 		} else if (command.equals("productview")) {
 
 			JSONArray jArr = new JSONArray();

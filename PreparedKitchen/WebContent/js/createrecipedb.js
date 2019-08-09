@@ -7,6 +7,7 @@ function getJsonInfo(){
 			data : {"info" : JSON.stringify(infoData)},
 			success : function(msg){
 				alert(msg);
+				$("h1").eq(0).html("2번을 눌러주세요");
 			},
 			error : function(){
 				alert("info 통신실패")
@@ -24,6 +25,7 @@ function getJsonContent(){
 			data : {"con" : JSON.stringify(conData)},
 			success : function(msg){
 				alert(msg);
+				$("h1").eq(0).html("3번을 눌러주세요");
 			},
 			error : function(){
 				alert("content 통신실패");
@@ -40,11 +42,26 @@ function getJsonMaterial(){
 			data : {"mat" : JSON.stringify(matData)},
 			success : function(msg){
 				alert(msg)
+				$("h1").eq(0).html("더미데이터 생성완료");
 			},
 			error : function(){
 				alert("material 통신실패");
 			}
 		});
+	});
+}
+
+function deleteDummy(){
+	$.ajax({
+		url : "/PreparedKitchen/product.do?command=deletedummy",
+		method : "post",
+		dataType : "text",
+		success : function(msg){
+			alert(msg)
+		},
+		error : function(){
+			alert("더미 삭제 실패")
+		}
 	});
 }
 

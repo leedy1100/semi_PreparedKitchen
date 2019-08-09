@@ -50,4 +50,9 @@
  		FROM RECIPE
  		WHERE RECIPE_CATEGORY = #{category}
  	</select>
+ 	
+ 	<delete id="deleteDummy" parameterType="int">
+		DELETE FROM RECIPE
+	</delete>
+	
 </mapper>

@@ -3,6 +3,7 @@ package com.pk.biz;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pk.dao.MaterialDao;
 import com.pk.dao.RecipeDao;
 import com.pk.dto.RecipeDto;
 
@@ -60,6 +61,15 @@ public class RecipeBiz {
 		}
 
 		return listcategory;
+	}
+	
+	public int deleteDummy() {
+		
+		MaterialDao mDao = new MaterialDao();
+		int res1 = mDao.deleteDummy();
+		int res2 = dao.deleteDummy();
+		
+		return res1 + res2;
 	}
 
 }

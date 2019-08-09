@@ -113,6 +113,28 @@ public class RecipeDao extends SqlMapConfig {
 
 		return list;
 	}
+	
+	public int deleteDummy() {
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.delete(namespace+"deleteDummy");
+			
+			if(res > 0) {
+				session.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
 
 	public int getNoOfRecords() {
 

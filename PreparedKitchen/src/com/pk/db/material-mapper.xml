@@ -20,5 +20,9 @@
 		WHERE RECIPE_NO = #{recipe_no}
 		ORDER BY MATERIAL_NO
 	</select>
+	
+	<delete id="deleteDummy" parameterType="int">
+		DELETE FROM MATERIAL
+	</delete>
 
 </mapper>
