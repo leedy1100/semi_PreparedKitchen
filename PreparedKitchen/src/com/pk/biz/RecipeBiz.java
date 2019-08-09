@@ -16,8 +16,8 @@ public class RecipeBiz {
 		return dao.selectList();
 	}
 
-	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords){
-		
+	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords) {
+
 		return dao.recipeList(category, offset, noOfRecords);
 	}
 
@@ -62,13 +62,13 @@ public class RecipeBiz {
 
 		return listcategory;
 	}
-	
+
 	public int deleteDummy() {
-		
+
 		MaterialDao mDao = new MaterialDao();
 		int res1 = mDao.deleteDummy();
 		int res2 = dao.deleteDummy();
-		
+
 		return res1 + res2;
 	}
 

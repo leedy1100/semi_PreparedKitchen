@@ -104,7 +104,7 @@ public class RecipeDao extends SqlMapConfig {
 		hm.put("category", category);
 		hm.put("offset", offset);
 		hm.put("noOfRecords", offset + noOfRecords);
-
+		
 		session = getSqlSessionFactory().openSession();
 		list = session.selectList(namespace + "recipeList", hm);
 		this.noOfRecords = session.selectOne(namespace + "fileCount", hm);

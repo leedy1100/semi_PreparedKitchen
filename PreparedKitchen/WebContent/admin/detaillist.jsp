@@ -92,7 +92,7 @@
 		<c:set var="cate" value="한식" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=category">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -177,8 +177,6 @@
 </div>
 </div>
 <div class="menulist">
-	<input type="button" value="미등록" onclick="location.href='/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N'"/>
-	<input type="button" value="등록" onclick="location.href='/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=Y'"/>
 	<form action="product.do" id="productinsert">
 	<input type="hidden" name="command" value="productinsert"/>
 	<table id="menulist">

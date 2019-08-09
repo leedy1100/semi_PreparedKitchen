@@ -343,7 +343,7 @@ public class Product extends HttpServlet {
 
 		} else if (command.equals("category")) {
 			String categoryname = request.getParameter("categoryname");
-
+			
 			List<RecipeDto> listcategory = rBiz.selectListCategory();
 			List<RecipeDto> list = rBiz.recipeList(categoryname, offset, paging.getRecordsPerPage());
 			paging.setNumberOfRecords(rBiz.getNoOfRecords());
@@ -353,7 +353,7 @@ public class Product extends HttpServlet {
 			request.setAttribute("listcategory", listcategory);
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
-
+			
 			dispatch(request, response, "admin/detaillist.jsp");
 
 		} else if (command.equals("productinsert")) {
