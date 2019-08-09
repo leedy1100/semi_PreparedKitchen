@@ -23,7 +23,7 @@ import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MaterialDto;
-import com.pk.dto.PagingDto;
+import com.pk.dto.MemberDto;
 import com.pk.dto.PagingRecipeDto;
 import com.pk.dto.ProductListDto;
 import com.pk.dto.RecipeDto;
@@ -45,6 +45,8 @@ public class Product extends HttpServlet {
 		String command = request.getParameter("command");
 		System.out.println("[" + command + "]");
 		HttpSession session = request.getSession();
+		MemberDto memberDto = (MemberDto)session.getAttribute("memberDto");
+		
 		PrintWriter out = response.getWriter();
 		ProductListBiz pBiz = new ProductListBiz();
 		RecipeBiz rBiz = new RecipeBiz();
@@ -393,11 +395,6 @@ public class Product extends HttpServlet {
 				list.add(dto);
 			}
 
-			for (int i = 0; i < list.size(); i++) {
-				System.out.println(list.get(i).getRecipe_no());
-				System.out.println(list.get(i).getRecipe_img());
-				System.out.println(list.get(i).getRecipe_name());
-			}
 			int res = pBiz.insertProduct(list);
 
 			if (res > 0) {
@@ -406,9 +403,6 @@ public class Product extends HttpServlet {
 				alert(response, "상품등록에 실패했습니다", "product.do?command=category&recipe_reg=N&categoryname=" + categoryname);
 			}
 		}else if(command.equals("productdelete")) {
-			
-			ProductListDto dto = null;
-			List<ProductListDto> list = new ArrayList<ProductListDto>();
 
 			String categoryname = request.getParameter("categoryname");
 			String recipe_no[] = request.getParameterValues("recipe_no");
