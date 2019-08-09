@@ -4,10 +4,12 @@ package com.pk.dto;
 
 public class CalDto {
 	
-	private String title;
-	private String paymentdate;
-	private String materialname;
+	private int payment_no;
+	private String payment_group;
 	private String id;
+	private int recipe_no;
+	private String payment_date;
+	private String recipe_name;
 	
 	
 	public CalDto() {
@@ -15,42 +17,23 @@ public class CalDto {
 	}
 
 
-	public CalDto(String title, String paymentdate, String materialname, String id) {
-		
-		this.title = title;
-		this.paymentdate = paymentdate;
-		this.materialname = materialname;
-		this.id = id;
+	public int getPayment_no() {
+		return payment_no;
 	}
 
 
-	public String getTitle() {
-		return title;
+	public void setPayment_no(int payment_no) {
+		this.payment_no = payment_no;
 	}
 
 
-	public void setTitle(String title) {
-		this.title = title;
+	public String getPayment_group() {
+		return payment_group;
 	}
 
 
-	public String getPaymentdate() {
-		return paymentdate;
-	}
-
-
-	public void setPaymentdate(String paymentdate) {
-		this.paymentdate = paymentdate;
-	}
-
-
-	public String getMaterialname() {
-		return materialname;
-	}
-
-
-	public void setMaterialname(String materialname) {
-		this.materialname = materialname;
+	public void setPayment_group(String payment_group) {
+		this.payment_group = payment_group;
 	}
 
 
@@ -64,10 +47,36 @@ public class CalDto {
 	}
 
 
-	
-	
-	
-	
+	public int getRecipe_no() {
+		return recipe_no;
+	}
+
+
+	public void setRecipe_no(int recipe_no) {
+		this.recipe_no = recipe_no;
+	}
+
+
+	public String getPayment_date() {
+		return payment_date;
+	}
+
+
+	public void setPayment_date(String payment_date) {
+		this.payment_date = payment_date;
+	}
+
+
+	public String getRecipe_name() {
+		return recipe_name;
+	}
+
+
+	public void setRecipe_name(String recipe_name) {
+		this.recipe_name = recipe_name;
+	}
+
+
 	
 
 }

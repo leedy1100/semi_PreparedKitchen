@@ -58,9 +58,10 @@ public class calcontroller extends HttpServlet {
 			HashMap<String, Object> hm = null;
 			for(int i=0; i<list.size(); i++) {
 				hm = new HashMap<String, Object>();
-				hm.put("title", list.get(i).getTitle());
-				hm.put("start", list.get(i).getPaymentdate());
-				hm.put("description", list.get(i).getMaterialname());
+				hm.put("title", list.get(i).getRecipe_name());
+				hm.put("start", list.get(i).getPayment_date());
+				hm.put("description", list.get(i).getPayment_no());
+				
 				
 				jArr.add(hm);
 			}
@@ -87,13 +88,14 @@ public class calcontroller extends HttpServlet {
 			}
 		}else if(command.contentEquals("calendarupdate")) {
 			String start = request.getParameter("start");
-			String title = request.getParameter("title");
+			int payment_no = Integer.parseInt(request.getParameter("payment_no"));
 			MemberDto dtoo = (MemberDto)session.getAttribute("memberDto");
 			String id = dtoo.getId();
 			
 			CalDto dto = new CalDto();
-			dto.setPaymentdate(start);
+			dto.setPayment_date(start);
 			dto.setId(id);
+			dto.setPayment_no(payment_no);
 			
 			
 			int res = biz.updatecalendar(dto);
