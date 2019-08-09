@@ -11,10 +11,19 @@ $(function(){
 			me.attr("class","selected");
 		}
 	});
+	
+	var mList = $("#materialList");
+	var rightW = $("#headerRigth").css("width");
+	var rightH = $("#headerRigth").css("height");
+	
+	mList.css("width",rightW);
+	mList.css("height",rightH);
 })
 
-function conf(){
+function showProduct(){
 	var selected = $(".selected");
+	var mList = $("#materialList");
+	var mProduct = $("#materialProduct");
 	var str = "";
 	
 	for(var i = 0; i < selected.length; i++){
@@ -24,5 +33,29 @@ function conf(){
 			str += selected.eq(i).val();
 		}
 	}
-	alert(str);
+	
+	if(str.length == 0){
+		alert("재료를 선택해 주세요");
+	} else {
+		$.ajax({
+			url : "prodetail.do?command=showproduct&mPro="+str,
+			method : "post",
+			success : function(msg){
+				
+			},
+			error : function(){
+				alert("통신실패");
+			}
+		});
+	}
+	
 }
+
+
+
+
+
+
+
+
+

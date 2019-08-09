@@ -57,9 +57,13 @@
 						</c:forEach>
 					</div>
 					<div id="dmRight">
-						<input id="btn" type="button" value="확인" onclick="conf()">
+						<input id="btn" type="button" value="상품보기" onclick="showProduct()">
 					</div>
 				</div>
+			</div>
+			<div id="materialList">
+				<input id="btn2" type="button" value="재료보기" onclick="">
+				<div id="materialProduct"></div>
 			</div>
 		</div>
 		
