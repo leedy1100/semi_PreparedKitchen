@@ -333,13 +333,12 @@ public class Product extends HttpServlet {
 
 		} else if (command.equals("category")) {
 			String categoryname = request.getParameter("categoryname");
-			String recipe_reg = request.getParameter("recipe_reg");
 
 			List<RecipeDto> listcategory = rBiz.selectListCategory();
-			List<RecipeDto> list = rBiz.recipeList(categoryname, recipe_reg, offset, paging.getRecordsPerPage());
+			List<RecipeDto> list = rBiz.recipeList(categoryname, offset, paging.getRecordsPerPage());
 			paging.setNumberOfRecords(rBiz.getNoOfRecords());
 			paging.makePaging();
-
+			
 			request.setAttribute("categoryname", categoryname);
 			request.setAttribute("listcategory", listcategory);
 			request.setAttribute("list", list);
