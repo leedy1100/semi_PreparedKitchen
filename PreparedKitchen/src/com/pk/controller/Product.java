@@ -163,7 +163,8 @@ public class Product extends HttpServlet {
 					dto.setRecipe_content("<div class='contentDiv'>" + step_no + " : " + step_content
 							+ " <img class='contentImg' alt=recipe_img src='" + img + "'></div> ");
 				} else if (img == null && tip != null) {
-					dto.setRecipe_content("<div class='contentDiv'>" + step_no + " : " + step_content + " tip : " + tip + "</div> ");
+					dto.setRecipe_content(
+							"<div class='contentDiv'>" + step_no + " : " + step_content + " tip : " + tip + "</div> ");
 				} else {
 					dto.setRecipe_content("<div class='contentDiv'>" + step_no + " : " + step_content + "</div> ");
 				}
@@ -297,16 +298,16 @@ public class Product extends HttpServlet {
 				out.println("이미 등록되어 있습니다");
 			}
 
-		} else if(command.equals("deletedummy")) {
-			
+		} else if (command.equals("deletedummy")) {
+
 			int res = rBiz.deleteDummy();
-			
-			if(res > 0) {
+
+			if (res > 0) {
 				out.println("삭제완료");
 			} else {
 				out.println("더미데이터가 없습니다.");
 			}
-			
+
 		} else if (command.equals("productview")) {
 
 			JSONArray jArr = new JSONArray();
@@ -343,23 +344,42 @@ public class Product extends HttpServlet {
 
 		} else if (command.equals("category")) {
 			String categoryname = request.getParameter("categoryname");
-			
+			String recipe_reg = request.getParameter("recipe_reg");
+
 			List<RecipeDto> listcategory = rBiz.selectListCategory();
-			List<RecipeDto> list = rBiz.recipeList(categoryname, offset, paging.getRecordsPerPage());
+			List<RecipeDto> list = rBiz.recipeList(categoryname, recipe_reg, offset, paging.getRecordsPerPage());
 			paging.setNumberOfRecords(rBiz.getNoOfRecords());
 			paging.makePaging();
-			
+
 			request.setAttribute("categoryname", categoryname);
 			request.setAttribute("listcategory", listcategory);
 			request.setAttribute("list", list);
 			request.setAttribute("paging", paging);
-			
+
 			dispatch(request, response, "admin/detaillist.jsp");
 
+		} else if(command.equals("reglist")) {
+			
+			String categoryname = request.getParameter("categoryname");
+			String recipe_reg = request.getParameter("recipe_reg");
+
+			List<RecipeDto> listcategory = rBiz.selectListCategory();
+			List<RecipeDto> list = rBiz.recipeList(categoryname, recipe_reg, offset, paging.getRecordsPerPage());
+			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.makePaging();
+
+			request.setAttribute("categoryname", categoryname);
+			request.setAttribute("listcategory", listcategory);
+			request.setAttribute("list", list);
+			request.setAttribute("paging", paging);
+
+			dispatch(request, response, "admin/detaillistreg.jsp");
+			
 		} else if (command.equals("productinsert")) {
 			ProductListDto dto = null;
 			List<ProductListDto> list = new ArrayList<ProductListDto>();
 
+			String categoryname = request.getParameter("categoryname");
 			String recipe_no[] = request.getParameterValues("recipe_no");
 			String recipe_img[] = request.getParameterValues("recipe_img");
 			String recipe_name[] = request.getParameterValues("recipe_name");
@@ -381,10 +401,30 @@ public class Product extends HttpServlet {
 			int res = pBiz.insertProduct(list);
 
 			if (res > 0) {
-				alert(response, "상품등록이 되었습니다", "product.do?command=adminrecipeview");
+				alert(response, "상품등록이 되었습니다", "product.do?command=category&recipe_reg=N&categoryname=" + categoryname);
 			} else {
-				alert(response, "상품등록에 실패했습니다", "product.do?command=adminrecipeview");
+				alert(response, "상품등록에 실패했습니다", "product.do?command=category&recipe_reg=N&categoryname=" + categoryname);
 			}
+		}else if(command.equals("productdelete")) {
+			
+			ProductListDto dto = null;
+			List<ProductListDto> list = new ArrayList<ProductListDto>();
+
+			String categoryname = request.getParameter("categoryname");
+			String recipe_no[] = request.getParameterValues("recipe_no");
+
+			request.setAttribute("categoryname", categoryname);
+			
+			int res = pBiz.deleteProduct(recipe_no);
+			
+			if(res < 0) {
+				alert(response, "상품리스트에서 제외 되었습니다.", "product.do?command=reglist&categoryname="+categoryname+"&recipe_reg=Y");
+			}else {
+				alert(response, "상품리스트 제외에 실패했습니다.", "product.do?command=reglist&categoryname="+categoryname+"&recipe_reg=Y");
+			}
+			
+			
+			
 		}
 
 // recipeInfo - {"RECIPE_ID":"레시피 코드"},{"RECIPE_NM_KO":"레시피 이름"},{"SUMRY":"간략(요약) 소개"},{"NATION_CODE":"유형코드"},{"NATION_NM":"유형분류"},{"TY_CODE":"음식분류코드"},

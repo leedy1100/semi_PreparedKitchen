@@ -47,7 +47,7 @@
 			$(this).next().slideToggle().end().parent().siblings().find("ul").slideUp();
 		});
 		
-		$("#productinsert").submit(function() {
+		$("#productdelete").submit(function() {
 			if($("input[name=recipe_no]:checked").length == 0){
 				alert("선택한 레시피가 없습니다.");
 				return false;
@@ -177,11 +177,11 @@
 </div>
 </div>
 <div class="menulist">
-	<input type="button" value="미등록" onclick="location.href='/PreparedKitchen/product.do?command=reglist&categoryname=${categoryname }&recipe_reg=N'"/>
+	<input type="button" value="미등록" onclick="location.href='/PreparedKitchen/product.do?command=category&categoryname=${categoryname }&recipe_reg=N'"/>
 	<input type="button" value="등록" onclick="location.href='/PreparedKitchen/product.do?command=reglist&categoryname=${categoryname }&recipe_reg=Y'"/>
-	<form action="product.do" id="productinsert">
-	<input type="hidden" name="command" value="productinsert"/>
+	<form action="product.do" id="productdelete">
 	<input type="hidden" name="categoryname" value="${categoryname }"/>
+	<input type="hidden" name="command" value="productdelete"/>
 	<table id="menulist">
 		<col width="50px">
 		<col width="50px">
@@ -202,13 +202,11 @@
 		<c:choose>
 			<c:when test="${empty list }">
 				<tr>
-					<td colspan="6">--------레시피 준비중입니다.--------</td>
+					<td colspan="6">--------상품등록 된 레시피가 없습니다.--------</td>
 				</tr>
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
-					<input type="hidden" value="${dto.recipe_img }" name="recipe_img"/>
-					<input type="hidden" value="${dto.recipe_name }" name="recipe_name"/>
 					<tr>
 						<td><input type="checkbox" value="${dto.recipe_no }" name="recipe_no"/></td>
 						<td>${dto.recipe_no }</td>
@@ -223,13 +221,13 @@
 		</c:choose>
 		<tr>
 			<td colspan="7">
-				<input type="submit" value="등록" style="float: left;">
+				<input type="submit" value="삭제" style="float: left;">
 			</td>
 		</tr>
 	</table>
 	</form>
 	<div id="pagingbutton">
-		<jsp:include page="adminrecipelistpaging.jsp" flush="true">
+		<jsp:include page="regrecipelistpaging.jsp" flush="true">
 			<jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
 			<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
 			<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />

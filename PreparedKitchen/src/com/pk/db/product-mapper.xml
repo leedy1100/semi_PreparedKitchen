@@ -37,4 +37,20 @@
 			WHERE RECIPE_NO = #{list.recipe_no}
 		</foreach>
 	</update>
+	
+	<update id="updateRecipeY" parameterType="map">
+		<foreach collection="recipe_noY" item="recipe_no" separator=";" open="DECLARE BEGIN" close="; END;">
+			UPDATE RECIPE
+			SET RECIPE_REG = 'N'
+			WHERE RECIPE_NO = #{recipe_no}
+		</foreach>
+	</update>
+	
+	<delete id="recipe_no" parameterType="map">
+		DELETE FROM PRODUCTLIST
+		WHERE RECIPE_NO IN
+		<foreach collection="recipe_no" item="recipe_no" open="(" separator="," close=")">
+			#{recipe_no}
+		</foreach>
+	</delete>
 </mapper>
