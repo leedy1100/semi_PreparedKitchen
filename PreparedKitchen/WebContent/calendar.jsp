@@ -133,7 +133,9 @@
     
     	<table>
     		<tr>
+    		<td>
     			<input type="button" value="뒤로가기" onclick="location.href='index.jsp'">
+    		</td>
     		</tr>
     	</table>
     
