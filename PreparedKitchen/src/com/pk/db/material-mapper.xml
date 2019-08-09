@@ -5,6 +5,7 @@
 	<select id="selectList" resultType="materialDto">
 		SELECT MATERIAL_NO, RECIPE_NO, MATERIAL_NAME, MATERIAL_CAPACITY, MATERIAL_TYPECODE, MATERIAL_TYPENAME
 		FROM MATERIAL
+		ORDER BY MATERIAL_NAME
 	</select>
 
 	<insert id="insertDummy" parameterType="map">
