@@ -60,5 +60,23 @@
   	SET PW = #{pw}
   	WHERE ID = #{id}
   </update>
+  
+  <update id="goodbyeuser" parameterType="memberDto">
+  	UPDATE MEMBER 
+  	SET ENABLED='N'
+  	WHERE ID=#{id}
+  </update>
+  
+  <update id="managergrant" parameterType="memberDto">
+  	UPDATE MEMBER 
+  	SET ROLE='MANAGER'
+  	WHERE ID=#{id}
+  </update>
+  
+   <update id="managercollect" parameterType="memberDto">
+  	UPDATE MEMBER 
+  	SET ROLE='USER'
+  	WHERE ID=#{id}
+  </update>
 
 </mapper>

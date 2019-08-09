@@ -59,5 +59,20 @@ public class MemberBiz {
 		
 		return memberDao.updatePw(id, pw);
 	}
+	
+	public int goodbyeUser(MemberDto dto) {
+		
+		return memberDao.goodbyeUser(dto);
+	}
+	
+	public int managerGrant(MemberDto dto) {
+		
+		return memberDao.managerGrant(dto);
+	}
+	
+	public int managerCollect(MemberDto dto) {
+		
+		return memberDao.managerCollect(dto);
+	}
 
 }

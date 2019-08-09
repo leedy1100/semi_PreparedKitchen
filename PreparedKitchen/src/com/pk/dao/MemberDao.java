@@ -220,5 +220,75 @@ public class MemberDao extends SqlMapConfig{
 		
 		return res;
 	}
+	
+public int goodbyeUser(MemberDto dto) {
+		
+		SqlSession session = null;
+		int res = 0;
+		
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.update(namespace+"goodbyeuser", dto);
+			
+			if(res > 0) {
+				session.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
+
+public int managerGrant(MemberDto dto) {
+	
+	SqlSession session = null;
+	int res = 0;
+	
+	
+	try {
+		session = getSqlSessionFactory().openSession(false);
+		res = session.update(namespace+"managergrant", dto);
+		
+		if(res > 0) {
+			session.commit();
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		session.close();
+	}
+	
+	return res;
+}
+
+public int managerCollect(MemberDto dto) {
+	
+	SqlSession session = null;
+	int res = 0;
+	
+	
+	try {
+		session = getSqlSessionFactory().openSession(false);
+		res = session.update(namespace+"managercollect", dto);
+		
+		if(res > 0) {
+			session.commit();
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		session.close();
+	}
+	
+	return res;
+}
+
 
 }

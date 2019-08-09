@@ -159,8 +159,61 @@ public class member extends HttpServlet {
 			request.setAttribute("list", list);
 			RequestDispatcher dispatch = request.getRequestDispatcher("usermanagement.jsp");
 			dispatch.forward(request, response);
+	
+		}else if(command.equals("goodbyeuser")) {
+			String id = request.getParameter("id");
+		
+			MemberDto dto = new MemberDto();
+			dto.setId(id);
 			
+			int res = biz.goodbyeUser(dto);
+			if(res>0) {
+				out.println("<script>");
+				out.println("alert('회원탈퇴 완료');");
+				out.println("location.href='member.do?command=usermanagement'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('회원탈퇴 실패');");
+				out.println("location.href='member.do?command=usermanagement'");
+				out.println("</script>");
+			}
+		}else if(command.equals("managergrant")) {
+			String id = request.getParameter("id");
 			
+			MemberDto dto = new MemberDto();
+			dto.setId(id);
+			
+			int res = biz.managerGrant(dto);
+			if(res>0) {
+				out.println("<script>");
+				out.println("alert('권한부여 완료');");
+				out.println("location.href='member.do?command=usermanagement'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('권한부여 실패');");
+				out.println("location.href='member.do?command=usermanagement'");
+				out.println("</script>");
+			}
+		}else if(command.equals("managercollect")) {
+			String id = request.getParameter("id");
+			
+			MemberDto dto = new MemberDto();
+			dto.setId(id);
+			
+			int res = biz.managerCollect(dto);
+			if(res>0) {
+				out.println("<script>");
+				out.println("alert('권한회수 완료');");
+				out.println("location.href='member.do?command=usermanagement'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('권한회수 실패');");
+				out.println("location.href='member.do?command=usermanagement'");
+				out.println("</script>");
+			}
 		}
 	}
 
