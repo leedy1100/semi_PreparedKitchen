@@ -81,9 +81,10 @@
 			</li>
 		</ul>
 		<ul class="mainmenu_big">
+			<%if(memberDto == null || memberDto.getRole().trim().equals("USER")){ %>
 			<li>마이페이지
 				<ul class="mainmenu_small">
-					<li><a href="/PreparedKitchen/member.do?command=mypage">회원 정보</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=mypage">내 정보 보기</a></li>
 					<li><a href="/PreparedKitchen/member.do?command=id">내가 쓴 글</a></li>
 					<li><a href="/PreparedKitchen/member.do?command=cal">식단 관리</a></li>
 					<li><a href="/PreparedKitchen/member.do?command=cart">장바구니</a></li>
@@ -91,6 +92,20 @@
 					<li><a href="/PreparedKitchen/member.do?command=paymentinfo">결제 내역</a></li>
 				</ul>
 			</li>
+			<%}else if(memberDto.getRole().trim().equals("ADMIN")){ %>
+			<li>관리자페이지
+				<ul class="mainmenu_small">
+					<li><a href="/PreparedKitchen/member.do?command=mypage">내 정보 보기</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=id">내가 쓴 글</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=cal">식단 관리</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=cart">장바구니</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=like">관심 레시피</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=paymentinfo">결제 내역</a></li>
+					<li><a>----------------------------------------</a></li>
+					<li><a href="/PreparedKitchen/member.do?command=usermanagement">회원 관리</a>
+				</ul>
+			</li>
+			<%} %>
 		</ul>
 	</div>
 </body>
