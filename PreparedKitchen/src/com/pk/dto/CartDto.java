@@ -10,6 +10,7 @@ public class CartDto {
 	public CartDto() {}
 
 	public CartDto(int cart_no, String id, int recipe_no, int material_no) {
+		super();
 		this.cart_no = cart_no;
 		this.id = id;
 		this.recipe_no = recipe_no;
@@ -47,7 +48,6 @@ public class CartDto {
 	public void setMaterial_no(int material_no) {
 		this.material_no = material_no;
 	}
-	
-	
+
 	
 }

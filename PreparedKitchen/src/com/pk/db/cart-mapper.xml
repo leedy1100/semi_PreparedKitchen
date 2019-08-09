@@ -8,4 +8,12 @@
 		WHERE ID = #{value}
 		ORDER BY CART_NO DESC
 	</select>
+	
+	<select id="selectListRecipe" parameterType="String" resultType="cartDto">
+		SELECT ID, RECIPE_NO
+		FROM CART
+		WHERE ID = #{value}
+		GROUP BY ID, RECIPE_NO
+		ORDER BY CART_NO DESC
+	</select>
 </mapper>

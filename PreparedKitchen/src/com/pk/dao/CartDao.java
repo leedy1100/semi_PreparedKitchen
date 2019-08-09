@@ -27,4 +27,20 @@ public class CartDao extends SqlMapConfig {
 		return list;
 	}
 
+	public List<CartDto> selectListRecipe(String id) {
+		List<CartDto> list = new ArrayList<CartDto>();
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace + "selectListRecipe", id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
+
 }

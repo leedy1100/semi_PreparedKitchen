@@ -23,5 +23,9 @@ public class MaterialBiz {
 		
 		return dao.materialInRecipe(recipe_no);
 	}
+
+	public List<MaterialDto> selectListOne(List<Integer> recipe_no_list, List<Integer> material_no_list) {
+		return dao.selectListOne(recipe_no_list, material_no_list);
+	}
 	
 }

@@ -91,4 +91,22 @@ public class MaterialDao extends SqlMapConfig{
 		return res;
 	}
 
+	public List<MaterialDto> selectListOne(List<Integer> recipe_no_list, List<Integer> material_no_list) {
+		List<MaterialDto> list = new ArrayList<MaterialDto>();
+		SqlSession session = null;
+		
+		Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace + "selectListOne", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
+
 }

@@ -1,3 +1,4 @@
+<%@page import="com.pk.dto.MaterialDto"%>
 <%@page import="com.pk.dto.RecipeDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -12,6 +13,7 @@
 </head>
 <%
 	List<RecipeDto> rList = (List<RecipeDto>)request.getAttribute("rList");
+	List<MaterialDto> mList = (List<MaterialDto>)request.getAttribute("mList");
 %>
 <body>
 	
@@ -48,6 +50,18 @@
 				<td>10000</td>
 			</tr>
 <%
+
+					for(MaterialDto mDto : mList) {
+%>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td><%=mDto.getMaterial_name()%></td>
+				<td><%=mDto.getMaterial_typeName() %></td>
+				<td>1</td>
+				<td>10000</td>
+			</tr>
+<%
+					}
 				}
 			}
 %>
@@ -55,7 +69,6 @@
 		
 	</section>
 		
-		<%@ include file="payment/payment.jsp" %>
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
 		<%@ include file="static/footer.jsp" %>

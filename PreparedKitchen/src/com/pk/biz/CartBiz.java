@@ -12,4 +12,7 @@ public class CartBiz {
 	public List<CartDto> selectList(String id) {
 		return dao.selectList(id);
 	}
+	public List<CartDto> selectListRecipe(String id) {
+		return dao.selectListRecipe(id);
+	}
 }

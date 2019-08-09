@@ -15,12 +15,14 @@ import javax.servlet.http.HttpSession;
 
 import com.pk.biz.CartBiz;
 import com.pk.biz.InterestListBiz;
+import com.pk.biz.MaterialBiz;
 import com.pk.biz.MemberBiz;
 import com.pk.biz.PaymentBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.biz.RecipeBoardBiz;
 import com.pk.dto.CartDto;
 import com.pk.dto.InterestListDto;
+import com.pk.dto.MaterialDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.PaymentDto;
@@ -44,6 +46,8 @@ public class member extends HttpServlet {
 		CartBiz cBiz = new CartBiz();
 		RecipeBiz rBiz = new RecipeBiz();
 		InterestListBiz iBiz = new InterestListBiz();
+		MaterialBiz mBiz = new MaterialBiz();
+		
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		
@@ -94,14 +98,23 @@ public class member extends HttpServlet {
 			dispatch(request, response, "paymentinfo.jsp");
 			
 		}else if(command.equals("cart")) {
-			List<CartDto> cList = cBiz.selectList(mDto.getId());
+			List<CartDto> cList = cBiz.selectListRecipe(mDto.getId());
+			List<CartDto> cListM = cBiz.selectList(mDto.getId());
+			
 			List<Integer> recipe_no_list = new ArrayList<Integer>();
 			for(CartDto cDto : cList) {
 				recipe_no_list.add(cDto.getRecipe_no());
 			}
+			List<Integer> material_no_list = new ArrayList<Integer>();
+			for(CartDto cDto : cListM) {
+				recipe_no_list.add(cDto.getMaterial_no());
+			}
+			
 			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
+			List<MaterialDto> mList = mBiz.selectListOne(recipe_no_list, material_no_list);
 			
 			request.setAttribute("rList", rList);
+			request.setAttribute("mList", mList);
 			
 			dispatch(request, response, "cart.jsp");
 			
