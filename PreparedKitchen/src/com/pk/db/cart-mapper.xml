@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cartmapper">
 
-	<select id="selectList" parameterType="String" resultType="cartDto">
+	<select id="selectList" parameterType="map" resultType="cartDto">
 		SELECT CART_NO, ID, RECIPE_NO, MATERIAL_NO
 		FROM CART
-		WHERE ID = #{value}
+		WHERE ID = #{id} AND RECIPE_NO = #{recipe_no}
 		ORDER BY CART_NO DESC
 	</select>
 	
 	<select id="selectListRecipe" parameterType="String" resultType="cartDto">
-		SELECT ID, RECIPE_NO
+		SELECT CART_NO, ID, RECIPE_NO
 		FROM CART
 		WHERE ID = #{value}
-		GROUP BY ID, RECIPE_NO
+		GROUP BY CART_NO, ID, RECIPE_NO
 		ORDER BY CART_NO DESC
 	</select>
 </mapper>

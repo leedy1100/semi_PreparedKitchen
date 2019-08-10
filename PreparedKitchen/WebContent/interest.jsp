@@ -30,7 +30,7 @@
 			if(rList.isEmpty()) {
 %>
 			<tr>
-				<td colspan="4">장바구니가 비었습니다.</td>
+				<td colspan="4">등록된 관심레시피가 없습니다.</td>
 			</tr>
 <%
 			}else {

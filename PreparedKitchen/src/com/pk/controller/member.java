@@ -99,22 +99,20 @@ public class member extends HttpServlet {
 			
 		}else if(command.equals("cart")) {
 			List<CartDto> cList = cBiz.selectListRecipe(mDto.getId());
-			List<CartDto> cListM = cBiz.selectList(mDto.getId());
+			
 			
 			List<Integer> recipe_no_list = new ArrayList<Integer>();
 			for(CartDto cDto : cList) {
 				recipe_no_list.add(cDto.getRecipe_no());
 			}
-			List<Integer> material_no_list = new ArrayList<Integer>();
-			for(CartDto cDto : cListM) {
-				recipe_no_list.add(cDto.getMaterial_no());
-			}
 			
-			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
-			List<MaterialDto> mList = mBiz.selectListOne(recipe_no_list, material_no_list);
-			
+			List<RecipeDto> rList = rBiz.selectListOne(offset, paging.getRecordsPerPage(), recipe_no_list);
+
+			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.makePaging();
+
+			request.setAttribute("paging", paging);
 			request.setAttribute("rList", rList);
-			request.setAttribute("mList", mList);
 			
 			dispatch(request, response, "cart.jsp");
 			
@@ -124,7 +122,7 @@ public class member extends HttpServlet {
 			for(InterestListDto iDto : iList) {
 				recipe_no_list.add(iDto.getRecipe_no());
 			}
-			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
+			List<RecipeDto> rList = rBiz.selectListOne(offset, paging.getRecordsPerPage(), recipe_no_list);
 			
 			request.setAttribute("rList", rList);
 			

@@ -1,8 +1,10 @@
 package com.pk.biz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.pk.dao.MaterialDao;
+import com.pk.dto.CartDto;
 import com.pk.dto.MaterialDto;
 
 public class MaterialBiz {
@@ -24,8 +26,8 @@ public class MaterialBiz {
 		return dao.materialInRecipe(recipe_no);
 	}
 
-	public List<MaterialDto> selectListOne(List<Integer> recipe_no_list, List<Integer> material_no_list) {
-		return dao.selectListOne(recipe_no_list, material_no_list);
+	public List<MaterialDto> selectListOne(List<CartDto> cList) {
+		return dao.selectListOne(cList);
 	}
 	
 }

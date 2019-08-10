@@ -31,13 +31,20 @@ public class RecipeDao extends SqlMapConfig {
 		return list;
 	}
 	
-	public List<RecipeDto> selectListOne(List<Integer> list) {
+	public List<RecipeDto> selectListOne(int offset, int noOfRecords, List<Integer> list) {
 		List<RecipeDto> res = new ArrayList<RecipeDto>();
 		SqlSession session = null;
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("offset", offset);
+		map.put("noOfRecords", noOfRecords);
+		map.put("list", list);
+		
+		
 		try {
 			session = getSqlSessionFactory().openSession(false);
-			res = session.selectList(namespace + "selectListOne", list);
+			res = session.selectList(namespace + "selectListOne", map);
+			this.noOfRecords = session.selectOne(namespace + "totalCountList");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

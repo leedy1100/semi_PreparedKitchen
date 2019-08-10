@@ -27,17 +27,12 @@
 	
 	<select id="selectListOne" resultType="materialDto">
 		SELECT MATERIAL_NO, RECIPE_NO, MATERIAL_NAME, MATERIAL_CAPACITY, MATERIAL_TYPECODE, MATERIAL_TYPENAME
-		FROM ( SELECT MATERIAL_NO, RECIPE_NO, MATERIAL_NAME, MATERIAL_CAPACITY, MATERIAL_TYPECODE, MATERIAL_TYPENAME
-				FROM MATERIAL
-				WHERE RECIPE_NO IN
-				<foreach collection="map" item="list" index="index" open="(" separator="," close=")">
-					#{item}
-				</foreach>
-				)
+		FROM MATERIAL
 		WHERE MATERIAL_NO IN
-		<foreach collection="map" item="list" index="index" open="(" separator="," close=")">
-			#{item}
-		</foreach>
+		<foreach collection="list" item="item"  open="(" separator="," close=")" >
+           	#{item.material_no}
+        </foreach>
+       	ORDER BY MATERIAL_NO DESC
 	</select>
 
 </mapper>

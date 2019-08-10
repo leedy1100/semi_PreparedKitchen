@@ -1,3 +1,6 @@
+<%@page import="com.pk.biz.MaterialBiz"%>
+<%@page import="com.pk.biz.CartBiz"%>
+<%@page import="com.pk.dto.CartDto"%>
 <%@page import="com.pk.dto.MaterialDto"%>
 <%@page import="com.pk.dto.RecipeDto"%>
 <%@page import="java.util.ArrayList"%>
@@ -12,8 +15,10 @@
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
 </head>
 <%
+	CartBiz cBiz = new CartBiz();
+	MaterialBiz mBiz = new MaterialBiz();
 	List<RecipeDto> rList = (List<RecipeDto>)request.getAttribute("rList");
-	List<MaterialDto> mList = (List<MaterialDto>)request.getAttribute("mList");
+	MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
 %>
 <body>
 	
@@ -50,13 +55,14 @@
 				<td>10000</td>
 			</tr>
 <%
-
-					for(MaterialDto mDto : mList) {
+					List<CartDto> cList = cBiz.selectList(mDto.getId(), rDto.getRecipe_no());
+					List<MaterialDto> mList = mBiz.selectListOne(cList);
+					for(MaterialDto mate_dto : mList) {
 %>
 			<tr>
 				<td><input type="checkbox"></td>
-				<td><%=mDto.getMaterial_name()%></td>
-				<td><%=mDto.getMaterial_typeName() %></td>
+				<td><%=mate_dto.getMaterial_name()%></td>
+				<td><%=mate_dto.getMaterial_typeName() %></td>
 				<td>1</td>
 				<td>10000</td>
 			</tr>
@@ -66,7 +72,16 @@
 			}
 %>
 		</table>
-		
+		<jsp:include page="mypage_paging/cart.jsp" flush="true">
+			<jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
+			<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+			<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+			<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+			<jsp:param name="currentPageNo" value="${paging.currentPageNo}" />
+			<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+			<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+			<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+		</jsp:include>
 	</section>
 		
 	<footer>
