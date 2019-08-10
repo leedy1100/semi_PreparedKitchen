@@ -19,6 +19,7 @@
 		<input type="button" value="장바구니" class="mypage_menu" onclick="location.href='member.do?command=cart'">
 		<input type="button" value="관심 레시피" class="mypage_menu" onclick="location.href='member.do?command=interest'">
 		<input type="button" value="결제 내역" class="mypage_menu" onclick="location.href='member.do?command=paymentinfo'">
+		
 	</div>
 	<hr>
 	
