@@ -13,6 +13,7 @@
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
+<link rel="stylesheet" href="/PreparedKitchen/css/my_cart.css"/>
 </head>
 <%
 	CartBiz cBiz = new CartBiz();
@@ -32,9 +33,9 @@
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<%@ include file="mypage_menu.jsp" %>
 		<h2>장바구니</h2>
-		<table border="1">
+		<table id="mytable">
 			<tr>
-				<th><input type="checkbox"></th><th>이미지</th><th>이름</th><th>수량</th><th>가격</th>
+				<th style="width: 50px"><input type="checkbox"></th><th>이미지</th><th style="width: 500px">이름</th><th style="width: 50px">수량</th><th style="width: 100px">가격</th>
 			</tr>
 <%
 			if(rList.isEmpty()) {
@@ -49,7 +50,7 @@
 %>
 			<tr>
 				<td><input type="checkbox"></td>
-				<td><img src="<%=rDto.getRecipe_img()%>"></td>
+				<td class="cart_img"><img src="<%=rDto.getRecipe_img()%>"></td>
 				<td><%=rDto.getRecipe_name() %></td>
 				<td>1</td>
 				<td>10000</td>
@@ -72,16 +73,6 @@
 			}
 %>
 		</table>
-		<jsp:include page="mypage_paging/cart.jsp" flush="true">
-			<jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
-			<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
-			<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
-			<jsp:param name="startPageNo" value="${paging.startPageNo}" />
-			<jsp:param name="currentPageNo" value="${paging.currentPageNo}" />
-			<jsp:param name="endPageNo" value="${paging.endPageNo}" />
-			<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
-			<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
-		</jsp:include>
 	</section>
 		
 	<footer>

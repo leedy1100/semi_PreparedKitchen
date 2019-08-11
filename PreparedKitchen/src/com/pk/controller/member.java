@@ -106,7 +106,7 @@ public class member extends HttpServlet {
 				recipe_no_list.add(cDto.getRecipe_no());
 			}
 			
-			List<RecipeDto> rList = rBiz.selectListOne(offset, paging.getRecordsPerPage(), recipe_no_list);
+			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
 
 			paging.setNumberOfRecords(rBiz.getNoOfRecords());
 			paging.makePaging();
@@ -122,7 +122,7 @@ public class member extends HttpServlet {
 			for(InterestListDto iDto : iList) {
 				recipe_no_list.add(iDto.getRecipe_no());
 			}
-			List<RecipeDto> rList = rBiz.selectListOne(offset, paging.getRecordsPerPage(), recipe_no_list);
+			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
 			
 			request.setAttribute("rList", rList);
 			
