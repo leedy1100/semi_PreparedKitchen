@@ -24,15 +24,16 @@
 	margin: 10px;
 }
 .cmtidbox{
-	width: 50px;
+	width: 10%;
 	text-align: left;
 }
 .cmtcntbox{
-	width: 600px;
+	width: 70%;
 }
 .cmtdatebox{
 	text-align: center;
 	width: 100%;
+	float: right;
 }
 .cmtcnt{
 	width:500px;
@@ -42,6 +43,15 @@
 }
 .btnud{
 	font-size: 10px;
+	width: 50px;
+}
+.btnbox{
+	float: right;
+	width: 10%;
+}
+.leftbox{
+	float: left;
+	width: 90%;
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -258,12 +268,12 @@ function showAllCmt(data) {
 					html += "<div class='cmtbox'><div>ㄴ</div></div>";
 				}
 			}
-			html += "<div class='cmtbox'><div class='cmtidbox'>"+data[i].id + "</div></div>";
+			html += "<div class='leftbox'><div class='cmtbox'><div class='cmtidbox'>"+data[i].id + "</div></div>";
 			html += "<div class='cmtbox'><div class='cmtcntbox'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></div></div>";
-			html += "<div class='cmtbox'><div class='cmtdatebox'>" + data[i].comment_regdate + "</div></div>";
+			html += "<div class='cmtbox'><div class='cmtdatebox'>" + data[i].comment_regdate + "</div></div></div>";
 			if(boo){
-				html += "<input class='btnud' type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
-				html += "<input class='btnud' type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/>";
+				html += "<div class='btnbox'><input class='btnud' type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
+				html += "<input class='btnud' type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/></div>";
 			}
 			html += "</div>";
 			html += "</div>";

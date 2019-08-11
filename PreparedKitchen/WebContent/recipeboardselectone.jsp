@@ -9,15 +9,63 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+input, select, option {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  
+}
+input, select {
+    width:80px;
+    height:20px;
+    border : 1px #ccc solid;
+    vertical-align:top;
+}
+#recipeboardlist{
+	position: relative;
+	text-align: center;
+	top: 100px;
+}
+
 #button{
 	text-align: left;
 }
-table{
-	margin : auto;
+
+.boardtable{
+	width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px;
+    border-top: 2px solid #b2b83b;
+}
+.boardtable th{
+	border-bottom: 1px solid #eaeaea;
 	text-align: center;
 }
-tr td{
-	border: 1px solid black;
+.boardtable td {
+    font-weight: normal;
+    color: #5a5a5a;
+    text-align: center;
+    line-height: 130%;
+    vertical-align: middle;
+    padding: 10px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #eaeaea;
+}
+.recipecnt {
+    text-decoration: none;
+    cursor: pointer;
+    color: #58585a;
+}
+#button{
+	text-align: left;
+}
+#recipelike{
+	float:left;	
+	width: 30px;
+	cursor: pointer;
+	
+}
+#recipelike:active {
+	
 }
 </style>
 <link rel="stylesheet" href="static/base.css" />
@@ -56,35 +104,24 @@ $(function() {
 	<section>
 		<h1>selectOne</h1>
 
-		<table border="1">
-			<tr>
-				<th>번호</th>
-				<td colspan="2">${recipeBoardDto.recipeBoard_no }</td>
-			</tr>
-			<tr>
-				<th>작성자</th>
-				<td colspan="2">${recipeBoardDto.id }</td>
-			</tr>
+		<table class="boardtable">
 			<tr>
 				<th>제목</th>
 				<td colspan="2">${recipeBoardDto.recipeBoard_title }</td>
-			</tr>
-			<tr>
 				<th>조회수</th>
-				<td colspan="2">${recipeBoardDto.recipeBoard_readCount }</td>
-			</tr>
-			<tr>
+				<td colspan="1">${recipeBoardDto.recipeBoard_readCount }</td>
 				<th>좋아요</th>
 				<td id="favorite" style="width: 50px">${recipeBoardDto.recipeBoard_like }</td>
-				<td><input type="button" value="좋아요" id="recipelike" /></td>
+				<td><img src="/PreparedKitchen/image/hearts.png" id="recipelike"></td>
 			</tr>
 			<tr>
-				<th>내용</th>
-				<td colspan="2">${recipeBoardDto.recipeBoard_content }</td>
-			</tr>
-			<tr>
+				<th>작성자</th>
+				<td colspan="1">${recipeBoardDto.id }</td>
 				<th>작성일</th>
-				<td colspan="2">${recipeBoardDto.recipeBoard_regdate }</td>
+				<td colspan="1">${recipeBoardDto.recipeBoard_regdate }</td>
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align: left;">${recipeBoardDto.recipeBoard_content }</td>
 			</tr>
 			<tr>
 				<td colspan="3" id="button">

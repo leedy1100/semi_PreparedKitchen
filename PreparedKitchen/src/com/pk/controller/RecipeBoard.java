@@ -236,7 +236,7 @@ public class RecipeBoard extends HttpServlet {
 			
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(jobj.toString());
-
+			System.out.println(element);
 			PrintWriter out = response.getWriter();
 			out.print(element);
 		}

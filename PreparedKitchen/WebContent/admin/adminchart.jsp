@@ -7,9 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-div{
+<link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
+<link rel="stylesheet" href="/PreparedKitchen/css/main_board.css"/>
+<style type="text/css">
+.chartbox{
 	margin: 50px;
+	text-align: center;
+	font-weight: 1000;
 }
 #boardlike{
 	
@@ -45,8 +49,10 @@ $(function() {
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-        	if(jdata.chart != null){
+        	if(jdata.chart.length != 0){
 				boardLikeChart(jdata.chart);
+        	}else{
+        		$('#boardlike').text("준비중입니다");
         	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -58,8 +64,10 @@ $(function() {
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-        	if(jdata.proview != null){
+        	if(jdata.proview.length != 0){
 	        	productViewChart(jdata.proview);
+        	}else{
+        		$('#proview').text("준비중입니다");
         	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -71,8 +79,10 @@ $(function() {
         dataType:"text",
         success:function(data) {
         	var jdata =JSON.parse(data);
-        	if(jdata.prosales != null){
+        	if(jdata.prosales.length != 0){
         		productSalesChart(jdata.prosales);
+        	}else{
+        		$('#prosales').text("준비중입니다");
         	}
         },error:function(request, error){
 			alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
@@ -205,13 +215,23 @@ function productSalesChart(data) {
 <title>adminchart</title>
 </head>
 <body>
-<a href="/PreparedKitchen/index.jsp">메인</a>
-<h1>레시피추천좋아요 순위 top5</h1>
-<div id="boardlike"><svg></svg></div>
-<h1>상품 조회수 top5</h1>
-<div id="proview"><svg></svg></div>
-<h1>상품 구매 top5</h1>
-<div id="prosales"><svg></svg></div>
+	<header>
+		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
+		<%@ include file="../static/header.jsp" %>
+	</header>
+	<section>
+		
+		<h1 style="margin-top: 100px;">레시피추천좋아요 순위 top5</h1>
+		<div class=chartbox id="boardlike"><svg></svg></div>
+		<h1>상품 조회수 top5</h1>
+		<div class=chartbox id="proview"><svg></svg></div>
+		<h1>상품 구매 top5</h1>
+		<div class=chartbox id="prosales"><svg></svg></div>
+	</section>
 
+	<footer>
+		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
+		<%@ include file="../static/footer.jsp" %>
+	</footer>
 </body>
 </html>
