@@ -19,6 +19,8 @@
 	width: 30%;
 }
 #headerLeft img{
+	width: 300px;
+	height: 300px;
 	border-radius: 50%;
 }
 #headerRigth{
@@ -45,7 +47,7 @@
 	float: left;
 }
 #dmRight{
-	width: 10%;
+	width: 20%;
 	float: right;
 }
 #materialList{

@@ -15,7 +15,6 @@ CREATE TABLE MEMBER(
 	
 	CONSTRAINT CHECK_ENABLED CHECK(ENABLED IN('Y','N'))
 );
-
 INSERT INTO MEMBER VALUES('user','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'USER');
 INSERT INTO MEMBER VALUES('홍길동','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'USER');
 INSERT INTO MEMBER VALUES('admin','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'ADMIN');
@@ -43,8 +42,6 @@ CREATE TABLE RECIPE(
 	
 	CONSTRAINT RECIPE_REG_CHECK CHECK(RECIPE_REG IN('Y','N'))
 );
-
-DELETE FROM RECIPE;
 
 SELECT * FROM RECIPE;
         16 만둣국          http://file.okdab.com/UserFiles/searching/recipe/003500.jpg 1 : 김치는 소를 털고 송송 썰어 물기를 꼭 짜고 숙주는 삶아 물기를 뺀다. tip : *만둣속에 당면이나, 여러가지 채소를 다져 넣어도 색다른 맛을 느낄 수가 있다.      *만둣국의 고명으로 지단을 얇게 부쳐 골패모양으로 썰어 올리면 멋스럽다.      *밀가루 반죽을 한다음에는 바로 빚지 말고 비닐에 조금 숙성시킨 후 만두를 빚는다. <br/> 2 : 갈은 돼지고기나 갈은 쇠고기를 준비한다. <br/> 3 : 두부는 수분을 완전히 제거한다. <br/> 4 : 양파, 마늘, 대파는 곱게 다져놓는다. <br/> 5 : 김치, 숙주, 갈은 고기, 다진 양파, 마늘, 대파에 참기름과 후춧가루, 소금으로 간을 한다. <br/> 6 : 밀가루 반죽을 하여 얇게 민다음 지름이 6cm 정도 되게 하여 그 안에 ⑤에서 만든 만둣속을 넣는다. <br/>                                                                                                                                                                                                                                                                                                          540Kcal         한식,만두/면류        N
@@ -147,8 +144,6 @@ CREATE TABLE MATERIAL(
 	CONSTRAINT FK_MATERIAL_RECIPE_NO FOREIGN KEY(RECIPE_NO)
 	REFERENCES RECIPE(RECIPE_NO)
 );
-
-DELETE FROM MATERIAL;
 
 SELECT * FROM MATERIAL;
 

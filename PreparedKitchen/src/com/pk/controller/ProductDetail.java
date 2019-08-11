@@ -66,6 +66,7 @@ public class ProductDetail extends HttpServlet {
 				String proPrice = list.get(i).getMart_price() + "원";
 				
 				if(i == 0) {
+					
 					product += "<div class='proCategory'>"+list.get(i).getCategory();
 					product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
 					
@@ -81,10 +82,10 @@ public class ProductDetail extends HttpServlet {
 					}
 					
 				} else if(i == (list.size()-1)) {
+					
 					product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
 					product += "</div>";
 				}
-				
 			}
 			
 			out.println(product);

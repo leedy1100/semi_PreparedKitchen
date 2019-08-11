@@ -62,13 +62,21 @@
 				</div>
 			</div>
 			<div id="materialList">
-				<input id="btn2" type="button" value="재료보기" onclick="">
+				<input id="btn2" type="button" value="재료보기" onclick="hideProduct()">
 				<div id="materialProduct"></div>
 			</div>
 		</div>
 		
 		<div id="detailBody">
-			${recipe.recipe_content }
+			<div id="materialBox">재료 : 
+				<c:forEach items="${material }" var="mDto" varStatus="status">
+					${mDto.material_name } ${mDto.material_capacity }
+					<c:if test="${!status.last }">,</c:if>
+				</c:forEach>
+			</div>
+			<div id="contentBox">
+				${recipe.recipe_content }
+			</div>
 		</div>
 		
 	</section>
