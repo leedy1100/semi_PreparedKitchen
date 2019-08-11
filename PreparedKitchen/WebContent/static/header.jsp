@@ -1,9 +1,9 @@
+<%@page import="com.pk.dto.MemberDto"%>
 <%
 	response.setHeader("Pragma", "no-cache");
 	response.setHeader("Cache-control", "no-store");
 	response.setHeader("Expires", "0");
 %>
-<%@page import="com.pk.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,6 +18,7 @@
 %>
 
 <script type="text/javascript" src="/PreparedKitchen/js/jquery-3.4.1.min.js"></script>
+
 <script type="text/javascript" src="/PreparedKitchen/js/header.js"></script>
 
 <body>
@@ -56,27 +57,27 @@
 		<ul class="mainmenu_big">
 			<li>상품
 				<ul class="mainmenu_small">
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="mainmenu_big">
 			<li>유저 레시피
 				<ul class="mainmenu_small">
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="mainmenu_big">
 			<li>고객 센터
 				<ul class="mainmenu_small">
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
-					<li><a href="#">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
+					<li><a href="">세부 메뉴</a></li>
 				</ul>
 			</li>
 		</ul>

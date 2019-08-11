@@ -10,7 +10,17 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="static/base.css" />
 <style type="text/css">
-
+input, select, option {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  
+}
+input, select {
+    width:80px;
+    height:20px;
+    border : 1px #ccc solid;
+    vertical-align:top;
+}
 #recipeboardlist{
 	position: relative;
 	text-align: center;
@@ -22,12 +32,30 @@
 }
 
 .boardtable{
-	border: 1px solid black;
-	position: relative;
-	margin: auto;
+	  width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px;
+    border-top: 2px solid #b2b83b;
+}
+.boardtable th{
+	border-bottom: 1px solid #eaeaea;
 	text-align: center;
 }
-
+.boardtable td {
+    font-weight: normal;
+    color: #5a5a5a;
+    text-align: center;
+    line-height: 130%;
+    vertical-align: middle;
+    padding: 10px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #eaeaea;
+}
+.recipecnt {
+    text-decoration: none;
+    cursor: pointer;
+    color: #58585a;
+}
 </style>
 </head>
 
@@ -39,53 +67,51 @@
 		<section>
 		<div id="recipeboardlist">
 			<table class="boardtable">
-				<col width="50" />
-				<col width="100" />
-				<col width="300" />
-				<col width="80" />
-				<col width="80" />
-				<col width="200" />
+				<col width="10%" />
+				<col width="*" />
+				<col width="11%" />
+				<col width="11%" />
+				<col width="12%" />
+				<col width="12%" />
 				<tr>
 					<th>번호</th>
-					<th>아이디</th>
 					<th>제목</th>
-					<th>조회수</th>
-					<th>좋아요</th>
 					<th>날짜</th>
+					<th>작성자</th>
+					<th>좋아요</th>
+					<th>조회수</th>
 				</tr>
 				<c:choose>
 					<c:when test="${empty list }">
 						<tr>
-							<td colspan="6">--------작성된 글이 존재하지 않습니다--------</td>
+							<td colspan="6">작성된 글이 존재하지 않습니다</td>
 						</tr>
 					</c:when>
 					<c:otherwise>
 						<c:forEach items="${list }" var="dto">
 							<tr>
 								<td>${dto.recipeBoard_no }</td>
-								<td>${dto.id }</td>
-								<td><a
+								<td><a class="recipecnt"
 									href="recipeboard.do?command=selectone&recipeBoard_no=${dto.recipeBoard_no }
 						&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}
 						&pages=${paging.currentPageNo}&lines=${paging.recordsPerPage}">${dto.recipeBoard_title }</a></td>
-								<th>${dto.recipeBoard_readCount }</th>
-								<td>${dto.recipeBoard_like }</td>
 								<td>${dto.recipeBoard_regdate }</td>
+								<td>${dto.id }</td>
+								<td>${dto.recipeBoard_like }</td>
+								<th>${dto.recipeBoard_readCount }</th>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
 				<tr id="button">
-					<td colspan="6">
+					<td colspan="6" style="text-align: left; border-bottom: none;">
 					<c:choose>
 						<c:when test="${memberDto.id != null }">
-							<input type="button" value="글 작성" onclick="location.href='recipeboard.do?command=insert'" /> 
+							<input type="button" value="글쓰기" onclick="location.href='recipeboard.do?command=insert'" /> 
 							<input type="button" value="전체 목록" onclick="location.href='recipeboard.do?command=list'" /> 
-							<input type="button" value="메인" onclick="location.href='index.jsp'" />
 						</c:when>
 						<c:otherwise>
 							<input type="button" value="전체 목록" onclick="location.href='recipeboard.do?command=list'" /> 
-							<input type="button" value="메인" onclick="location.href='index.jsp'" />
 						</c:otherwise>
 					</c:choose>
 					</td>
@@ -105,11 +131,11 @@
 				<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
 			</jsp:include>
 			<form action="recipeboard.do" method="post">
-				<input type="hidden" value="search" name="command" /> <select
-					name="searchFiled">
+				<input type="hidden" value="search" name="command" /> 
+				<select name="searchFiled">
 					<option value="RECIPEBOARD_TITLE" selected="selected">제목</option>
 					<option value="ID">작성자</option>
-				</select> <input type="text" name="searchValue" placeholder="내용을 입력하시오" /> <input
+				</select> <input type="text" name="searchValue" placeholder="내용을 입력하시오" style="width: 200px;"/> <input
 					type="submit" value="검색">
 			</form>
 		</div>
