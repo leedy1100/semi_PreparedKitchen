@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.pk.biz.MartBiz;
 import com.pk.biz.MaterialBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MartDto;
@@ -38,8 +39,9 @@ public class Dummy extends HttpServlet {
 		System.out.println("[" + command + "]");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-		RecipeBiz rBiz = new RecipeBiz();
-		MaterialBiz mBiz = new MaterialBiz();
+		RecipeBiz recipeBiz = new RecipeBiz();
+		MaterialBiz materialBiz = new MaterialBiz();
+		MartBiz martBiz = new MartBiz();
 		
 		if(command.equals("recipedb")) {
 
@@ -52,7 +54,7 @@ public class Dummy extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement infoEle = parser.parse(info);
 
-			List<RecipeDto> recipe = rBiz.selectList();
+			List<RecipeDto> recipe = recipeBiz.selectList();
 
 			if(recipe.size() == 0) {
 
@@ -90,7 +92,7 @@ public class Dummy extends HttpServlet {
 					}
 				}
 
-				int res = rBiz.insert(recipe);
+				int res = recipeBiz.insert(recipe);
 				out.println(res + "개의 더미데이터가 등록되었습니다.\n2번을 눌러주세요");
 
 			} else {
@@ -207,7 +209,7 @@ public class Dummy extends HttpServlet {
 				}
 			}
 
-			int res = rBiz.update(conList);
+			int res = recipeBiz.update(conList);
 
 			if(res == -1) {
 				out.println("2번 성공!!\n3번을 눌러주세요");
@@ -222,7 +224,7 @@ public class Dummy extends HttpServlet {
 			JsonParser parser = new JsonParser();
 			JsonElement matEle = parser.parse(mat);
 
-			List<MaterialDto> list = mBiz.selectList();
+			List<MaterialDto> list = materialBiz.selectList();
 
 			if(list.size() == 0) {
 				for (int i = 0; i < matEle.getAsJsonObject().get("data").getAsJsonArray().size(); i++) {
@@ -242,6 +244,12 @@ public class Dummy extends HttpServlet {
 					String material_capacity = "";
 					int material_typeCode = irdnt_ty_code.getAsInt();
 					String material_typeName = irdnt_ty_nm.getAsString();
+					
+					String[] m_name = material_name.split("]");
+					
+					if(m_name.length > 1) {
+						material_name = m_name[1].trim();
+					}
 
 					if(!irdnt_cpcty.isJsonNull()) {
 						material_capacity = irdnt_cpcty.getAsString();
@@ -263,10 +271,10 @@ public class Dummy extends HttpServlet {
 
 					list.add(dto);
 				}
-				int res = mBiz.insert(list);
+				int res = materialBiz.insert(list);
 
 				if(res > 0) {
-					out.println("더미데이터 생성 완료");
+					out.println("3번 성공!!\n4번을 눌러주세요");
 
 				} else {
 					out.println("뭔가 잘못되었다...");
@@ -278,7 +286,7 @@ public class Dummy extends HttpServlet {
 
 		} else if(command.equals("deletedummy")) {
 
-			int res = rBiz.deleteDummy();
+			int res = recipeBiz.deleteDummy();
 
 			if(res > 0) {
 				out.println("삭제완료");
@@ -289,7 +297,7 @@ public class Dummy extends HttpServlet {
 
 		} else if(command.equals("martdummy")) {
 			
-			List<MaterialDto> list = mBiz.selectList();
+			List<MaterialDto> list = materialBiz.selectList();
 			List<String> mList = new ArrayList<String>();
 			List<MartDto> dummy = new ArrayList<MartDto>();
 			
@@ -313,6 +321,30 @@ public class Dummy extends HttpServlet {
 				MartDto bDto = new MartDto();
 				MartDto cDto = new MartDto();
 				
+				aDto.setMaterial_name("a회사" + mList.get(i));
+				bDto.setMaterial_name("b회사" + mList.get(i));
+				cDto.setMaterial_name("c회사" + mList.get(i));
+				
+				aDto.setMart_price((int)((Math.random() * 31) + 20) * 100);
+				bDto.setMart_price((int)((Math.random() * 31) + 20) * 100);
+				cDto.setMart_price((int)((Math.random() * 31) + 20) * 100);
+				
+				aDto.setCategory(mList.get(i));
+				bDto.setCategory(mList.get(i));
+				cDto.setCategory(mList.get(i));
+				
+				dummy.add(aDto);
+				dummy.add(bDto);
+				dummy.add(cDto);
+				
+			}
+			
+			int res = martBiz.createDummy(dummy);
+			
+			if(res > 0) {
+				out.println(res+"개의 마트데이터 생성");
+			} else {
+				out.println("뭔가 잘못되었다..");
 			}
 			
 		}

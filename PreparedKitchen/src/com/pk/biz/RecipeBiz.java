@@ -3,6 +3,7 @@ package com.pk.biz;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pk.dao.MartDao;
 import com.pk.dao.MaterialDao;
 import com.pk.dao.RecipeDao;
 import com.pk.dto.RecipeDto;
@@ -70,10 +71,13 @@ public class RecipeBiz {
 	public int deleteDummy() {
 
 		MaterialDao mDao = new MaterialDao();
+		MartDao martDao = new MartDao();
+		
 		int res1 = mDao.deleteDummy();
 		int res2 = dao.deleteDummy();
+		int res3 = martDao.deleteDummy();
 
-		return res1 + res2;
+		return res1 + res2 + res3;
 	}
 
 }

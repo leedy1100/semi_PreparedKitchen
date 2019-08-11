@@ -9,7 +9,7 @@
 	background-color: gray;
 	width: 40%;
 }
-#detailHeader div{
+#detailHeader > div{
 	float: left;
 }
 #detailHeader{

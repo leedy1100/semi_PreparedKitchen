@@ -42,7 +42,7 @@ function getJsonMaterial(){
 			data : {"mat" : JSON.stringify(matData)},
 			success : function(msg){
 				alert(msg)
-				$("h1").eq(0).html("더미데이터 생성완료");
+				$("h1").eq(0).html("4번을 눌러주세요");
 			},
 			error : function(){
 				alert("material 통신실패");
@@ -58,9 +58,10 @@ function martDummy(){
 		dataType : "text",
 		success : function(msg){
 			alert(msg)
+			$("h1").eq(0).html("더미데이터 생성완료");
 		},
 		error : function(){
-			alert("더미 삭제 실패")
+			alert("마트 더미생성 실패")
 		}
 	});
 }

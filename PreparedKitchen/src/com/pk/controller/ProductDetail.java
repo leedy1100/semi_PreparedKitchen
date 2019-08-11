@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.pk.biz.MaterialBiz;
+import com.pk.biz.ProductDetailBiz;
 import com.pk.biz.RecipeBiz;
+import com.pk.dto.MartDto;
 import com.pk.dto.MaterialDto;
 import com.pk.dto.RecipeDto;
 
@@ -34,15 +36,16 @@ public class ProductDetail extends HttpServlet {
 		System.out.println("[" + command + "]");
 		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
-		RecipeBiz rBiz = new RecipeBiz();
-		MaterialBiz mBiz = new MaterialBiz();
+		RecipeBiz recipeBiz = new RecipeBiz();
+		MaterialBiz materialBiz = new MaterialBiz();
+		ProductDetailBiz detailBiz = new ProductDetailBiz();
 		
 		if(command.equals("detail")) {
 			
 			int recipeno = Integer.parseInt(request.getParameter("recipeno"));
 			
-			RecipeDto rDto = rBiz.selectOne(recipeno);
-			List<MaterialDto> mList = mBiz.materialInRecipe(recipeno);
+			RecipeDto rDto = recipeBiz.selectOne(recipeno);
+			List<MaterialDto> mList = materialBiz.materialInRecipe(recipeno);
 			
 			request.setAttribute("recipe", rDto);
 			request.setAttribute("material", mList);
@@ -52,7 +55,39 @@ public class ProductDetail extends HttpServlet {
 			
 			String mProduct = request.getParameter("mPro");
 			String[] material = mProduct.split("/");
-			 
+			
+			String product = "";
+			
+			List<MartDto> list = detailBiz.selectProduct(material);
+			
+			for(int i = 0; i < list.size(); i++) {
+				
+				String proName = list.get(i).getMaterial_name();
+				String proPrice = list.get(i).getMart_price() + "원";
+				
+				if(i == 0) {
+					product += "<div class='proCategory'>"+list.get(i).getCategory();
+					product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+					
+				} else if(i != (list.size()-1)) {
+					
+					if(!list.get(i).getCategory().equals(list.get(i-1).getCategory())) {
+						product += "</div>";
+						product += "<div class='proCategory'>"+list.get(i).getCategory();
+						product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+						
+					} else {
+						product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+					}
+					
+				} else if(i == (list.size()-1)) {
+					product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+					product += "</div>";
+				}
+				
+			}
+			
+			out.println(product);
 			
 		}
 		

@@ -41,7 +41,7 @@ function showProduct(){
 			url : "prodetail.do?command=showproduct&mPro="+str,
 			method : "post",
 			success : function(msg){
-				
+				mList.html(msg);
 			},
 			error : function(){
 				alert("통신실패");

@@ -3,15 +3,33 @@
 <mapper namespace="martmapper">
 	
 	<select id="selectList" resultType="martDto">
-		SELECT MART_NO, MATERIAL_NAME, MART_PRICE
+		SELECT MART_NO, MATERIAL_NAME, MART_PRICE, CATEGORY
 		FROM MART
 	</select>
 	
 	<insert id="createDummy" parameterType="map">
 		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
 			INTO MART
-			VALUES(#{list.mart_no}, #{list.material_name}, #{list.mart_price})
+			VALUES(#{list.mart_no}, #{list.material_name}, #{list.mart_price}, #{list.category})
 		</foreach>
 	</insert>
+	
+	<select id="seqNextval" resultType="int">
+		SELECT MARTSEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<delete id="deleteDummy">
+		DELETE FROM MART
+	</delete>
+	
+	<select id="selectProduct" parameterType="map" resultType="martDto">
+		SELECT MART_NO, MATERIAL_NAME, MART_PRICE, CATEGORY
+		FROM MART
+		WHERE
+		<foreach collection="strs" item="str" separator="OR">
+			MATERIAL_NAME LIKE '%회사' || #{str}
+		</foreach>
+	</select>
 	
 </mapper>
