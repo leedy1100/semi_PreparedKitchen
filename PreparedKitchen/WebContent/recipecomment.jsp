@@ -116,11 +116,16 @@ function goPage(pages, lines) {
 
 function cmtcmt(cmtno) {
 	
-	var html = "<div>";
-	html += "<div style='border:none;' colspan='3'><textarea rows='3' id='cmtcmtcontent' style='width: 99%;' placeholder='댓글을 입력하세요.'></textarea></div>";
-	html += "<div style='border:none;'><input type='button' value='저장' onclick='cmtcmtUpdate("+cmtno+","+"$(\""+"#cmtcmtcontent\""+").val()"+")'/>";
+	var iscmt = $("#iscmt");
+	
+	if(iscmt != null) {
+		iscmt.remove();
+	}
+	var html = "<tr id='iscmt'>";
+	html += "<td colspan='3'><textarea rows='3' id='cmtcmtcontent' placeholder='댓글을 입력하세요.'></textarea></td>";
+	html += "<td colspan='3'><input type='button' value='저장' onclick='cmtcmtUpdate("+cmtno+","+"$(\""+"#cmtcmtcontent\""+").val()"+")'/>";
 	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
-	html += "</div>";
+	html += "</tr>";
 	
 	$('#'+cmtno).after(html);
 }
@@ -208,36 +213,34 @@ function showAllCmt(data) {
 			$("#commentContent").val("");
 			$("#commentContent").focus();
 		}else{
-		var	html = "<div id='cmttable'>";
+		var	html = "<table id='cmttable'>";
 		
 		for (var i = 0; i < data.length; i++) {
 			
 			var id = "${memberDto.id}";
 			var cmtId = data[i].id;
 			var boo = (id == cmtId);
-			html += "<div class='cmtonebox'>"
-			html += "<div id='"+data[i].comment_no+"'>";
-			html += "<div class='leftbox'>";
+			html += "<tr class='cmtonebox' id='"+data[i].comment_no+"'>"
+			html += "<td class='leftbox'>";
 			for(var j = 0; j<data[i].comment_tab; j++){
 				html += "<div class='nbsp'>&nbsp;</div>";
 				if(j+1==data[i].comment_tab){
 					html += "<div>ㄴ</div>";
 				}
 			}
-			html += "<div class='cmtbox'><div class='cmtidbox'>"+data[i].id + "</div>";
-			html += "<div class='cmtcntbox'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></div>";
-			html += "</div>";
-			html += "<div class='rightbox'>";
+			html += "<div class='cmtidbox'>"+data[i].id + "</div>";
+			html += "</td>";
+			html += "<td class='cmtcntbox'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></td>";
+			html += "<td class='rightbox'>";
 			html += "<div class='cmtdatebox'>" + data[i].comment_regdate + "</div>";
+			html += "</td>";
 			if(boo){
-				html += "<div class='btnbox'><input class='btnud' type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
-				html += "<input class='btnud' type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/></div>";
+				html += "<td class='btnbox'><input class='btnud' type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/></td>";
+				html += "<td class='btnbox'><input class='btnud' type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/></td>";
 			}
-			html += "</div>";
-			html += "</div>";
-			html += "</div>";
+			html += "</tr>";
 		}
-		html += "</div>";
+		html += "</table>";
 
 		$("#showAllComment").html(html);
 		$("#commentContent").val("");

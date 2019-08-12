@@ -1,32 +1,36 @@
 #cmttable{
 	width: 1000px;
 }
-.cmtonebox > div{
-	width: 100%;
+.cmtonebox{
+	height: 25px;
 }
 .leftbox{
-	float: left;
-	width: 80%;
+	width: 200px;
 }
-.rightbox{
-	float: right;
-	width: 20%;
-}
-.cmtbox div{
-	float: left;
+.leftbox div{
+	display: inline;
 }
 .cmtidbox{
-	width: 10%;
+	width: 0px;
 }
-
-.btnbox div{
+.cmtcntbox{
+	width: 1000px;
+}
+.rightbox div{
+	width: 90px;
+}
+.cmtdatebox{
 	float: right;
 }
 
 .nbsp{
-	float: left;
 	width: 15px;
 }
 #showPageNum{
 	clear: both;
+}
+#cmtcmtcontent{
+	position: relative;
+	left: 120px;
+	width: 600px;
 }
