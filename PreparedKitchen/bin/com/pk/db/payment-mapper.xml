@@ -34,7 +34,7 @@
 
 	<insert id="insert" parameterType="paymentDto">
 		INSERT INTO PAYMENT
-		VALUES(PAYMENTSEQ.NEXTVAL, #{payment_group}, #{id}, #{item_name}, #{item_code}, #{payment_price}, #{recipe_no}, #{material_no}, #{payment_date}, #{shipping_addr})
+		VALUES(PAYMENTSEQ.NEXTVAL, #{payment_group}, #{id}, #{item_name}, #{item_code}, #{payment_price}, #{recipe_no}, #{material_no}, #{payment_date}, #{payment_date}, #{shipping_addr})
 	</insert>
 	
 	<delete id="delete" parameterType="String">

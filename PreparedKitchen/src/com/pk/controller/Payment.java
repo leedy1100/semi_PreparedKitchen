@@ -175,6 +175,7 @@ public class Payment extends HttpServlet {
 					pDto.setRecipe_no(2);
 					pDto.setMaterial_no(Integer.parseInt(sp));
 					pDto.setPayment_date(payment_date);
+					pDto.setRecipe_date(payment_date);
 					pDto.setShipping_addr("배송지");
 					
 					list.add(pDto);
