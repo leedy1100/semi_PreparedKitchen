@@ -57,6 +57,8 @@
 						</c:forEach>
 					</div>
 					<div id="dmRight">
+						<input id="btn" type="button" value="전체선택" onclick="allCho()"><br>
+						<input id="btn" type="button" value="전체해제" onclick="noCho()"><br>
 						<input id="btn" type="button" value="상품보기" onclick="showProduct()">
 					</div>
 				</div>
@@ -79,9 +81,14 @@
 			</div>
 		</div>
 		
+		<form action="payment" method="post" id="productForm">
+			<input type="hidden" name="command" value="">
+			<input type="hidden" name="recipeno" value="${recipe.recipe_no }">
+		</form>
+		
 	</section>
 	
-		<%@ include file="../static/remocon.jsp" %>
+	<%@ include file="../static/remocon.jsp" %>
 		
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->

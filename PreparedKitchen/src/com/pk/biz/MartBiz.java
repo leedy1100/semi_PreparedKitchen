@@ -10,7 +10,7 @@ public class MartBiz {
 	
 	MartDao dao = new MartDao();
 	
-	public List<InterestListDto> selectList() {
+	public List<MartDto> selectList() {
 		
 		return dao.selectList();
 	}
@@ -18,6 +18,11 @@ public class MartBiz {
 	public int createDummy(List<MartDto> list) {
 		
 		return dao.createDummy(list);
+	}
+	
+	public List<MartDto> buyProduct(String[] str) {
+		
+		return dao.buyProduct(str);
 	}
 
 }
