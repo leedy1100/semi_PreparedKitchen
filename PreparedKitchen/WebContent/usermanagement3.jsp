@@ -75,7 +75,7 @@ td{text-align: center;}
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
-					<c:if test="${dto.enabled eq 'Y' }">
+					<c:if test="${dto.enabled eq 'N' }">
 					<tr>
 						<td>${dto.id }</td>
 						<td>${dto.name }</td>
@@ -84,22 +84,13 @@ td{text-align: center;}
 						<td>${dto.addr }</td>
 						<td>
 						${dto.enabled }
-							<c:if test="${dto.role eq 'USER'}">
-								<input type="button" value="탈퇴시키기" onclick="location.href='member.do?command=goodbyeuser&id=${dto.id}'">
-							</c:if>
+							
 						</td>
 						<td>${dto.birth }</td>
 						<td>${dto.regdate }</td>
 						<td>
 						${dto.role }
-							<c:choose>
-								<c:when test="${dto.role eq 'USER' }">
-									<input type="button" value="관리자권한 부여" onclick="location.href='member.do?command=managergrant&id=${dto.id}'">
-								</c:when>
-								<c:when test="${dto.role eq 'MANAGER' }">
-									<input type="button" value="관리자권한 회수" onclick="location.href='member.do?command=managercollect&id=${dto.id}'">
-								</c:when>
-							</c:choose>
+							
 						</td>
 					</tr>
 					</c:if>

@@ -14,6 +14,7 @@ td{text-align: center;}
 
 <script type="text/javascript">
 	function selectMember(arg){
+		
 		location.href="member.do?command="+arg
 	}
 </script>
