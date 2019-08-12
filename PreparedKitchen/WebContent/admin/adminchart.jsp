@@ -11,17 +11,16 @@
 <link rel="stylesheet" href="/PreparedKitchen/css/main_board.css"/>
 <style type="text/css">
 .chartbox{
-	margin: 50px;
 	text-align: center;
 	font-weight: 1000;
 }
 #boardlike{
-	
+
 }
 svg {
-	border: 1px solid;
-	width: 500px;
-	height: 300px;
+	border: 1px solid gray;
+	width: 300px;
+	height: 200px;
 }
 
 .bar {
@@ -37,17 +36,16 @@ svg {
 	font-weight: bold;
 }
 #charsect{
-	background-color: white;
+	background-color: #eaeaea;
 }
 .title{
-	margin: 30px;
 	font-weight: 1000;
 	font-size: 25px;
 }
 .imgicon{
 	width: 30px;
 	position: relative;
-	margin-top: 20px;
+	margin-top: 50px;
 }
 </style>
 

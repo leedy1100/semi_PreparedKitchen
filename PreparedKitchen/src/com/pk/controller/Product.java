@@ -21,9 +21,11 @@ import com.google.gson.JsonParser;
 import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
+import com.pk.biz.RecipeBoardBiz;
 import com.pk.dto.PagingDto;
 import com.pk.dto.PagingRecipeDto;
 import com.pk.dto.ProductListDto;
+import com.pk.dto.RecipeBoardDto;
 import com.pk.dto.RecipeDto;
 
 @WebServlet("/product.do")
@@ -46,6 +48,7 @@ public class Product extends HttpServlet {
 		ProductListBiz pBiz = new ProductListBiz();
 		RecipeBiz rBiz = new RecipeBiz();
 		MaterialBiz mBiz = new MaterialBiz();
+		RecipeBoardBiz rbBiz = new RecipeBoardBiz();
 
 		int currentPageNo = 1;
 		int recordsPerPage = 0;
@@ -184,6 +187,15 @@ public class Product extends HttpServlet {
 			
 			dispatch(request, response, "product/productlist.jsp");
 			
+		}else if(command.equals("main")) {
+			
+			List<ProductListDto> list = pBiz.selectList(offset2, paging2.getRecordsPerPage());
+			List<RecipeBoardDto> rlist = rbBiz.topRecipeBoard();
+			
+			request.setAttribute("plist", list);
+			request.setAttribute("rlist", rlist);
+			
+			dispatch(request, response, "main.jsp");
 		}
 
 // recipeInfo - {"RECIPE_ID":"레시피 코드"},{"RECIPE_NM_KO":"레시피 이름"},{"SUMRY":"간략(요약) 소개"},{"NATION_CODE":"유형코드"},{"NATION_NM":"유형분류"},{"TY_CODE":"음식분류코드"},
