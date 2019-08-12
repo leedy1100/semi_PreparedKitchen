@@ -225,6 +225,12 @@ public class member extends HttpServlet {
 				out.println("location.href='member.do?command=usermanagement'");
 				out.println("</script>");
 			}
+		}else if(command.equals("hiuser")) {
+			List<MemberDto>list = biz.selectList();
+			
+			request.setAttribute("list", list);
+			RequestDispatcher dispatch = request.getRequestDispatcher("usermanagement2.jsp");
+			dispatch.forward(request, response);
 		}
 	}
 
