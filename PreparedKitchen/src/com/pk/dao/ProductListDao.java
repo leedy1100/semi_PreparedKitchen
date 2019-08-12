@@ -14,6 +14,31 @@ import com.pk.dto.RecipeDto;
 public class ProductListDao extends SqlMapConfig {
 
 	private String namespace = "productmapper.";
+	int noOfRecords;
+
+	public List<ProductListDto> selectList(int offset, int noOfRecords) {
+
+		SqlSession session = null;
+		List<ProductListDto> list = new ArrayList<ProductListDto>();
+
+		HashMap<String, Object> params = new HashMap<String, Object>();
+
+		params.put("offset", offset);
+		params.put("noOfRecords", offset + noOfRecords);
+
+		session = getSqlSessionFactory().openSession();
+		list = session.selectList(namespace + "selectList", params);
+		this.noOfRecords = session.selectOne(namespace + "countList");
+
+		session.close();
+
+		return list;
+	}
+
+	public int getNoOfRecords() {
+
+		return noOfRecords;
+	}
 
 	public JSONArray productViewChart() {
 
@@ -107,7 +132,7 @@ public class ProductListDao extends SqlMapConfig {
 
 		return res;
 	}
-	
+
 	public int updateRecipeY(String[] recipe_no) {
 
 		SqlSession session = null;
@@ -129,7 +154,7 @@ public class ProductListDao extends SqlMapConfig {
 	}
 
 	public int deleteProduct(String[] recipe_no) {
-		
+
 		SqlSession session = null;
 		int res = 0;
 		Map<String, String[]> map = new HashMap<String, String[]>();

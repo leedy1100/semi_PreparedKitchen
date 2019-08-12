@@ -32,4 +32,13 @@
 		</foreach>
 	</select>
 	
+	<select id="buyProduct" parameterType="map" resultType="martDto">
+		SELECT MART_NO, MATERIAL_NAME, MART_PRICE, CATEGORY
+		FROM MART
+		WHERE MATERIAL_NAME IN
+		<foreach collection="strs" item="str" open="(" separator="," close=")">
+			 #{str}
+		</foreach>
+	</select>
+	
 </mapper>

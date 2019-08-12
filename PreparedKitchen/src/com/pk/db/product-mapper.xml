@@ -46,11 +46,30 @@
 		</foreach>
 	</update>
 	
-	<delete id="recipe_no" parameterType="map">
+	<delete id="deleteProduct" parameterType="map">
 		DELETE FROM PRODUCTLIST
 		WHERE RECIPE_NO IN
 		<foreach collection="recipe_no" item="recipe_no" open="(" separator="," close=")">
 			#{recipe_no}
 		</foreach>
 	</delete>
+	
+	<select id="countList" resultType="int">
+		SELECT COUNT(*)
+		FROM PRODUCTLIST
+	</select>
+	
+	<select id="selectList" parameterType="hashmap" resultType="productDto">
+		SELECT X.RNUM, X.PRODUCTLIST_NO, X.RECIPE_NO, X.RECIPE_NAME, X.RECIPE_IMG, X.SALES_COUNT, X.VIEW_NO
+		FROM(
+			SELECT ROWNUM AS RNUM, A.PRODUCTLIST_NO, A.RECIPE_NO, A.RECIPE_NAME, A.RECIPE_IMG, A.SALES_COUNT, A.VIEW_NO
+			FROM(
+				SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO
+				FROM PRODUCTLIST
+				ORDER BY PRODUCTLIST_NO DESC
+			) A
+			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
+		) X
+		WHERE X.RNUM <![CDATA[>]]> #{offset}
+	</select>
 </mapper>

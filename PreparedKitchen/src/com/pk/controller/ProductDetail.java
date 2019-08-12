@@ -63,27 +63,27 @@ public class ProductDetail extends HttpServlet {
 			for(int i = 0; i < list.size(); i++) {
 				
 				String proName = list.get(i).getMaterial_name();
-				String proPrice = list.get(i).getMart_price() + "원";
+				int proPrice = list.get(i).getMart_price();
 				
 				if(i == 0) {
 					
-					product += "<div class='proCategory'>"+list.get(i).getCategory();
-					product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+					product += "<div class='proCategory'>" + list.get(i).getCategory();
+					product += "<input class='selected' type='text' readonly='readonly' title='" + proName + "' value='" + proName + " " + proPrice + "원'/>";
 					
 				} else if(i != (list.size()-1)) {
 					
 					if(!list.get(i).getCategory().equals(list.get(i-1).getCategory())) {
 						product += "</div>";
-						product += "<div class='proCategory'>"+list.get(i).getCategory();
-						product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+						product += "<div class='proCategory'>" + list.get(i).getCategory();
+						product += "<input class='selected' type='text' readonly='readonly' title='" + proName + "' value='" + proName + " " + proPrice + "원'/>";
 						
 					} else {
-						product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+						product += "<input class='noSelected' type='text' readonly='readonly' title='" + proName + "' value='" + proName + " " + proPrice + "원'/>";
 					}
 					
 				} else if(i == (list.size()-1)) {
 					
-					product += "<div class='proMaterial'>"+ proName + proPrice +"</div>";
+					product += "<input class='noSelected' type='text' readonly='readonly' title='" + proName + "' value='" + proName + " " + proPrice + "원'/>";
 					product += "</div>";
 				}
 			}

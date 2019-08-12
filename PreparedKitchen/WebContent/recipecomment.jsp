@@ -9,6 +9,52 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/PreparedKitchen/css/recipecomment.css">
+<style type="text/css">
+#cmttable{
+	font-size: 12px;
+	margin: 30px;
+}
+#cmtPageNum{
+	cursor: pointer;
+}
+.cmtcnt{
+	cursor: pointer;
+}
+.cmtbox{
+	display: inline-block;
+	margin: 10px;
+}
+.cmtidbox{
+	width: 10%;
+	text-align: left;
+}
+.cmtcntbox{
+	width: 100%;
+}
+.cmtdatebox{
+	text-align: center;
+	width: 100%;
+	float: right;
+}
+.cmtcnt{
+	width:500px;
+}
+.cmtonebox{
+ border-bottom: 1px solid rgba(0,0,0,.2);
+}
+.btnud{
+	font-size: 10px;
+	width: 50px;
+}
+.btnbox{
+	float: right;
+	width: 10%;
+}
+.leftbox{
+	float: left;
+	width: 90%;
+}
+</style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 

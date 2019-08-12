@@ -4,7 +4,7 @@
 
 <resultMap type="CalDto" id="dtoMap">
  		<result property="recipe_name" column="RECIPE_NAME"/>
- 		<result property="payment_date" column="PAYMENT_DATE"/>
+ 		<result property="recipe_date" column="RECIPE_DATE"/>
  		<result property="payment_no" column="PAYMENT_NO"/>
  		<result property="payment_group" column="PAYMENT_GROUP"/>
  		<result property="recipe_no" column="RECIPE_NO"/>
@@ -13,7 +13,7 @@
 
 
 <select id="mycalendar"  resultMap="dtoMap">
-		SELECT R.RECIPE_NAME, P.PAYMENT_DATE, P.PAYMENT_NO
+		SELECT R.RECIPE_NAME, P.RECIPE_DATE, P.PAYMENT_NO
 		FROM RECIPE R, PAYMENT P
 		WHERE P.ID = #{id}
 	</select>
@@ -21,7 +21,7 @@
 	
 <update id="updatecalendar" parameterType="CalDto">
 UPDATE  PAYMENT
-  	SET  PAYMENT_DATE =#{payment_date}
+  	SET  RECIPE_DATE =#{recipe_date}
   	WHERE ID=#{id} AND PAYMENT_NO=#{payment_no}
 </update>
 </mapper>

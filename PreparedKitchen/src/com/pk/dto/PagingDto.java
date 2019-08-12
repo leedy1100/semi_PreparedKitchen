@@ -17,7 +17,7 @@ public class PagingDto {
 
 	public PagingDto(int recordsPerPage, int currentPageNo) {
 		super();
-		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 8;
+		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 12;
 		this.currentPageNo = currentPageNo;
 		this.sizeOfPage = 5;
 	}

@@ -15,10 +15,10 @@ public class MartDao extends SqlMapConfig{
 	
 	private String namespace = "martmapper.";
 	
-	public List<InterestListDto> selectList() {
+	public List<MartDto> selectList() {
 		
 		SqlSession session = null;
-		List<InterestListDto> list = new ArrayList<InterestListDto>();
+		List<MartDto> list = new ArrayList<MartDto>();
 		
 		try {
 			session = getSqlSessionFactory().openSession(false);
@@ -88,6 +88,25 @@ public class MartDao extends SqlMapConfig{
 		}
 		
 		return res;
+	}
+	
+	public List<MartDto> buyProduct(String[] str) {
+		
+		SqlSession session = null;
+		List<MartDto> list = new ArrayList<MartDto>();
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("strs", str);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace+"buyProduct", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
 	}
 	
 }

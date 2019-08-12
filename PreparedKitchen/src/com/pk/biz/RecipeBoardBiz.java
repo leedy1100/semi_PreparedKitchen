@@ -68,5 +68,9 @@ public class RecipeBoardBiz {
 	public JSONArray likeChart(){
 		return recipeBoardDao.likeChart();
 	}
+	
+	public List<RecipeBoardDto> topRecipeBoard(){
+		return recipeBoardDao.topRecipeBoard();
+	}
 
 }

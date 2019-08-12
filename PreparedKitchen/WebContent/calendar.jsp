@@ -40,7 +40,28 @@
     max-width: 900px;
     margin: 40px auto;
   }
-
+  
+   .fc-sat > span { color:blue; }     /* 토요일 */
+   .fc-sun > span { color:red; }    /* 일요일 */
+   .fc-day-number{
+   	font-size: 18px;
+   }
+   .fc-day-header>span {
+   	font-size: 20px;
+   }
+   .fc-title{
+   	font-size: 16px;
+   }
+   body{
+   	background-color: #f3f1ec;
+   }
+ td.fc-day.fc-today{
+ 	background: khaki;
+ }
+ .fc-content{
+ 	text-align: center;
+ }
+   
 </style>
 
  
@@ -64,6 +85,7 @@
         });
       }, */
       editable: true,
+      eventDurationEditable: false,
       eventLimit: true, // when too many events in a day, show the popover
       eventDrop: function(event, delta, revertFunc) {
     	   
@@ -106,7 +128,7 @@
   		});
       },
      
-      
+      eventColor:'chocolate'
      
 
     });
@@ -126,7 +148,7 @@
   </head>
 
   <body>
-
+  
  
 
     <div id='calendar'></div>

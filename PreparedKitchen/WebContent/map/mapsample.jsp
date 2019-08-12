@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<div id="map" style="width:500px;height:400px;"></div>
+	<div id="map" style="width:500px; height:400px;"></div>
 	<input type="button" value="메인으로" onclick="location.href='/PreparedKitchen/index.jsp'">
 
 </body>

@@ -8,13 +8,29 @@ public class CalDto {
 	private String payment_group;
 	private String id;
 	private int recipe_no;
-	private String payment_date;
+	private String recipe_date;
 	private String recipe_name;
 	
 	
 	public CalDto() {
 		
 	}
+	
+	
+
+
+	public CalDto(int payment_no, String payment_group, String id, int recipe_no, String recipe_date,
+			String recipe_name) {
+	
+		this.payment_no = payment_no;
+		this.payment_group = payment_group;
+		this.id = id;
+		this.recipe_no = recipe_no;
+		this.recipe_date = recipe_date;
+		this.recipe_name = recipe_name;
+	}
+
+
 
 
 	public int getPayment_no() {
@@ -57,13 +73,13 @@ public class CalDto {
 	}
 
 
-	public String getPayment_date() {
-		return payment_date;
+	public String getRecipe_date() {
+		return recipe_date;
 	}
 
 
-	public void setPayment_date(String payment_date) {
-		this.payment_date = payment_date;
+	public void setRecipe_date(String recipe_date) {
+		this.recipe_date = recipe_date;
 	}
 
 

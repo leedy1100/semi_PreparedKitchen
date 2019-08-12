@@ -13,12 +13,13 @@ public class PaymentDto {
 	private int recipe_no;
 	private int material_no;
 	private String payment_date;
+	private String recipe_date;
 	private String shipping_addr;
 	
 	public PaymentDto() {}
 
 	public PaymentDto(int payment_no, String payment_group, String id, String item_name, String item_code,
-			String payment_price, int recipe_no, int material_no, String payment_date, String shipping_addr) {
+			String payment_price, int recipe_no, int material_no, String payment_date, String recipe_date, String shipping_addr) {
 		this.payment_no = payment_no;
 		this.payment_group = payment_group;
 		this.id = id;
@@ -29,6 +30,7 @@ public class PaymentDto {
 		this.material_no = material_no;
 		this.payment_date = payment_date;
 		this.shipping_addr = shipping_addr;
+		this.recipe_date = recipe_date;
 	}
 
 	public int getPayment_no() {
@@ -109,6 +111,14 @@ public class PaymentDto {
 
 	public void setShipping_addr(String shipping_addr) {
 		this.shipping_addr = shipping_addr;
+	}
+	
+	public String getRecipe_date() {
+		return recipe_date;
+	}
+	
+	public void setRecipe_date(String recipe_date) {
+		this.recipe_date = recipe_date;
 	}
 
 

@@ -1,16 +1,7 @@
 
 $(function(){
-	var material = $("input[type=text]");
 	
-	material.click(function(){
-		var me = $(this);
-		
-		if(me.attr("class") == "selected"){
-			me.attr("class","noSelected");
-		} else if(me.attr("class") == "noSelected"){
-			me.attr("class","selected");
-		}
-	});
+	choice();
 	
 	var mList = $("#materialList");
 	var rightW = $("#headerRigth").css("width");
@@ -19,6 +10,19 @@ $(function(){
 	mList.css("width",rightW);
 	mList.css("height",rightH);
 })
+
+function choice(){
+	var material = $("#dmLeft input[type=text]");
+	
+	material.click(function(){
+		var me = $(this);
+		if(me.attr("class") == "selected"){
+			me.attr("class","noSelected");
+		} else if(me.attr("class") == "noSelected"){
+			me.attr("class","selected");
+		}
+	});
+}
 
 function showProduct(){
 	var selected = $(".selected");
@@ -42,6 +46,7 @@ function showProduct(){
 			method : "post",
 			success : function(msg){
 				mProduct.html(msg);
+				proChoice();
 			},
 			error : function(){
 				alert("통신실패");
@@ -54,6 +59,30 @@ function showProduct(){
 function hideProduct(){
 	var mProduct = $("#materialProduct");
 	mProduct.html("");
+}
+
+function proChoice(){
+	var pro = $(".proCategory input");
+	
+	pro.click(function(){
+		var me = $(this);
+		if(me.attr("class") == "selected"){
+			me.attr("class","noSelected");
+		} else if(me.attr("class") == "noSelected"){
+			me.attr("class","selected");
+			me.siblings().attr("class","noSelected");
+		}
+	});
+}
+
+function allCho(){
+	var material = $("#dmLeft input[type=text]");
+	material.attr("class","selected");
+}
+
+function noCho(){
+	var material = $("#dmLeft input[type=text]");
+	material.attr("class","noSelected");
 }
 
 

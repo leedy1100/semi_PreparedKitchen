@@ -255,5 +255,17 @@ public class RecipeBoardImpl extends SqlMapConfig implements BoardDao {
 		
 		return jArr;
 	}
+	
+	public List<RecipeBoardDto> topRecipeBoard(){
+		
+		SqlSession session = null;
+		List<RecipeBoardDto> list = new ArrayList<RecipeBoardDto>();
+		
+		session = getSqlSessionFactory().openSession();
+		list = session.selectList(namespace + "likeChart");
+		session.close();
+		
+		return list;
+	}
 
 }
