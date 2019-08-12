@@ -1,8 +1,6 @@
-#cmttable{
-	width: 1000px;
-}
-.cmtonebox{
-	height: 25px;
+.cmtonebox{	
+	height: 35px;
+	font-size: 14px;
 }
 .leftbox{
 	width: 200px;
@@ -30,6 +28,11 @@
 	clear: both;
 }
 #cmtcmtcontent{
+	position: relative;
+	left: 120px;
+	width: 600px;
+}
+#updatecnt{
 	position: relative;
 	left: 120px;
 	width: 600px;

@@ -9,52 +9,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/PreparedKitchen/css/recipecomment.css">
-<style type="text/css">
-#cmttable{
-	font-size: 12px;
-	margin: 30px;
-}
-#cmtPageNum{
-	cursor: pointer;
-}
-.cmtcnt{
-	cursor: pointer;
-}
-.cmtbox{
-	display: inline-block;
-	margin: 10px;
-}
-.cmtidbox{
-	width: 10%;
-	text-align: left;
-}
-.cmtcntbox{
-	width: 100%;
-}
-.cmtdatebox{
-	text-align: center;
-	width: 100%;
-	float: right;
-}
-.cmtcnt{
-	width:500px;
-}
-.cmtonebox{
- border-bottom: 1px solid rgba(0,0,0,.2);
-}
-.btnud{
-	font-size: 10px;
-	width: 50px;
-}
-.btnbox{
-	float: right;
-	width: 10%;
-}
-.leftbox{
-	float: left;
-	width: 90%;
-}
-</style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
@@ -100,6 +54,11 @@ $(function() {
 });
 
 function cmtList() {
+	var iscmt = $("#iscmt");
+
+	if(iscmt != null) {
+		iscmt.remove();
+	}
 	$.ajax({
         url:"recipeComment.do?command=cmtread&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
         dataType:"text",
@@ -218,12 +177,16 @@ function deleteCmtfn(cmtno) {
 }
 
 function updateCmtfn(cmtno,cmtcontent) {
+	var iscmt = $("#iscmt");
 	
-	var html = "<div>";
-	html += "<div style='border:none;' colspan='3'><textarea rows='3' id='updatecnt' style='width: 99%;'>"+cmtcontent+"</textarea></div>";
-	html += "<div style='border:none;'><input type='button' value='저장' onclick='update("+cmtno+","+"$(\""+"#updatecnt\""+").val()"+")'/>";
-	html += "<input type='button' value='취소' onclick='cmtList()'/></div>";
-	html += "</div>";
+	if(iscmt != null) {
+		iscmt.remove();
+	}
+	var html = "<tr id='iscmt'>";
+	html += "<td colspan='3'><textarea rows='3' id='updatecnt'>"+cmtcontent+"</textarea></td>";
+	html += "<td colspan='3'><input type='button' value='저장' onclick='update("+cmtno+","+"$(\""+"#updatecnt\""+").val()"+")'/>";
+	html += "<input type='button' value='취소' onclick='cmtList()'/></td>";
+	html += "</tr>";
 
 	$('#'+cmtno).empty();
 	$('#'+cmtno).unwrap().wrap(html);
