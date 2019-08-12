@@ -64,6 +64,7 @@
         });
       }, */
       editable: true,
+      eventDurationEditable: false,
       eventLimit: true, // when too many events in a day, show the popover
       eventDrop: function(event, delta, revertFunc) {
     	   
