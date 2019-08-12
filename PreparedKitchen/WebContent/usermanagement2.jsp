@@ -15,7 +15,7 @@ td{text-align: center;}
 <script type="text/javascript">
 	function selectMember(arg){
 		
-		location.href="member.do?command="+arg
+		location.href="member.do?command="+arg;
 	}
 </script>
 
@@ -75,6 +75,7 @@ td{text-align: center;}
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
+					<c:if test="${dto.enabled eq 'Y' }">
 					<tr>
 						<td>${dto.id }</td>
 						<td>${dto.name }</td>
@@ -83,7 +84,7 @@ td{text-align: center;}
 						<td>${dto.addr }</td>
 						<td>
 						${dto.enabled }
-							<c:if test="${dto.role eq 'USER' and dto.enabled eq 'Y'}">
+							<c:if test="${dto.role eq 'USER'}">
 								<input type="button" value="탈퇴시키기" onclick="location.href='member.do?command=goodbyeuser&id=${dto.id}'">
 							</c:if>
 						</td>
@@ -101,6 +102,7 @@ td{text-align: center;}
 							</c:choose>
 						</td>
 					</tr>
+					</c:if>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
