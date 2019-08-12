@@ -2,4 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="interestmapper">
 
+	<select id="selectList" parameterType="String" resultType="interestDto">
+		SELECT INTERESTLIST_NO, ID, RECIPE_NO
+		FROM INTERESTLIST
+		WHERE ID = #{value}
+		ORDER BY INTERESTLIST_NO DESC
+	</select>
 </mapper>

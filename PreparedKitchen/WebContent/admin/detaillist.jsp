@@ -14,20 +14,24 @@
 	display: inline-block;
 }
 #menu{
-	min-height: 1000px;
+	min-height: 500px;
+	flex-basis: 400px;
 }
 #menulist{
 	text-align: center;
+	flex-basis: 500px;
 }
 #pagingbutton{
 	text-align: center;
 }
 #menubox{
 	margin: 50px;
+	display: flex;
 }
 .menuname{
 	font-size: 20px;
 	cursor: default;
+	font-weight: 1000;
 }
 .menuname2{
 	list-style-type: none;
@@ -37,6 +41,7 @@
 .menulink{
 	text-decoration: none;
 	color: black;
+	font-weight: 700;
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -83,7 +88,6 @@
 	<section>
 <div id="menubox">
 <div id="menu" class="menulist">
-<a href="/PreparedKitchen/index.jsp">메인</a>
 <div class="menulistbox">
 <div class="menuname">한식</div>
 <ul class="menuname2">
@@ -92,7 +96,7 @@
 		<c:set var="cate" value="한식" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=category">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -105,7 +109,7 @@
 		<c:set var="cate" value="퓨전" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -118,7 +122,7 @@
 		<c:set var="cate" value="중국" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -131,7 +135,7 @@
 		<c:set var="cate" value="일본" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -144,7 +148,7 @@
 		<c:set var="cate" value="이탈리아" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -157,7 +161,7 @@
 		<c:set var="cate" value="서양" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -170,26 +174,27 @@
 		<c:set var="cate" value="동남아시아" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
 </div>
 </div>
 <div class="menulist">
-	<input type="button" value="미등록" onclick="location.href='/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N'"/>
-	<input type="button" value="등록" onclick="location.href='/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=Y'"/>
+	<input type="button" value="미등록" onclick="location.href='/PreparedKitchen/product.do?command=reglist&categoryname=${categoryname }&recipe_reg=N'"/>
+	<input type="button" value="등록" onclick="location.href='/PreparedKitchen/product.do?command=reglist&categoryname=${categoryname }&recipe_reg=Y'"/>
 	<form action="product.do" id="productinsert">
 	<input type="hidden" name="command" value="productinsert"/>
+	<input type="hidden" name="categoryname" value="${categoryname }"/>
 	<table id="menulist">
 		<col width="50px">
 		<col width="50px">
-		<col width="50px">
-		<col width="180px">
+		<col width="100px">
+		<col width="350px">
 		<col width="80px">
-		<col width="200px">
-		<col width="80px">
-		<tr>
+		<col width="300px">
+		<col width="150px">
+		<tr style="background-color: #FFCCCC;">
 			<th><input type="checkbox" value="전체" name="all" onclick="allchk(this.checked)"/></th>
 			<th>번호</th>
 			<th>이미지</th>
@@ -200,15 +205,15 @@
 		</tr>
 		<c:choose>
 			<c:when test="${empty list }">
-				<tr>
-					<td colspan="6">--------레시피 준비중입니다.--------</td>
+				<tr style="background-color: #FFFFFF;">
+					<td colspan="7" style="text-align: center;">-------------------------레시피 준비중입니다.-------------------------</td>
 				</tr>
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${list }" var="dto">
 					<input type="hidden" value="${dto.recipe_img }" name="recipe_img"/>
 					<input type="hidden" value="${dto.recipe_name }" name="recipe_name"/>
-					<tr>
+					<tr style="background-color: #FFFFFF;">
 						<td><input type="checkbox" value="${dto.recipe_no }" name="recipe_no"/></td>
 						<td>${dto.recipe_no }</td>
 						<td><img src='${dto.recipe_img }' alt='이미지없음' style="width: 50px;"/></td>
@@ -222,7 +227,7 @@
 		</c:choose>
 		<tr>
 			<td colspan="7">
-				<input type="submit" value="등록">
+				<input type="submit" value="저장" style="float: left;">
 			</td>
 		</tr>
 	</table>

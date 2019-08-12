@@ -47,6 +47,13 @@ public class ProductDetail extends HttpServlet {
 			request.setAttribute("recipe", rDto);
 			request.setAttribute("material", mList);
 			dispatch(request, response, "product/productdetail.jsp");
+			
+		} else if(command.equals("showproduct")) {
+			
+			String mProduct = request.getParameter("mPro");
+			String[] material = mProduct.split("/");
+			 
+			
 		}
 		
 	}

@@ -30,6 +30,22 @@ public class RecipeDao extends SqlMapConfig {
 
 		return list;
 	}
+	
+	public List<RecipeDto> selectListOne(List<Integer> list) {
+		List<RecipeDto> res = new ArrayList<RecipeDto>();
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.selectList(namespace + "selectListOne", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
 
 	public int insert(List<RecipeDto> list) {
 
@@ -96,7 +112,7 @@ public class RecipeDao extends SqlMapConfig {
 		return dto;
 	}
 
-	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords) {
+	public List<RecipeDto> recipeList(String category, String recipe_reg, int offset, int noOfRecords) {
 
 		SqlSession session = null;
 		List<RecipeDto> list = new ArrayList<RecipeDto>();
@@ -104,7 +120,8 @@ public class RecipeDao extends SqlMapConfig {
 		hm.put("category", category);
 		hm.put("offset", offset);
 		hm.put("noOfRecords", offset + noOfRecords);
-
+		hm.put("recipe_reg", recipe_reg);
+		
 		session = getSqlSessionFactory().openSession();
 		list = session.selectList(namespace + "recipeList", hm);
 		this.noOfRecords = session.selectOne(namespace + "fileCount", hm);
@@ -139,5 +156,6 @@ public class RecipeDao extends SqlMapConfig {
 
 		return noOfRecords;
 	}
+	
 
 }

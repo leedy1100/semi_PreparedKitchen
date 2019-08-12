@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="static/base.css"/>
+<link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
 <style type="text/css">
 .menulist{
 	display: inline-block;
@@ -51,7 +51,30 @@
 		$(".menuname").click(function() {
 			$(this).next().slideToggle().end().parent().siblings().find("ul").slideUp();
 		});
+		
+		$("#productdelete").submit(function() {
+			if($("input[name=recipe_no]:checked").length == 0){
+				alert("선택한 레시피가 없습니다.");
+				return false;
+			}
+		});
+		
+		
+		$("input[name=recipe_no]").click(function() {
+			if($("input[name=recipe_no]").length==$("input[name=recipe_no]:checked").length){
+				$("input[name=all]").prop("checked",true);
+			}else{
+				$("input[name=all]").prop("checked",false);
+			}
+		})
+		
 	});
+	
+	function allchk(bool) {
+		$("input[name=recipe_no]").each(function() {
+				$(this).prop("checked",bool);	
+		});
+	}
 
 </script>
 <title>레시피 세부리스트</title>
@@ -157,8 +180,72 @@
 </ul>
 </div>
 </div>
+<div class="menulist">
+	<input type="button" value="미등록" onclick="location.href='/PreparedKitchen/product.do?command=category&categoryname=${categoryname }&recipe_reg=N'"/>
+	<input type="button" value="등록" onclick="location.href='/PreparedKitchen/product.do?command=reglist&categoryname=${categoryname }&recipe_reg=Y'"/>
+	<form action="product.do" id="productdelete">
+	<input type="hidden" name="categoryname" value="${categoryname }"/>
+	<input type="hidden" name="command" value="productdelete"/>
+	<table id="menulist">
+		<col width="50px">
+		<col width="50px">
+		<col width="100px">
+		<col width="350px">
+		<col width="80px">
+		<col width="300px">
+		<col width="150px">
+		<tr style="background-color: #FFCCCC;">
+			<th><input type="checkbox" value="전체" name="all" onclick="allchk(this.checked)"/></th>
+			<th>번호</th>
+			<th>이미지</th>
+			<th>이름</th>
+			<th>영양소</th>
+			<th>카테고리</th>
+			<th>상품등록</th>
+		</tr>
+		<c:choose>
+			<c:when test="${empty list }">
+				<tr style="background-color: #FFFFFF;">
+					<td colspan="7" style="text-align: center;">-------------------------상품등록 된 레시피가 없습니다.-------------------------</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<c:forEach items="${list }" var="dto">
+					<tr style="background-color: #FFFFFF;">
+						<td><input type="checkbox" value="${dto.recipe_no }" name="recipe_no"/></td>
+						<td>${dto.recipe_no }</td>
+						<td><img src='${dto.recipe_img }' alt='이미지없음' style="width: 50px;"/></td>
+						<td>${dto.recipe_name }</td>
+						<td>${dto.recipe_nutrient }</td>
+						<td>${dto.recipe_category }</td>
+						<td>${dto.recipe_reg }</td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
+		<tr>
+			<td colspan="7">
+				<input type="submit" value="삭제" style="float: left;">
+			</td>
+		</tr>
+	</table>
+	</form>
+	<div id="pagingbutton">
+		<jsp:include page="regrecipelistpaging.jsp" flush="true">
+			<jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
+			<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+			<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+			<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+			<jsp:param name="currentPageNo" value="${paging.currentPageNo}" />
+			<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+			<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+			<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+		</jsp:include>
+	</div>
+</div>
 </div>
 </section>
+	
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/footer.jsp" %>

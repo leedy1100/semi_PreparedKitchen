@@ -17,7 +17,7 @@ public class PagingRecipeDto {
 
 	public PagingRecipeDto(int recordsPerPage, int currentPageNo) {
 		super();
-		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 15;
+		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 10;
 		this.currentPageNo = currentPageNo;
 		this.sizeOfPage = 5;
 	}

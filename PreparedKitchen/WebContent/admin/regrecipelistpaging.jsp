@@ -11,8 +11,8 @@
 <script type="text/javascript">
 
 	function goPage(pages, lines) {
-	    var url = "&pages=" + pages + "&lines=" + lines + "&categoryname=${categoryname}&recipe_reg=N";
-			location.href = '/PreparedKitchen/product.do?command=category'+url;
+	    var url = "&pages=" + pages + "&lines=" + lines + "&categoryname=${categoryname}&recipe_reg=Y";
+			location.href = '/PreparedKitchen/product.do?command=reglist'+url;
 	}
 
 </script>

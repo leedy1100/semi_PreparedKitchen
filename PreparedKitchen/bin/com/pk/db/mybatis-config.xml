@@ -21,6 +21,7 @@
   	<typeAlias type="com.pk.dto.RecipeDto" alias="recipeDto" />
   	<typeAlias type="com.pk.dto.ChatDto" alias="chatDto" />
   	<typeAlias type="com.pk.dto.CalDto" alias="calDto" />
+  	<typeAlias type="com.pk.dto.MartDto" alias="martDto" />
   </typeAliases>	
 	
   <environments default="development">
@@ -48,5 +49,6 @@
     <mapper resource="com/pk/db/chat-mapper.xml"/>
     <mapper resource="com/pk/db/cal-mapper.xml"/>
     <mapper resource="com/pk/db/productDetail-mapper.xml"/>
+    <mapper resource="com/pk/db/mart-mapper.xml"/>
   </mappers>
 </configuration>

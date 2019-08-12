@@ -2,6 +2,7 @@ package com.pk.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,32 +13,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.pk.biz.CartBiz;
+import com.pk.biz.InterestListBiz;
 import com.pk.biz.MemberBiz;
 import com.pk.biz.PaymentBiz;
+import com.pk.biz.RecipeBiz;
 import com.pk.biz.RecipeBoardBiz;
+import com.pk.dto.CartDto;
+import com.pk.dto.InterestListDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.PaymentDto;
 import com.pk.dto.RecipeBoardDto;
+import com.pk.dto.RecipeDto;
 
-/**
- * Servlet implementation class member
- */
 @WebServlet("/member.do")
 public class member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public member() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
@@ -47,7 +40,10 @@ public class member extends HttpServlet {
 		
 		MemberBiz biz = new MemberBiz();
 		PaymentBiz pBiz = new PaymentBiz();
-		RecipeBoardBiz rBiz = new RecipeBoardBiz();
+		RecipeBoardBiz rbBiz = new RecipeBoardBiz();	
+		CartBiz cBiz = new CartBiz();
+		RecipeBiz rBiz = new RecipeBiz();
+		InterestListBiz iBiz = new InterestListBiz();
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		
@@ -72,7 +68,7 @@ public class member extends HttpServlet {
 			dispatch(request, response, "userinfo.jsp");
 				
 		}else if(command.equals("id")) {
-			List<RecipeBoardDto> rList = rBiz.selectListId(offset, paging.getRecordsPerPage(),mDto.getId());
+			List<RecipeBoardDto> rList = rbBiz.selectListId(offset, paging.getRecordsPerPage(),mDto.getId());
 			
 			paging.setNumberOfRecords(rBiz.getNoOfRecords());
 			paging.makePaging();
@@ -98,9 +94,27 @@ public class member extends HttpServlet {
 			dispatch(request, response, "paymentinfo.jsp");
 			
 		}else if(command.equals("cart")) {
+			List<CartDto> cList = cBiz.selectList(mDto.getId());
+			List<Integer> recipe_no_list = new ArrayList<Integer>();
+			for(CartDto cDto : cList) {
+				recipe_no_list.add(cDto.getRecipe_no());
+			}
+			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
+			
+			request.setAttribute("rList", rList);
+			
 			dispatch(request, response, "cart.jsp");
 			
 		}else if(command.equals("interest")) {
+			List<InterestListDto> iList = iBiz.selectList(mDto.getId());
+			List<Integer> recipe_no_list = new ArrayList<Integer>();
+			for(InterestListDto iDto : iList) {
+				recipe_no_list.add(iDto.getRecipe_no());
+			}
+			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
+			
+			request.setAttribute("rList", rList);
+			
 			dispatch(request, response, "interest.jsp");
 			
 			

@@ -16,9 +16,13 @@ public class RecipeBiz {
 		return dao.selectList();
 	}
 
-	public List<RecipeDto> recipeList(String category, int offset, int noOfRecords){
-		
-		return dao.recipeList(category, offset, noOfRecords);
+	public List<RecipeDto> recipeList(String category, String recipe_reg, int offset, int noOfRecords) {
+
+		return dao.recipeList(category, recipe_reg, offset, noOfRecords);
+	}
+	
+	public List<RecipeDto> selectListOne(List<Integer> list) {
+		return dao.selectListOne(list);
 	}
 
 	public int insert(List<RecipeDto> list) {
@@ -62,13 +66,13 @@ public class RecipeBiz {
 
 		return listcategory;
 	}
-	
+
 	public int deleteDummy() {
-		
+
 		MaterialDao mDao = new MaterialDao();
 		int res1 = mDao.deleteDummy();
 		int res2 = dao.deleteDummy();
-		
+
 		return res1 + res2;
 	}
 

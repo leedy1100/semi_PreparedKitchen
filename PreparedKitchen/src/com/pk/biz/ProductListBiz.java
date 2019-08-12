@@ -10,19 +10,27 @@ import com.pk.dto.ProductListDto;
 public class ProductListBiz {
 
 	ProductListDao productListDao = new ProductListDao();
-	
+
 	public JSONArray productViewChart() {
 		return productListDao.productViewChart();
 	}
-	
+
 	public JSONArray productSalesChart() {
 		return productListDao.productSalesChart();
 	}
-	
+
 	public int insertProduct(List<ProductListDto> list) {
-		
+
 		int res1 = productListDao.updateRecipeN(list);
 		int res2 = productListDao.insertProduct(list);
+		return res2;
+	}
+
+	public int deleteProduct(String[] recipe_no) {
+
+		int res1 = productListDao.updateRecipeY(recipe_no);
+		int res2 = productListDao.deleteProduct(recipe_no);
+
 		return res1 + res2;
 	}
 }

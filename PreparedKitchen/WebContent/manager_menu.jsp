@@ -13,12 +13,6 @@
 
 	<h1>관리자페이지</h1>
 	<div id="mypage_menubar">
-		<input type="button" value="나의 정보" class="mypage_menu" onclick="location.href='member.do?command=mypage'">
-		<input type="button" value="내가 쓴 글" class="mypage_menu" onclick="location.href='member.do?command=id'">
-		<input type="button" value="식단 관리" class="mypage_menu" onclick="location.href='member.do?command=cal'">
-		<input type="button" value="장바구니" class="mypage_menu" onclick="location.href='member.do?command=cart'">
-		<input type="button" value="관심 레시피" class="mypage_menu" onclick="location.href='member.do?command=interest'">
-		<input type="button" value="결제 내역" class="mypage_menu" onclick="location.href='member.do?command=paymentinfo'">
 		<input type="button" value="회원 관리" class="mypage_menu" onclick="location.href='member.do?command=usermanagement'">
 	</div>
 	<hr>

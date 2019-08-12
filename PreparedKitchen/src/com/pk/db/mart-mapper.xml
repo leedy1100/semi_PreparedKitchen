@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="martmapper">
+	
+	<select id="selectList" resultType="martDto">
+		SELECT MART_NO, MATERIAL_NAME, MART_PRICE
+		FROM MART
+	</select>
+	
+	<insert id="createDummy" parameterType="map">
+		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+			INTO MART
+			VALUES(#{list.mart_no}, #{list.material_name}, #{list.mart_price})
+		</foreach>
+	</insert>
+	
+</mapper>
