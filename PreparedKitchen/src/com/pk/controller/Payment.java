@@ -29,9 +29,11 @@ import org.json.simple.parser.ParseException;
 
 import com.pk.biz.MartBiz;
 import com.pk.biz.PaymentBiz;
+import com.pk.biz.RecipeBiz;
 import com.pk.dto.MartDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PaymentDto;
+import com.pk.dto.RecipeDto;
 
 
 @WebServlet("/payment")
@@ -267,8 +269,14 @@ public class Payment extends HttpServlet {
 				MartBiz martBiz = new MartBiz();
 				List<MartDto> list = martBiz.buyProduct(proList);
 				
+				RecipeBiz recipeBiz = new RecipeBiz();
+				RecipeDto rDto = recipeBiz.selectOne(recipeno);
+				List<RecipeDto> rList = new ArrayList<RecipeDto>();
+				
+				rList.add(rDto);
+				
 				session.setAttribute("productList", list);
-				session.setAttribute("recipeno", recipeno);
+				session.setAttribute("recipeList", rList);
 				response.sendRedirect("/PreparedKitchen/payment/confirmpayment.jsp");
 			}
 			
