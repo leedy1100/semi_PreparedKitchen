@@ -1,0 +1,32 @@
+#cmttable{
+	width: 1000px;
+}
+.cmtonebox > div{
+	width: 100%;
+}
+.leftbox{
+	float: left;
+	width: 80%;
+}
+.rightbox{
+	float: right;
+	width: 20%;
+}
+.cmtbox div{
+	float: left;
+}
+.cmtidbox{
+	width: 10%;
+}
+
+.btnbox div{
+	float: right;
+}
+
+.nbsp{
+	float: left;
+	width: 15px;
+}
+#showPageNum{
+	clear: both;
+}

@@ -100,7 +100,6 @@ public class member extends HttpServlet {
 		}else if(command.equals("cart")) {
 			List<CartDto> cList = cBiz.selectListRecipe(mDto.getId());
 			
-			
 			List<Integer> recipe_no_list = new ArrayList<Integer>();
 			for(CartDto cDto : cList) {
 				recipe_no_list.add(cDto.getRecipe_no());

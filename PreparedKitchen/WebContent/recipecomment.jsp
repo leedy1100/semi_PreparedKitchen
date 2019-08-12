@@ -8,52 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#cmttable{
-	font-size: 12px;
-	margin: 30px;
-}
-#cmtPageNum{
-	cursor: pointer;
-}
-.cmtcnt{
-	cursor: pointer;
-}
-.cmtbox{
-	display: inline-block;
-	margin: 10px;
-}
-.cmtidbox{
-	width: 10%;
-	text-align: left;
-}
-.cmtcntbox{
-	width: 70%;
-}
-.cmtdatebox{
-	text-align: center;
-	width: 100%;
-	float: right;
-}
-.cmtcnt{
-	width:500px;
-}
-.cmtonebox{
- border-bottom: 1px solid rgba(0,0,0,.2);
-}
-.btnud{
-	font-size: 10px;
-	width: 50px;
-}
-.btnbox{
-	float: right;
-	width: 10%;
-}
-.leftbox{
-	float: left;
-	width: 90%;
-}
-</style>
+<link rel="stylesheet" href="/PreparedKitchen/css/recipecomment.css">
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
@@ -262,19 +217,23 @@ function showAllCmt(data) {
 			var boo = (id == cmtId);
 			html += "<div class='cmtonebox'>"
 			html += "<div id='"+data[i].comment_no+"'>";
+			html += "<div class='leftbox'>";
 			for(var j = 0; j<data[i].comment_tab; j++){
-				html += "<div class='cmtbox'><div>&nbsp;</div></div>";
+				html += "<div class='nbsp'>&nbsp;</div>";
 				if(j+1==data[i].comment_tab){
-					html += "<div class='cmtbox'><div>ㄴ</div></div>";
+					html += "<div>ㄴ</div>";
 				}
 			}
-			html += "<div class='leftbox'><div class='cmtbox'><div class='cmtidbox'>"+data[i].id + "</div></div>";
-			html += "<div class='cmtbox'><div class='cmtcntbox'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></div></div>";
-			html += "<div class='cmtbox'><div class='cmtdatebox'>" + data[i].comment_regdate + "</div></div></div>";
+			html += "<div class='cmtbox'><div class='cmtidbox'>"+data[i].id + "</div>";
+			html += "<div class='cmtcntbox'><a class='cmtcnt' onclick='cmtcmt("+data[i].comment_no+")'>" + data[i].comment_content + "</a></div>";
+			html += "</div>";
+			html += "<div class='rightbox'>";
+			html += "<div class='cmtdatebox'>" + data[i].comment_regdate + "</div>";
 			if(boo){
 				html += "<div class='btnbox'><input class='btnud' type='button' value='수정' onclick='updateCmtfn("+data[i].comment_no+",\""+data[i].comment_content+"\")'/>";
 				html += "<input class='btnud' type='button' value='삭제' onclick='deleteCmtfn("+data[i].comment_no+")'/></div>";
 			}
+			html += "</div>";
 			html += "</div>";
 			html += "</div>";
 		}
