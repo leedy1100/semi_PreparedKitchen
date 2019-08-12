@@ -36,6 +36,19 @@ svg {
 	fill: white;
 	font-weight: bold;
 }
+#charsect{
+	background-color: white;
+}
+.title{
+	margin: 30px;
+	font-weight: 1000;
+	font-size: 25px;
+}
+.imgicon{
+	width: 30px;
+	position: relative;
+	margin-top: 20px;
+}
 </style>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -219,19 +232,16 @@ function productSalesChart(data) {
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/header.jsp" %>
 	</header>
-	<section>
+	<section id="charsect">
 		
-		<h1 style="margin-top: 100px;">레시피추천좋아요 순위 top5</h1>
-		<div class=chartbox id="boardlike"><svg></svg></div>
-		<h1>상품 조회수 top5</h1>
-		<div class=chartbox id="proview"><svg></svg></div>
-		<h1>상품 구매 top5</h1>
-		<div class=chartbox id="prosales"><svg></svg></div>
+		<div class=chartbox id="boardlike"><div class="title"><img class="imgicon" alt="img" src="/PreparedKitchen/image/like.png"/>게시판 좋아요 top5</div><svg></svg></div>
+		<div class=chartbox id="proview"><div class="title"><img class="imgicon" alt="img" src="/PreparedKitchen/image/click.png"/>상품 조회수 top5</div><svg></svg></div>
+		<div class=chartbox id="prosales"><div class="title"><img class="imgicon"alt="img" src="/PreparedKitchen/image/buy2.png"/>상품 구매 top5</div><svg></svg></div>
 	</section>
 
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/footer.jsp" %>
-	</footer>
+	</footer>		
 </body>
 </html>

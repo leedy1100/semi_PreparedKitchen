@@ -49,7 +49,7 @@ section{
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${plist }" var="dto">
-				<div class="main_board_one">
+				<div class="main_board_one" onclick="location.href='/PreparedKitchen/prodetail.do?command=detail&recipeno=${dto.recipe_no}'">
 					<img src="${dto.recipe_img }">
 					<div class="main_board_fade">
 						<p>${dto.recipe_name }</p>
