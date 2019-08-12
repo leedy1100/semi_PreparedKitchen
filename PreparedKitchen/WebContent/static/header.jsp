@@ -51,7 +51,7 @@
 					<li><a href="/PreparedKitchen/prodetail.do?command=detail&recipeno=1">상품디테일</a></li>
 					<li><a href="/PreparedKitchen/product.do?command=adminchart">차트</a></li>
 					<li><a href="/PreparedKitchen/product.do?command=adminrecipeview">상품등록</a></li>
-					<li><a href="/PreparedKitchen/product.do?command=productlist">상품리스트(클릭NO)</a></li>
+					<li><a href="/PreparedKitchen/product.do?command=productlist">상품리스트</a></li>
 				</ul>
 			</li>
 		</ul>
