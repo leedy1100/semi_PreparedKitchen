@@ -26,6 +26,9 @@ td{text-align: center;}
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<%@ include file="manager_menu.jsp" %>
 		<h2>회원 정보</h2>
+		<table>
+
+		</table>
 		
 		<table border="1">
 		<col width="100">
@@ -51,7 +54,7 @@ td{text-align: center;}
 			<c:choose>
 			<c:when test="${empty list }">
 				<tr>
-					<td colspan="4"> ----- 와 이게 회원이 없네 ---- </td>
+					<td colspan="9"> ----- 와 이게 회원이 없네 ---- </td>
 				</tr>
 			</c:when>
 			<c:otherwise>
