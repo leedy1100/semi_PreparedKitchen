@@ -28,7 +28,7 @@
 	text-align: left;
 }
 .cmtcntbox{
-	width: 70%;
+	width: 100%;
 }
 .cmtdatebox{
 	text-align: center;

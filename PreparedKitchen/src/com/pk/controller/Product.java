@@ -17,12 +17,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
-import com.pk.dto.MaterialDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.PagingRecipeDto;
 import com.pk.dto.ProductListDto;
@@ -44,7 +42,6 @@ public class Product extends HttpServlet {
 
 		String command = request.getParameter("command");
 		System.out.println("[" + command + "]");
-		HttpSession session = request.getSession();
 		PrintWriter out = response.getWriter();
 		ProductListBiz pBiz = new ProductListBiz();
 		RecipeBiz rBiz = new RecipeBiz();
@@ -61,8 +58,10 @@ public class Product extends HttpServlet {
 		}
 
 		PagingRecipeDto paging = new PagingRecipeDto(recordsPerPage, currentPageNo);
+		PagingDto paging2 = new PagingDto(recordsPerPage, currentPageNo);
 		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
-
+		int offset2 = (paging2.getCurrentPageNo() - 1) * paging2.getRecordsPerPage();
+		
 		if (command.equals("productview")) {
 
 			JSONArray jArr = new JSONArray();
@@ -161,9 +160,6 @@ public class Product extends HttpServlet {
 				alert(response, "상품등록에 실패했습니다", "product.do?command=category&recipe_reg=N&categoryname=" + categoryname);
 			}
 		}else if(command.equals("productdelete")) {
-			
-			ProductListDto dto = null;
-			List<ProductListDto> list = new ArrayList<ProductListDto>();
 
 			String categoryname = request.getParameter("categoryname");
 			String recipe_no[] = request.getParameterValues("recipe_no");
@@ -172,13 +168,21 @@ public class Product extends HttpServlet {
 			
 			int res = pBiz.deleteProduct(recipe_no);
 			
-			if(res < 0) {
+			if(res > 0) {
 				alert(response, "상품리스트에서 제외 되었습니다.", "product.do?command=reglist&categoryname="+categoryname+"&recipe_reg=Y");
 			}else {
 				alert(response, "상품리스트 제외에 실패했습니다.", "product.do?command=reglist&categoryname="+categoryname+"&recipe_reg=Y");
 			}
+		}else if(command.equals("productlist")) {
 			
+			List<ProductListDto> list = pBiz.selectList(offset2, paging2.getRecordsPerPage());
+			paging2.setNumberOfRecords(pBiz.getNoOfRecords());
+			paging2.makePaging();
 			
+			request.setAttribute("plist", list);
+			request.setAttribute("paging", paging2);
+			
+			dispatch(request, response, "product/productlist.jsp");
 			
 		}
 
