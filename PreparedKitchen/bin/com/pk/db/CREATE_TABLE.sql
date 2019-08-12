@@ -184,7 +184,6 @@ VALUES(PRODUCTLISTSEQ.NEXTVAL, 5, '약식','준비중입니다.',6,46);
 SELECT PRODUCTLISTSEQ.NEXTVAL
 		FROM DUAL;
 
-DELETE FROM PRODUCTLIST;
 ---------------------------------------------------------------
 
 DROP SEQUENCE PAYMENTSEQ;
