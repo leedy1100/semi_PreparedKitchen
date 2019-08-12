@@ -1,6 +1,9 @@
 .userinfo_tr{
     height: 25px;
-    width: 600px;
+    width: 100%;
+}
+th{
+    width: 30%;
 }
 .userinfo_tr td{
     width: 300px;
@@ -8,7 +11,8 @@
 .userinfo_tr input{
     margin-left: 100px;
     border: 0px;
-    width: 100%;
+    width: 70%;
+    height: 20px;
 }
 input[type=submit]{
     float: right;
