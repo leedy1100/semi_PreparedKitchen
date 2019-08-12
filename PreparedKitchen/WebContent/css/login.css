@@ -5,47 +5,80 @@
 }
 
 h1{
+	position: relative;
+	padding: 1px 2.8% 10px 2.8%;
+	top: 230px;
+	left: 40%;
+	width: 20%;
+	border-radius: 10px;
 	text-align: center;
 	color: rgb(241, 255, 76);
+	background-color: rgba(0,0,0,0.7);
 }
 
 #logindiv{
 	background: url("../image/login.jpg") no-repeat;
-	background-size: 100%;
+	background-size: 100% 100%;
 	min-width: 1008px;
-	min-height: 820px;
+	min-height: 900px;
 }
 
 #loginform{
-	background-color: gray;
-	width: 280px;
-	position: relative;
-	top: 50%;
-	left: 50%;
+	position: absolute;
+	background-color: #f3f1ec;
+	border: 5px solid rgb(241,255,76);
+	border-radius: 5%;
+	width: 25%;
+	height: 300px;
+	top: 40%;
+	left: 40%;
 
 }
 
 #snsbtn{
-	margin: 20px 0;
+	margin: 40px 0;
 	text-align: center;
 }
 
 #iddiv{
 	width: 100%;
-	overflow: hidden;
+	height: 30px;
 	padding: 4px 0;
 	margin: 8px 0;
 	text-align: center;
 }
+#iddiv input{
+	width: 90%;
+	height: 100%;
+}
 
 #pwdiv{
 	width: 100%;
-	overflow: hidden;
+	height: 30px;
 	margin: 8px 0;
 	text-align: center;
+}
+#pwdiv input{
+	width: 90%;
+	height: 100%;
 }
 
 #subdiv{
 	margin: 20px 0;
+	width: 100%;
+	height: 30px;
 	text-align: center;
+}
+#subdiv input{
+	position: relative;
+	left: 1%;
+	width: 44%;
+	height: 100%;
+}
+
+#loginform div:last-child a{
+	float: right;
+	position: relative;
+	right: 5%;
+	font-size: 12px;
 }
