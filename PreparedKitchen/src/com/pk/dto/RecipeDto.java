@@ -16,6 +16,7 @@ public class RecipeDto {
 
 	public RecipeDto(int recipe_no, String recipe_name, String recipe_img, String recipe_content,
 			String recipe_nutrient, String recipe_category, String recipe_reg) {
+		super();
 		this.recipe_no = recipe_no;
 		this.recipe_name = recipe_name;
 		this.recipe_img = recipe_img;
@@ -24,6 +25,7 @@ public class RecipeDto {
 		this.recipe_category = recipe_category;
 		this.recipe_reg = recipe_reg;
 	}
+
 
 	public int getRecipe_no() {
 		return recipe_no;
@@ -80,5 +82,7 @@ public class RecipeDto {
 	public void setRecipe_reg(String recipe_reg) {
 		this.recipe_reg = recipe_reg;
 	}
+
+
 	
 }	

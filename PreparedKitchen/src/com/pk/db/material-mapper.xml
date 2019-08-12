@@ -25,5 +25,15 @@
 	<delete id="deleteDummy" parameterType="int">
 		DELETE FROM MATERIAL
 	</delete>
+	
+	<select id="selectListOne" resultType="materialDto">
+		SELECT MATERIAL_NO, RECIPE_NO, MATERIAL_NAME, MATERIAL_CAPACITY, MATERIAL_TYPECODE, MATERIAL_TYPENAME
+		FROM MATERIAL
+		WHERE MATERIAL_NO IN
+		<foreach collection="list" item="item"  open="(" separator="," close=")" >
+           	#{item.material_no}
+        </foreach>
+       	ORDER BY MATERIAL_NO DESC
+	</select>
 
 </mapper>

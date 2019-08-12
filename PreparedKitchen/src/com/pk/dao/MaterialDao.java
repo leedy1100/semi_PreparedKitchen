@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.pk.dto.CartDto;
 import com.pk.dto.MaterialDto;
 
 public class MaterialDao extends SqlMapConfig{
@@ -89,6 +90,22 @@ public class MaterialDao extends SqlMapConfig{
 		}
 		
 		return res;
+	}
+
+	public List<MaterialDto> selectListOne(List<CartDto> cList) {
+		List<MaterialDto> list = new ArrayList<MaterialDto>();
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace + "selectListOne", cList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
 	}
 
 }

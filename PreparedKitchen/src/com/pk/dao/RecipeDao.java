@@ -38,6 +38,7 @@ public class RecipeDao extends SqlMapConfig {
 		try {
 			session = getSqlSessionFactory().openSession(false);
 			res = session.selectList(namespace + "selectListOne", list);
+			this.noOfRecords = session.selectOne(namespace + "totalCountList");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

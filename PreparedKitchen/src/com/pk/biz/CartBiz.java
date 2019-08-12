@@ -9,7 +9,10 @@ public class CartBiz {
 
 	private CartDao dao = new CartDao();
 	
-	public List<CartDto> selectList(String id) {
-		return dao.selectList(id);
+	public List<CartDto> selectList(String id, int recipe_no) {
+		return dao.selectList(id, recipe_no);
+	}
+	public List<CartDto> selectListRecipe(String id) {
+		return dao.selectListRecipe(id);
 	}
 }

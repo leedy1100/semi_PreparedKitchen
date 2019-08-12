@@ -4,6 +4,7 @@ h1{
 }
 h2{
 	margin: 30px 0px 30px 50px;
+	border-bottom: 1px solid rgb(200,200,200);
 }
 #mypage_menubar{
 	position: relative;
@@ -30,4 +31,8 @@ h2{
 }
 .mypage_menu:hover{
 	background-color: rgb(200,200,200);
+}
+#mytable{
+	margin-left: 100px;
+	width: 800px;
 }

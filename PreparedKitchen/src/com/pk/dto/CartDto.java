@@ -15,6 +15,7 @@ public class CartDto {
 		this.recipe_no = recipe_no;
 		this.material_no = material_no;
 	}
+	
 
 	public int getCart_no() {
 		return cart_no;
@@ -47,7 +48,6 @@ public class CartDto {
 	public void setMaterial_no(int material_no) {
 		this.material_no = material_no;
 	}
-	
-	
-	
+
+
 }
