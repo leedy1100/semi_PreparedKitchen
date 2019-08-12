@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -26,7 +27,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.pk.biz.MartBiz;
 import com.pk.biz.PaymentBiz;
+import com.pk.dto.MartDto;
+import com.pk.dto.MemberDto;
 import com.pk.dto.PaymentDto;
 
 
@@ -46,6 +50,7 @@ public class Payment extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		String command = request.getParameter("command");
+		System.out.println("[" + command + "]");
 		
 		if(command.equals("pay")) {
 			URL url = new URL("https://kapi.kakao.com/v1/payment/ready");
@@ -240,7 +245,34 @@ public class Payment extends HttpServlet {
 			
 			response.sendRedirect("/PreparedKitchen/payment/mypagepayment.jsp");
 			
+		} else if(command.equals("confirmpay")) {
+			
+			PrintWriter out = response.getWriter();
+			MemberDto dto = (MemberDto)session.getAttribute("memberDto");
+			
+			if(dto == null) {
+				
+				out.println("<script>");
+				out.println("alert('로그인을 해주세요.');");
+				out.println("history.back();");
+				out.println("</script>");
+				
+			} else {
+				
+				int recipeno = Integer.parseInt(request.getParameter("recipeno"));
+				String product = request.getParameter("proList");
+				String[] proList = product.split(",");
+				
+				MartBiz martBiz = new MartBiz();
+				List<MartDto> list = martBiz.buyProduct(proList);
+				
+				session.setAttribute("productList", list);
+				session.setAttribute("recipeno", recipeno);
+				response.sendRedirect("/PreparedKitchen/payment/confirmpayment.jsp");
+			}
+			
 		}
+		
 	}
 
 }

@@ -33,27 +33,41 @@
 </style>
 <script type="text/javascript">
 	function payDo() {
-		window.open("", "pay_target", "width=500, height=600, left=800, top=200");
-		f1.submit();
+		var selecProduct = $("#materialProduct .selected");
+		var proForm = $("#productForm");
+		var command = $("input[name=command]");
+		var selecList = "";
+		
+		for(var i = 0; i < selecProduct.length; i++){
+			
+			if(i != selecProduct.length-1){
+				selecList += selecProduct.eq(i).attr("title") + ",";
+			} else {
+				selecList += selecProduct.eq(i).attr("title");
+			}
+		}
+		
+		if(selecList.length != 0){
+			command.val("confirmpay");
+			proForm.html(proForm.html()+"<input type='hidden' name='proList' value='" + selecList + "'>");
+			proForm.submit();
+			
+		} else {
+			alert("상품을 선택해 주세요");
+		}
 	}
 </script>
 <body>
-
-	<form action="/PreparedKitchen/payment" method="post" id="pay_form" target="pay_target" name="f1">
-		<div class="pay_block">장바구니</div>
-		<div class="pay_block">관심 레시피</div>
+	<div id="pay_form">
 		<div class="pay_block">
-			<input type="hidden" name="command" value="pay">
-			<input type="hidden" name="partner_order_id" value="0000001">
-			<input type="hidden" name="partner_user_id" value="${memberDto.id }">
-			<input type="hidden" name="item_name" value="레시피 이름 [ 돼지고기, 마늘, 양파 ] ...">
-			<input type="hidden" name="item_code" value="2,3,4">
-			<input type="hidden" name="quantity" value="1">
-			<input type="hidden" name="total_amount" value="10000">
-			<input type="hidden" name="tax_free_amount" value="1000">
+			<input type="button" value="장바구니" onclick="cartDo()">
+		</div>
+		<div class="pay_block">
+			<input type="button" value="관심 레시피" onclick="interestDo()">
+		</div>
+		<div class="pay_block">
 			<input type="button" value="결제하기" onclick="payDo()">
 		</div>
-	</form>
-	
+	</div>
 </body>
 </html>
