@@ -1,6 +1,6 @@
 $(function() {
 	$("header").hover(function() {
-		$("#mainmenu").slideDown(500);
+		$("#mainmenu").slideDown(200);
 	}, function() {
 		$("#mainmenu").hide();
 	});
