@@ -73,12 +73,12 @@ public class CalDto {
 	}
 
 
-	public String getPayment_date() {
+	public String getRecipe_date() {
 		return recipe_date;
 	}
 
 
-	public void setPayment_date(String recipe_date) {
+	public void setRecipe_date(String recipe_date) {
 		this.recipe_date = recipe_date;
 	}
 
