@@ -84,7 +84,6 @@
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/header.jsp" %>
 	</header>
-	
 	<section>
 <div id="menubox">
 <div id="menu" class="menulist">
