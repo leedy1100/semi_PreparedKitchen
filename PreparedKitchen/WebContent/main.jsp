@@ -69,7 +69,7 @@ section{
 	<section>
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<article>
-		<h1 style="margin: 50px;"><a href="/PreparedKitchen/product.do?command=productlist" style="text-decoration: none; color: black;"><img alt="사진" src="/PreparedKitchen/image/recipe.png" id="imgicon">추천 레시피</a></h1>
+		<h1 style="margin: 50px;"><a href="/PreparedKitchen/product.do?command=productlist&order=PRODUCTLIST_NO" style="text-decoration: none; color: black;"><img alt="사진" src="/PreparedKitchen/image/recipe.png" id="imgicon">추천 레시피</a></h1>
 			<c:choose>
 		<c:when test="${empty plist}">
 			<div class="noproduct">상품 준비 중입니다.</div>

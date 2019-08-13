@@ -22,7 +22,6 @@ import com.pk.biz.RecipeBiz;
 import com.pk.biz.RecipeBoardBiz;
 import com.pk.dto.CartDto;
 import com.pk.dto.InterestListDto;
-import com.pk.dto.MaterialDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.PaymentDto;
@@ -32,27 +31,28 @@ import com.pk.dto.RecipeDto;
 @WebServlet("/member.do")
 public class member extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+
 		String command = request.getParameter("command");
-		
+
 		MemberBiz biz = new MemberBiz();
 		PaymentBiz pBiz = new PaymentBiz();
-		RecipeBoardBiz rbBiz = new RecipeBoardBiz();	
+		RecipeBoardBiz rbBiz = new RecipeBoardBiz();
 		CartBiz cBiz = new CartBiz();
 		RecipeBiz rBiz = new RecipeBiz();
 		InterestListBiz iBiz = new InterestListBiz();
 		MaterialBiz mBiz = new MaterialBiz();
-		
+
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
-		
-		MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
-		
+
+		MemberDto mDto = (MemberDto) session.getAttribute("memberDto");
+
 		int currentPageNo = 1;
 		int recordsPerPage = 0;
 
@@ -65,72 +65,69 @@ public class member extends HttpServlet {
 
 		PagingDto paging = new PagingDto(recordsPerPage, currentPageNo);
 		int offset = (paging.getCurrentPageNo() - 1) * paging.getRecordsPerPage();
-		
-		
-		
-		if(command.equals("mypage")) {
+
+		if (command.equals("mypage")) {
 			dispatch(request, response, "userinfo.jsp");
-				
-		}else if(command.equals("id")) {
-			List<RecipeBoardDto> rList = rbBiz.selectListId(offset, paging.getRecordsPerPage(),mDto.getId());
-			
+
+		} else if (command.equals("id")) {
+			List<RecipeBoardDto> rList = rbBiz.selectListId(offset, paging.getRecordsPerPage(), mDto.getId());
+
 			paging.setNumberOfRecords(rBiz.getNoOfRecords());
 			paging.makePaging();
 
 			request.setAttribute("paging", paging);
 			request.setAttribute("rList", rList);
-			
+
 			dispatch(request, response, "myboard.jsp");
-			
-		}else if(command.equals("cal")) {
+
+		} else if (command.equals("cal")) {
 			dispatch(request, response, "mycalendar.jsp");
-			
-			
-		}else if(command.equals("paymentinfo")) {
+
+		} else if (command.equals("paymentinfo")) {
 			List<PaymentDto> pList = pBiz.mySelectList(offset, paging.getRecordsPerPage(), mDto.getId());
-			
+
 			paging.setNumberOfRecords(pBiz.getNoOfRecords());
 			paging.makePaging();
 
 			request.setAttribute("paging", paging);
 			request.setAttribute("pList", pList);
-			
+
 			dispatch(request, response, "paymentinfo.jsp");
-			
-		}else if(command.equals("cart")) {
+
+		} else if (command.equals("cart")) {
 			List<CartDto> cList = cBiz.selectListRecipe(mDto.getId());
-			
+
 			List<Integer> recipe_no_list = new ArrayList<Integer>();
-			for(CartDto cDto : cList) {
+			for (CartDto cDto : cList) {
 				recipe_no_list.add(cDto.getRecipe_no());
 			}
-			
-			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
+
+			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list,mDto.getId());
 
 			paging.setNumberOfRecords(rBiz.getNoOfRecords());
 			paging.makePaging();
 
 			request.setAttribute("paging", paging);
 			request.setAttribute("rList", rList);
-			
+
 			dispatch(request, response, "cart.jsp");
-			
-		}else if(command.equals("interest")) {
+
+		} else if (command.equals("interest")) {
 			List<InterestListDto> iList = iBiz.selectList(mDto.getId());
 			List<Integer> recipe_no_list = new ArrayList<Integer>();
-			for(InterestListDto iDto : iList) {
+
+			for (InterestListDto iDto : iList) {
 				recipe_no_list.add(iDto.getRecipe_no());
 			}
-			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list);
-			
+			List<RecipeDto> rList = rBiz.selectListOne(recipe_no_list, mDto.getId());
+
 			request.setAttribute("rList", rList);
-			
+
 			dispatch(request, response, "interest.jsp");
-			
-			
-		}else if(command.equals("updateinfo")) {
+
+		} else if (command.equals("updateinfo")) {
 			MemberDto dto = new MemberDto();
-			
+
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
@@ -138,8 +135,7 @@ public class member extends HttpServlet {
 			String addr = request.getParameter("addr");
 			String birth = request.getParameter("birth");
 			String email = request.getParameter("email");
-			
-			
+
 			dto.setId(id);
 			dto.setPw(pw);
 			dto.setName(name);
@@ -147,109 +143,152 @@ public class member extends HttpServlet {
 			dto.setAddr(addr);
 			dto.setBirth(birth);
 			dto.setEmail(email);
-			
+
 			int res = biz.updateinfo(dto);
-			
-			if(res>0) {
+
+			if (res > 0) {
 				out.println("<script>");
 				out.println("alert('입력 성공');");
 				out.println("location.href='login.do?command=mypage';");
 				out.println("</script>");
-			}
-			else {
+			} else {
 				out.println("<script>");
 				out.println("alert('입력 실패');");
 				out.println("location.href='login.do?command=mypage';");
 				out.println("</script>");
 			}
-			
-		}else if(command.equals("usermanagement")) {
-			List<MemberDto>list = biz.selectList();
-			
+
+		} else if (command.equals("usermanagement")) {
+			List<MemberDto> list = biz.selectList();
+
 			request.setAttribute("list", list);
 			RequestDispatcher dispatch = request.getRequestDispatcher("usermanagement.jsp");
 			dispatch.forward(request, response);
-	
-		}else if(command.equals("goodbyeuser")) {
+
+		} else if (command.equals("goodbyeuser")) {
 			String id = request.getParameter("id");
-		
+
 			MemberDto dto = new MemberDto();
 			dto.setId(id);
-			
+
 			int res = biz.goodbyeUser(dto);
-			if(res>0) {
+			if (res > 0) {
 				out.println("<script>");
 				out.println("alert('회원탈퇴 완료');");
 				out.println("location.href='member.do?command=usermanagement'");
 				out.println("</script>");
-			}else {
+			} else {
 				out.println("<script>");
 				out.println("alert('회원탈퇴 실패');");
 				out.println("location.href='member.do?command=usermanagement'");
 				out.println("</script>");
 			}
-		}else if(command.equals("managergrant")) {
+		} else if (command.equals("managergrant")) {
 			String id = request.getParameter("id");
-			
+
 			MemberDto dto = new MemberDto();
 			dto.setId(id);
-			
+
 			int res = biz.managerGrant(dto);
-			if(res>0) {
+			if (res > 0) {
 				out.println("<script>");
 				out.println("alert('권한부여 완료');");
 				out.println("location.href='member.do?command=usermanagement'");
 				out.println("</script>");
-			}else {
+			} else {
 				out.println("<script>");
 				out.println("alert('권한부여 실패');");
 				out.println("location.href='member.do?command=usermanagement'");
 				out.println("</script>");
 			}
-		}else if(command.equals("managercollect")) {
+		} else if (command.equals("managercollect")) {
 			String id = request.getParameter("id");
-			
+
 			MemberDto dto = new MemberDto();
 			dto.setId(id);
-			
+
 			int res = biz.managerCollect(dto);
-			if(res>0) {
+			if (res > 0) {
 				out.println("<script>");
 				out.println("alert('권한회수 완료');");
 				out.println("location.href='member.do?command=usermanagement'");
 				out.println("</script>");
-			}else {
+			} else {
 				out.println("<script>");
 				out.println("alert('권한회수 실패');");
 				out.println("location.href='member.do?command=usermanagement'");
 				out.println("</script>");
 			}
-		}else if(command.equals("hiuser")) {
-			List<MemberDto>list = biz.selectList();
-			
+		} else if (command.equals("hiuser")) {
+			List<MemberDto> list = biz.selectList();
+
 			request.setAttribute("list", list);
 			RequestDispatcher dispatch = request.getRequestDispatcher("usermanagement2.jsp");
 			dispatch.forward(request, response);
-		}else if(command.equals("byeuser")) {
-			List<MemberDto>list = biz.selectList();
-			
+		} else if (command.equals("byeuser")) {
+			List<MemberDto> list = biz.selectList();
+
 			request.setAttribute("list", list);
 			RequestDispatcher dispatch = request.getRequestDispatcher("usermanagement3.jsp");
 			dispatch.forward(request, response);
+		} else if (command.equals("insertInterest")) {
+
+			InterestListDto iDto = new InterestListDto();
+			String id = mDto.getId();
+			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
+
+			iDto.setId(id);
+			iDto.setRecipe_no(recipe_no);
+			
+			int res = iBiz.insertInterestRecipe(iDto);
+			System.out.println("res : " + res);
+			PrintWriter pw = response.getWriter();
+			if (res == 1) {
+				pw.println("관심 레시피에 추가 되었습니다.");
+			} else if(res == 2) {
+				pw.println("관심 레시피에서 제외 되었습니다.");
+			}else {
+				pw.println("에러발생");
+			}
+		}else if(command.equals("deleteInterest")) {
+			
+			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
+			
+			int res = iBiz.deleteInterestRecipe(mDto.getId(), recipe_no);
+			
+			if(res > 0) {
+				alert(response, "관심 목록에서 삭제 되었습니다.", "/PreparedKitchen/member.do?command=interest");
+			}else {
+				alert(response, "삭제 실패", "/PreparedKitchen/member.do?command=interest");
+			}
+			
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	public void dispatch(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
-		
+
+	public void dispatch(HttpServletRequest request, HttpServletResponse response, String url)
+			throws ServletException, IOException {
+
 		RequestDispatcher dispatch = request.getRequestDispatcher(url);
 		dispatch.forward(request, response);
+	}
+	
+	public void alert(HttpServletResponse response, String msg, String url) throws IOException {
+
+		PrintWriter out = response.getWriter();
+		String res = "<script type='text/javascript'>\r\n" + "alert('" + msg + "');\r\n" + "location.href='" + url
+				+ "';\r\n" + "</script>";
+
+		out.println(res);
 	}
 
 }

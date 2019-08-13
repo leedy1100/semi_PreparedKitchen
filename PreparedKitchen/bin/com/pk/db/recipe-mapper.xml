@@ -67,10 +67,7 @@
 	
  	<select id="totalCountList" resultType="int">
  		SELECT COUNT(*)
- 		FROM RECIPEBOARD
- 		WHERE 1=1
- 		<if test="id != null">
-	 		AND ID = #{id} 
-	 	</if>
+ 		FROM INTERESTLIST
+ 		WHERE ID = #{value} 
  	</select>
 </mapper>

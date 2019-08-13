@@ -16,7 +16,7 @@ public class ProductListDao extends SqlMapConfig {
 	private String namespace = "productmapper.";
 	int noOfRecords;
 
-	public List<ProductListDto> selectList(int offset, int noOfRecords) {
+	public List<ProductListDto> selectList(int offset, int noOfRecords, String order) {
 
 		SqlSession session = null;
 		List<ProductListDto> list = new ArrayList<ProductListDto>();
@@ -25,6 +25,7 @@ public class ProductListDao extends SqlMapConfig {
 
 		params.put("offset", offset);
 		params.put("noOfRecords", offset + noOfRecords);
+		params.put("order", order);
 
 		session = getSqlSessionFactory().openSession();
 		list = session.selectList(namespace + "selectList", params);
