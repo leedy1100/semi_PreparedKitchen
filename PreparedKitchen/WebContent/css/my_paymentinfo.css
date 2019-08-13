@@ -1,0 +1,33 @@
+#paymentinfo{
+    margin: 0px auto;
+    width: 900px;
+    text-align: center;
+}
+#paymentinfo th{
+    border-right: 1px solid rgb(200,200,200);
+    border-bottom: 1px solid rgb(200,200,200);
+    padding: 5px;
+}
+#paymentinfo th:nth-child(1){
+    width: 200px;
+}
+#paymentinfo th:nth-child(2){
+    width: 400px;
+}
+#paymentinfo th:nth-child(3){
+    width: 100px;
+}
+#paymentinfo th:nth-child(4){
+    width: 100px;
+}
+#paymentinfo th:nth-child(5){
+    width: 100px;
+}
+.paginate{
+    margin-top: 50px;
+    text-align: center;
+}
+.paginate a{
+    color: black;
+    text-decoration: none;
+}

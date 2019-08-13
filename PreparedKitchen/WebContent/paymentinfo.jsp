@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
+<link rel="stylesheet" href="/PreparedKitchen/css/my_paymentinfo.css"/>
 </head>
 <%
 	List<PaymentDto> pList = (List<PaymentDto>)request.getAttribute("pList");
@@ -23,7 +24,7 @@
 		<!-- 본문 내용 소분류는 article 태그 이용 -->
 		<%@ include file="mypage_menu.jsp" %>
 		<h2>결제 내역</h2>
-		<table border="1">
+		<table id="paymentinfo">
 			<tr>
 				<th>결제 번호</th><th>내용</th><th>가격</th><th>결제날짜</th><th>취소/환불</th>
 			</tr>

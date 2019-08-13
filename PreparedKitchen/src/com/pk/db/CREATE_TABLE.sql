@@ -306,7 +306,3 @@ CREATE TABLE MART(
 );
 
 SELECT * FROM MART;
-
-
-
-
