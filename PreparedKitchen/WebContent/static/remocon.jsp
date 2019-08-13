@@ -25,7 +25,8 @@
 			window.open("chatcontroll.jsp", "chat", "");
 		}
 	}
-
+	
+	
 </script>
 <body>
 
