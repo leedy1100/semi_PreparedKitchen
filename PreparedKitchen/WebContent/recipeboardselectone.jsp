@@ -72,6 +72,14 @@ input, select {
 #recipelike:active {
 	
 }
+#imgicon{
+	width: 50px;
+	margin-top: 100px;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
 </style>
 <link rel="stylesheet" href="static/base.css" />
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -107,7 +115,7 @@ $(function() {
 		<%@ include file="static/header.jsp"%>
 	</header>
 	<section>
-		<h1 style="margin-top: 50px;">추천게시판</h1>
+		<h1><a href="recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}"><img alt="사진" src="/PreparedKitchen/image/board.png" id="imgicon">유저 추천 레시피</a></h1>
 		<table class="boardtable">
 			<tr>
 				<th>제목</th>
