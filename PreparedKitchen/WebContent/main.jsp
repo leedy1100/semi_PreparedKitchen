@@ -62,26 +62,6 @@ section{
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>	
-	<h1 style="margin: 50px;"><img alt="사진" src="/PreparedKitchen/image/recipe.png" id="imgicon">추천 레시피</h1>
-			<c:choose>
-		<c:when test="${empty rlist}">
-			<div id="noproduct">상품 준비 중입니다.</div>
-		</c:when>
-		<c:otherwise>
-			<c:forEach items="${rlist }" var="dto" end="7">
-				<div class="main_board_one" onclick="location.href='/PreparedKitchen/prodetail.do?command=detail&recipeno=${dto.recipe_no}'">
-					<img src="${dto.recipe_img }">
-					<div class="main_board_fade">
-						<p>${dto.recipe_name }</p>
-						<img src="/PreparedKitchen/image/click2.png">
-						<p class="view">${dto.view_no }</p>
-						<img src="/PreparedKitchen/image/buy.png">
-						<p>${dto.sales_count }</p>			
-					</div>
-				</div>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>	
 		</article>
 	</section>
 
