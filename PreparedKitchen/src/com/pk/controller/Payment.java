@@ -251,9 +251,9 @@ public class Payment extends HttpServlet {
 		} else if(command.equals("confirmpay")) {
 			
 			PrintWriter out = response.getWriter();
-			MemberDto dto = (MemberDto)session.getAttribute("memberDto");
+			MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
 			
-			if(dto == null) {
+			if(mDto == null) {
 				
 				out.println("<script>");
 				out.println("alert('로그인을 해주세요.');");
