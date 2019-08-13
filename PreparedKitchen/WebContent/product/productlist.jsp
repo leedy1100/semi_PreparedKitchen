@@ -42,7 +42,7 @@ section{
 	</header>
 	<section>
 	<article>
-	<h1 style="margin: 50px;"><img alt="사진" src="/PreparedKitchen/image/recipe.png" id="imgicon">상품 추천</h1>
+	<h1 style="margin: 50px;"><img alt="사진" src="/PreparedKitchen/image/recipe.png" id="imgicon">우리 레시피</h1>
 	<c:choose>
 		<c:when test="${empty plist}">
 			<div id="noproduct">상품 준비 중입니다.</div>

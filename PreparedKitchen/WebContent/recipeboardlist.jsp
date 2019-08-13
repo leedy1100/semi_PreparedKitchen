@@ -24,7 +24,7 @@ input, select {
 #recipeboardlist{
 	position: relative;
 	text-align: center;
-	top: 100px;
+	top: 30px;
 }
 
 #button{
@@ -56,6 +56,10 @@ input, select {
     cursor: pointer;
     color: #58585a;
 }
+#imgicon{
+	width: 50px;
+	margin-top: 100px;
+}
 </style>
 </head>
 
@@ -65,6 +69,7 @@ input, select {
 		<%@ include file="static/header.jsp" %>
 	</header>
 		<section>
+		<h1><a href="/PreparedKitchen/recipeboard.do?command=list" style="text-decoration: none; color: black;"><img alt="사진" src="/PreparedKitchen/image/board.png" id="imgicon">유저 추천 레시피</a></h1>
 		<div id="recipeboardlist">
 			<table class="boardtable">
 				<col width="10%" />
