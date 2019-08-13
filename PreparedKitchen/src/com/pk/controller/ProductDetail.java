@@ -62,7 +62,7 @@ public class ProductDetail extends HttpServlet {
 			
 			for(int i = 0; i < list.size(); i++) {
 				
-				String proName = list.get(i).getMaterial_name();
+				String proName = list.get(i).getItem_name();
 				int proPrice = list.get(i).getMart_price();
 				
 				if(i == 0) {

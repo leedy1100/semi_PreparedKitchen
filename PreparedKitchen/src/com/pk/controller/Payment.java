@@ -40,6 +40,7 @@ import com.pk.dto.RecipeDto;
 public class Payment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private PaymentBiz pBiz = new PaymentBiz();   
+    private MartBiz martBiz = new MartBiz();
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -173,14 +174,14 @@ public class Payment extends HttpServlet {
 				String payment_date = dateform.format(date);
 				
 				for(String sp : split) {
+					int mart_no = Integer.parseInt(sp);
 					PaymentDto pDto = new PaymentDto();
+					MartDto martDto = martBiz.selectOne(mart_no);
 					pDto.setPayment_group(tid);
 					pDto.setId(partner_user_id);
-					pDto.setItem_name(item_name);
-					pDto.setItem_code(item_code);
-					pDto.setPayment_price(total);
-					pDto.setRecipe_no(2);
-					pDto.setMaterial_no(Integer.parseInt(sp));
+					pDto.setItem_name(martDto.getItem_name());
+					pDto.setMart_no(mart_no);
+					pDto.setPayment_price(martDto.getMart_price());
 					pDto.setPayment_date(payment_date);
 					pDto.setRecipe_date(payment_date);
 					pDto.setShipping_addr("배송지");

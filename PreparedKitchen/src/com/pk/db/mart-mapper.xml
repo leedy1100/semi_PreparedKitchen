@@ -3,14 +3,20 @@
 <mapper namespace="martmapper">
 	
 	<select id="selectList" resultType="martDto">
-		SELECT MART_NO, MATERIAL_NAME, MART_PRICE, CATEGORY
+		SELECT MART_NO, ITEM_NAME, MART_PRICE, CATEGORY
 		FROM MART
+	</select>
+	
+	<select id="selectOne" resultType="martDto" parameterType="int">
+		SELECT MART_NO, ITEM_NAME, MART_PRICE, CATEGORY
+		FROM MART
+		WHERE MART_NO = #{mart_no}
 	</select>
 	
 	<insert id="createDummy" parameterType="map">
 		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
 			INTO MART
-			VALUES(#{list.mart_no}, #{list.material_name}, #{list.mart_price}, #{list.category})
+			VALUES(#{list.mart_no}, #{list.item_name}, #{list.mart_price}, #{list.category})
 		</foreach>
 	</insert>
 	
@@ -24,7 +30,7 @@
 	</delete>
 	
 	<select id="selectProduct" parameterType="map" resultType="martDto">
-		SELECT MART_NO, MATERIAL_NAME, MART_PRICE, CATEGORY
+		SELECT MART_NO, ITEM_NAME, MART_PRICE, CATEGORY
 		FROM MART
 		WHERE
 		<foreach collection="strs" item="str" separator="OR">
@@ -33,9 +39,9 @@
 	</select>
 	
 	<select id="buyProduct" parameterType="map" resultType="martDto">
-		SELECT MART_NO, MATERIAL_NAME, MART_PRICE, CATEGORY
+		SELECT MART_NO, ITEM_NAME, MART_PRICE, CATEGORY
 		FROM MART
-		WHERE MATERIAL_NAME IN
+		WHERE ITEM_NAME IN
 		<foreach collection="strs" item="str" open="(" separator="," close=")">
 			 #{str}
 		</foreach>

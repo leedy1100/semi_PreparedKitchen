@@ -3,7 +3,7 @@ package com.pk.dto;
 public class MartDto {
 	
 	private int mart_no;
-	private String material_name;
+	private String item_name;
 	private int mart_price;
 	private String category;
 	
@@ -11,10 +11,10 @@ public class MartDto {
 		
 	}
 
-	public MartDto(int mart_no, String material_name, int mart_price, String category) {
+	public MartDto(int mart_no, String item_name, int mart_price, String category) {
 		super();
 		this.mart_no = mart_no;
-		this.material_name = material_name;
+		this.item_name = item_name;
 		this.mart_price = mart_price;
 		this.category = category;
 	}
@@ -27,12 +27,12 @@ public class MartDto {
 		this.mart_no = mart_no;
 	}
 
-	public String getMaterial_name() {
-		return material_name;
+	public String getItem_name() {
+		return item_name;
 	}
 
-	public void setMaterial_name(String material_name) {
-		this.material_name = material_name;
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
 	}
 
 	public int getMart_price() {
@@ -50,5 +50,6 @@ public class MartDto {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
+
 }

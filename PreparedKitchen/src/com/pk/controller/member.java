@@ -89,7 +89,7 @@ public class member extends HttpServlet {
 		}else if(command.equals("paymentinfo")) {
 			List<PaymentDto> pList = pBiz.mySelectList(offset, paging.getRecordsPerPage(), mDto.getId());
 			
-			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.setNumberOfRecords(pBiz.getNoOfRecords());
 			paging.makePaging();
 
 			request.setAttribute("paging", paging);
