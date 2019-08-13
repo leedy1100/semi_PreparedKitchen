@@ -13,9 +13,9 @@
 
 
 <select id="mycalendar"  resultMap="dtoMap">
-		SELECT R.RECIPE_NAME, P.RECIPE_DATE, P.PAYMENT_NO
+		SELECT R.RECIPE_NAME, P.RECIPE_DATE, P.PAYMENT_NO, R.RECIPE_NO
 		FROM RECIPE R, PAYMENT P
-		WHERE P.ID = #{id}
+		WHERE ID = #{id}
 	</select>
 
 	

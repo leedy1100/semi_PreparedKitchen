@@ -115,7 +115,7 @@
 	                events.push({
 	                  title: $(this).attr('title'),
 	                  start: $(this).attr('start'),
-	                  //url:"//www.google.com"
+	                  url: "prodetail.do?command=detail&recipeno="+$(this).attr('url'),
 	                  description: $(this).attr('description')
 	                  // will be parsed
 	                  
