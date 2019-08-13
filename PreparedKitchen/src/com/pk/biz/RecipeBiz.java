@@ -22,8 +22,8 @@ public class RecipeBiz {
 		return dao.recipeList(category, recipe_reg, offset, noOfRecords);
 	}
 	
-	public List<RecipeDto> selectListOne(List<Integer> list) {
-		return dao.selectListOne(list);
+	public List<RecipeDto> selectListOne(List<Integer> list, String id) {
+		return dao.selectListOne(list, id);
 	}
 
 	public int insert(List<RecipeDto> list) {

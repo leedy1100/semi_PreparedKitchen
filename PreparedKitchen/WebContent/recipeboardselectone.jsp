@@ -89,7 +89,7 @@ $(function() {
 	$('#recipelike').click(function(){
 
 		$.ajax({
-			url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",	//전송할 경로
+			url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
 			method:"get",
 			async:true,	
 			dateType:"text",

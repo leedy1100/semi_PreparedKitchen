@@ -34,9 +34,9 @@ public class ProductListBiz {
 		return res1 + res2;
 	}
 	
-	public List<ProductListDto> selectList(int offset, int noOfRecords) {
+	public List<ProductListDto> selectList(int offset, int noOfRecords, String order) {
 		
-		return productListDao.selectList(offset, noOfRecords);
+		return productListDao.selectList(offset, noOfRecords,order);
 	}
 	
 	public int getNoOfRecords() {

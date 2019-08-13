@@ -56,6 +56,20 @@
 			alert("상품을 선택해 주세요");
 		}
 	}
+	
+	function interestDo() {
+		
+		$.ajax({
+			url:"member.do?command=insertInterest&recipe_no=${recipe.recipe_no }",
+			method:"get",
+			dateType:"text",
+			success:function(msg){
+				alert(msg);
+			}, error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+		});		
+	}
 </script>
 <body>
 	<div id="pay_form">
