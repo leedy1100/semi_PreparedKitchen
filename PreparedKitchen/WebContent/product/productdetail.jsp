@@ -31,7 +31,7 @@
 			</div>
 			<div id="headerRigth">
 				<div id="detailNutrient">영양정보
-					<table border="1">
+					<table>
 						<tr>
 							<th>탄수화물</th>
 							<td></td>
@@ -51,21 +51,23 @@
 					</table>
 				</div>
 				<div id="detailMaterial">
+					<div id="dmtop">
+						<input id="btn" type="button" value="전체선택" onclick="allCho()">
+						<input id="btn" type="button" value="전체해제" onclick="noCho()">
+					</div>
 					<div id="dmLeft">
 						<c:forEach items="${material }" var="mDto">
 							<input class="selected" type="text" value="${mDto.material_name }" readonly="readonly"/>
 						</c:forEach>
 					</div>
 					<div id="dmRight">
-						<input id="btn" type="button" value="전체선택" onclick="allCho()"><br>
-						<input id="btn" type="button" value="전체해제" onclick="noCho()"><br>
-						<input id="btn" type="button" value="상품보기" onclick="showProduct()">
+						<input id="btn" type="button" value="◀" onclick="showProduct()">
 					</div>
 				</div>
-			</div>
-			<div id="materialList">
-				<input id="btn2" type="button" value="재료보기" onclick="hideProduct()">
-				<div id="materialProduct"></div>
+				<div id="materialList">
+					<input id="btn2" type="button" value="▶" onclick="hideProduct()">
+					<div id="materialProduct"></div>
+				</div>
 			</div>
 		</div>
 		

@@ -1,72 +1,175 @@
-
-.selected{
-	color: white;
-	background-color: black;
-	width: 40%;
-}
-.noSelected{
-	color: white;
-	background-color: gray;
-	width: 40%;
-}
-.proCategory .selected{
-	width: 20%;
-}
-.proCategory .noSelected{
-	width: 20%;
-}
-#detailHeader > div{
-	float: left;
+h1{
+	padding: 50px 0px 20px 20px;
+	border-bottom: 1px solid rgb(250,220,50);
+	font-size: 42px;
 }
 #detailHeader{
-	height: 320px;
+	margin: 30px auto;
+	width: 950px;
+	height: 300px;
 }
 #headerLeft{
+	float: left;
 	width: 30%;
+	height: 100%;
+	border-radius: 50%;
+	overflow: hidden;
 }
+#headerRigth{
+	float: right;
+	margin-left: 5%;
+	width: 65%;
+	height: 100%;
+	overflow: hidden;
+}
+#detailBody{
+	width: 100%;
+	min-height: 700px;
+}
+
+
+
 #headerLeft img{
 	width: 300px;
 	height: 300px;
 	border-radius: 50%;
 }
-#headerRigth{
-	width: 70%;
-}
+
+
 #detailNutrient{
 	float: left;
-	width: 50%;
+	margin: 0px 5%;
+	width: 30%;
+	height: 99%;
 	text-align: center;
+	border: 1px solid rgba(190,120,20,0.2);
+	background-color: #f3f1ec;
 }
 #detailNutrient table{
-	width: 80%;
-	text-align: center;
-	margin: 0 auto;
-
+	margin: 20px 0px;
 }
+#detailNutrient th{
+	width: 80px;
+	height: 30px;
+}
+#detailNutrient td{
+	width: 100px;
+}
+
 #detailMaterial{
 	float: right;
-	width: 50%;
-	margin-top: 20px;
+	width: 58%;
+	height: 100%;
+}
+#dmtop{
+	float: left;
+	width: 325px;
+	height: 40px;
+}
+#dmtop input{
+	float: left;
+	margin-left: 6%;
+	width: 40%;
 }
 #dmLeft{
-	width: 80%;
 	float: left;
+	width: 325px;
+}
+#dmLeft input{
+	margin: 2px 0px;
+	width: 100px;
+	height: 20px;
+	text-align: center;
+	color: rgb(80,80,80);
+	cursor: pointer;
 }
 #dmRight{
-	width: 20%;
-	float: right;
-}
-#materialList{
-	background-color: gray;
 	position: relative;
+	float: right;
+	top: -40px;
+	width: 30px;
+	height: 100%;
+}
+#dmRight input{
+	border: 0px;
+	width: 30px;
+	height: 100%;
+	border-radius: 8px 0px 0px 8px;
+	background-color: rgb(241, 255, 76);
+	cursor: pointer;
 }
 
 
+#materialList{
+	position: relative;
+	left: 700px;
+	opacity: 1;
+	border-radius: 8px 0px 0px 8px;
+	background-color: rgb(241, 255, 76);
+	transition: 1s;
+}
+#materialList > input{
+	position: relative;
+	border: 0px;
+	top: -299px;
+	width: 30px;
+	height: 100%;
+	border-radius: 8px 0px 0px 8px;
+	background-color: rgb(241, 255, 76);
+	cursor: pointer;
+}
+#materialProduct{
+	position: relative;
+	top: -588px;
+	left: 30px;
+	width: 587px;
+	height: 280px;
+	border-radius: 8px;
+	overflow-y: scroll;
+	background-color: #f3f1ec;
+}
+.proCategory{
+	margin: 10px;
+}
+.proCategory p{
+	height: 30px;
+}
+.proCategory input{
+	margin: 2px;
+	min-height: 30px;
+}
 
 
+#materialBox{
+	margin: 100px;
+	border: 2px solid rgb(250,220,50);
+	border-radius: 20px;
+	padding: 40px 60px;
+	width: 700px;
+	min-height: 60px;
+}
+.contentDiv{
+	clear: both;
+	margin: 0px 100px;
+	line-height: 100px;
+	text-align: center;
+}
+.contentDiv img{
+	float: right;
+	width: 200px;
+	height: 200px;
+}
 
-
-
-
-
-
+.selected{
+	border-top: 2px solid rgb(150,150,150);
+	border-left: 2px solid rgb(150,150,150);
+	border-right: 0px solid rgb(150,150,150);
+	border-bottom: 0px solid rgb(200,200,200);
+	background-color: rgba(250,230,50,0.8);
+}
+.noSelected{
+	border-top: 0px solid rgb(200,200,200);
+	border-left: 0px solid rgb(200,200,200);
+	border-right: 2px solid rgb(150,150,150);
+	border-bottom: 2px solid rgb(150,150,150);
+	background-color: rgba(250,230,50,0.2);
