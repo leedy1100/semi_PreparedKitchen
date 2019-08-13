@@ -98,7 +98,7 @@ input, select {
 								<td>${dto.recipeBoard_regdate }</td>
 								<td>${dto.id }</td>
 								<td>${dto.recipeBoard_like }</td>
-								<th>${dto.recipeBoard_readCount }</th>
+								<td>${dto.recipeBoard_readCount }</td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
