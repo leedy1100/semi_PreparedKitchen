@@ -39,7 +39,7 @@ td{text-align: center;}
 				<td>
 					<select name="member" onchange="selectMember(this.value)">
 						<option value="usermanagement">전체보기</option>
-						<option value="hiuser">가입된 회원</option>
+						<option value="hiuser" selected>가입된 회원</option>
 						<option value="byeuser">탈퇴한 회원</option>
 					</select>
 				</td>
