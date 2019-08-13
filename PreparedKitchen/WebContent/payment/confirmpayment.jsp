@@ -52,6 +52,9 @@
 			<hr>
 			
 			<div id="payProductDiv">
+				<c:forEach items="${recipeList }" var="recipeDto0">
+					
+				</c:forEach>
 				<c:forEach items="${productList }" var="martDto" varStatus="status">
 					<div class="proListDiv">
 						<input type="hidden" name="mart_item_name" value="${martDto.item_name }">
@@ -81,9 +84,8 @@
 			<hr>
 			
 			<div id="totalPriceDiv">
-				총 : ${totalPrice }원
 				${item_name }
-				${item_code }
+				총 : ${totalPrice }원
 			</div>
 			<input type="hidden" name="command" value="pay">
 			<input type="hidden" name="partner_order_id" value="0000001">
