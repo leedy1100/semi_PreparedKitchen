@@ -89,8 +89,6 @@ section{
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>	
-<<<<<<< HEAD
-=======
 	<h1 style="margin: 50px;"><img alt="사진" src="/PreparedKitchen/image/board.png" id="imgicon">유저 추천 레시피</h1>
 			<c:choose>
 		<c:when test="${empty rlist}">
@@ -124,7 +122,6 @@ section{
 			</table>
 		</c:otherwise>
 	</c:choose>	
->>>>>>> refs/remotes/origin/ldy2
 		</article>
 	</section>
 	<footer>
