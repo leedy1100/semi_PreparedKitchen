@@ -61,7 +61,7 @@ public class calcontroller extends HttpServlet {
 				hm.put("title", list.get(i).getRecipe_name());
 				hm.put("start", list.get(i).getRecipe_date());
 				hm.put("description", list.get(i).getPayment_no());
-				
+				hm.put("url", list.get(i).getRecipe_no());
 				
 				jArr.add(hm);
 			}
