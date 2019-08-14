@@ -14,19 +14,19 @@
 
 	<select id="mycalendar"  resultMap="dtoMap">
 		SELECT CALENDAR_NO, PAYMENT_GROUP, RECIPE_DATE, RECIPE_NAME, RECIPE_NO
-		FROM CALENDAR
+		FROM CALENDAR2
 		WHERE ID = #{id}
 	</select>
 
 	
 	<update id="updatecalendar" parameterType="CalDto">
-		UPDATE  CALENDAR
+		UPDATE  CALENDAR2
   		SET  RECIPE_DATE =#{recipe_date}
   		WHERE CALENDAR_NO =#{calendar_no}
 	</update>
 
 	<insert id="insercalendar" parameterType="CalDto">
- 		INSERT INTO CALENDAR
+ 		INSERT INTO CALENDAR2
  		VALUES(CALENDARSEQ.NEXTVAL, #{payment_group}, #{recipe_date}, #{recipe_name}, #{recipe_no}, #{id})
  	</insert>
 

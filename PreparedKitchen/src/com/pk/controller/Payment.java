@@ -143,10 +143,9 @@ public class Payment extends HttpServlet {
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
 
-			String recipeno = session.getAttribute("recipeno").toString();
-
-			String recipe_name = (String)session.getAttribute("recipe_name");
-			int recipe_no = (int) session.getAttribute("recipe_no");
+			String[] recipeno = (String[])session.getAttribute("recipeno");
+			
+			int recipe_no = (Integer)session.getAttribute("recipe_no");
 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
@@ -213,7 +212,7 @@ public class Payment extends HttpServlet {
 				cDto.setId(partner_user_id);
 				cDto.setPayment_group(tid);
 				cDto.setRecipe_date(recipe_date);
-				cDto.setRecipe_name(recipe_name);
+				//cDto.setRecipe_name(recipe_name);
 				cDto.setRecipe_no(recipe_no);
 
 				Clist.add(cDto);
@@ -318,6 +317,7 @@ public class Payment extends HttpServlet {
 				RecipeBiz recipeBiz = new RecipeBiz();
 				List<RecipeDto> rList = recipeBiz.selectListPay(recipenos);
 				
+				session.setAttribute("recipeno", recipeno_arr);
 				session.setAttribute("productList", list);
 				session.setAttribute("recipeList", rList);
 				response.sendRedirect("/PreparedKitchen/payment/confirmpayment.jsp");

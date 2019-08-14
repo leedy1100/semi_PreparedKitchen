@@ -49,8 +49,7 @@ public class ProductListBiz {
 		return productListDao.hit(recipe_no);
 	}
 	
-	public int salesCount(String recipe_no) {
-		
+	public int salesCount(String[] recipe_no) {
 		return productListDao.salesCount(recipe_no);
 	}
 }

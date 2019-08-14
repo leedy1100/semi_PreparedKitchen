@@ -78,11 +78,12 @@
 		SET VIEW_NO = VIEW_NO + 1
 		WHERE RECIPE_NO = #{value}
 	</update>
-	
-	<update id="salesCount" parameterType="String">
+	<update id="salesCount" parameterType="map">
+		<foreach collection="recipeno" item="recipe_no" separator=";" open="DECLARE BEGIN" close="; END;">
 		UPDATE PRODUCTLIST
 		SET SALES_COUNT = SALES_COUNT + 1
-		WHERE RECIPE_NO = #{value}
+		WHERE RECIPE_NO = #{recipe_no}
+		</foreach>
 	</update>
 	
 </mapper>

@@ -67,7 +67,7 @@
 			<tr>
 				<td>
 					<input type="checkbox" class="martChk<%=rDto.getRecipe_no() %>" name="mChk"  value="<%=martDto.getMart_price() %>">
-					<input type="hidden" value="<%=martDto.getMart_no() %>">
+					<input type="hidden" value="<%=martDto.getItem_name() %>">
 				</td>
 				<td></td>
 				<td><%=martDto.getItem_name()%></td>
@@ -78,6 +78,11 @@
 				}
 			}
 %>
+			<tr>
+				<td colspan="4">
+					<input type="button" value="결제하기" onclick="cartPay()">
+				</td>
+			</tr>
 		</table>
 		<form action="payment" method="post" id="cartForm">
 			<input type="hidden" name="command" value="confirmpay">

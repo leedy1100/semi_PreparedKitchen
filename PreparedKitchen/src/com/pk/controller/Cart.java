@@ -52,7 +52,7 @@ public class Cart extends HttpServlet {
 			} else {
 				
 				String id = mDto.getId();
-				int recipeno = Integer.parseInt(request.getParameter("recipeno"));
+				int recipeno = Integer.parseInt(request.getParameter("recipenos"));
 				String product = request.getParameter("proList");
 				String[] proList = product.split(",");
 				

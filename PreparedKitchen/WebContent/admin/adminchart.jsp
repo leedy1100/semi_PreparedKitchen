@@ -24,11 +24,11 @@ svg {
 }
 
 .bar {
-	fill: skyblue;
+	fill: #d7c530;
 }
 
 .bar:hover {
-	fill: blue;
+	fill: #979bob;
 }
 
 .text {
