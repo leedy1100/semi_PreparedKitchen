@@ -192,14 +192,16 @@ public class ProductListDao extends SqlMapConfig {
 		return res;
 	}
 
-	public int salesCount(int recipe_no) {
+	public int salesCount(String[] recipe_no) {
 
 		SqlSession session = null;
 		int res = 0;
-		System.out.println("recipe_no : " + recipe_no);
+		Map<String, String[]> mp = new HashMap<String, String[]>();
+		mp.put("recipeno", recipe_no);
+		
 		try {
 			session = getSqlSessionFactory().openSession(true);
-			res = session.update(namespace + "salesCount", recipe_no);
+			res = session.update(namespace + "salesCount", mp);
 
 		} catch (Exception e) {
 			e.printStackTrace();
