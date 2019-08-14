@@ -53,6 +53,7 @@
 			<hr>
 			
 			<div id="payProductDiv">
+<<<<<<< HEAD
 				<c:forEach items="${recipeList }" var="recipeDto" varStatus="status">
 					<c:choose>
 						<c:when test="${status.first }">
@@ -62,6 +63,11 @@
 							<c:set var="recipenos" value="${recipenos },${recipeDto.recipeno }"/>
 						</c:otherwise>
 					</c:choose>
+=======
+				<c:forEach items="${recipeList }" var="recipeDto">
+					<input type="hidden" name="recipe_name" value="${recipeDto.recipe_name }">
+					<input type="hidden" name="recipe_no" value="${recipeDto.recipe_no }">
+>>>>>>> refs/heads/LJS123
 				</c:forEach>
 				<c:forEach items="${productList }" var="martDto" varStatus="status">
 					<div class="proListDiv">
@@ -102,8 +108,14 @@
 			<input type="hidden" name="quantity" value="1">
 			<input type="hidden" name="total_amount" value="${totalPrice }">
 			<input type="hidden" name="tax_free_amount" value="0">
+<<<<<<< HEAD
 			<input type="hidden" name="recipenos" value="${recipenos }">
 			<input id="pay_do" type="button" value="결제하기" onclick="payDo()">
+=======
+			<input type="hidden" name="recipe_name" value="${recipe_name }">
+			<input type="hidden" name="recipe_no" value="${recipe_no }">
+			<input type="submit" value="결제하기">
+>>>>>>> refs/heads/LJS123
 		</form>
 	</section>
 	<iframe id="pay_frame" name="pay_target"></iframe>

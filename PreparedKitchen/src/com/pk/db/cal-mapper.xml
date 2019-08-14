@@ -3,25 +3,31 @@
 <mapper namespace="calendarmapper">
 
 <resultMap type="CalDto" id="dtoMap">
- 		<result property="recipe_name" column="RECIPE_NAME"/>
- 		<result property="recipe_date" column="RECIPE_DATE"/>
- 		<result property="payment_no" column="PAYMENT_NO"/>
+ 		<result property="calendar_no" column="CALENDAR_NO"/>
  		<result property="payment_group" column="PAYMENT_GROUP"/>
+ 		<result property="recipe_date" column="RECIPE_DATE"/>
+ 		<result property="recipe_name" column="RECIPE_NAME"/>
  		<result property="recipe_no" column="RECIPE_NO"/>
  		<result property="id" column="ID"/>
 </resultMap>
 
 
-<select id="mycalendar"  resultMap="dtoMap">
-		SELECT R.RECIPE_NAME, P.RECIPE_DATE, P.PAYMENT_NO, R.RECIPE_NO
-		FROM RECIPE R, PAYMENT P
+	<select id="mycalendar"  resultMap="dtoMap">
+		SELECT CALENDAR_NO, PAYMENT_GROUP, RECIPE_DATE, RECIPE_NAME, RECIPE_NO
+		FROM CALENDAR
 		WHERE ID = #{id}
 	</select>
 
 	
-<update id="updatecalendar" parameterType="CalDto">
-UPDATE  PAYMENT
-  	SET  RECIPE_DATE =#{recipe_date}
-  	WHERE ID=#{id} AND PAYMENT_NO=#{payment_no}
-</update>
+	<update id="updatecalendar" parameterType="CalDto">
+		UPDATE  CALENDAR
+  		SET  RECIPE_DATE =#{recipe_date}
+  		WHERE CALENDAR_NO =#{calendar_no}
+	</update>
+
+	<insert id="insercalendar" parameterType="CalDto">
+ 		INSERT INTO CALENDAR
+ 		VALUES(CALENDARSEQ.NEXTVAL, #{payment_group}, #{recipe_date}, #{recipe_name}, #{recipe_no}, #{id})
+ 	</insert>
+
 </mapper>

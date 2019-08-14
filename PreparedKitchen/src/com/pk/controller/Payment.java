@@ -25,13 +25,21 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+<<<<<<< HEAD
 import com.pk.biz.CartBiz;
+=======
+import com.pk.biz.CalendarBiz;
+>>>>>>> refs/heads/LJS123
 import com.pk.biz.MartBiz;
 import com.pk.biz.MaterialBiz;
 import com.pk.biz.PaymentBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
+<<<<<<< HEAD
 import com.pk.dto.CartDto;
+=======
+import com.pk.dto.CalDto;
+>>>>>>> refs/heads/LJS123
 import com.pk.dto.MartDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PaymentDto;
@@ -71,8 +79,15 @@ public class Payment extends HttpServlet {
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
+<<<<<<< HEAD
 	       
 			Map<String, String> params = new HashMap<String, String>();
+=======
+			String recipe_name = request.getParameter("recipe_name");
+			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
+			
+	        Map<String, String> params = new HashMap<String, String>();
+>>>>>>> refs/heads/LJS123
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
 	        params.put("partner_user_id", partner_user_id);
@@ -112,6 +127,8 @@ public class Payment extends HttpServlet {
 				session.setAttribute("partner_user_id", partner_user_id);
 				session.setAttribute("item_name", item_name);
 				session.setAttribute("item_code", item_code);
+				session.setAttribute("recipe_name", recipe_name);
+				session.setAttribute("recipe_no", recipe_no);
 				
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -136,8 +153,14 @@ public class Payment extends HttpServlet {
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
+<<<<<<< HEAD
 			String recipeno = session.getAttribute("recipeno").toString();
 
+=======
+			String recipe_name = (String)session.getAttribute("recipe_name");
+			int recipe_no = (int) session.getAttribute("recipe_no");
+			
+>>>>>>> refs/heads/LJS123
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
 			map.put("tid", tid);
@@ -170,15 +193,19 @@ public class Payment extends HttpServlet {
 				
 				// subString 으로 item_code 자른 후 각각의 재료no로 list에 담는다
 				List<PaymentDto> list = new ArrayList<PaymentDto>();
+				List<CalDto> Clist = new ArrayList<CalDto>();
 				
 				String[] split = item_code.split(",");
 				Date date = new Date();
 				SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-dd  hh시");
+				SimpleDateFormat dateform2 = new SimpleDateFormat("yyyy-MM-dd");
 				String payment_date = dateform.format(date);
+				String recipe_date = dateform2.format(date);
 				
 				for(String sp : split) {
 					int mart_no = Integer.parseInt(sp);
 					PaymentDto pDto = new PaymentDto();
+					CalDto cDto = new CalDto();
 					MartDto martDto = martBiz.selectOne(mart_no);
 					pDto.setPayment_group(tid);
 					pDto.setId(partner_user_id);
@@ -191,6 +218,15 @@ public class Payment extends HttpServlet {
 					
 					list.add(pDto);
 					
+					cDto.setId(partner_user_id);
+					cDto.setPayment_group(tid);
+					cDto.setRecipe_date(recipe_date);
+					cDto.setRecipe_name(recipe_name);
+					cDto.setRecipe_no(recipe_no);
+					
+					
+					Clist.add(cDto);
+					
 				}
 				
 				int res = pBiz.insert(list);
@@ -198,6 +234,13 @@ public class Payment extends HttpServlet {
 				if(res == list.size()) {
 					System.out.println("db 저장 성공");
 					proBiz.salesCount(recipeno);
+				}else {
+					System.out.println("db 저장 실패");
+				}
+				CalendarBiz cBiz = new CalendarBiz();
+				int cres = cBiz.insercalendar(Clist);
+				if(cres == Clist.size()) {
+					System.out.println("db 저장 성공");
 				}else {
 					System.out.println("db 저장 실패");
 				}

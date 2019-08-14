@@ -19,5 +19,9 @@ public class CalendarBiz {
 	public int updatecalendar(CalDto dto) {
 		return dao.updatecalendar(dto);
 	}
+	
+	public int insercalendar(List<CalDto> list) {
+		return dao.insert(list);
+	}
 
 }
