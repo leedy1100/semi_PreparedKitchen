@@ -76,7 +76,6 @@ public class Payment extends HttpServlet {
 
 			String recipe_name = request.getParameter("recipe_name");
 			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
-		
 
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
@@ -145,7 +144,6 @@ public class Payment extends HttpServlet {
 			String pg_token = request.getParameter("pg_token");
 
 			String recipeno = session.getAttribute("recipeno").toString();
-
 
 			String recipe_name = (String)session.getAttribute("recipe_name");
 			int recipe_no = (int) session.getAttribute("recipe_no");
@@ -242,8 +240,11 @@ public class Payment extends HttpServlet {
 			
 
 			System.out.println("success 이동");
-			
-			response.sendRedirect("payment/success.jsp");
+
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("parent.location.href='/PreparedKitchen/paymentinfo.jsp';");
+			out.println("</script>");
 			
 		}else if(command.equals("cancle")) {
 			URL url = new URL("https://kapi.kakao.com/v1/payment/cancel");
