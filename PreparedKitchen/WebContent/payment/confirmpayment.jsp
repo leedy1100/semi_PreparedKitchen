@@ -107,10 +107,9 @@
 			<input type="hidden" name="total_amount" value="${totalPrice }">
 			<input type="hidden" name="tax_free_amount" value="0">
 			<input type="hidden" name="recipenos" value="${recipenos }">
-			<input id="pay_do" type="button" value="결제하기" onclick="payDo()">
 			<input type="hidden" name="recipe_name" value="${recipe_name }">
 			<input type="hidden" name="recipe_no" value="${recipe_no }">
-			<input type="submit" value="결제하기">
+			<input id="pay_do" type="button" value="결제하기" onclick="payDo()">
 		</form>
 	</section>
 	<iframe id="pay_frame" name="pay_target"></iframe>
