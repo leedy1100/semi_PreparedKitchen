@@ -174,4 +174,40 @@ public class ProductListDao extends SqlMapConfig {
 		return res;
 	}
 
+	public int hit(int recipe_no) {
+
+		SqlSession session = null;
+		int res = 0;
+
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.update(namespace + "hit", recipe_no);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return res;
+	}
+
+	public int salesCount(String recipe_no) {
+
+		SqlSession session = null;
+		int res = 0;
+		System.out.println("recipe_no : " + recipe_no);
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			res = session.update(namespace + "salesCount", recipe_no);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return res;
+	}
+
 }

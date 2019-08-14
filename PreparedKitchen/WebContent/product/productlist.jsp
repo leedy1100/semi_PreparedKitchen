@@ -38,10 +38,19 @@ section{
 .selectOrder li{
 	list-style: none;
 	display: inline-block;
+	font-weight: 700;
+	border-left: 2px solid gray;
+	padding-left: 8px;	
+}
+.selectOrder li:first-child{
+	border: none;
 }
 .selectOrder li a{
 	text-decoration: none;
 	color: gray;
+}
+.selectOrder li :hover{
+	color: black;
 }
 #select{
 	width: 100%;
