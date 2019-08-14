@@ -243,7 +243,7 @@ public class Payment extends HttpServlet {
 
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("parent.location.href='/PreparedKitchen/paymentinfo.jsp';");
+			out.println("parent.location.href='/PreparedKitchen/member.do?command=paymentinfo';");
 			out.println("</script>");
 			
 		}else if(command.equals("cancle")) {
@@ -282,9 +282,9 @@ public class Payment extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			int res = pBiz.delete(tid);
+			pBiz.delete(tid);
 			
-			response.sendRedirect("/PreparedKitchen/payment/mypagepayment.jsp");
+			response.sendRedirect("/PreparedKitchen/member.do?command=paymentinfo");
 			
 		} else if(command.equals("confirmpay")) {
 			

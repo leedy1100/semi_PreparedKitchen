@@ -41,7 +41,7 @@
 						<td><%=pDto.getItem_name() %></td>
 						<td><%=pDto.getPayment_price() %></td>
 						<td><%=pDto.getPayment_date()%></td>
-						<td><input type="button" value="취소" onclick="location.href='canclepage.jsp?tid=<%=pDto.getPayment_group()%>'"></td>
+						<td><input type="button" value="취소" onclick="location.href='/PreparedKitchen/payment/canclepage.jsp?tid=<%=pDto.getPayment_group()%>'"></td>
 					</tr>
 <%
 				}
