@@ -192,7 +192,7 @@ public class ProductListDao extends SqlMapConfig {
 		return res;
 	}
 
-	public int salesCount(String recipe_no) {
+	public int salesCount(int recipe_no) {
 
 		SqlSession session = null;
 		int res = 0;

@@ -142,11 +142,8 @@ public class Payment extends HttpServlet {
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
-
-			String recipeno = session.getAttribute("recipeno").toString();
-
 			String recipe_name = (String)session.getAttribute("recipe_name");
-			int recipe_no = (int) session.getAttribute("recipe_no");
+			int recipe_no = (Integer)session.getAttribute("recipe_no");
 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
@@ -222,7 +219,7 @@ public class Payment extends HttpServlet {
 				
 				if(res == list.size()) {
 					System.out.println("db 저장 성공");
-					proBiz.salesCount(recipeno);
+					proBiz.salesCount(recipe_no);
 				}else {
 					System.out.println("db 저장 실패");
 				}
