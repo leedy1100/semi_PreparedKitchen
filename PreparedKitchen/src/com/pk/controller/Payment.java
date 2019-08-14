@@ -192,7 +192,7 @@ public class Payment extends HttpServlet {
 				for(String sp : split) {
 					int mart_no = Integer.parseInt(sp);
 					PaymentDto pDto = new PaymentDto();
-					CalDto cDto = new CalDto();
+					
 					MartDto martDto = martBiz.selectOne(mart_no);
 					pDto.setPayment_group(tid);
 					pDto.setId(partner_user_id);
@@ -205,16 +205,18 @@ public class Payment extends HttpServlet {
 					
 					list.add(pDto);
 					
-					cDto.setId(partner_user_id);
-					cDto.setPayment_group(tid);
-					cDto.setRecipe_date(recipe_date);
-					cDto.setRecipe_name(recipe_name);
-					cDto.setRecipe_no(recipe_no);
 					
-					
-					Clist.add(cDto);
 					
 				}
+				CalDto cDto = new CalDto();
+				
+				cDto.setId(partner_user_id);
+				cDto.setPayment_group(tid);
+				cDto.setRecipe_date(recipe_date);
+				cDto.setRecipe_name(recipe_name);
+				cDto.setRecipe_no(recipe_no);
+
+				Clist.add(cDto);
 				
 				int res = pBiz.insert(list);
 				

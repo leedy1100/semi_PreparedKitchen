@@ -323,9 +323,6 @@ SELECT * FROM MART;
 
 ------------------------------------------------------------------
 DROP SEQUENCE CALENDARSEQ;
-=======
-DROP SEQUENCE CALENDAR;
->>>>>>> refs/heads/master
 DROP TABLE CALENDAR;
 
 CREATE SEQUENCE CALENDARSEQ;
