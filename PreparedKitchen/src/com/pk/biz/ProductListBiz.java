@@ -50,7 +50,6 @@ public class ProductListBiz {
 	}
 	
 	public int salesCount(String[] recipe_no) {
-		
 		return productListDao.salesCount(recipe_no);
 	}
 }
