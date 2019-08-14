@@ -266,4 +266,20 @@ CREATE TABLE CALENDAR2(
 
 SELECT * FROM CALENDAR2
 
+--------------------------------------------------------------------------------------------------------------------------------
+
+DROP SEQUENCE CHATSEQ;
+DROP TABLE CHAT;
+
+CREATE SEQUENCE CHATSEQ;
+CREATE TABLE CHAT(
+	ROOM NUMBER PRIMARY KEY,
+	HAS_ADMIN VARCHAR2(2) NOT NULL,
+	HAS_USER VARCHAR2(2) NOT NULL
+);
+
+INSERT INTO CHAT VALUES(1, 'N', 'N');
+
+SELECT * FROM CHAT;
+
 
