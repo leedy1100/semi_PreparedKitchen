@@ -32,9 +32,7 @@
 
 </style>
 </head>
-<%
-	List<RecipeBoardDto> rList = (List<RecipeBoardDto>)request.getAttribute("rList");
-%>
+
 <body>
 	<header><%@ include file="static/header.jsp" %></header>
 	
@@ -52,29 +50,28 @@
 			<tr>
 				<th>글 번호</th><th>제목</th><th>조회수</th><th>좋아요</th><th>날짜</th><th>수정/삭제</th>
 			</tr>
-<%
-			if(rList == null) {
-%>
-				<tr><td colspan="6">작성된 글이 없습니다.</td></tr>
-<%
-			}else {
-				for(RecipeBoardDto rDto : rList) {
-%>
-					<tr>
-						<td><%=rDto.getRecipeBoard_no() %></td>
-						<td><%=rDto.getRecipeBoard_title() %></td>
-						<td><%=rDto.getRecipeBoard_readCount() %></td>
-						<td><%=rDto.getRecipeBoard_like() %></td>
-						<td><%=rDto.getRecipeBoard_regdate() %></td>
-						<td>
-							<input type="button" value="수정">
-							<input type="button" value="삭제">
-						</td>
-					</tr>
-<%
-				}
-			}
-%>
+				<c:choose>
+					<c:when test="${empty list }">
+						<tr>
+							<td colspan="6">작성된 글이 존재하지 않습니다</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${rList }" var="dto">
+							<tr>
+								<td>${dto.recipeBoard_no }</td>
+								<td><a class="recipecnt"
+									href="recipeboard.do?command=selectone&recipeBoard_no=${dto.recipeBoard_no }
+						&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}
+						&pages=${paging.currentPageNo}&lines=${paging.recordsPerPage}">${dto.recipeBoard_title }</a></td>
+								<td>${dto.recipeBoard_regdate }</td>
+								<td>${dto.id }</td>
+								<td>${dto.recipeBoard_like }</td>
+								<td>${dto.recipeBoard_readCount }</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 		</table>
 		<jsp:include page="mypage_paging/myboard.jsp" flush="true">
 			<jsp:param name="recordsPerPage" value="${paging.recordsPerPage}" />
