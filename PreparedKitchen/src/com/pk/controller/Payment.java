@@ -7,12 +7,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +25,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.pk.biz.CartBiz;
 import com.pk.biz.MartBiz;
+import com.pk.biz.MaterialBiz;
 import com.pk.biz.PaymentBiz;
+import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
+import com.pk.dto.CartDto;
 import com.pk.dto.MartDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PaymentDto;
@@ -54,6 +56,7 @@ public class Payment extends HttpServlet {
 		HttpSession session = request.getSession();
 		String command = request.getParameter("command");
 		System.out.println("[" + command + "]");
+		ProductListBiz proBiz = new ProductListBiz();
 		
 		if(command.equals("pay")) {
 			URL url = new URL("https://kapi.kakao.com/v1/payment/ready");
@@ -68,8 +71,8 @@ public class Payment extends HttpServlet {
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
-			
-	        Map<String, String> params = new HashMap<String, String>();
+	       
+			Map<String, String> params = new HashMap<String, String>();
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
 	        params.put("partner_user_id", partner_user_id);
@@ -127,14 +130,14 @@ public class Payment extends HttpServlet {
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
 			
-			
 			String tid = (String)session.getAttribute("tid");
 			String partner_order_id = (String)session.getAttribute("partner_order_id");
 			String partner_user_id = (String)session.getAttribute("partner_user_id");
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
-			
+			String recipeno = session.getAttribute("recipeno").toString();
+
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
 			map.put("tid", tid);
@@ -194,6 +197,7 @@ public class Payment extends HttpServlet {
 				
 				if(res == list.size()) {
 					System.out.println("db 저장 성공");
+					proBiz.salesCount(recipeno);
 				}else {
 					System.out.println("db 저장 실패");
 				}
@@ -266,7 +270,7 @@ public class Payment extends HttpServlet {
 				int recipeno = Integer.parseInt(request.getParameter("recipeno"));
 				String product = request.getParameter("proList");
 				String[] proList = product.split(",");
-				
+				System.out.println("confirmpay부분 : " + request.getParameter("recipeno"));
 				MartBiz martBiz = new MartBiz();
 				List<MartDto> list = martBiz.buyProduct(proList);
 				
@@ -276,13 +280,13 @@ public class Payment extends HttpServlet {
 				
 				rList.add(rDto);
 				
+				session.setAttribute("recipeno", recipeno);
 				session.setAttribute("productList", list);
 				session.setAttribute("recipeList", rList);
 				response.sendRedirect("/PreparedKitchen/payment/confirmpayment.jsp");
 			}
 			
 		}
-		
-	}
 
+	}
 }

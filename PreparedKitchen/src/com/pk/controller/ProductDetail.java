@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductDetailBiz;
+import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MartDto;
 import com.pk.dto.MaterialDto;
@@ -39,10 +40,13 @@ public class ProductDetail extends HttpServlet {
 		RecipeBiz recipeBiz = new RecipeBiz();
 		MaterialBiz materialBiz = new MaterialBiz();
 		ProductDetailBiz detailBiz = new ProductDetailBiz();
+		ProductListBiz pBiz = new ProductListBiz();
 		
 		if(command.equals("detail")) {
 			
 			int recipeno = Integer.parseInt(request.getParameter("recipeno"));
+			
+			pBiz.hit(recipeno);
 			
 			RecipeDto rDto = recipeBiz.selectOne(recipeno);
 			List<MaterialDto> mList = materialBiz.materialInRecipe(recipeno);

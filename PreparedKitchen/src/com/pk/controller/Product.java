@@ -188,6 +188,7 @@ public class Product extends HttpServlet {
 			
 			request.setAttribute("plist", plist);
 			request.setAttribute("paging", paging2);
+			request.setAttribute("order", order);
 			
 			dispatch(request, response, "product/productlist.jsp");
 			

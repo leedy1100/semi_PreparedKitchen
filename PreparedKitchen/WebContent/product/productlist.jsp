@@ -38,10 +38,20 @@ section{
 .selectOrder li{
 	list-style: none;
 	display: inline-block;
+	font-weight: 700;
+	border-left: 2px solid gray;
+	padding-left: 8px;	
+}
+.selectOrder li:first-child{
+	border: none;
 }
 .selectOrder li a{
 	text-decoration: none;
 	color: gray;
+}
+.selectOrder li :hover{
+	color: black;
+	font-weight: 1000;
 }
 #select{
 	width: 100%;
@@ -50,7 +60,6 @@ section{
 </style>
 </head>
 <body>
-
 	<header>
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/header.jsp" %>
@@ -60,8 +69,8 @@ section{
 	<div id="select">
 		<ul class="selectOrder">
 			<li><a href="/PreparedKitchen/product.do?command=productlist&order=PRODUCTLIST_NO">최신순</a></li>
-			<li><a href="/PreparedKitchen/product.do?command=productlist&order=SALES_COUNT">조회순</a></li>
-			<li><a href="/PreparedKitchen/product.do?command=productlist&order=VIEW_NO">인기순</a></li>
+			<li><a href="/PreparedKitchen/product.do?command=productlist&order=SALES_COUNT">판매순</a></li>
+			<li><a href="/PreparedKitchen/product.do?command=productlist&order=VIEW_NO">조회순</a></li>
 		</ul>
 	</div>
 	<article>

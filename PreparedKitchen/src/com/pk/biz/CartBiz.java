@@ -15,4 +15,14 @@ public class CartBiz {
 	public List<CartDto> selectListRecipe(String id) {
 		return dao.selectListRecipe(id);
 	}
+	
+	public int isnertCart(List<CartDto> list) {
+		
+		return dao.isnertCart(list);
+	}
+	
+	public int deleteCart(String id, int[] recipenos) {
+		
+		return dao.deleteCart(id, recipenos);
+	}
 }

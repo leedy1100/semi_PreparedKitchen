@@ -3,7 +3,7 @@
 <mapper namespace="cartmapper">
 
 	<select id="selectList" parameterType="map" resultType="cartDto">
-		SELECT CART_NO, ID, RECIPE_NO, MATERIAL_NO, MART_NO
+		SELECT CART_NO, ID, RECIPE_NO, MART_NO
 		FROM CART
 		WHERE ID = #{id} AND RECIPE_NO = #{recipe_no}
 		ORDER BY CART_NO DESC
@@ -15,4 +15,25 @@
 		WHERE ID = #{value}
 		ORDER BY CART_NO DESC
 	</select>
+	
+	<insert id="addCart" parameterType="map">
+		<foreach collection="lists" item="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+			INTO CART
+			VALUES(#{list.cart_no}, #{list.id}, #{list.recipe_no}, #{list.mart_no})
+		</foreach>
+	</insert>
+	
+	<select id="seqNextval" resultType="int">
+		SELECT CARTSEQ.NEXTVAL
+		FROM DUAL
+	</select>
+	
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM CART
+		WHERE ID = #{id} AND RECIPE_NO IN
+		<foreach collection="recipenos" item="recipeno" open="(" separator="," close=")">
+			#{recipeno}
+		</foreach>
+	</delete>
+	
 </mapper>
