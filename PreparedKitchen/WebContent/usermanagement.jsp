@@ -9,6 +9,38 @@
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
 <style type="text/css">
 td{text-align: center;}
+input, select, option {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;  
+     font-size: 11px;
+}
+input, select {
+    width:80px;
+    height:20px;
+    border : 1px #ccc solid;
+    vertical-align:top;
+}
+.usertable{
+	  width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px;
+    border-top: 2px solid #b2b83b;
+}
+.usertable th{
+	border-bottom: 1px solid #eaeaea;
+	text-align: center;
+}
+.usertable td {
+    font-weight: normal;
+    color: #5a5a5a;
+    text-align: center;
+    line-height: 130%;
+    vertical-align: middle;
+    padding: 10px 0;
+    font-size: 13px;
+    border-bottom: 1px solid #eaeaea;
+}
 
 </style>
 
@@ -45,17 +77,17 @@ td{text-align: center;}
 				</td>
 			</tr>
 		</table>
-		
-		<table border="1">
-		<col width="100">
-		<col width="100">
-		<col width="200">
-		<col width="200">
-		<col width="400">
-		<col width="50">
-		<col width="80">
-		<col width="350">
-		<col width="80">
+		<div>
+		<table class="usertable">
+		<col width="8%">
+		<col width="8%">
+		<col width="12%">
+		<col width="12%">
+		<col width="20%">
+		<col width="5%">
+		<col width="10%">
+		<col width="*%">
+		<col width="10%">
 			<tr>
 				<th>I    D</th>
 				<th>이      름</th>
@@ -106,6 +138,7 @@ td{text-align: center;}
 		</c:choose>
 		
 		</table>
+		</div>
 		
 		
 	</section>

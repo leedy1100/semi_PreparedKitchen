@@ -59,7 +59,7 @@
 							<c:set var="recipenos" value="${recipeDto.recipe_no }"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="recipenos" value="${recipenos },${recipeDto.recipeno }"/>
+							<c:set var="recipenos" value="${recipenos },${recipeDto.recipe_no }"/>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
