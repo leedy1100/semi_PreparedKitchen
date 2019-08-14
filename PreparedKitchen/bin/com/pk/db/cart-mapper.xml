@@ -3,7 +3,7 @@
 <mapper namespace="cartmapper">
 
 	<select id="selectList" parameterType="map" resultType="cartDto">
-		SELECT CART_NO, ID, RECIPE_NO, MATERIAL_NO, MART_NO
+		SELECT CART_NO, ID, RECIPE_NO, MART_NO
 		FROM CART
 		WHERE ID = #{id} AND RECIPE_NO = #{recipe_no}
 		ORDER BY CART_NO DESC
