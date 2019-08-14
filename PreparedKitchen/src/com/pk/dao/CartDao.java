@@ -48,5 +48,63 @@ public class CartDao extends SqlMapConfig {
 		
 		return list;
 	}
+	
+	public int isnertCart(List<CartDto> list) {
+		
+		SqlSession session = null;
+		int res = 0;
+		int cartno = 0;
+		Map<String, List<CartDto>> map = new HashMap<String, List<CartDto>>();
+		
+		try {
+			
+
+			for(CartDto dto : list) {
+				
+				session = getSqlSessionFactory().openSession(false);
+				cartno = session.selectOne(namespace + "seqNextval");
+				dto.setCart_no(cartno);
+			}
+			
+			map.put("lists", list);
+			
+			res = session.insert(namespace + "addCart", map);
+			
+			if(res > 0) {
+				session.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
+	
+	public int deleteCart(String id, int[] recipenos) {
+		
+		SqlSession session = null;
+		int res = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("recipenos", recipenos);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.delete(namespace + "deleteCart", map);
+			
+			if(res > 0) {
+				session.commit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
 
 }

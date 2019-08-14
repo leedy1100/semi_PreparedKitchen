@@ -14,6 +14,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9224c175adc04d7602e956fcdd3fd17f&libraries=services"></script>
 <script type="text/javascript" src="/PreparedKitchen/js/payment.js"></script>
+<%@include file="../js/map.jsp" %>
 <body>
 
 	<header>
@@ -52,8 +53,15 @@
 			<hr>
 			
 			<div id="payProductDiv">
-				<c:forEach items="${recipeList }" var="recipeDto0">
-					
+				<c:forEach items="${recipeList }" var="recipeDto" varStatus="status">
+					<c:choose>
+						<c:when test="${status.first }">
+							<c:set var="recipenos" value="${recipeDto.recipe_no }"/>
+						</c:when>
+						<c:otherwise>
+							<c:set var="recipenos" value="${recipenos },${recipeDto.recipeno }"/>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 				<c:forEach items="${productList }" var="martDto" varStatus="status">
 					<div class="proListDiv">
@@ -84,7 +92,6 @@
 			<hr>
 			
 			<div id="totalPriceDiv">
-				${item_name }
 				총 : ${totalPrice }원
 			</div>
 			<input type="hidden" name="command" value="pay">
@@ -95,6 +102,7 @@
 			<input type="hidden" name="quantity" value="1">
 			<input type="hidden" name="total_amount" value="${totalPrice }">
 			<input type="hidden" name="tax_free_amount" value="0">
+			<input type="hidden" name="recipenos" value="${recipenos }">
 			<input type="submit" value="결제하기">
 		</form>
 	</section>
