@@ -56,7 +56,7 @@
 						<input id="btn" type="button" value="전체해제" onclick="noCho()">
 					</div>
 					<div id="dmLeft">
-						<c:forEach items="${material }" var="mDto">
+						<c:forEach items="${material }" var="mDto" varStatus="status">
 							<input class="selected" type="text" value="${mDto.material_name }" readonly="readonly"/>
 						</c:forEach>
 					</div>
@@ -83,7 +83,7 @@
 			</div>
 		</div>
 		
-		<form action="payment" method="post" id="productForm">
+		<form action="" method="post" id="productForm">
 			<input type="hidden" name="command" value="">
 			<input type="hidden" name="recipeno" value="${recipe.recipe_no }">
 		</form>
