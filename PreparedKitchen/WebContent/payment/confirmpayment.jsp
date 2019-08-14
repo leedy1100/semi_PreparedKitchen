@@ -59,8 +59,8 @@
 					<div class="proListDiv">
 						<input type="hidden" name="mart_item_name" value="${martDto.item_name }">
 						<input type="hidden" name="mart_price" value="${martDto.mart_price }">
-						${martDto.item_name }
-						${martDto.mart_price }원
+						<span>${martDto.item_name }</span>
+						<span>${martDto.mart_price }원</span>
 					</div>
 					<c:set var="totalPrice" value="${totalPrice + martDto.mart_price }"/>
 					<c:choose>
@@ -84,7 +84,6 @@
 			<hr>
 			
 			<div id="totalPriceDiv">
-				${item_name }
 				총 : ${totalPrice }원
 			</div>
 			<input type="hidden" name="command" value="pay">
@@ -95,16 +94,16 @@
 			<input type="hidden" name="quantity" value="1">
 			<input type="hidden" name="total_amount" value="${totalPrice }">
 			<input type="hidden" name="tax_free_amount" value="0">
-			<input type="submit" value="결제하기">
+			<input id="pay_do" type="button" value="결제하기" onclick="payDo()">
 		</form>
 	</section>
-	
+	<iframe id="pay_frame" name="pay_target"></iframe>
 	<%@ include file="../static/remocon.jsp" %>
 		
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/footer.jsp" %>
 	</footer>
-
+	<div id="pay_black" onclick="payBlack()"></div>
 </body>
 </html>

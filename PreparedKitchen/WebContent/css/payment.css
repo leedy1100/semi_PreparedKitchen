@@ -1,7 +1,64 @@
 
 #map{
+	position: relative;
+	float: right;
+	top: -30px;
+	right: 10px;
 	width: 300px;
 	height: 300px;
 	margin: 10px 0;
 	display: none;
+}
+
+h1{
+	margin: 30px;
+}
+h3{
+	margin: 0px 0px 20px 50px;
+}
+#payMemberDiv{
+	height: 350px;
+}
+hr{
+	clear: both;
+	margin: 20px 0px;
+}
+.proListDiv{
+	width: 1008px;
+	font-size: 18px;
+}
+.proListDiv span:last-child{
+	float: right;
+}
+#totalPriceDiv{
+	float: right;
+	font-size: 32px;
+}
+
+#pay_do{
+	margin: 30px 50px;
+	border: none;
+	width: 900px;
+	height: 50px;
+	background-color: rgb(241, 255, 76);
+	cursor: pointer;
+}
+
+#pay_frame{
+	position: fixed;
+	display: none;
+	top: 20%;
+	left: 35%;
+	width: 500px;
+	height: 600px;
+	z-index: 1000;
+}
+#pay_black{
+	position: absolute;
+	display: none;
+	top: 0px;
+	width: 100%;
+	height: 200%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 900;
 }
