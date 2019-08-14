@@ -50,7 +50,7 @@
    	font-size: 20px;
    }
    .fc-title{
-   	font-size: 16px;
+   	font-size: 15px;
    }
    body{
    	background-color: #f3f1ec;
