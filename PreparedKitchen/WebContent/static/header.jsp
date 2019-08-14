@@ -44,41 +44,28 @@
 		<ul class="mainmenu_big">
 			<li>회사 소개
 				<ul class="mainmenu_small">
-					<li><a href="/PreparedKitchen/recipeboard.do?command=list">recipeboardlist</a></li>
-					<li><a href="/PreparedKitchen/map.do?command=map">지도 테스트</a></li>
-					<li><a href="/PreparedKitchen/cal.do?command=calendar2">달력</a></li>
-					<li><a href="/PreparedKitchen/dummy.do?command=recipedb">더미데이터 만들기</a></li>
-					<li><a href="/PreparedKitchen/prodetail.do?command=detail&recipeno=1">상품디테일</a></li>
-					<li><a href="/PreparedKitchen/product.do?command=adminchart">차트</a></li>
-					<li><a href="/PreparedKitchen/product.do?command=adminrecipeview">상품등록</a></li>
-					<li><a href="/PreparedKitchen/product.do?command=productlist&order=PRODUCTLIST_NO">상품리스트</a></li>
+					<li><a href="/PreparedKitchen/map.do?command=map">준비중</a></li>
+					<li><a href="/PreparedKitchen/map.do?command=map">회사 위치</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="mainmenu_big">
-			<li>상품
-				<ul class="mainmenu_small">
-					<li><a href="">세부 메뉴</a></li>
-					<li><a href="">세부 메뉴</a></li>
-					<li><a href="">세부 메뉴</a></li>
+			<li>상품 레시피
+				<ul class="mainmenu_small"><li><a href="/PreparedKitchen/product.do?command=productlist&order=PRODUCTLIST_NO">메인</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="mainmenu_big">
 			<li>유저 레시피
 				<ul class="mainmenu_small">
-					<li><a href="">세부 메뉴</a></li>
-					<li><a href="">세부 메뉴</a></li>
-					<li><a href="">세부 메뉴</a></li>
+					<li><a href="/PreparedKitchen/recipeboard.do?command=list">메인</a></li>
 				</ul>
 			</li>
 		</ul>
 		<ul class="mainmenu_big">
 			<li>고객 센터
 				<ul class="mainmenu_small">
-					<li><a href="">세부 메뉴</a></li>
-					<li><a href="">세부 메뉴</a></li>
-					<li><a href="">세부 메뉴</a></li>
+					<li><a href="">서비스 준비중</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -98,6 +85,9 @@
 			<li>관리자권한
 				<ul class="mainmenu_small">
 					<li><a href="/PreparedKitchen/member.do?command=usermanagement">회원 관리</a>
+					<li><a href="/PreparedKitchen/product.do?command=adminrecipeview">상품등록</a></li>
+					<li><a href="/PreparedKitchen/product.do?command=adminchart">차트</a></li>
+					<li><a href="/PreparedKitchen/dummy.do?command=recipedb">더미데이터 만들기</a></li>
 				</ul>
 			</li>
 			<%} %>
