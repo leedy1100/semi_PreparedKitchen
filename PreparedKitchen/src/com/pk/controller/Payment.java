@@ -25,14 +25,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.pk.biz.CartBiz;
 import com.pk.biz.CalendarBiz;
 import com.pk.biz.MartBiz;
-import com.pk.biz.MaterialBiz;
 import com.pk.biz.PaymentBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
-import com.pk.dto.CartDto;
 import com.pk.dto.CalDto;
 import com.pk.dto.MartDto;
 import com.pk.dto.MemberDto;
@@ -73,11 +70,13 @@ public class Payment extends HttpServlet {
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
+
 	       
 			Map<String, String> params = new HashMap<String, String>();
+
 			String recipe_name = request.getParameter("recipe_name");
 			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
-			
+
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
 	        params.put("partner_user_id", partner_user_id);
@@ -143,11 +142,12 @@ public class Payment extends HttpServlet {
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
+
 			String recipeno = session.getAttribute("recipeno").toString();
 
 			String recipe_name = (String)session.getAttribute("recipe_name");
 			int recipe_no = (int) session.getAttribute("recipe_no");
-			
+
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
 			map.put("tid", tid);
@@ -192,7 +192,7 @@ public class Payment extends HttpServlet {
 				for(String sp : split) {
 					int mart_no = Integer.parseInt(sp);
 					PaymentDto pDto = new PaymentDto();
-					CalDto cDto = new CalDto();
+					
 					MartDto martDto = martBiz.selectOne(mart_no);
 					pDto.setPayment_group(tid);
 					pDto.setId(partner_user_id);
@@ -205,16 +205,18 @@ public class Payment extends HttpServlet {
 					
 					list.add(pDto);
 					
-					cDto.setId(partner_user_id);
-					cDto.setPayment_group(tid);
-					cDto.setRecipe_date(recipe_date);
-					cDto.setRecipe_name(recipe_name);
-					cDto.setRecipe_no(recipe_no);
 					
-					
-					Clist.add(cDto);
 					
 				}
+				CalDto cDto = new CalDto();
+				
+				cDto.setId(partner_user_id);
+				cDto.setPayment_group(tid);
+				cDto.setRecipe_date(recipe_date);
+				cDto.setRecipe_name(recipe_name);
+				cDto.setRecipe_no(recipe_no);
+
+				Clist.add(cDto);
 				
 				int res = pBiz.insert(list);
 				
