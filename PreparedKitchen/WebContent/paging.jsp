@@ -19,6 +19,12 @@
 	}
 
 </script>
+<style type="text/css">
+.prev, .choice, .next, .other{
+	text-decoration: none;
+	color: black;
+}
+</style>
 </head>
 <body>
 
@@ -37,7 +43,7 @@
                     </b>
                 </c:when>
                 <c:otherwise>
-                    <a href="javascript:goPage(${i}, ${param.recordsPerPage})">${i}</a>
+                    <a href="javascript:goPage(${i}, ${param.recordsPerPage})" class="other">${i}</a>
                 </c:otherwise>
             </c:choose>
         </c:forEach>

@@ -51,6 +51,7 @@ section{
 }
 .selectOrder li :hover{
 	color: black;
+	font-weight: 1000;
 }
 #select{
 	width: 100%;
@@ -59,7 +60,6 @@ section{
 </style>
 </head>
 <body>
-
 	<header>
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/header.jsp" %>
