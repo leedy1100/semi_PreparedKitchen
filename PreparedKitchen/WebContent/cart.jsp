@@ -1,3 +1,5 @@
+<%@page import="com.pk.biz.MartBiz"%>
+<%@page import="com.pk.dto.MartDto"%>
 <%@page import="com.pk.biz.MaterialBiz"%>
 <%@page import="com.pk.biz.CartBiz"%>
 <%@page import="com.pk.dto.CartDto"%>
@@ -14,10 +16,13 @@
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
 <link rel="stylesheet" href="/PreparedKitchen/css/my_cart.css"/>
+<script type="text/javascript" src="/PreparedKitchen/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/PreparedKitchen/js/cart.js"></script>
 </head>
 <%
 	CartBiz cBiz = new CartBiz();
 	MaterialBiz mBiz = new MaterialBiz();
+	MartBiz martBiz = new MartBiz();
 	List<RecipeDto> rList = (List<RecipeDto>)request.getAttribute("rList");
 	MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
 %>
@@ -35,7 +40,7 @@
 		<h2>장바구니</h2>
 		<table id="mytable">
 			<tr>
-				<th style="width: 50px"><input type="checkbox"></th><th>이미지</th><th style="width: 500px">이름</th><th style="width: 50px">수량</th><th style="width: 100px">가격</th>
+				<th style="width: 50px"><input type="checkbox" name="all" onclick="allChk(this.checked)"></th><th>이미지</th><th style="width: 500px">이름</th><th style="width: 100px">가격</th>
 			</tr>
 <%
 			if(rList.isEmpty()) {
@@ -49,23 +54,24 @@
 					
 %>
 			<tr>
-				<td><input type="checkbox"></td>
+				<td><input type="checkbox" class="recipeChk" name="rChk" value="<%=rDto.getRecipe_no() %>"></td>
 				<td class="cart_img"><img src="<%=rDto.getRecipe_img()%>"></td>
 				<td><%=rDto.getRecipe_name() %></td>
-				<td>1</td>
-				<td>10000</td>
+				<td></td>
 			</tr>
 <%
 					List<CartDto> cList = cBiz.selectList(mDto.getId(), rDto.getRecipe_no());
-					List<MaterialDto> mList = mBiz.selectListOne(cList);
-					for(MaterialDto mate_dto : mList) {
+					List<MartDto> mList = martBiz.selectListOne(cList);
+					for(MartDto martDto : mList) {
 %>
 			<tr>
-				<td><input type="checkbox"></td>
-				<td><%=mate_dto.getMaterial_name()%></td>
-				<td><%=mate_dto.getMaterial_typeName() %></td>
-				<td>1</td>
-				<td>10000</td>
+				<td>
+					<input type="checkbox" class="martChk<%=rDto.getRecipe_no() %>" name="mChk"  value="<%=martDto.getMart_price() %>">
+					<input type="hidden" value="<%=martDto.getMart_no() %>">
+				</td>
+				<td></td>
+				<td><%=martDto.getItem_name()%></td>
+				<td><%=martDto.getMart_price() %></td>
 			</tr>
 <%
 					}
@@ -73,6 +79,9 @@
 			}
 %>
 		</table>
+		<form action="payment" method="post" id="cartForm">
+			<input type="hidden" name="command" value="confirmpay">
+		</form>
 	</section>
 		
 	<footer>

@@ -267,20 +267,22 @@ public class Payment extends HttpServlet {
 				
 			} else {
 				
-				int recipeno = Integer.parseInt(request.getParameter("recipeno"));
+				String recipeno_string = request.getParameter("recipenos");
 				String product = request.getParameter("proList");
 				String[] proList = product.split(",");
-				System.out.println("confirmpay부분 : " + request.getParameter("recipeno"));
+				String[] recipeno_arr = recipeno_string.split(",");
+				int[] recipenos = new int[recipeno_arr.length];
+				
+				for(int i = 0; i < recipeno_arr.length; i++) {
+					recipenos[i] = Integer.parseInt(recipeno_arr[i]);
+				}
+				
 				MartBiz martBiz = new MartBiz();
 				List<MartDto> list = martBiz.buyProduct(proList);
 				
 				RecipeBiz recipeBiz = new RecipeBiz();
-				RecipeDto rDto = recipeBiz.selectOne(recipeno);
-				List<RecipeDto> rList = new ArrayList<RecipeDto>();
+				List<RecipeDto> rList = recipeBiz.selectListPay(recipenos);
 				
-				rList.add(rDto);
-				
-				session.setAttribute("recipeno", recipeno);
 				session.setAttribute("productList", list);
 				session.setAttribute("recipeList", rList);
 				response.sendRedirect("/PreparedKitchen/payment/confirmpayment.jsp");

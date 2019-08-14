@@ -47,4 +47,14 @@
 		</foreach>
 	</select>
 	
+		<select id="selectListOne" resultType="martDto">
+		SELECT MART_NO, ITEM_NAME, MART_PRICE, CATEGORY
+		FROM MART
+		WHERE MART_NO IN
+		<foreach collection="list" item="item"  open="(" separator="," close=")" >
+           	#{item.mart_no}
+        </foreach>
+       	ORDER BY MART_NO DESC
+	</select>
+	
 </mapper>
