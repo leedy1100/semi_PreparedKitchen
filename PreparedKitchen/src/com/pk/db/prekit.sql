@@ -15,17 +15,13 @@ CREATE TABLE MEMBER(
 	
 	CONSTRAINT CHECK_ENABLED CHECK(ENABLED IN('Y','N'))
 );
-INSERT INTO MEMBER VALUES('user','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','990121',SYSDATE,'USER');
-INSERT INTO MEMBER VALUES('admin','0000','관리자','a@g.com','010-0000-0000','서울시','Y','200121',SYSDATE,'ADMIN');
+
+INSERT INTO MEMBER VALUES('admin','0000','관리자','aaa@gmail.com','010-0000-0000','서울시','Y','200121',SYSDATE,'ADMIN');
+INSERT INTO MEMBER VALUES('user','0000','홍길동','bbb@gmail.com','010-0000-0000','서울시','Y','990121',SYSDATE,'USER');
+
 SELECT * FROM MEMBER;
 
-
-
-UPDATE MEMBER 
-  	SET ENABLED='Y'
-  	WHERE ID='홍길동'
-
----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 
 DROP SEQUENCE RECIPESEQ;
 DROP TABLE RECIPE;
@@ -44,10 +40,7 @@ CREATE TABLE RECIPE(
 	CONSTRAINT RECIPE_REG_CHECK CHECK(RECIPE_REG IN('Y','N'))
 );
 
-SELECT * FROM RECIPE;
-        20 무맑은국         http://file.okdab.com/UserFiles/searching/recipe/004600.jpg <div class='contentDiv'>1 : 쇠고기는 2cm 길이로 도톰하게 저며썰고 무는 길이 3cm 정도씩 토막을 낸 뒤 반을 갈라 0.2cm 두께로 나박썬다.</div> <div class='contentDiv'>2 : 썰어놓은 쇠고기는 다진 마늘 1작은술과 국간장 1큰술, 후춧가루 약간으로 양념해 간이 골고루 배도록 조물조물 무친다.</div> <div class='contentDiv'>3 : 냄비에 물 5컵을 붓고 팔팔 끓이다가 양념해 놓은 쇠고기를 넣고 고기가 익을 때까지 한소끔 끓인다.</div> <div class='contentDiv'>4 : 끓는 쇠고기 장국에 나박썬 무를 넣는다. 끓을 때 생기는 거품은 걷어낸다.</div> <div class='contentDiv'>5 : 무가 말갛게 익으면 국간장과 소금을 1:1의 비율로 넣어 간을 하고 다진 마늘과 실파를 넣어 조금 더 끓인다.</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                     75Kcal          한식,국            N
-
----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 
 DROP SEQUENCE RECIPEBOARDSEQ;
 DROP TABLE RECIPEBOARD;
@@ -68,13 +61,17 @@ CREATE TABLE RECIPEBOARD(
 );
 
 SELECT * FROM RECIPEBOARD;
-DELETE FROM RECIPEBOARD;
 
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','무맑은국',
+INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'user','무맑은국',
 '<img src=" http://file.okdab.com/UserFiles/searching/recipe/004600.jpg" style="width: 300px;"> <div class="contentDiv">1 : 쇠고기는 2cm 길이로 도톰하게 저며썰고 무는 길이 3cm 정도씩 토막을 낸 뒤 반을 갈라 0.2cm 두께로 나박썬다.</div> <div class="contentDiv">2 : 썰어놓은 쇠고기는 다진 마늘 1작은술과 국간장 1큰술, 후춧가루 약간으로 양념해 간이 골고루 배도록 조물조물 무친다.</div> <div class="contentDiv">3 : 냄비에 물 5컵을 붓고 팔팔 끓이다가 양념해 놓은 쇠고기를 넣고 고기가 익을 때까지 한소끔 끓인다.</div> <div class="contentDiv">4 : 끓는 쇠고기 장국에 나박썬 무를 넣는다. 끓을 때 생기는 거품은 걷어낸다.</div> <div class="contentDiv">5 : 무가 말갛게 익으면 국간장과 소금을 1:1의 비율로 넣어 간을 하고 다진 마늘과 실파를 넣어 조금 더 끓인다.</div>'
-,SYSDATE,0,0);
+,SYSDATE,121,15);
+INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'user','김치찌개','낚시ㅎㅎ',SYSDATE,100, 2);
+INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'user','갈비찜','낚시ㅎㅎ',SYSDATE,50, 30);
+INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'user','소고기','낚시ㅎㅎ',SYSDATE,14, 2);
+INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'user','소고기','낚시ㅎㅎ',SYSDATE,0, 0);
 
----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
 
 DROP SEQUENCE LIKESEQ;
 DROP TABLE LIKETABLE;
@@ -93,9 +90,8 @@ CREATE TABLE LIKETABLE(
 
 SELECT * FROM LIKETABLE;
 
+--------------------------------------------------------------------------------------------------------------------------------
 
-
----------------------------------------------------------------
 
 DROP SEQUENCE RECIPECOMMENTSEQ;
 DROP SEQUENCE RECIPECOMMENTGROUPSEQ;
@@ -119,7 +115,9 @@ CREATE TABLE RECIPECOMMENT(
 );
 
 SELECT * FROM RECIPECOMMENT;
----------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
+
 
 DROP SEQUENCE MATERIALSEQ;
 DROP TABLE MATERIAL;
@@ -141,7 +139,7 @@ CREATE TABLE MATERIAL(
 
 SELECT * FROM MATERIAL;
 
----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 
 DROP SEQUENCE PRODUCTLISTSEQ;
 DROP TABLE PRODUCTLIST;
@@ -162,23 +160,7 @@ CREATE TABLE PRODUCTLIST(
 
 SELECT * FROM PRODUCTLIST;
 
-DELETE FROM PRODUCTLIST;
-
-INSERT INTO PRODUCTLIST
-VALUES(PRODUCTLISTSEQ.NEXTVAL, 1, '나물비빔밥','준비중입니다.',0,10);
-INSERT INTO PRODUCTLIST
-VALUES(PRODUCTLISTSEQ.NEXTVAL, 2, '오곡밥','준비중입니다.',5,15);
-INSERT INTO PRODUCTLIST
-VALUES(PRODUCTLISTSEQ.NEXTVAL, 3, '잡채밥','준비중입니다.',10,30);
-INSERT INTO PRODUCTLIST
-VALUES(PRODUCTLISTSEQ.NEXTVAL, 4, '콩나물밥','준비중입니다.',1,25);
-INSERT INTO PRODUCTLIST
-VALUES(PRODUCTLISTSEQ.NEXTVAL, 5, '약식','준비중입니다.',6,46);
-
-SELECT PRODUCTLISTSEQ.NEXTVAL
-		FROM DUAL;
-
----------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 
 DROP SEQUENCE MARTSEQ;
 DROP TABLE MART;
@@ -194,7 +176,9 @@ CREATE TABLE MART(
 
 SELECT * FROM MART;
 
-------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+
+
 DROP SEQUENCE PAYMENTSEQ;
 DROP TABLE PAYMENT;
 
@@ -217,23 +201,8 @@ CREATE TABLE PAYMENT(
 	REFERENCES MART(MART_NO)
 );
 
-INSERT INTO MATERIAL
-VALUES(MATERIALSEQ.NEXTVAL, 1, '돼지목살', '400g', '100', '돼지고기');
-INSERT INTO MATERIAL
-VALUES(MATERIALSEQ.NEXTVAL, 1, '상추', '200g', '200', '야채');
-INSERT INTO MATERIAL
-VALUES(MATERIALSEQ.NEXTVAL, 1, '마늘', '100g', '200', '야채');
-INSERT INTO PAYMENT
-VALUES(1, 1, 'user', '레시피', '1393, 1211', '3000', 74, 846, '2019-08-12', '2019-08-12', '배송');
+--------------------------------------------------------------------------------------------------------------------------------
 
-UPDATE PAYMENT SET PAYMENT_DATE = '2019-08-14' WHERE ID = 'user'
-UPDATE PAYMENT SET PAYMENT_GROUP = '222' WHERE ID = 'user'
-
-SELECT * FROM RECIPE;
-SELECT * FROM MATERIAL;
-SELECT * FROM PAYMENT;
-
----------------------------------------------------------------
 
 DROP SEQUENCE INTERESTLISTSEQ;
 DROP TABLE INTERESTLIST;
@@ -250,9 +219,11 @@ CREATE TABLE INTERESTLIST(
 	CONSTRAINT FK_INTEREST_RECIPE_NO FOREIGN KEY(RECIPE_NO)
 	REFERENCES RECIPE(RECIPE_NO)
 );
+
+
 SELECT * FROM INTERESTLIST;
-INSERT INTO INTERESTLIST VALUES(INTERESTLISTSEQ.NEXTVAL, 'user', 1);
----------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
 
 DROP SEQUENCE CARTSEQ;
 DROP TABLE CART;
@@ -273,55 +244,13 @@ CREATE TABLE CART(
 	REFERENCES MART(MART_NO)
 );
 
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 1, 1);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 1, 2);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 1, 3);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 2, 20);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 2, 21);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 2, 22);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 3, 25);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 3, 26);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 3, 27);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 6, 62);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 6, 63);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 6, 64);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 6, 65);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 6, 66);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 6, 67);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 33, 350);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 72, 815);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 72, 816);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 72, 817);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 75, 815);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 75, 860);
-INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 75, 861);
+--------------------------------------------------------------------------------------------------------------------------------
 
-SELECT * FROM CART;
-
-SELECT R.RECIPE_NAME, P.PAYMENT_DATE FROM RECIPE R, PAYMENT P WHERE P.ID = 'user'
----------------------------------------------------------------
-
-<<<<<<< HEAD
-DROP SEQUENCE MARTSEQ;
-DROP TABLE MART;
-
-CREATE SEQUENCE MARTSEQ;
-CREATE TABLE MART(
-
-	MART_NO 		NUMBER 			PRIMARY KEY,
-	MATERIAL_NAME	VARCHAR2(500)	NOT NULL,
-	MART_PRICE 		NUMBER 			NOT NULL,
-	CATEGORY		VARCHAR2(500)	NOT NULL
-);
-
-SELECT * FROM MART;
-
-------------------------------------------------------------------
 DROP SEQUENCE CALENDARSEQ;
-DROP TABLE CALENDAR;
+DROP TABLE CALENDAR2;
 
 CREATE SEQUENCE CALENDARSEQ;
-CREATE TABLE CALENDAR(
+CREATE TABLE CALENDAR2(
 	
 	CALENDAR_NO		NUMBER				PRIMARY KEY,
 	PAYMENT_GROUP 	VARCHAR2(500)		NOT NULL,
@@ -335,17 +264,6 @@ CREATE TABLE CALENDAR(
 );
 
 
-SELECT * FROM CALENDAR
+SELECT * FROM CALENDAR2
 
-SELECT CALENDAR_NO, PAYMENT_GROUP, RECIPE_DATE, RECIPE_NAME, RECIPE_NO
-		FROM CALENDAR
-		WHERE ID = 'user'
-SELECT B.RNUM, B.PAYMENT_GROUP, B.RECIPE_DATE, B.RECIPE_NAME, B.RECIPE_NO 
-FROM(SELECT ROWNUM AS RNUM, A.PAYMENT_GROUP, A.RECIPE_DATE, A.RECIPE_NAME, A.RECIPE_NO
-		FROM (SELECT DISTINCT  PAYMENT_GROUP, RECIPE_DATE, RECIPE_NAME, RECIPE_NO
-		FROM CALENDAR
-		WHERE ID = 'user') A
-		) B
-		
-UPDATE CALENDAR SET RECIPE_DATE = '2019-08-14'
-WHERE CALENDAR_NO = 2
+
