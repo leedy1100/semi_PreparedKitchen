@@ -15,10 +15,11 @@ CREATE TABLE MEMBER(
 	
 	CONSTRAINT CHECK_ENABLED CHECK(ENABLED IN('Y','N'))
 );
-INSERT INTO MEMBER VALUES('user','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'USER');
-INSERT INTO MEMBER VALUES('qq','11','이두영','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'USER');
-INSERT INTO MEMBER VALUES('admin','0000','관리자','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'ADMIN');
+INSERT INTO MEMBER VALUES('user','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','990121',SYSDATE,'USER');
+INSERT INTO MEMBER VALUES('admin','0000','관리자','a@g.com','010-0000-0000','서울시','Y','200121',SYSDATE,'ADMIN');
 SELECT * FROM MEMBER;
+
+
 
 UPDATE MEMBER 
   	SET ENABLED='Y'
@@ -44,6 +45,7 @@ CREATE TABLE RECIPE(
 );
 
 SELECT * FROM RECIPE;
+        20 무맑은국         http://file.okdab.com/UserFiles/searching/recipe/004600.jpg <div class='contentDiv'>1 : 쇠고기는 2cm 길이로 도톰하게 저며썰고 무는 길이 3cm 정도씩 토막을 낸 뒤 반을 갈라 0.2cm 두께로 나박썬다.</div> <div class='contentDiv'>2 : 썰어놓은 쇠고기는 다진 마늘 1작은술과 국간장 1큰술, 후춧가루 약간으로 양념해 간이 골고루 배도록 조물조물 무친다.</div> <div class='contentDiv'>3 : 냄비에 물 5컵을 붓고 팔팔 끓이다가 양념해 놓은 쇠고기를 넣고 고기가 익을 때까지 한소끔 끓인다.</div> <div class='contentDiv'>4 : 끓는 쇠고기 장국에 나박썬 무를 넣는다. 끓을 때 생기는 거품은 걷어낸다.</div> <div class='contentDiv'>5 : 무가 말갛게 익으면 국간장과 소금을 1:1의 비율로 넣어 간을 하고 다진 마늘과 실파를 넣어 조금 더 끓인다.</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                     75Kcal          한식,국            N
 
 ---------------------------------------------------------------
 
@@ -68,17 +70,11 @@ CREATE TABLE RECIPEBOARD(
 SELECT * FROM RECIPEBOARD;
 DELETE FROM RECIPEBOARD;
 
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
+INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','무맑은국',
+'<img src=" http://file.okdab.com/UserFiles/searching/recipe/004600.jpg" style="width: 300px;"> <div class="contentDiv">1 : 쇠고기는 2cm 길이로 도톰하게 저며썰고 무는 길이 3cm 정도씩 토막을 낸 뒤 반을 갈라 0.2cm 두께로 나박썬다.</div> <div class="contentDiv">2 : 썰어놓은 쇠고기는 다진 마늘 1작은술과 국간장 1큰술, 후춧가루 약간으로 양념해 간이 골고루 배도록 조물조물 무친다.</div> <div class="contentDiv">3 : 냄비에 물 5컵을 붓고 팔팔 끓이다가 양념해 놓은 쇠고기를 넣고 고기가 익을 때까지 한소끔 끓인다.</div> <div class="contentDiv">4 : 끓는 쇠고기 장국에 나박썬 무를 넣는다. 끓을 때 생기는 거품은 걷어낸다.</div> <div class="contentDiv">5 : 무가 말갛게 익으면 국간장과 소금을 1:1의 비율로 넣어 간을 하고 다진 마늘과 실파를 넣어 조금 더 끓인다.</div>'
+,SYSDATE,0,0);
+            141 qq                   ㅎㅎ                <p><img src=" http://file.okdab.com/UserFiles/searching/recipe/004600.jpg" style="width: 300px;"></p><p><br></p><p>ㅎㅎ</p> 2019-08-14 19:25:41.0                     2                0
 
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
 ---------------------------------------------------------------
 
 DROP SEQUENCE LIKESEQ;
