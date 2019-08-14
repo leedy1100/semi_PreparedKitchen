@@ -25,21 +25,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-<<<<<<< HEAD
-import com.pk.biz.CartBiz;
-=======
 import com.pk.biz.CalendarBiz;
->>>>>>> refs/heads/LJS123
 import com.pk.biz.MartBiz;
-import com.pk.biz.MaterialBiz;
 import com.pk.biz.PaymentBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
-<<<<<<< HEAD
-import com.pk.dto.CartDto;
-=======
 import com.pk.dto.CalDto;
->>>>>>> refs/heads/LJS123
 import com.pk.dto.MartDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PaymentDto;
@@ -79,15 +70,14 @@ public class Payment extends HttpServlet {
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
-<<<<<<< HEAD
+
 	       
 			Map<String, String> params = new HashMap<String, String>();
-=======
+
 			String recipe_name = request.getParameter("recipe_name");
 			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
-			
-	        Map<String, String> params = new HashMap<String, String>();
->>>>>>> refs/heads/LJS123
+		
+
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
 	        params.put("partner_user_id", partner_user_id);
@@ -153,14 +143,13 @@ public class Payment extends HttpServlet {
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
-<<<<<<< HEAD
+
 			String recipeno = session.getAttribute("recipeno").toString();
 
-=======
+
 			String recipe_name = (String)session.getAttribute("recipe_name");
 			int recipe_no = (int) session.getAttribute("recipe_no");
-			
->>>>>>> refs/heads/LJS123
+
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
 			map.put("tid", tid);
