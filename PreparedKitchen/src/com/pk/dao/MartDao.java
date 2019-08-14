@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
-import com.pk.dto.InterestListDto;
 import com.pk.dto.MartDto;
 
 public class MartDao extends SqlMapConfig{
@@ -30,6 +28,23 @@ public class MartDao extends SqlMapConfig{
 		}
 		
 		return list;
+	}
+	
+	public MartDto selectOne(int mart_no) {
+
+		SqlSession session = null;
+		MartDto dto = null;
+
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			dto = session.selectOne(namespace + "selectOne", mart_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return dto;
 	}
 	
 	public int createDummy(List<MartDto> list) {

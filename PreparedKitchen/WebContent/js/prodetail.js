@@ -54,11 +54,13 @@ function showProduct(){
 		});
 	}
 	
+	mList.css("left","0px");
 }
 
 function hideProduct(){
-	var mProduct = $("#materialProduct");
-	mProduct.html("");
+	var mList = $("#materialList");
+
+	mList.css("left","700px");
 }
 
 function proChoice(){

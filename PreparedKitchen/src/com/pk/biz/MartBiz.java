@@ -15,6 +15,11 @@ public class MartBiz {
 		return dao.selectList();
 	}
 	
+	public MartDto selectOne(int mart_no) {
+		
+		return dao.selectOne(mart_no);
+	}
+	
 	public int createDummy(List<MartDto> list) {
 		
 		return dao.createDummy(list);

@@ -84,7 +84,6 @@
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/header.jsp" %>
 	</header>
-	
 	<section>
 <div id="menubox">
 <div id="menu" class="menulist">
@@ -148,7 +147,7 @@
 		<c:set var="cate" value="이탈리아" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,5,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>
@@ -174,7 +173,7 @@
 		<c:set var="cate" value="동남아시아" ></c:set>
 		<c:set var="lastindex" value="${fn:length(category) }"></c:set>
 		<c:if test="${fn:contains(category,cate)}">
-				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,3,lastindex) }</a></li>
+				<li><a class="menulink" href="/PreparedKitchen/product.do?command=category&categoryname=${listcategory.recipe_category }&recipe_reg=N">${fn:substring(category,6,lastindex) }</a></li>
 		</c:if>
 	</c:forEach>
 </ul>

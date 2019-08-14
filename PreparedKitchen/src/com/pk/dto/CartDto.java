@@ -6,16 +6,22 @@ public class CartDto {
 	private String id;
 	private int recipe_no;
 	private int material_no;
+	private int mart_no;
 	
 	public CartDto() {}
 
-	public CartDto(int cart_no, String id, int recipe_no, int material_no) {
+	
+
+	public CartDto(int cart_no, String id, int recipe_no, int material_no, int mart_no) {
+		super();
 		this.cart_no = cart_no;
 		this.id = id;
 		this.recipe_no = recipe_no;
 		this.material_no = material_no;
+		this.mart_no = mart_no;
 	}
-	
+
+
 
 	public int getCart_no() {
 		return cart_no;
@@ -47,6 +53,14 @@ public class CartDto {
 
 	public void setMaterial_no(int material_no) {
 		this.material_no = material_no;
+	}
+
+	public int getMart_no() {
+		return mart_no;
+	}
+
+	public void setMart_no(int mart_no) {
+		this.mart_no = mart_no;
 	}
 
 

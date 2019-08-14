@@ -1,53 +1,59 @@
-<%@page import="com.pk.dto.RecipeDto"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.pk.dto.InterestListDto"%>
-<%@page import="java.util.List"%>
-<%@page import="com.pk.biz.RecipeBiz"%>
-<%@page import="com.pk.biz.InterestListBiz"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%request.setCharacterEncoding("UTF-8");%>
+<%response.setContentType("text/html; charset=UTF-8");%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Prepared Kitchen</title>
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
+<style type="text/css">
+.imgicon{
+	width: 18px;
+}
+.bottonbox{
+	display: inline-block;
+	font-size: 20px;
+	font-weight: 1000;
+}
+#imgbox{
+	float: right;
+}
+.recipe_img{
+	width: 210px;
+	height: 210px;
+}
+.probox{
+	display: inline-block;
+	margin: 15px;
+	background-color: white;
+}
+</style>
 </head>
-<%
-	List<RecipeDto> rList = (List<RecipeDto>)request.getAttribute("rList");
-%>
 <body>
 	<header><%@ include file="static/header.jsp" %></header>
 	
 	<section>
 		<%@ include file="mypage_menu.jsp" %>
 		<h2>관심 레시피</h2>
-		<table border="1">
-			<tr>
-				<th><input type="checkbox"></th><th>이미지</th><th>이름</th>
-			</tr>
-<%
-			if(rList.isEmpty()) {
-%>
-			<tr>
-				<td colspan="4">등록된 관심레시피가 없습니다.</td>
-			</tr>
-<%
-			}else {
-				for(RecipeDto rDto : rList) {
-					
-%>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td><img src="<%=rDto.getRecipe_img()%>"></td>
-				<td><%=rDto.getRecipe_name() %></td>
-			</tr>
-<%
-				}
-			}
-%>
-		</table>
-		
+			<c:choose>
+				<c:when test="${empty rList }">
+						<div style="text-align: center; font-weight: 1000; font-size: 20px; margin-top: 50px;">등록된 관심레시피가 없습니다.</div>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${rList }" var="dto">
+						<div class="probox">
+							<div><a href="/PreparedKitchen/prodetail.do?command=detail&recipeno=${dto.recipe_no}"><img class="recipe_img" src="${dto.recipe_img }"/></a></div>
+							<div>
+								<div class="bottonbox">${dto.recipe_name }</div>
+								<div class="bottonbox" id="imgbox"><a href="member.do?command=deleteInterest&recipe_no=${dto.recipe_no }"><img class="imgicon" src="/PreparedKitchen/image/delete.png"/></a></div>
+							</div>	
+						</div>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
 	</section>
 	<%@ include file="static/remocon.jsp" %>
 	<footer><%@ include file="static/footer.jsp" %></footer>

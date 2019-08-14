@@ -244,6 +244,8 @@ public class Dummy extends HttpServlet {
 					String material_capacity = "";
 					int material_typeCode = irdnt_ty_code.getAsInt();
 					String material_typeName = irdnt_ty_nm.getAsString();
+
+					System.out.println("recipe_no = "+ recipe_no);
 					
 					String[] m_name = material_name.split("]");
 					
@@ -321,9 +323,9 @@ public class Dummy extends HttpServlet {
 				MartDto bDto = new MartDto();
 				MartDto cDto = new MartDto();
 				
-				aDto.setMaterial_name("a회사" + mList.get(i));
-				bDto.setMaterial_name("b회사" + mList.get(i));
-				cDto.setMaterial_name("c회사" + mList.get(i));
+				aDto.setItem_name("a회사" + mList.get(i));
+				bDto.setItem_name("b회사" + mList.get(i));
+				cDto.setItem_name("c회사" + mList.get(i));
 				
 				aDto.setMart_price((int)((Math.random() * 31) + 20) * 100);
 				bDto.setMart_price((int)((Math.random() * 31) + 20) * 100);

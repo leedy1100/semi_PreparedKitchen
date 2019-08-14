@@ -8,4 +8,22 @@
 		WHERE ID = #{value}
 		ORDER BY INTERESTLIST_NO DESC
 	</select>
+	
+	<insert id="insertInterestRecipe" parameterType="interestDto">
+		INSERT INTO INTERESTLIST
+		VALUES(INTERESTLISTSEQ.NEXTVAL, #{id}, #{recipe_no})
+	</insert>
+	
+	<delete id="deleteInterestRecipe" parameterType="hashmap">
+		DELETE FROM INTERESTLIST
+		WHERE ID = #{id}
+		AND RECIPE_NO = #{recipe_no}
+	</delete>
+	
+	<select id="selectOneInterestRecipe" parameterType="hashmap" resultType="interestDto">
+		SELECT INTERESTLIST_NO, ID,RECIPE_NO
+		FROM INTERESTLIST
+		WHERE ID = #{id}
+		AND RECIPE_NO = #{recipe_no}
+	</select>
 </mapper>

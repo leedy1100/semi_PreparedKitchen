@@ -28,4 +28,8 @@ public class PaymentBiz {
 	public int delete(String tid) {
 		return dao.delete(tid);
 	}
+
+	public int getNoOfRecords() {
+		return dao.getNoOfRecords();
+	}
 }

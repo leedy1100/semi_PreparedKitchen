@@ -31,20 +31,19 @@ public class RecipeDao extends SqlMapConfig {
 		return list;
 	}
 	
-	public List<RecipeDto> selectListOne(List<Integer> list) {
+	public List<RecipeDto> selectListOne(List<Integer> list, String id) {
 		List<RecipeDto> res = new ArrayList<RecipeDto>();
 		SqlSession session = null;
 		
 		try {
 			session = getSqlSessionFactory().openSession(false);
 			res = session.selectList(namespace + "selectListOne", list);
-			this.noOfRecords = session.selectOne(namespace + "totalCountList");
+			this.noOfRecords = session.selectOne(namespace + "totalCountList", id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
-		
 		return res;
 	}
 

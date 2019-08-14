@@ -52,20 +52,23 @@
 			<hr>
 			
 			<div id="payProductDiv">
+				<c:forEach items="${recipeList }" var="recipeDto0">
+					
+				</c:forEach>
 				<c:forEach items="${productList }" var="martDto" varStatus="status">
 					<div class="proListDiv">
-						<input type="hidden" name="material_name" value="${martDto.material_name }">
+						<input type="hidden" name="mart_item_name" value="${martDto.item_name }">
 						<input type="hidden" name="mart_price" value="${martDto.mart_price }">
-						${martDto.material_name }
+						${martDto.item_name }
 						${martDto.mart_price }원
 					</div>
 					<c:set var="totalPrice" value="${totalPrice + martDto.mart_price }"/>
 					<c:choose>
 						<c:when test="${status.first }">
-							<c:set var="item_name" value="${martDto.material_name }"/>
+							<c:set var="item_name" value="${martDto.item_name }"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="item_name" value="${item_name },${martDto.material_name }"/>
+							<c:set var="item_name" value="${item_name },${martDto.item_name }"/>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -81,14 +84,13 @@
 			<hr>
 			
 			<div id="totalPriceDiv">
-				총 : ${totalPrice }원
 				${item_name }
-				${item_code }
+				총 : ${totalPrice }원
 			</div>
 			<input type="hidden" name="command" value="pay">
 			<input type="hidden" name="partner_order_id" value="0000001">
 			<input type="hidden" name="partner_user_id" value="${memberDto.id }">
-			<input type="hidden" name="item_name" value="[${item_name }]">
+			<input type="hidden" name="item_name" value="${item_name }">
 			<input type="hidden" name="item_code" value="${item_code }">
 			<input type="hidden" name="quantity" value="1">
 			<input type="hidden" name="total_amount" value="${totalPrice }">
