@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.pk.dto.CartDto;
 import com.pk.dto.MartDto;
+import com.pk.dto.MaterialDto;
 
 public class MartDao extends SqlMapConfig{
 	
@@ -115,6 +117,22 @@ public class MartDao extends SqlMapConfig{
 		try {
 			session = getSqlSessionFactory().openSession(false);
 			list = session.selectList(namespace+"buyProduct", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
+	
+	public List<MartDto> selectListOne(List<CartDto> cList) {
+		List<MartDto> list = new ArrayList<MartDto>();
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace + "selectListOne", cList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
