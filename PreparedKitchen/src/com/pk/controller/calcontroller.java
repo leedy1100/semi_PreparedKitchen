@@ -54,6 +54,8 @@ public class calcontroller extends HttpServlet {
 			
 			
 			List<CalDto>list = biz.mycalendar(id);
+			System.out.println("row" + list.get(0).getRnum());
+			
 			JSONArray jArr = new JSONArray();
 			HashMap<String, Object> hm = null;
 			for(int i=0; i<list.size(); i++) {
@@ -62,6 +64,7 @@ public class calcontroller extends HttpServlet {
 				hm.put("start", list.get(i).getRecipe_date());
 				hm.put("description", list.get(i).getCalendar_no());
 				hm.put("url", list.get(i).getRecipe_no());
+			
 				
 				jArr.add(hm);
 			}

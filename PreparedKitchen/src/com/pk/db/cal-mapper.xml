@@ -20,7 +20,7 @@
 
 	
 	<update id="updatecalendar" parameterType="CalDto">
-		UPDATE  PAYMENT
+		UPDATE  CALENDAR
   		SET  RECIPE_DATE =#{recipe_date}
   		WHERE CALENDAR_NO =#{calendar_no}
 	</update>

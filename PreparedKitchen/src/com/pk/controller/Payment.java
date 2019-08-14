@@ -27,6 +27,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.pk.biz.CalendarBiz;
 import com.pk.biz.MartBiz;
 import com.pk.biz.PaymentBiz;
 import com.pk.biz.RecipeBiz;
@@ -179,7 +180,9 @@ public class Payment extends HttpServlet {
 				String[] split = item_code.split(",");
 				Date date = new Date();
 				SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-dd  hh시");
+				SimpleDateFormat dateform2 = new SimpleDateFormat("yyyy-MM-dd");
 				String payment_date = dateform.format(date);
+				String recipe_date = dateform2.format(date);
 				
 				for(String sp : split) {
 					int mart_no = Integer.parseInt(sp);
@@ -199,9 +202,10 @@ public class Payment extends HttpServlet {
 					
 					cDto.setId(partner_user_id);
 					cDto.setPayment_group(tid);
-					cDto.setRecipe_date(payment_date);
+					cDto.setRecipe_date(recipe_date);
 					cDto.setRecipe_name(recipe_name);
 					cDto.setRecipe_no(recipe_no);
+					
 					
 					Clist.add(cDto);
 					
@@ -210,6 +214,13 @@ public class Payment extends HttpServlet {
 				int res = pBiz.insert(list);
 				
 				if(res == list.size()) {
+					System.out.println("db 저장 성공");
+				}else {
+					System.out.println("db 저장 실패");
+				}
+				CalendarBiz cBiz = new CalendarBiz();
+				int cres = cBiz.insercalendar(Clist);
+				if(cres == Clist.size()) {
 					System.out.println("db 저장 성공");
 				}else {
 					System.out.println("db 저장 실패");

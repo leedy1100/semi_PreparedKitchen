@@ -10,6 +10,7 @@ public class CalDto {
 	private String recipe_name;
 	private int recipe_no;
 	private String id;
+	private int rnum;
 	
 	
 	
@@ -19,7 +20,7 @@ public class CalDto {
 	}
 
 
-	public CalDto(int calendar_no, String payment_group, String recipe_date, String recipe_name, int recipe_no,
+	public CalDto(int rnum,int calendar_no, String payment_group, String recipe_date, String recipe_name, int recipe_no,
 			String id) {
 		
 		this.calendar_no = calendar_no;
@@ -88,6 +89,16 @@ public class CalDto {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+
+	public int getRnum() {
+		return rnum;
+	}
+
+
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
 	}
 	
 	
