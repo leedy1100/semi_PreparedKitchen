@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.pk.dto.CalDto;
 
 
+
 public class CalDao extends SqlMapConfig {
 	
 	private String namespace = "calendarmapper.";
@@ -48,6 +49,31 @@ public class CalDao extends SqlMapConfig {
 		}finally {
 			session.close();
 		}
+		
+		return res;
+	}
+	
+	public int insert(List<CalDto> list) {
+		int res = 0;
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			
+			for(CalDto dto : list) {
+				res += session.insert(namespace + "insercalendar", dto);
+			}
+			
+			if(res == list.size()) {
+				session.commit();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
 		
 		return res;
 	}

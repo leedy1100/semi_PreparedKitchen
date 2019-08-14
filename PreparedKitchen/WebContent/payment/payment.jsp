@@ -48,7 +48,48 @@
 		}
 		
 		if(selecList.length != 0){
+			proForm.attr("action","payment");
 			command.val("confirmpay");
+			proForm.html(proForm.html()+"<input type='hidden' name='proList' value='" + selecList + "'>");
+			proForm.submit();
+			
+		} else {
+			alert("상품을 선택해 주세요");
+		}
+	}
+	
+	function interestDo() {
+		
+		$.ajax({
+			url:"member.do?command=insertInterest&recipe_no=${recipe.recipe_no }",
+			method:"get",
+			dateType:"text",
+			success:function(msg){
+				alert(msg);
+			}, error:function(request, error){
+				alert("code:"+request.status+"\n"+"message:"+request.reponseText+"\n"+"error:"+error);
+			}
+		});		
+	}
+	
+	function cartDo(){
+		var selecProduct = $("#materialProduct .selected");
+		var proForm = $("#productForm");
+		var command = $("input[name=command]");
+		var selecList = "";
+		
+		for(var i = 0; i < selecProduct.length; i++){
+			
+			if(i != selecProduct.length-1){
+				selecList += selecProduct.eq(i).attr("title") + ",";
+			} else {
+				selecList += selecProduct.eq(i).attr("title");
+			}
+		}
+		
+		if(selecList.length != 0){
+			proForm.attr("action","cart.do");
+			command.val("addcart");
 			proForm.html(proForm.html()+"<input type='hidden' name='proList' value='" + selecList + "'>");
 			proForm.submit();
 			

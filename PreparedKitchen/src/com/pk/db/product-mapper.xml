@@ -66,10 +66,23 @@
 			FROM(
 				SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO
 				FROM PRODUCTLIST
-				ORDER BY PRODUCTLIST_NO DESC
+				ORDER BY ${order} DESC
 			) A
 			WHERE ROWNUM <![CDATA[<=]]> #{noOfRecords}
 		) X
 		WHERE X.RNUM <![CDATA[>]]> #{offset}
 	</select>
+	
+	<update id="hit" parameterType="int">
+		UPDATE PRODUCTLIST
+		SET VIEW_NO = VIEW_NO + 1
+		WHERE RECIPE_NO = #{value}
+	</update>
+	
+	<update id="salesCount" parameterType="String">
+		UPDATE PRODUCTLIST
+		SET SALES_COUNT = SALES_COUNT + 1
+		WHERE RECIPE_NO = #{value}
+	</update>
+	
 </mapper>

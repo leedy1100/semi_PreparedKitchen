@@ -54,14 +54,17 @@ public class calcontroller extends HttpServlet {
 			
 			
 			List<CalDto>list = biz.mycalendar(id);
+			System.out.println("row" + list.get(0).getRnum());
+			
 			JSONArray jArr = new JSONArray();
 			HashMap<String, Object> hm = null;
 			for(int i=0; i<list.size(); i++) {
 				hm = new HashMap<String, Object>();
 				hm.put("title", list.get(i).getRecipe_name());
 				hm.put("start", list.get(i).getRecipe_date());
-				hm.put("description", list.get(i).getPayment_no());
+				hm.put("description", list.get(i).getCalendar_no());
 				hm.put("url", list.get(i).getRecipe_no());
+			
 				
 				jArr.add(hm);
 			}
@@ -95,7 +98,7 @@ public class calcontroller extends HttpServlet {
 			CalDto dto = new CalDto();
 			dto.setRecipe_date(start);
 			dto.setId(id);
-			dto.setPayment_no(payment_no);
+			dto.setCalendar_no(payment_no);
 			
 			
 			int res = biz.updatecalendar(dto);

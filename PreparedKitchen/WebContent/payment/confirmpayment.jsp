@@ -14,6 +14,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9224c175adc04d7602e956fcdd3fd17f&libraries=services"></script>
 <script type="text/javascript" src="/PreparedKitchen/js/payment.js"></script>
+<%@include file="../js/map.jsp" %>
 <body>
 
 	<header>
@@ -52,20 +53,34 @@
 			<hr>
 			
 			<div id="payProductDiv">
+				<c:forEach items="${recipeList }" var="recipeDto" varStatus="status">
+					<c:choose>
+						<c:when test="${status.first }">
+							<c:set var="recipenos" value="${recipeDto.recipe_no }"/>
+						</c:when>
+						<c:otherwise>
+							<c:set var="recipenos" value="${recipenos },${recipeDto.recipeno }"/>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:forEach items="${recipeList }" var="recipeDto">
+					<input type="hidden" name="recipe_name" value="${recipeDto.recipe_name }">
+					<input type="hidden" name="recipe_no" value="${recipeDto.recipe_no }">
+				</c:forEach>
 				<c:forEach items="${productList }" var="martDto" varStatus="status">
 					<div class="proListDiv">
-						<input type="hidden" name="material_name" value="${martDto.material_name }">
+						<input type="hidden" name="mart_item_name" value="${martDto.item_name }">
 						<input type="hidden" name="mart_price" value="${martDto.mart_price }">
-						${martDto.material_name }
-						${martDto.mart_price }원
+						<span>${martDto.item_name }</span>
+						<span>${martDto.mart_price }원</span>
 					</div>
 					<c:set var="totalPrice" value="${totalPrice + martDto.mart_price }"/>
 					<c:choose>
 						<c:when test="${status.first }">
-							<c:set var="item_name" value="${martDto.material_name }"/>
+							<c:set var="item_name" value="${martDto.item_name }"/>
 						</c:when>
 						<c:otherwise>
-							<c:set var="item_name" value="${item_name },${martDto.material_name }"/>
+							<c:set var="item_name" value="${item_name },${martDto.item_name }"/>
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
@@ -82,27 +97,28 @@
 			
 			<div id="totalPriceDiv">
 				총 : ${totalPrice }원
-				${item_name }
-				${item_code }
 			</div>
 			<input type="hidden" name="command" value="pay">
 			<input type="hidden" name="partner_order_id" value="0000001">
 			<input type="hidden" name="partner_user_id" value="${memberDto.id }">
-			<input type="hidden" name="item_name" value="[${item_name }]">
+			<input type="hidden" name="item_name" value="${item_name }">
 			<input type="hidden" name="item_code" value="${item_code }">
 			<input type="hidden" name="quantity" value="1">
 			<input type="hidden" name="total_amount" value="${totalPrice }">
 			<input type="hidden" name="tax_free_amount" value="0">
-			<input type="submit" value="결제하기">
+			<input type="hidden" name="recipenos" value="${recipenos }">
+			<input type="hidden" name="recipe_name" value="${recipe_name }">
+			<input type="hidden" name="recipe_no" value="${recipe_no }">
+			<input id="pay_do" type="button" value="결제하기" onclick="payDo()">
 		</form>
 	</section>
-	
+	<iframe id="pay_frame" name="pay_target"></iframe>
 	<%@ include file="../static/remocon.jsp" %>
 		
 	<footer>
 		<!-- 가장 밑 footer.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/footer.jsp" %>
 	</footer>
-
+	<div id="pay_black" onclick="payBlack()"></div>
 </body>
 </html>

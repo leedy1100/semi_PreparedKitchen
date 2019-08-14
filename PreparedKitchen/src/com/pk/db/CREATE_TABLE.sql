@@ -15,10 +15,11 @@ CREATE TABLE MEMBER(
 	
 	CONSTRAINT CHECK_ENABLED CHECK(ENABLED IN('Y','N'))
 );
-INSERT INTO MEMBER VALUES('user','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'USER');
-INSERT INTO MEMBER VALUES('홍길동','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'USER');
-INSERT INTO MEMBER VALUES('admin','0000','관리자','a@g.com','010-0000-0000','서울시','Y','921119',SYSDATE,'ADMIN');
+INSERT INTO MEMBER VALUES('user','0000','홍길동','a@g.com','010-0000-0000','서울시','Y','990121',SYSDATE,'USER');
+INSERT INTO MEMBER VALUES('admin','0000','관리자','a@g.com','010-0000-0000','서울시','Y','200121',SYSDATE,'ADMIN');
 SELECT * FROM MEMBER;
+
+
 
 UPDATE MEMBER 
   	SET ENABLED='Y'
@@ -44,7 +45,7 @@ CREATE TABLE RECIPE(
 );
 
 SELECT * FROM RECIPE;
-        16 만둣국          http://file.okdab.com/UserFiles/searching/recipe/003500.jpg 1 : 김치는 소를 털고 송송 썰어 물기를 꼭 짜고 숙주는 삶아 물기를 뺀다. tip : *만둣속에 당면이나, 여러가지 채소를 다져 넣어도 색다른 맛을 느낄 수가 있다.      *만둣국의 고명으로 지단을 얇게 부쳐 골패모양으로 썰어 올리면 멋스럽다.      *밀가루 반죽을 한다음에는 바로 빚지 말고 비닐에 조금 숙성시킨 후 만두를 빚는다. <br/> 2 : 갈은 돼지고기나 갈은 쇠고기를 준비한다. <br/> 3 : 두부는 수분을 완전히 제거한다. <br/> 4 : 양파, 마늘, 대파는 곱게 다져놓는다. <br/> 5 : 김치, 숙주, 갈은 고기, 다진 양파, 마늘, 대파에 참기름과 후춧가루, 소금으로 간을 한다. <br/> 6 : 밀가루 반죽을 하여 얇게 민다음 지름이 6cm 정도 되게 하여 그 안에 ⑤에서 만든 만둣속을 넣는다. <br/>                                                                                                                                                                                                                                                                                                          540Kcal         한식,만두/면류        N
+        20 무맑은국         http://file.okdab.com/UserFiles/searching/recipe/004600.jpg <div class='contentDiv'>1 : 쇠고기는 2cm 길이로 도톰하게 저며썰고 무는 길이 3cm 정도씩 토막을 낸 뒤 반을 갈라 0.2cm 두께로 나박썬다.</div> <div class='contentDiv'>2 : 썰어놓은 쇠고기는 다진 마늘 1작은술과 국간장 1큰술, 후춧가루 약간으로 양념해 간이 골고루 배도록 조물조물 무친다.</div> <div class='contentDiv'>3 : 냄비에 물 5컵을 붓고 팔팔 끓이다가 양념해 놓은 쇠고기를 넣고 고기가 익을 때까지 한소끔 끓인다.</div> <div class='contentDiv'>4 : 끓는 쇠고기 장국에 나박썬 무를 넣는다. 끓을 때 생기는 거품은 걷어낸다.</div> <div class='contentDiv'>5 : 무가 말갛게 익으면 국간장과 소금을 1:1의 비율로 넣어 간을 하고 다진 마늘과 실파를 넣어 조금 더 끓인다.</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                     75Kcal          한식,국            N
 
 ---------------------------------------------------------------
 
@@ -69,17 +70,10 @@ CREATE TABLE RECIPEBOARD(
 SELECT * FROM RECIPEBOARD;
 DELETE FROM RECIPEBOARD;
 
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','토마토파스타','맛있습니다.',SYSDATE,0,0);
+INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','무맑은국',
+'<img src=" http://file.okdab.com/UserFiles/searching/recipe/004600.jpg" style="width: 300px;"> <div class="contentDiv">1 : 쇠고기는 2cm 길이로 도톰하게 저며썰고 무는 길이 3cm 정도씩 토막을 낸 뒤 반을 갈라 0.2cm 두께로 나박썬다.</div> <div class="contentDiv">2 : 썰어놓은 쇠고기는 다진 마늘 1작은술과 국간장 1큰술, 후춧가루 약간으로 양념해 간이 골고루 배도록 조물조물 무친다.</div> <div class="contentDiv">3 : 냄비에 물 5컵을 붓고 팔팔 끓이다가 양념해 놓은 쇠고기를 넣고 고기가 익을 때까지 한소끔 끓인다.</div> <div class="contentDiv">4 : 끓는 쇠고기 장국에 나박썬 무를 넣는다. 끓을 때 생기는 거품은 걷어낸다.</div> <div class="contentDiv">5 : 무가 말갛게 익으면 국간장과 소금을 1:1의 비율로 넣어 간을 하고 다진 마늘과 실파를 넣어 조금 더 끓인다.</div>'
+,SYSDATE,0,0);
 
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
-INSERT INTO RECIPEBOARD VALUES(RECIPEBOARDSEQ.NEXTVAL,'qq','로제파스타','맛있습니다.',SYSDATE,0,0);
 ---------------------------------------------------------------
 
 DROP SEQUENCE LIKESEQ;
@@ -186,6 +180,21 @@ SELECT PRODUCTLISTSEQ.NEXTVAL
 
 ---------------------------------------------------------------
 
+DROP SEQUENCE MARTSEQ;
+DROP TABLE MART;
+
+CREATE SEQUENCE MARTSEQ;
+CREATE TABLE MART(
+
+	MART_NO 		NUMBER 			PRIMARY KEY,
+	ITEM_NAME		VARCHAR2(500)	NOT NULL,
+	MART_PRICE 		NUMBER 			NOT NULL,
+	CATEGORY		VARCHAR2(500)	NOT NULL
+);
+
+SELECT * FROM MART;
+
+------------------------------------------------------------------
 DROP SEQUENCE PAYMENTSEQ;
 DROP TABLE PAYMENT;
 
@@ -196,18 +205,16 @@ CREATE TABLE PAYMENT(
 	PAYMENT_GROUP 		VARCHAR2(500)	NOT NULL,
 	ID 					VARCHAR2(500) 	NOT NULL,
 	ITEM_NAME			VARCHAR2(500)	NOT NULL,
-	ITEM_CODE			VARCHAR2(500)	NOT NULL,
-	PAYMENT_PRICE 		VARCHAR2(500) 	NOT NULL,
-	RECIPE_NO 			NUMBER 			NOT NULL,
-	MATERIAL_NO 		NUMBER 			NOT NULL,
+	MART_NO				NUMBER			NOT NULL,
+	PAYMENT_PRICE 		NUMBER		 	NOT NULL,
 	PAYMENT_DATE 		VARCHAR2(500) 	NOT NULL,
 	RECIPE_DATE			VARCHAR2(500)	NOT NULL,
 	SHIPPING_ADDR 		VARCHAR2(2000) 	NOT NULL,
 	
 	CONSTRAINT FK_PAYMENT_ID FOREIGN KEY(ID)
 	REFERENCES MEMBER(ID),
-	CONSTRAINT FK_PAYMENT_MATERIAL_NO FOREIGN KEY(MATERIAL_NO, RECIPE_NO)
-	REFERENCES MATERIAL(MATERIAL_NO, RECIPE_NO)
+	CONSTRAINT FK_PAYMENT_ITEM_CODE FOREIGN KEY(MART_NO)
+	REFERENCES MART(MART_NO)
 );
 
 INSERT INTO MATERIAL
@@ -243,7 +250,7 @@ CREATE TABLE INTERESTLIST(
 	CONSTRAINT FK_INTEREST_RECIPE_NO FOREIGN KEY(RECIPE_NO)
 	REFERENCES RECIPE(RECIPE_NO)
 );
-
+SELECT * FROM INTERESTLIST;
 INSERT INTO INTERESTLIST VALUES(INTERESTLISTSEQ.NEXTVAL, 'user', 1);
 ---------------------------------------------------------------
 
@@ -256,12 +263,14 @@ CREATE TABLE CART(
 	CART_NO 		NUMBER 			PRIMARY KEY,
 	ID 				VARCHAR2(500) 	NOT NULL,
 	RECIPE_NO		NUMBER 			NOT NULL,
-	MATERIAL_NO 	NUMBER 			NOT NULL,
+	MART_NO			NUMBER			NOT NULL,
 	
 	CONSTRAINT FK_CART_ID FOREIGN KEY(ID)
 	REFERENCES MEMBER(ID),
-	CONSTRAINT FK_CART_MATERIAL_NO FOREIGN KEY(MATERIAL_NO, RECIPE_NO)
-	REFERENCES MATERIAL(MATERIAL_NO, RECIPE_NO)
+	CONSTRAINT FK_CART_RECIPE_NO FOREIGN KEY(RECIPE_NO)
+	REFERENCES RECIPE(RECIPE_NO),
+	CONSTRAINT FK_CART_MART_NO FOREIGN KEY(MART_NO)
+	REFERENCES MART(MART_NO)
 );
 
 INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 1, 1);
@@ -288,11 +297,11 @@ INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 75, 860);
 INSERT INTO CART VALUES(CARTSEQ.NEXTVAL, 'user', 75, 861);
 
 SELECT * FROM CART;
-SELECT * FROM MATERIAL;
 
 SELECT R.RECIPE_NAME, P.PAYMENT_DATE FROM RECIPE R, PAYMENT P WHERE P.ID = 'user'
 ---------------------------------------------------------------
 
+<<<<<<< HEAD
 DROP SEQUENCE MARTSEQ;
 DROP TABLE MART;
 
@@ -308,14 +317,18 @@ CREATE TABLE MART(
 SELECT * FROM MART;
 
 ------------------------------------------------------------------
-DROP SEQUENCE CALENDAR;
+DROP SEQUENCE CALENDARSEQ;
 DROP TABLE CALENDAR;
 
-CREATE SEQUENCE CALENDAR;
+CREATE SEQUENCE CALENDARSEQ;
 CREATE TABLE CALENDAR(
 	
 	CALENDAR_NO		NUMBER				PRIMARY KEY,
+<<<<<<< HEAD
 	PAYMENT_GROUP	VARCHAR2(500)		NOT NULL,
+=======
+	PAYMENT_GROUP 	VARCHAR2(500)		NOT NULL,
+>>>>>>> branch 'LJS123' of https://github.com/KOKOPA/PreparedKitchen.git
 	RECIPE_DATE		VARCHAR2(500)		NOT NULL,
 	RECIPE_NAME		VARCHAR2(500)		NOT NULL,
 	RECIPE_NO		NUMBER				NOT NULL,
@@ -328,3 +341,15 @@ CREATE TABLE CALENDAR(
 
 SELECT * FROM CALENDAR
 
+SELECT CALENDAR_NO, PAYMENT_GROUP, RECIPE_DATE, RECIPE_NAME, RECIPE_NO
+		FROM CALENDAR
+		WHERE ID = 'user'
+SELECT B.RNUM, B.PAYMENT_GROUP, B.RECIPE_DATE, B.RECIPE_NAME, B.RECIPE_NO 
+FROM(SELECT ROWNUM AS RNUM, A.PAYMENT_GROUP, A.RECIPE_DATE, A.RECIPE_NAME, A.RECIPE_NO
+		FROM (SELECT DISTINCT  PAYMENT_GROUP, RECIPE_DATE, RECIPE_NAME, RECIPE_NO
+		FROM CALENDAR
+		WHERE ID = 'user') A
+		) B
+		
+UPDATE CALENDAR SET RECIPE_DATE = '2019-08-14'
+WHERE CALENDAR_NO = 2

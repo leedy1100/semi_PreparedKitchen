@@ -26,6 +26,7 @@
 }
 #showPageNum{
 	clear: both;
+	cursor: pointer;
 }
 #cmtcmtcontent{
 	position: relative;

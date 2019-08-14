@@ -22,6 +22,7 @@ import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.biz.RecipeBoardBiz;
+import com.pk.dto.MemberDto;
 import com.pk.dto.PagingDto;
 import com.pk.dto.PagingRecipeDto;
 import com.pk.dto.ProductListDto;
@@ -49,7 +50,8 @@ public class Product extends HttpServlet {
 		RecipeBiz rBiz = new RecipeBiz();
 		MaterialBiz mBiz = new MaterialBiz();
 		RecipeBoardBiz rbBiz = new RecipeBoardBiz();
-
+		
+		
 		int currentPageNo = 1;
 		int recordsPerPage = 0;
 
@@ -178,18 +180,22 @@ public class Product extends HttpServlet {
 			}
 		}else if(command.equals("productlist")) {
 			
-			List<ProductListDto> list = pBiz.selectList(offset2, paging2.getRecordsPerPage());
+			String order = request.getParameter("order");
+			
+			List<ProductListDto> plist = pBiz.selectList(offset2, paging2.getRecordsPerPage(), order);
 			paging2.setNumberOfRecords(pBiz.getNoOfRecords());
 			paging2.makePaging();
 			
-			request.setAttribute("plist", list);
+			request.setAttribute("plist", plist);
 			request.setAttribute("paging", paging2);
+			request.setAttribute("order", order);
 			
 			dispatch(request, response, "product/productlist.jsp");
 			
 		}else if(command.equals("main")) {
+			String order = "PRODUCTLIST_NO";
 			
-			List<ProductListDto> list = pBiz.selectList(offset2, paging2.getRecordsPerPage());
+			List<ProductListDto> list = pBiz.selectList(offset2, paging2.getRecordsPerPage(), order);
 			List<RecipeBoardDto> rlist = rbBiz.topRecipeBoard();
 			
 			request.setAttribute("plist", list);

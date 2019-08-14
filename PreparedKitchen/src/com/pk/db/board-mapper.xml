@@ -38,7 +38,7 @@
 		FROM RECIPEBOARD
 		WHERE RECIPEBOARD_NO = #{recipeboard_no}
  	</select>
- 	
+ 		
  	<select id="totalCountList" resultType="int">
  		SELECT COUNT(*)
  		FROM RECIPEBOARD

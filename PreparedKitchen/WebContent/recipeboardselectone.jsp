@@ -35,10 +35,14 @@ input, select {
     border-collapse: separate;
     border-spacing: 0px;
     border-top: 2px solid #b2b83b;
+    margin-top: 50px;
+}
+.boardtable tr{
 }
 .boardtable th{
 	border-bottom: 1px solid #eaeaea;
 	text-align: center;
+	width: 100px;
 }
 .boardtable td {
     font-weight: normal;
@@ -49,6 +53,7 @@ input, select {
     padding: 10px 0;
     font-size: 13px;
     border-bottom: 1px solid #eaeaea;
+    text-align: left;
 }
 .recipecnt {
     text-decoration: none;
@@ -67,6 +72,14 @@ input, select {
 #recipelike:active {
 	
 }
+#imgicon{
+	width: 50px;
+	margin-top: 100px;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
 </style>
 <link rel="stylesheet" href="static/base.css" />
 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
@@ -76,7 +89,7 @@ $(function() {
 	$('#recipelike').click(function(){
 
 		$.ajax({
-			url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",	//전송할 경로
+			url:"recipeboard.do?command=like&recipeBoard_no=${recipeBoardDto.recipeBoard_no }",
 			method:"get",
 			async:true,	
 			dateType:"text",
@@ -102,29 +115,28 @@ $(function() {
 		<%@ include file="static/header.jsp"%>
 	</header>
 	<section>
-		<h1>selectOne</h1>
-
+		<h1><a href="recipeboard.do?command=search&searchFiled=${paging.searchFiled}&searchValue=${paging.searchValue}"><img alt="사진" src="/PreparedKitchen/image/board.png" id="imgicon">유저 추천 레시피</a></h1>
 		<table class="boardtable">
 			<tr>
 				<th>제목</th>
-				<td colspan="2">${recipeBoardDto.recipeBoard_title }</td>
-				<th>조회수</th>
-				<td colspan="1">${recipeBoardDto.recipeBoard_readCount }</td>
-				<th>좋아요</th>
-				<td id="favorite" style="width: 50px">${recipeBoardDto.recipeBoard_like }</td>
-				<td><img src="/PreparedKitchen/image/hearts.png" id="recipelike"></td>
+				<td colspan="4" style="width: 200px;">${recipeBoardDto.recipeBoard_title }</td>
+				<th>작성일</th>
+				<td colspan="4">${recipeBoardDto.recipeBoard_regdate }</td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td colspan="1">${recipeBoardDto.id }</td>
-				<th>작성일</th>
-				<td colspan="1">${recipeBoardDto.recipeBoard_regdate }</td>
+				<td colspan="4" style="width: 100px;">${recipeBoardDto.id }</td>
+				<th>조회수</th>
+				<td>${recipeBoardDto.recipeBoard_readCount }</td>
+				<th>좋아요</th>
+				<td id="favorite">${recipeBoardDto.recipeBoard_like }</td>
+				<td><img src="/PreparedKitchen/image/like.png" id="recipelike"></td>
 			</tr>
 			<tr>
-				<td colspan="4" style="text-align: left;">${recipeBoardDto.recipeBoard_content }</td>
+				<td colspan="10" style="text-align: left; background-color: white;">${recipeBoardDto.recipeBoard_content }</td>
 			</tr>
 			<tr>
-				<td colspan="3" id="button">
+				<td colspan="7" id="button">
 				<c:choose>
 				<c:when test="${memberDto.id == recipeBoardDto.id }">
 				<input type="button" value="수정" onclick="location.href='recipeboard.do?command=update&recipeBoard_no=${recipeBoardDto.recipeBoard_no}'" />

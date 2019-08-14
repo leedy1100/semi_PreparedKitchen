@@ -32,17 +32,48 @@ section{
 #imgicon{
 	width: 60px;
 }
+.selectOrder{
+	margin: 30px;
+}
+.selectOrder li{
+	list-style: none;
+	display: inline-block;
+	font-weight: 700;
+	border-left: 2px solid gray;
+	padding-left: 8px;	
+}
+.selectOrder li:first-child{
+	border: none;
+}
+.selectOrder li a{
+	text-decoration: none;
+	color: gray;
+}
+.selectOrder li :hover{
+	color: black;
+	font-weight: 1000;
+}
+#select{
+	width: 100%;
+	text-align: right;
+}
 </style>
 </head>
 <body>
-
 	<header>
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/header.jsp" %>
 	</header>
 	<section>
+	<h1 style="margin: 50px;"><img alt="사진" src="/PreparedKitchen/image/recipe.png" id="imgicon">우리 레시피</h1>
+	<div id="select">
+		<ul class="selectOrder">
+			<li><a href="/PreparedKitchen/product.do?command=productlist&order=PRODUCTLIST_NO">최신순</a></li>
+			<li><a href="/PreparedKitchen/product.do?command=productlist&order=SALES_COUNT">판매순</a></li>
+			<li><a href="/PreparedKitchen/product.do?command=productlist&order=VIEW_NO">조회순</a></li>
+		</ul>
+	</div>
 	<article>
-	<h1 style="margin: 50px;"><img alt="사진" src="/PreparedKitchen/image/recipe.png" id="imgicon">상품 추천</h1>
 	<c:choose>
 		<c:when test="${empty plist}">
 			<div id="noproduct">상품 준비 중입니다.</div>

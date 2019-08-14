@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = function() {
+		parent.location.href='/PreparedKitchen/paymentinfo.jsp';
+		
+	}
+</script>
 <%
 	String item_name = (String)session.getAttribute("item_name");
 	String total = (String)session.getAttribute("total");

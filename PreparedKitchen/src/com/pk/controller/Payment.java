@@ -7,12 +7,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +25,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.pk.biz.CalendarBiz;
 import com.pk.biz.MartBiz;
 import com.pk.biz.PaymentBiz;
+import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
+import com.pk.dto.CalDto;
 import com.pk.dto.MartDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PaymentDto;
@@ -40,6 +41,7 @@ import com.pk.dto.RecipeDto;
 public class Payment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private PaymentBiz pBiz = new PaymentBiz();   
+    private MartBiz martBiz = new MartBiz();
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,6 +55,7 @@ public class Payment extends HttpServlet {
 		HttpSession session = request.getSession();
 		String command = request.getParameter("command");
 		System.out.println("[" + command + "]");
+		ProductListBiz proBiz = new ProductListBiz();
 		
 		if(command.equals("pay")) {
 			URL url = new URL("https://kapi.kakao.com/v1/payment/ready");
@@ -67,8 +70,13 @@ public class Payment extends HttpServlet {
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
-			
-	        Map<String, String> params = new HashMap<String, String>();
+
+	       
+			Map<String, String> params = new HashMap<String, String>();
+
+			String recipe_name = request.getParameter("recipe_name");
+			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
+
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
 	        params.put("partner_user_id", partner_user_id);
@@ -108,6 +116,8 @@ public class Payment extends HttpServlet {
 				session.setAttribute("partner_user_id", partner_user_id);
 				session.setAttribute("item_name", item_name);
 				session.setAttribute("item_code", item_code);
+				session.setAttribute("recipe_name", recipe_name);
+				session.setAttribute("recipe_no", recipe_no);
 				
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -126,14 +136,18 @@ public class Payment extends HttpServlet {
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
 			
-			
 			String tid = (String)session.getAttribute("tid");
 			String partner_order_id = (String)session.getAttribute("partner_order_id");
 			String partner_user_id = (String)session.getAttribute("partner_user_id");
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
-			
+
+			String recipeno = session.getAttribute("recipeno").toString();
+
+			String recipe_name = (String)session.getAttribute("recipe_name");
+			int recipe_no = (int) session.getAttribute("recipe_no");
+
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
 			map.put("tid", tid);
@@ -166,32 +180,55 @@ public class Payment extends HttpServlet {
 				
 				// subString 으로 item_code 자른 후 각각의 재료no로 list에 담는다
 				List<PaymentDto> list = new ArrayList<PaymentDto>();
+				List<CalDto> Clist = new ArrayList<CalDto>();
 				
 				String[] split = item_code.split(",");
 				Date date = new Date();
 				SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-dd  hh시");
+				SimpleDateFormat dateform2 = new SimpleDateFormat("yyyy-MM-dd");
 				String payment_date = dateform.format(date);
+				String recipe_date = dateform2.format(date);
 				
 				for(String sp : split) {
+					int mart_no = Integer.parseInt(sp);
 					PaymentDto pDto = new PaymentDto();
+					
+					MartDto martDto = martBiz.selectOne(mart_no);
 					pDto.setPayment_group(tid);
 					pDto.setId(partner_user_id);
-					pDto.setItem_name(item_name);
-					pDto.setItem_code(item_code);
-					pDto.setPayment_price(total);
-					pDto.setRecipe_no(2);
-					pDto.setMaterial_no(Integer.parseInt(sp));
+					pDto.setItem_name(martDto.getItem_name());
+					pDto.setMart_no(mart_no);
+					pDto.setPayment_price(martDto.getMart_price());
 					pDto.setPayment_date(payment_date);
 					pDto.setRecipe_date(payment_date);
 					pDto.setShipping_addr("배송지");
 					
 					list.add(pDto);
 					
+					
+					
 				}
+				CalDto cDto = new CalDto();
+				
+				cDto.setId(partner_user_id);
+				cDto.setPayment_group(tid);
+				cDto.setRecipe_date(recipe_date);
+				cDto.setRecipe_name(recipe_name);
+				cDto.setRecipe_no(recipe_no);
+
+				Clist.add(cDto);
 				
 				int res = pBiz.insert(list);
 				
 				if(res == list.size()) {
+					System.out.println("db 저장 성공");
+					proBiz.salesCount(recipeno);
+				}else {
+					System.out.println("db 저장 실패");
+				}
+				CalendarBiz cBiz = new CalendarBiz();
+				int cres = cBiz.insercalendar(Clist);
+				if(cres == Clist.size()) {
 					System.out.println("db 저장 성공");
 				}else {
 					System.out.println("db 저장 실패");
@@ -205,8 +242,11 @@ public class Payment extends HttpServlet {
 			
 
 			System.out.println("success 이동");
-			
-			response.sendRedirect("payment/success.jsp");
+
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("parent.location.href='/PreparedKitchen/member.do?command=paymentinfo';");
+			out.println("</script>");
 			
 		}else if(command.equals("cancle")) {
 			URL url = new URL("https://kapi.kakao.com/v1/payment/cancel");
@@ -244,16 +284,16 @@ public class Payment extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			int res = pBiz.delete(tid);
+			pBiz.delete(tid);
 			
-			response.sendRedirect("/PreparedKitchen/payment/mypagepayment.jsp");
+			response.sendRedirect("/PreparedKitchen/member.do?command=paymentinfo");
 			
 		} else if(command.equals("confirmpay")) {
 			
 			PrintWriter out = response.getWriter();
-			MemberDto dto = (MemberDto)session.getAttribute("memberDto");
+			MemberDto mDto = (MemberDto)session.getAttribute("memberDto");
 			
-			if(dto == null) {
+			if(mDto == null) {
 				
 				out.println("<script>");
 				out.println("alert('로그인을 해주세요.');");
@@ -262,18 +302,21 @@ public class Payment extends HttpServlet {
 				
 			} else {
 				
-				int recipeno = Integer.parseInt(request.getParameter("recipeno"));
+				String recipeno_string = request.getParameter("recipenos");
 				String product = request.getParameter("proList");
 				String[] proList = product.split(",");
+				String[] recipeno_arr = recipeno_string.split(",");
+				int[] recipenos = new int[recipeno_arr.length];
+				
+				for(int i = 0; i < recipeno_arr.length; i++) {
+					recipenos[i] = Integer.parseInt(recipeno_arr[i]);
+				}
 				
 				MartBiz martBiz = new MartBiz();
 				List<MartDto> list = martBiz.buyProduct(proList);
 				
 				RecipeBiz recipeBiz = new RecipeBiz();
-				RecipeDto rDto = recipeBiz.selectOne(recipeno);
-				List<RecipeDto> rList = new ArrayList<RecipeDto>();
-				
-				rList.add(rDto);
+				List<RecipeDto> rList = recipeBiz.selectListPay(recipenos);
 				
 				session.setAttribute("productList", list);
 				session.setAttribute("recipeList", rList);
@@ -281,7 +324,6 @@ public class Payment extends HttpServlet {
 			}
 			
 		}
-		
-	}
 
+	}
 }

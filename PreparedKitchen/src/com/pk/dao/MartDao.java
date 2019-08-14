@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 
-import com.pk.dto.InterestListDto;
+import com.pk.dto.CartDto;
 import com.pk.dto.MartDto;
+import com.pk.dto.MaterialDto;
 
 public class MartDao extends SqlMapConfig{
 	
@@ -30,6 +30,23 @@ public class MartDao extends SqlMapConfig{
 		}
 		
 		return list;
+	}
+	
+	public MartDto selectOne(int mart_no) {
+
+		SqlSession session = null;
+		MartDto dto = null;
+
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			dto = session.selectOne(namespace + "selectOne", mart_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return dto;
 	}
 	
 	public int createDummy(List<MartDto> list) {
@@ -100,6 +117,22 @@ public class MartDao extends SqlMapConfig{
 		try {
 			session = getSqlSessionFactory().openSession(false);
 			list = session.selectList(namespace+"buyProduct", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return list;
+	}
+	
+	public List<MartDto> selectListOne(List<CartDto> cList) {
+		List<MartDto> list = new ArrayList<MartDto>();
+		SqlSession session = null;
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			list = session.selectList(namespace + "selectListOne", cList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%request.setCharacterEncoding("UTF-8");%>
+<%response.setContentType("text/html; charset=UTF-8");%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>메인바로가기</title>
+<meta charset="UTF-8">
+<title>硫붿씤諛붾줈媛�湲�</title>
 </head>
 <body>
 	<jsp:forward page="product.do?command=main"></jsp:forward>

@@ -38,12 +38,13 @@ public class PaymentDao extends SqlMapConfig{
 		
 		params.put("offset", offset);
 		params.put("noOfRecords", offset + noOfRecords);
+		params.put("id", id);
 		
 
 		try {
 			session = getSqlSessionFactory().openSession();
-			list = session.selectList(namespace + "selectList", params);
-			this.noOfRecords = session.selectOne(namespace + "totalCountList");
+			list = session.selectList(namespace + "mySelectList", params);
+			this.noOfRecords = session.selectOne(namespace + "totalCountList", params);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,5 +115,8 @@ public class PaymentDao extends SqlMapConfig{
 		}
 		
 		return res;
+	}
+	public int getNoOfRecords() {
+		return noOfRecords;
 	}
 }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.pk.biz.MaterialBiz;
 import com.pk.biz.ProductDetailBiz;
+import com.pk.biz.ProductListBiz;
 import com.pk.biz.RecipeBiz;
 import com.pk.dto.MartDto;
 import com.pk.dto.MaterialDto;
@@ -39,10 +40,13 @@ public class ProductDetail extends HttpServlet {
 		RecipeBiz recipeBiz = new RecipeBiz();
 		MaterialBiz materialBiz = new MaterialBiz();
 		ProductDetailBiz detailBiz = new ProductDetailBiz();
+		ProductListBiz pBiz = new ProductListBiz();
 		
 		if(command.equals("detail")) {
 			
 			int recipeno = Integer.parseInt(request.getParameter("recipeno"));
+			
+			pBiz.hit(recipeno);
 			
 			RecipeDto rDto = recipeBiz.selectOne(recipeno);
 			List<MaterialDto> mList = materialBiz.materialInRecipe(recipeno);
@@ -62,19 +66,19 @@ public class ProductDetail extends HttpServlet {
 			
 			for(int i = 0; i < list.size(); i++) {
 				
-				String proName = list.get(i).getMaterial_name();
+				String proName = list.get(i).getItem_name();
 				int proPrice = list.get(i).getMart_price();
 				
 				if(i == 0) {
 					
-					product += "<div class='proCategory'>" + list.get(i).getCategory();
+					product += "<div class='proCategory'><p>" + list.get(i).getCategory() + "</p><div>";
 					product += "<input class='selected' type='text' readonly='readonly' title='" + proName + "' value='" + proName + " " + proPrice + "원'/>";
 					
 				} else if(i != (list.size()-1)) {
 					
 					if(!list.get(i).getCategory().equals(list.get(i-1).getCategory())) {
-						product += "</div>";
-						product += "<div class='proCategory'>" + list.get(i).getCategory();
+						product += "</div></div>";
+						product += "<div class='proCategory'><p>" + list.get(i).getCategory() + "</p><div>";
 						product += "<input class='selected' type='text' readonly='readonly' title='" + proName + "' value='" + proName + " " + proPrice + "원'/>";
 						
 					} else {
@@ -84,7 +88,7 @@ public class ProductDetail extends HttpServlet {
 				} else if(i == (list.size()-1)) {
 					
 					product += "<input class='noSelected' type='text' readonly='readonly' title='" + proName + "' value='" + proName + " " + proPrice + "원'/>";
-					product += "</div>";
+					product += "</div></div>";
 				}
 			}
 			
