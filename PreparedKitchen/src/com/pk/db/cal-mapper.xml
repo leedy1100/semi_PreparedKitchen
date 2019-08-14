@@ -27,7 +27,7 @@
 
 	<insert id="insercalendar" parameterType="CalDto">
  		INSERT INTO CALENDAR
- 		VALUES(#{id}, #{payment_group}, #{recipe_date}, #{recipe_name}, #{recipe_no}, #{ID})
+ 		VALUES(CALENDARSEQ.NEXTVAL, #{payment_group}, #{recipe_date}, #{recipe_name}, #{recipe_no}, #{id})
  	</insert>
 
 </mapper>
