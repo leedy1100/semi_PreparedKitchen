@@ -46,6 +46,25 @@ public class RecipeDao extends SqlMapConfig {
 		}
 		return res;
 	}
+	
+	public List<RecipeDto> selectListPay(int[] recipenos) {
+		
+		SqlSession session = null;
+		List<RecipeDto> res = new ArrayList<RecipeDto>();
+		Map<String, int[]> map = new HashMap<String, int[]>();
+		map.put("list", recipenos);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.selectList(namespace + "selectListOne", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
 
 	public int insert(List<RecipeDto> list) {
 

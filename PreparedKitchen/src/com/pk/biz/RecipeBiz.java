@@ -25,6 +25,10 @@ public class RecipeBiz {
 	public List<RecipeDto> selectListOne(List<Integer> list, String id) {
 		return dao.selectListOne(list, id);
 	}
+	
+	public List<RecipeDto> selectListPay(int[] recipenos) {
+		return dao.selectListPay(recipenos);
+	}
 
 	public int insert(List<RecipeDto> list) {
 

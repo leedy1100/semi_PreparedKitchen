@@ -3,6 +3,7 @@ package com.pk.biz;
 import java.util.List;
 
 import com.pk.dao.MartDao;
+import com.pk.dto.CartDto;
 import com.pk.dto.InterestListDto;
 import com.pk.dto.MartDto;
 
@@ -28,6 +29,11 @@ public class MartBiz {
 	public List<MartDto> buyProduct(String[] str) {
 		
 		return dao.buyProduct(str);
+	}
+	
+	public List<MartDto> selectListOne(List<CartDto> cList) {
+		
+		return dao.selectListOne(cList);
 	}
 
 }

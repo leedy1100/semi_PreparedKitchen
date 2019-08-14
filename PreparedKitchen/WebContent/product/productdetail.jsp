@@ -85,7 +85,7 @@
 		
 		<form action="" method="post" id="productForm">
 			<input type="hidden" name="command" value="">
-			<input type="hidden" name="recipeno" value="${recipe.recipe_no }">
+			<input type="hidden" name="recipenos" value="${recipe.recipe_no }">
 		</form>
 		
 	</section>
