@@ -210,8 +210,11 @@ public class Payment extends HttpServlet {
 			
 
 			System.out.println("success 이동");
-			
-			response.sendRedirect("payment/success.jsp");
+
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("parent.location.href='/PreparedKitchen/paymentinfo.jsp';");
+			out.println("</script>");
 			
 		}else if(command.equals("cancle")) {
 			URL url = new URL("https://kapi.kakao.com/v1/payment/cancel");
