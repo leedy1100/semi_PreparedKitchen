@@ -48,7 +48,7 @@
 		}
 		
 		if(selecList.length != 0){
-			proForm.attr("action","material");
+			proForm.attr("action","payment");
 			command.val("confirmpay");
 			proForm.html(proForm.html()+"<input type='hidden' name='proList' value='" + selecList + "'>");
 			proForm.submit();
