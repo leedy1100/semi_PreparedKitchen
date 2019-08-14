@@ -7,7 +7,6 @@
 	width: 300px;
 	height: 300px;
 	margin: 10px 0;
-<<<<<<< HEAD
 	display: none;
 }
 
@@ -62,6 +61,4 @@ hr{
 	height: 200%;
 	background-color: rgba(0,0,0,0.5);
 	z-index: 900;
-=======
->>>>>>> refs/heads/kmh
 }
