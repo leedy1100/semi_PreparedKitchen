@@ -60,7 +60,7 @@ public class calcontroller extends HttpServlet {
 				hm = new HashMap<String, Object>();
 				hm.put("title", list.get(i).getRecipe_name());
 				hm.put("start", list.get(i).getRecipe_date());
-				hm.put("description", list.get(i).getPayment_no());
+				hm.put("description", list.get(i).getCalendar_no());
 				hm.put("url", list.get(i).getRecipe_no());
 				
 				jArr.add(hm);
@@ -95,7 +95,7 @@ public class calcontroller extends HttpServlet {
 			CalDto dto = new CalDto();
 			dto.setRecipe_date(start);
 			dto.setId(id);
-			dto.setPayment_no(payment_no);
+			dto.setCalendar_no(payment_no);
 			
 			
 			int res = biz.updatecalendar(dto);

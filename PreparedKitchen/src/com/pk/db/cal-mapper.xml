@@ -13,8 +13,8 @@
 
 
 	<select id="mycalendar"  resultMap="dtoMap">
-		SELECT R.RECIPE_NAME, P.RECIPE_DATE, P.PAYMENT_NO, R.RECIPE_NO
-		FROM RECIPE R, PAYMENT P
+		SELECT CALENDAR_NO, PAYMENT_GROUP, RECIPE_DATE, RECIPE_NAME, RECIPE_NO
+		FROM CALENDAR
 		WHERE ID = #{id}
 	</select>
 
@@ -22,7 +22,7 @@
 	<update id="updatecalendar" parameterType="CalDto">
 		UPDATE  PAYMENT
   		SET  RECIPE_DATE =#{recipe_date}
-  		WHERE ID=#{id} AND PAYMENT_NO=#{payment_no}
+  		WHERE CALENDAR_NO =#{calendar_no}
 	</update>
 
 	<insert id="insercalendar" parameterType="CalDto">

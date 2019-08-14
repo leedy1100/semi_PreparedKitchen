@@ -30,6 +30,7 @@ import org.json.simple.parser.ParseException;
 import com.pk.biz.MartBiz;
 import com.pk.biz.PaymentBiz;
 import com.pk.biz.RecipeBiz;
+import com.pk.dto.CalDto;
 import com.pk.dto.MartDto;
 import com.pk.dto.MemberDto;
 import com.pk.dto.PaymentDto;
@@ -68,6 +69,8 @@ public class Payment extends HttpServlet {
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
+			String recipe_name = request.getParameter("recipe_name");
+			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
 			
 	        Map<String, String> params = new HashMap<String, String>();
 	        params.put("cid", "TC0ONETIME");
@@ -109,6 +112,8 @@ public class Payment extends HttpServlet {
 				session.setAttribute("partner_user_id", partner_user_id);
 				session.setAttribute("item_name", item_name);
 				session.setAttribute("item_code", item_code);
+				session.setAttribute("recipe_name", recipe_name);
+				session.setAttribute("recipe_no", recipe_no);
 				
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -134,6 +139,8 @@ public class Payment extends HttpServlet {
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
 			String pg_token = request.getParameter("pg_token");
+			String recipe_name = (String)session.getAttribute("recipe_name");
+			int recipe_no = (int) session.getAttribute("recipe_no");
 			
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
@@ -167,6 +174,7 @@ public class Payment extends HttpServlet {
 				
 				// subString 으로 item_code 자른 후 각각의 재료no로 list에 담는다
 				List<PaymentDto> list = new ArrayList<PaymentDto>();
+				List<CalDto> Clist = new ArrayList<CalDto>();
 				
 				String[] split = item_code.split(",");
 				Date date = new Date();
@@ -176,6 +184,7 @@ public class Payment extends HttpServlet {
 				for(String sp : split) {
 					int mart_no = Integer.parseInt(sp);
 					PaymentDto pDto = new PaymentDto();
+					CalDto cDto = new CalDto();
 					MartDto martDto = martBiz.selectOne(mart_no);
 					pDto.setPayment_group(tid);
 					pDto.setId(partner_user_id);
@@ -187,6 +196,14 @@ public class Payment extends HttpServlet {
 					pDto.setShipping_addr("배송지");
 					
 					list.add(pDto);
+					
+					cDto.setId(partner_user_id);
+					cDto.setPayment_group(tid);
+					cDto.setRecipe_date(payment_date);
+					cDto.setRecipe_name(recipe_name);
+					cDto.setRecipe_no(recipe_no);
+					
+					Clist.add(cDto);
 					
 				}
 				

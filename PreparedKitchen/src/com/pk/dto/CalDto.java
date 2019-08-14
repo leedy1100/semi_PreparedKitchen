@@ -12,6 +12,13 @@ public class CalDto {
 	private String id;
 	
 	
+	
+	
+	public CalDto() {
+		
+	}
+
+
 	public CalDto(int calendar_no, String payment_group, String recipe_date, String recipe_name, int recipe_no,
 			String id) {
 		

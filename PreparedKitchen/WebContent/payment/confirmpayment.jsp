@@ -52,8 +52,9 @@
 			<hr>
 			
 			<div id="payProductDiv">
-				<c:forEach items="${recipeList }" var="recipeDto0">
-					
+				<c:forEach items="${recipeList }" var="recipeDto">
+					<input type="hidden" name="recipe_name" value="${recipeDto.recipe_name }">
+					<input type="hidden" name="recipe_no" value="${recipeDto.recipe_no }">
 				</c:forEach>
 				<c:forEach items="${productList }" var="martDto" varStatus="status">
 					<div class="proListDiv">
@@ -95,6 +96,8 @@
 			<input type="hidden" name="quantity" value="1">
 			<input type="hidden" name="total_amount" value="${totalPrice }">
 			<input type="hidden" name="tax_free_amount" value="0">
+			<input type="hidden" name="recipe_name" value="${recipe_name }">
+			<input type="hidden" name="recipe_no" value="${recipe_no }">
 			<input type="submit" value="결제하기">
 		</form>
 	</section>
