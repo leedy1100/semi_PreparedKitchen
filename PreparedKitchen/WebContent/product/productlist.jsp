@@ -69,8 +69,8 @@ section{
 	<div id="select">
 		<ul class="selectOrder">
 			<li><a href="/PreparedKitchen/product.do?command=productlist&order=PRODUCTLIST_NO">최신순</a></li>
-			<li><a href="/PreparedKitchen/product.do?command=productlist&order=SALES_COUNT">조회순</a></li>
-			<li><a href="/PreparedKitchen/product.do?command=productlist&order=VIEW_NO">인기순</a></li>
+			<li><a href="/PreparedKitchen/product.do?command=productlist&order=SALES_COUNT">판매순</a></li>
+			<li><a href="/PreparedKitchen/product.do?command=productlist&order=VIEW_NO">조회순</a></li>
 		</ul>
 	</div>
 	<article>
