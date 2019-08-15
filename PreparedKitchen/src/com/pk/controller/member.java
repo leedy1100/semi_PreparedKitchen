@@ -72,7 +72,7 @@ public class member extends HttpServlet {
 		} else if (command.equals("id")) {
 			List<RecipeBoardDto> rList = rbBiz.selectListId(offset, paging.getRecordsPerPage(), mDto.getId());
 
-			paging.setNumberOfRecords(rBiz.getNoOfRecords());
+			paging.setNumberOfRecords(rbBiz.getNoOfRecords());
 			paging.makePaging();
 
 			request.setAttribute("paging", paging);

@@ -29,7 +29,10 @@
     font-size: 13px;
     border-bottom: 1px solid #eaeaea;
 }
-
+.recipecnt{
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 
@@ -51,7 +54,7 @@
 				<th>글 번호</th><th>제목</th><th>조회수</th><th>좋아요</th><th>날짜</th><th>수정/삭제</th>
 			</tr>
 				<c:choose>
-					<c:when test="${empty list }">
+					<c:when test="${empty rList }">
 						<tr>
 							<td colspan="6">작성된 글이 존재하지 않습니다</td>
 						</tr>
