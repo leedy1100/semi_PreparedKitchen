@@ -51,7 +51,7 @@
 				<col width="12%" />
 				<col width="12%" />
 			<tr>
-				<th>글 번호</th><th>제목</th><th>조회수</th><th>좋아요</th><th>날짜</th><th>수정/삭제</th>
+				<th>글 번호</th><th>제목</th><th>작성날짜</th><th>작성자</th><th>좋아요</th><th>조회수</th>
 			</tr>
 				<c:choose>
 					<c:when test="${empty rList }">
