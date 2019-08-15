@@ -85,6 +85,8 @@
 		<%@ include file="../static/header.jsp" %>
 	</header>
 	<section>
+	<%@ include file="../manager_menu.jsp" %>
+	<h2>등록 상품 목록</h2>
 <div id="menubox">
 <div id="menu" class="menulist">
 <div class="menulistbox">

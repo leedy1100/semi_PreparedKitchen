@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
-<link rel="stylesheet" href="/PreparedKitchen/css/main_board.css"/>
 <style type="text/css">
 .chartbox{
 	text-align: center;
 	font-weight: 1000;
+	display: inline-block;
 }
 #boardlike{
 
@@ -230,8 +230,9 @@ function productSalesChart(data) {
 		<!-- 가장 위 header.jsp 링크 들어 갈 곳 -->
 		<%@ include file="../static/header.jsp" %>
 	</header>
-	<section id="charsect">
-		
+	<section>
+		<%@ include file="../manager_menu.jsp" %>
+		<h2>레시피 현황 차트</h2>
 		<div class=chartbox id="boardlike"><div class="title"><img class="imgicon" alt="img" src="/PreparedKitchen/image/like.png"/>게시판 좋아요 top5</div><svg></svg></div>
 		<div class=chartbox id="proview"><div class="title"><img class="imgicon" alt="img" src="/PreparedKitchen/image/click.png"/>상품 조회수 top5</div><svg></svg></div>
 		<div class=chartbox id="prosales"><div class="title"><img class="imgicon"alt="img" src="/PreparedKitchen/image/buy2.png"/>상품 구매 top5</div><svg></svg></div>
