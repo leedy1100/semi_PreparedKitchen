@@ -36,4 +36,12 @@
 		</foreach>
 	</delete>
 	
+	<delete id="deleteCart_martno" parameterType="map">
+		DELETE FROM CART
+		WHERE ID = #{id} AND MART_NO IN
+		<foreach collection="martnos" item="martno" open="(" separator="," close=")">
+			#{martno}
+		</foreach>
+	</delete>
+	
 </mapper>

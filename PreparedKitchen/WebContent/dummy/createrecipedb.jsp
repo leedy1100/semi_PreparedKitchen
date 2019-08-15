@@ -19,8 +19,6 @@
 	
 	<h1>더미데이터 삭제하기</h1>
 	<input type="button" value="삭제" onclick="deleteDummy()">
-	
-	<input type="button" value="test" onclick="location.href='/PreparedKitchen/cart.do?command=deletecart'">
 
 </body>
 </html>

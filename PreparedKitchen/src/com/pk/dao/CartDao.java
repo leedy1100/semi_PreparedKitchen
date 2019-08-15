@@ -106,5 +106,29 @@ public class CartDao extends SqlMapConfig {
 		
 		return res;
 	}
+	
+	public int deleteCart_martno(String id, int[] martnos) {
+		
+		SqlSession session = null;
+		int res = 0;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("martnos", martnos);
+		
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.delete(namespace + "deleteCart_martno", map);
+			
+			if(res > 0) {
+				session.commit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
 
 }

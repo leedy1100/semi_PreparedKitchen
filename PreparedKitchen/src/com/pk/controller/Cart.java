@@ -96,7 +96,8 @@ public class Cart extends HttpServlet {
 			}
 			
 			int res = cartBiz.deleteCart(id, recipenos);
-			System.out.println(res);
+			
+			response.sendRedirect("/PreparedKitchen/member.do?command=cart");
 		}
 		
 	}

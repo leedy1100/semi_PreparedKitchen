@@ -25,4 +25,9 @@ public class CartBiz {
 		
 		return dao.deleteCart(id, recipenos);
 	}
+	
+	public int deleteCart_martno(String id, int[] martnos) {
+		
+		return dao.deleteCart_martno(id, martnos);
+	}
 }

@@ -109,6 +109,7 @@
 			<input type="hidden" name="recipenos" value="${recipenos }">
 			<input type="hidden" name="recipe_name" value="${recipe_name }">
 			<input type="hidden" name="recipe_no" value="${recipe_no }">
+			<input type="hidden" name="shipping_addr" value="">
 			<input id="pay_do" type="button" value="결제하기" onclick="payDo()">
 		</form>
 	</section>
