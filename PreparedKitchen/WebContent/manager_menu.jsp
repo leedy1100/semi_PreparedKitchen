@@ -13,9 +13,10 @@
 
 	<h1>관리자페이지</h1>
 	<div id="mypage_menubar">
-		<input type="button" value="회원 관리" class="mypage_menu" onclick="location.href='member.do?command=usermanagement'">
+		<input type="button" value="회원 관리" class="mypage_menu" onclick="location.href='/PreparedKitchen/member.do?command=usermanagement'">
+		<input type="button" value="게시판/조회/판매 차트" class="mypage_menu" onclick="location.href='/PreparedKitchen/product.do?command=adminchart'">
+		<input type="button" value="상품 등록" class="mypage_menu" onclick="location.href='/PreparedKitchen/product.do?command=adminrecipeview'">
 	</div>
 	<hr>
-	
 </body>
 </html>

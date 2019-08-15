@@ -108,7 +108,8 @@ $(function(){
 });
 
 function cartPay(){
-	var cartForm = $("#cartForm")
+	var cartForm = $("#cartForm");
+	var command = $("input[name=command]");
 	var recipeChk = $("input[name=rChk]");
 	var martChk = $("input[name=mChk]");
 	var cnt = 0;
@@ -141,13 +142,50 @@ function cartPay(){
 	}
 	
 	if(martChk.length != 0){
-		cartForm.html(cartForm.html() + "<input type='hidden' name='recipenos' value='" + recipenos + "'>" + "<input type='hidden' name='proList' value='" + martnos + "'>");
+		cartForm.attr("action","payment");
+		command.val("confirmpay");
+		cartForm.html(cartForm.html() + "<input type='hidden' name='recipenos' value='" + recipenos + "'>" 
+									  + "<input type='hidden' name='proList' value='" + martnos + "'>");
 		cartForm.submit();
 		
 	} else {
 		alert("상품을 선택해 주세요");
 	}
 	
+}
+
+function deleteCart(){
+	
+	var cartForm = $("#cartForm");
+	var command = $("input[name=command]");
+	var recipeChk = $("input[name=rChk]");
+	var recipenos = "";
+	var cnt = 0;
+	
+	for(var i = 0; i < recipeChk.length; i++){
+		
+		if(recipeChk.eq(i).prop("checked")){
+			if(cnt == 0){
+				recipenos += recipeChk.eq(i).val();
+				cnt++;
+			} else {
+				recipenos += "," + recipeChk.eq(i).val();
+				cnt++;
+			}
+		}
+	}
+		
+		if(recipeChk.length != 0){
+			if(confirm("삭제 하시겠습니까?")){
+				cartForm.attr("action","cart.do");
+				command.val("deletecart");
+				cartForm.html(cartForm.html() + "<input type='hidden' name='recipenos' value='" + recipenos + "'>" );
+				cartForm.submit();
+			}
+			
+		} else {
+			alert("상품을 선택해 주세요");
+		}
 }
 
 

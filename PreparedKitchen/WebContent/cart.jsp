@@ -75,17 +75,21 @@
 			</tr>
 <%
 					}
-				}
-			}
 %>
 			<tr>
 				<td colspan="4">
 					<input type="button" value="결제하기" onclick="cartPay()">
+					<input type="button" value="삭제하기" onclick="deleteCart()">
 				</td>
 			</tr>
+<%
+				}
+			}
+%>
+			
 		</table>
-		<form action="payment" method="post" id="cartForm">
-			<input type="hidden" name="command" value="confirmpay">
+		<form action="" method="post" id="cartForm">
+			<input type="hidden" name="command" value="">
 		</form>
 	</section>
 		

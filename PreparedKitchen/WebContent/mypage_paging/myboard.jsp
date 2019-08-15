@@ -16,6 +16,15 @@
 	}
 
 </script>
+<style type="text/css">
+.menulink{
+	text-decoration: none;
+	color: black;
+}
+.paginate{
+	text-align: center;
+}
+</style>
 </head>
 <body>
 

@@ -244,8 +244,6 @@ public class Dummy extends HttpServlet {
 					String material_capacity = "";
 					int material_typeCode = irdnt_ty_code.getAsInt();
 					String material_typeName = irdnt_ty_nm.getAsString();
-
-					System.out.println("recipe_no = "+ recipe_no);
 					
 					String[] m_name = material_name.split("]");
 					

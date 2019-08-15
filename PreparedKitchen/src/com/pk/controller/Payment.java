@@ -26,6 +26,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.pk.biz.CalendarBiz;
+import com.pk.biz.CartBiz;
 import com.pk.biz.MartBiz;
 import com.pk.biz.PaymentBiz;
 import com.pk.biz.ProductListBiz;
@@ -70,6 +71,7 @@ public class Payment extends HttpServlet {
 			String partner_user_id = request.getParameter("partner_user_id");
 			String item_name = request.getParameter("item_name");
 			String item_code = request.getParameter("item_code");
+			String shipping_addr = request.getParameter("addr1") + " " + request.getParameter("addr2");
 
 	       
 			Map<String, String> params = new HashMap<String, String>();
@@ -118,6 +120,7 @@ public class Payment extends HttpServlet {
 				session.setAttribute("item_code", item_code);
 				session.setAttribute("recipe_name", recipe_name);
 				session.setAttribute("recipe_no", recipe_no);
+				session.setAttribute("shipping_addr", shipping_addr);
 				
 			} catch (ParseException e) {
 				e.printStackTrace();
@@ -141,6 +144,7 @@ public class Payment extends HttpServlet {
 			String partner_user_id = (String)session.getAttribute("partner_user_id");
 			String item_name = (String)session.getAttribute("item_name");
 			String item_code = (String)session.getAttribute("item_code");
+			String shipping_addr = (String)session.getAttribute("shipping_addr");
 			String pg_token = request.getParameter("pg_token");
 
 			String[] recipeno = (String[])session.getAttribute("recipeno");
@@ -200,7 +204,7 @@ public class Payment extends HttpServlet {
 					pDto.setPayment_price(martDto.getMart_price());
 					pDto.setPayment_date(payment_date);
 					pDto.setRecipe_date(payment_date);
-					pDto.setShipping_addr("배송지");
+					pDto.setShipping_addr(shipping_addr);
 					
 					list.add(pDto);
 					
@@ -301,6 +305,7 @@ public class Payment extends HttpServlet {
 				
 			} else {
 				
+				String id = mDto.getId();
 				String recipeno_string = request.getParameter("recipenos");
 				String product = request.getParameter("proList");
 				String[] proList = product.split(",");
@@ -316,6 +321,9 @@ public class Payment extends HttpServlet {
 				
 				RecipeBiz recipeBiz = new RecipeBiz();
 				List<RecipeDto> rList = recipeBiz.selectListPay(recipenos);
+				
+				CartBiz cartBiz = new CartBiz();
+				cartBiz.deleteCart(id, recipenos);
 				
 				session.setAttribute("recipeno", recipeno_arr);
 				session.setAttribute("productList", list);

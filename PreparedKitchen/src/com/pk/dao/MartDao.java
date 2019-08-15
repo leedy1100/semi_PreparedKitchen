@@ -68,7 +68,6 @@ public class MartDao extends SqlMapConfig{
 				
 			}
 			
-			System.out.println(list.get(300).getMart_no());
 			map.put("lists", list);
 			res = session.insert(namespace+"createDummy", map);
 			
