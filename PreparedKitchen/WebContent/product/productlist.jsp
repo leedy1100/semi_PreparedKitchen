@@ -41,6 +41,7 @@ section{
 	font-weight: 700;
 	border-left: 2px solid gray;
 	padding-left: 8px;	
+	line-height: 90%;
 }
 .selectOrder li:first-child{
 	border: none;
