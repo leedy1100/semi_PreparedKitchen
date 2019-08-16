@@ -79,6 +79,8 @@ public class Payment extends HttpServlet {
 			String recipe_name = request.getParameter("recipe_name");
 			int recipe_no = Integer.parseInt(request.getParameter("recipe_no"));
 
+			
+			
 	        params.put("cid", "TC0ONETIME");
 	        params.put("partner_order_id", partner_order_id);
 	        params.put("partner_user_id", partner_user_id);
@@ -150,6 +152,7 @@ public class Payment extends HttpServlet {
 			String[] recipeno = (String[])session.getAttribute("recipeno");
 			
 			int recipe_no = (Integer)session.getAttribute("recipe_no");
+			String recipe_name = (String)session.getAttribute("recipe_name");
 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("cid", "TC0ONETIME");
@@ -216,7 +219,7 @@ public class Payment extends HttpServlet {
 				cDto.setId(partner_user_id);
 				cDto.setPayment_group(tid);
 				cDto.setRecipe_date(recipe_date);
-				//cDto.setRecipe_name(recipe_name);
+				cDto.setRecipe_name(recipe_name);
 				cDto.setRecipe_no(recipe_no);
 
 				Clist.add(cDto);
