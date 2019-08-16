@@ -91,12 +91,7 @@
     	   
     	    var datestart = event.start.format();
     	 	var datedescription = event.description;
-    	    if (!confirm("수정을 하실려나 마실려나")) {
-    	        revertFunc();
-    	      }else{
-    	    	  
 			location.href="cal.do?command=calendarupdate&start="+datestart+"&payment_no="+datedescription;
-    	      }
     	  },
     	 /*  eventClick: function(calEvent, jsEvent, view) {
 

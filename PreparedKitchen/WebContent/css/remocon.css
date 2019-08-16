@@ -12,6 +12,8 @@
 #chatform{
 	position: relative;
 	padding: 10px 10px 10px 10px;
+	top: -370px;
+	left: -300px;
 	width: 280px;
 	height: 380px;
 	right: 300px;
@@ -42,6 +44,8 @@
 #chatBotForm{
 	position: relative;
 	padding: 10px 10px 10px 10px;
+	top: -480px;
+	left: -400px;
 	width: 350px;
 	height: 420px;
 	right: 365px;
