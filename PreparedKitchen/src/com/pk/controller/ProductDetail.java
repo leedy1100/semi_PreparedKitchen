@@ -58,9 +58,12 @@ public class ProductDetail extends HttpServlet {
 			RecipeDto rDto = recipeBiz.selectOne(recipeno);
 			List<MaterialDto> mList = materialBiz.materialInRecipe(recipeno);
 			
+			List<RecipeDto> recipeList = detailBiz.selectRecentlyRecipe(reList);
+			
 			request.setAttribute("recipe", rDto);
 			request.setAttribute("material", mList);
 			session.setAttribute("reList", reList);
+			session.setAttribute("recipeList", recipeList);
 			dispatch(request, response, "product/productdetail.jsp");
 			
 		} else if(command.equals("showproduct")) {

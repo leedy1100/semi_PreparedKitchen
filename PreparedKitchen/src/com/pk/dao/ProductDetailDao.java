@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.pk.dto.MartDto;
 import com.pk.dto.ProductListDto;
+import com.pk.dto.RecipeDto;
 
 public class ProductDetailDao extends SqlMapConfig{
 	
@@ -33,12 +34,18 @@ public class ProductDetailDao extends SqlMapConfig{
 		return list;
 	}
 	
-	public List<ProductListDto> selectRecentlyRecipe(List<Integer> recipeno){
+	public List<RecipeDto> selectRecentlyRecipe(List<Integer> recipeno){
 		
 		SqlSession session = null;
-		List<ProductListDto> list = new ArrayList<ProductListDto>();
-		Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
-		map.put("list", recipeno);
+		List<RecipeDto> list = new ArrayList<RecipeDto>();
+		Map<String, int[]> map = new HashMap<String, int[]>();
+		int[] seq = new int[recipeno.size()];
+		
+		for(int i = 0; i < recipeno.size(); i++) {
+			seq[i] = recipeno.get(i).intValue();
+		}
+		
+		map.put("list", seq);
 		
 		try {
 			session = getSqlSessionFactory().openSession();
