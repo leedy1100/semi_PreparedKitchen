@@ -86,4 +86,13 @@
 		</foreach>
 	</update>
 	
+	<select id="selectRecentlyRecipe" parameterType="map" resultType="productDto">
+		SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO
+		FROM PRODUCTLIST
+		WHERE RECIPE_NO IN
+		<foreach collection="list" item="reipeno" open="(" separator="," close=")">
+			#{recipeno}
+		</foreach>
+	</select>
+	
 </mapper>
