@@ -87,10 +87,10 @@
 	</update>
 	
 	<select id="selectRecentlyRecipe" parameterType="map" resultType="productDto">
-		SELECT PRODUCTLIST_NO, RECIPE_NO, RECIPE_NAME, RECIPE_IMG, SALES_COUNT, VIEW_NO
-		FROM PRODUCTLIST
+		SELECT RECIPE_NO, RECIPE_NAME, RECIPE_IMG, RECIPE_CONTENT, RECIPE_NUTRIENT, RECIPE_CATEGORY, RECIPE_REG
+		FROM RECIPE
 		WHERE RECIPE_NO IN
-		<foreach collection="list" item="reipeno" open="(" separator="," close=")">
+		<foreach collection="list" item="reipeno" index="index" open="(" separator="," close=")">
 			#{recipeno}
 		</foreach>
 	</select>
