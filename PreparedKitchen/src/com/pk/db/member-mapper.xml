@@ -22,7 +22,7 @@
   <select id="login" parameterType="map" resultType="memberDto">
   	SELECT ID, PW, NAME, EMAIL, PHONE, ADDR, ENABLED, BIRTH, REGDATE, ROLE
   	FROM MEMBER
-  	WHERE ID = #{id} AND PW = #{pw} AND BIRTH != 'KAKAO'
+  	WHERE ID = #{id} AND PW = #{pw} AND BIRTH != 'KAKAO' AND ENABLED = 'Y'
   </select>
   
   <select id="emailChk" parameterType="String" resultType="memberDto">
