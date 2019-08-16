@@ -29,5 +29,10 @@
  		INSERT INTO CALENDAR2
  		VALUES(CALENDARSEQ.NEXTVAL, #{payment_group}, #{recipe_date}, #{recipe_name}, #{recipe_no}, #{id})
  	</insert>
+ 	
+ 	<delete id="delete" parameterType="String">
+		DELETE CALENDAR2
+		WHERE PAYMENT_GROUP = #{value}
+	</delete>
 
 </mapper>

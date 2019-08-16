@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.pk.dao.ProductDetailDao;
 import com.pk.dto.MartDto;
+import com.pk.dto.ProductListDto;
+import com.pk.dto.RecipeDto;
 
 public class ProductDetailBiz {
 	
@@ -14,4 +16,7 @@ public class ProductDetailBiz {
 		return dao.selectProduct(str);
 	}
 
+	public List<RecipeDto> selectRecentlyRecipe(List<Integer> recipeno){
+		return dao.selectRecentlyRecipe(recipeno);
+	}
 }

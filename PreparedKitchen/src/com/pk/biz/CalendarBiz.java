@@ -23,5 +23,9 @@ public class CalendarBiz {
 	public int insercalendar(List<CalDto> list) {
 		return dao.insert(list);
 	}
+	
+	public int deletecal(String tid) {
+		return dao.deletecal(tid);
+	}
 
 }

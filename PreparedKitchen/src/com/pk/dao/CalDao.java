@@ -77,9 +77,27 @@ public class CalDao extends SqlMapConfig {
 		
 		return res;
 	}
+	
+	public int deletecal(String tid) {
+		int res = 0;
+		SqlSession session = null;
 		
-	
-	
-	
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			
+			res += session.delete(namespace + "delete", tid);
+			
+			if(res > 0) {
+				session.commit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return res;
+	}
+
 
 }

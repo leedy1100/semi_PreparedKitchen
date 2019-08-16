@@ -222,6 +222,7 @@ public class Payment extends HttpServlet {
 				cDto.setRecipe_name(recipe_name);
 				cDto.setRecipe_no(recipe_no);
 
+				
 				Clist.add(cDto);
 				
 				int res = pBiz.insert(list);
@@ -233,6 +234,7 @@ public class Payment extends HttpServlet {
 					System.out.println("db 저장 실패");
 				}
 				CalendarBiz cBiz = new CalendarBiz();
+				
 				int cres = cBiz.insercalendar(Clist);
 				if(cres == Clist.size()) {
 					System.out.println("db 저장 성공");
@@ -291,6 +293,13 @@ public class Payment extends HttpServlet {
 			}
 			
 			pBiz.delete(tid);
+			CalendarBiz cBiz = new CalendarBiz();
+			int cres = cBiz.deletecal(tid);
+			if(cres> 0) {
+				System.out.println("db 저장 성공");
+			}else {
+				System.out.println("db 저장 실패");
+			}
 			
 			response.sendRedirect("/PreparedKitchen/member.do?command=paymentinfo");
 			
