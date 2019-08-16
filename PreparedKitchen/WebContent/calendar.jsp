@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 
+<link rel="stylesheet" href="/PreparedKitchen/static/base.css"/>
 
 <link href='https://unpkg.com/fullcalendar@3.10.0/dist/fullcalendar.min.css' rel='stylesheet' />
 <link href='https://unpkg.com/fullcalendar@3.10.0/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -148,9 +149,11 @@
   </head>
 
   <body>
-  
+
+  <%@ include file="mypage_menu.jsp" %>
     <div id='calendar'></div>
-    
+    <%@ include file="static/remocon.jsp" %>
+	<footer><%@ include file="static/footer.jsp" %></footer>
   </body>
 
 </html>
