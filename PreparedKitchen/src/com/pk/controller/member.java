@@ -81,7 +81,7 @@ public class member extends HttpServlet {
 			dispatch(request, response, "myboard.jsp");
 
 		} else if (command.equals("cal")) {
-			dispatch(request, response, "calendar.jsp");
+			dispatch(request, response, "mycalendar.jsp");
 
 		} else if (command.equals("paymentinfo")) {
 			List<PaymentDto> pList = pBiz.mySelectList(offset, paging.getRecordsPerPage(), mDto.getId());
