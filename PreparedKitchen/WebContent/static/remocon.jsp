@@ -5,6 +5,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style type="text/css">
+#recently{
+	overflow-y: scroll;
+	height: 350px;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <link rel="stylesheet" href="/PreparedKitchen/css/remocon.css"/>
@@ -33,6 +39,7 @@
 
 	<div id="d">
 		<a href="#">top</a><br>
+		<div id="recently">
 		<c:choose>
 			<c:when test="${empty recipeList }">
 			</c:when>
@@ -45,6 +52,7 @@
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
+		</div>
 		<img id="chat" alt="1:1문의" src="/PreparedKitchen/image/chat1.png" onclick="chatOn()">
 		<div id="chatform">
 			<p>1:1 상담<p>
