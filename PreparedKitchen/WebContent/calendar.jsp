@@ -10,7 +10,7 @@
 
 <head>
 <meta charset="UTF-8">
- 
+
 
 <link href='https://unpkg.com/fullcalendar@3.10.0/dist/fullcalendar.min.css' rel='stylesheet' />
 <link href='https://unpkg.com/fullcalendar@3.10.0/dist/fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -149,10 +149,8 @@
 
   <body>
   
-
     <div id='calendar'></div>
     
-
   </body>
 
 </html>
